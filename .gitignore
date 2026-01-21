@@ -1,7 +1,7 @@
 # Standard .gitignore für Frontend/Node-Projekte
 
 # CI/CD,
-.github/
+
 
 # Node
 node_modules/
