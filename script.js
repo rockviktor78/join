@@ -1,0 +1,1 @@
+// Standart Script für Funktionen, die auf alleinen Seiten ausgeführt werden sollen
