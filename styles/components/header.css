@@ -1,45 +1,56 @@
-.header-content {
+.header__content {
   width: 100%;
   height: 60px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--color-gray-100);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 var(--spacing-md);
   box-sizing: border-box;
 }
 
-.header-actions {
+.header__actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
-.header-help-btn {
+.header__help-btn {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background-color: white;
+  border-radius: var(--radius-full);
+  background-color: var(--color-white);
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #888;
+  color: var(--color-gray-400);
 }
 
-.user-avatar {
+.header__avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background-color: white;
-  border: 3px solid black;
+  border-radius: var(--radius-full);
+  background-color: var(--color-white);
+  border: 3px solid var(--color-black);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  font-size: 16px;
-  color: #29abe2;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  color: var(--color-accent);
   cursor: pointer;
+}
+
+.header__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-primary);
+  margin: 0;
+
+  @media (min-width: 1024px) {
+    font-size: var(--font-size-lg);
+  }
 }
