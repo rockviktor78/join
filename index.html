@@ -3,18 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main</title>
+    <title>Join - Login</title>
+
+    <link rel="stylesheet" href="./styles/base/reset.css" />
     <link rel="stylesheet" href="./styles/base/fonts.css" />
     <link rel="stylesheet" href="./styles/base/variables.css" />
     <link rel="stylesheet" href="./style.css" />
-    <script src="script.js" defer></script>
-    <script src="/js/firebase.js" defer></script>
-  </head>
-  <body onload="init()">
-    <h1>Hallo World</h1>
-    <h2>Willkommen</h2>
-    <h3>Bienvenue</h3>
+    <link rel="stylesheet" href="./styles/login.css" />
 
-    <script></script>
+    <script src="scripts/firebase.js" defer></script>
+    <script src="scripts/login.js" defer></script>
+  </head>
+  <body class="body-login">
+    <header class="login-header">
+      <img class="header-logo" src="./assets/img/shared/join-logo.svg" alt="Join Logo" />
+      <div class="header-signup-container">
+        <p>Not Join a user?</p>
+        <button class="btn-signup">Sign Up</button>
+      </div>
+    </header>
+
+    <main class="login-page">
+      <div class="login-container">
+        <h2 class="login-container__title">Log in</h2>
+        <div class="login-container__underline"></div>
+        <form class="login-container__form">
+          <div class="input-group">
+            <input type="email" name="email" placeholder="Email" class="login-container__input" required />
+            <img src="./assets/img/auth/mail-default.svg" alt="" class="input-icon" />
+          </div>
+
+          <div class="input-group">
+            <input type="password" name="password" placeholder="Password" class="login-container__input" required />
+            <img src="./assets/img/auth/lock-default.svg" alt="" class="input-icon" />
+          </div>
+
+          <div class="login-container__actions">
+            <button type="submit" class="login-container__btn">Log in</button>
+            <button type="button" class="login-container__btn login-container__btn--guest">Guest Log in</button>
+          </div>
+        </form>
+      </div>
+    </main>
   </body>
 </html>
