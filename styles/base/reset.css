@@ -94,3 +94,11 @@ button {
   border: none;
   cursor: pointer;
 }
+
+/* Set cursor for clickable elements only */
+select,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  cursor: pointer;
+}
