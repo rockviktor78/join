@@ -14,40 +14,44 @@
     <script src="scripts/firebase.js" defer></script>
     <script src="scripts/login.js" defer></script>
   </head>
-  <body class="body-login">
+  <body class="login-body">
     <header class="login-header">
-      <img class="login-header__logo" src="./assets/img/shared/join-logo.svg" alt="Join Logo" />
+      <a href="/index.html">
+        <img class="login-header__logo" src="./assets/img/shared/join-logo.svg" alt="Join Logo" />
+      </a>
       <div class="login-header__signup-container">
-        <p class="login-header__signup-text">Not Join a user?</p>
-        <button class="login-header__signup-btn">Sign Up</button>
+        <p class="login-header__signup-text">Not a Join user?</p>
+        <a href="./html/sign-up.html"> <button id="signupBtn" class="login-header__signup-btn">Sign Up</button></a>
       </div>
     </header>
 
-    <main class="login-page">
-      <div class="login-container">
-        <h2 class="login-container__title">Log in</h2>
-        <div class="login-container__underline"></div>
-        <form class="login-container__form">
-          <div class="input-group">
-            <input type="email" name="email" placeholder="Email" class="login-container__input" required />
-            <img src="./assets/img/auth/mail-default.svg" alt="" class="input-icon" />
+    <main class="login-main">
+      <section class="login-card">
+        <h2 class="login-card__title">Log in</h2>
+        <div class="login-card__underline"></div>
+
+        <form class="login-card__form">
+          <div class="login-card__input-group">
+            <input type="email" name="email" placeholder="Email" id="loginEmail" class="login-card__input" required />
+            <img src="./assets/img/auth/mail-default.svg" alt="" class="login-card__icon" />
           </div>
 
-          <div class="input-group">
-            <input type="password" name="password" placeholder="Password" class="login-container__input" required />
-            <img src="./assets/img/auth/lock-default.svg" alt="" class="input-icon" />
+          <div class="login-card__input-group">
+            <input type="password" name="password" placeholder="Password" id="loginPassword" class="login-card__input" required />
+            <img src="./assets/img/auth/lock-default.svg" alt="" class="login-card__icon" />
           </div>
 
-          <div class="login-container__actions">
-            <button type="submit" class="login-container__btn">Log in</button>
-            <button type="button" class="login-container__btn login-container__btn--guest">Guest Log in</button>
+          <div class="login-card__actions">
+            <button type="submit" id="loginBtn" class="login-card__btn">Log in</button>
+            <button type="button" id="guestLogInBtn" class="login-card__btn login-card__btn--guest">Guest Log in</button>
           </div>
         </form>
-      </div>
+      </section>
     </main>
+
     <footer class="login-footer">
-      <a class="login-footer__link" href="./html/privacy_policy.html">Privacy Policy</a>
-      <a class="login-footer__link" href="./html/legal_notice.html">Legal Notice</a>
+      <a class="login-footer__link" href="./html/privacy-policy.html">Privacy Policy</a>
+      <a class="login-footer__link" href="./html/legal-notice.html">Legal Notice</a>
     </footer>
   </body>
 </html>
