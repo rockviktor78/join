@@ -18,17 +18,17 @@
 .login-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 2.5rem 3.75rem;
+  align-items: flex-start;
+  padding: 2.5rem 3.75rem 1rem;
   position: relative;
   z-index: 100;
 }
 
-.header-logo {
-  width: 6.25rem;
+.login-header__logo {
+  width: 5rem;
 }
 
-.header-signup-container {
+.login-header__signup-container {
   display: flex;
   align-items: center;
   gap: 1.25rem;
@@ -37,7 +37,7 @@
 /* ====== 3. Login Card ====== */
 .login-container {
   background-color: var(--color-white);
-  padding: 3rem 6rem;
+  padding: 2rem 6rem;
   border-radius: 1.875rem;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
   width: 100%;
@@ -56,9 +56,9 @@
 
 .login-container__underline {
   height: 0.2rem;
-  width: 8rem;
+  width: 7rem;
   background-color: #29abe2;
-  margin: 1rem 0 2rem 0;
+  margin: 0.5rem 0 2rem 0;
   border-radius: 2px;
 }
 
@@ -120,7 +120,7 @@
   margin-top: 1.6rem;
 }
 
-.btn-signup,
+.login-header__signup-button,
 .login-container__btn {
   padding: 0.625rem 1.5rem;
   border-radius: 0.5rem;
@@ -132,14 +132,14 @@
   justify-content: center;
 }
 
-.btn-signup,
+.login-header__signup-button,
 .login-container__btn {
   background-color: var(--color-primary-light);
   color: var(--color-white);
   border: none;
 }
 
-.btn-signup:hover,
+.login-header__signup-button:hover,
 .login-container__btn:hover {
   background-color: #29abe2;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
