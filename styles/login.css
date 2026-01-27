@@ -109,10 +109,28 @@
 }
 
 .login-container__input:focus {
-  border-color: #29abe2;
+  border-color: var(--color-accent);
 }
 
-/* ====== 5. Buttons & Actions ====== */
+/* ====== 5. Footer ====== */
+.login-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.login-footer__link {
+  color: var(--color-gray-200);
+  transition: color 0.2s ease;
+}
+
+.login-footer__link:hover {
+  color: var(--color-accent);
+}
+
+/* ====== 6. Buttons & Actions ====== */
 .login-container__actions {
   display: flex;
   gap: 2rem;
@@ -120,8 +138,11 @@
   margin-top: 1.6rem;
 }
 
-.login-header__signup-button,
+.login-header__signup-btn,
 .login-container__btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
   padding: 0.625rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 700;
@@ -132,16 +153,9 @@
   justify-content: center;
 }
 
-.login-header__signup-button,
-.login-container__btn {
-  background-color: var(--color-primary-light);
-  color: var(--color-white);
-  border: none;
-}
-
-.login-header__signup-button:hover,
+.login-header__signup-btn:hover,
 .login-container__btn:hover {
-  background-color: #29abe2;
+  background-color: var(--color-accent);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -152,7 +166,7 @@
 }
 
 .login-container__btn--guest:hover {
-  border-color: #29abe2;
-  color: #29abe2;
-  background-color: white;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: var(--color-white);
 }
