@@ -6,11 +6,32 @@
     <title>Contacts</title>
     <script src="../script.js" defer></script>
     <script src="../scripts/contacts.js"></script>
+    <link rel="stylesheet" href="../styles/base/fonts.css">
+    <link rel="stylesheet" href="../styles/base/reset.css">
+    <link rel="stylesheet" href="../styles/base/variables.css">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/contacts.css">
   </head>
-  <body>
+  <body onload="init()">
     <div>Sidebar-Header</div>
-    <div id="contacts-container"></div>
+    <div id="contacts-container" class="contacts-container">
+      <div class="contacts-list-container">
+      <div>
+        <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact</button>
+      </div>
+      <div id="contacts-list">
+        <ul id="contacts-ul">
+          <!-- Contacts will be dynamically populated here -->
+        </ul>
+      </div>
+      </div>
+      <div class="contacts-detail-container">
+        <div class="contacts-detail-header-title">
+          <div class="contacts-detail-header-title-first">Contacts |</div> 
+          <div class="contacts-detail-header-title-second">Better with a Team</div>
+        </div>
+        <div id ="contacts-detail">
+      </div>
+    </div>
   </body>
 </html>

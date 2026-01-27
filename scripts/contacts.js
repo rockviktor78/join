@@ -11,7 +11,6 @@ async function fetchContacts(path = "contacts") {
     let responseToJson = await response.json();
     
     loadedContacts = responseToJson ? Object.values(responseToJson) : [];
-    console.log(loadedContacts);
     sortContacts();
     renderContactList(loadedContacts);
 
@@ -25,7 +24,7 @@ function sortContacts() {
 }
 
 function renderContactList(loadedContacts) {
-    let contactsContainer = document.getElementById("contacts-container");
+    let contactsContainer = document.getElementById("contacts-ul");
     contactsContainer.innerHTML = "";
 
     for (let index = 0; index < loadedContacts.length; index++) {
@@ -33,7 +32,8 @@ function renderContactList(loadedContacts) {
         let email = loadedContacts[index].email;
         let initial = getInitial(name);
 
-        contactsContainer.innerHTML += templateContact(initial, name, email, index);   
+        contactsContainer.innerHTML += templateContact(initial, name, email, index); 
+        applyRandomBadgeColor();
     }
 }
 
@@ -50,17 +50,58 @@ function getInitial(name) {
     return (first + last).toUpperCase();
 }
 
+function applyRandomBadgeColor() {
+    const colors = 16;
+    
+    document.querySelectorAll('.badge').forEach(badge => {
+    const random = Math.floor(Math.random() * colors) +1;
+    badge.style.backgroundColor = `var(--color-badge-${random})`;
+  });
+}
+
 function templateContact(initial, name, email, index) {
     return `
         <div class="contact-card" id="${name}" onclick="showContactDetails('${index}')">
-            <h3>${initial}, ${name}</h3>
-            <p>Email: ${email}</p>
+            <div class="contact-initial badge">${initial}</div>
+            <div>
+                <h3>${name}</h3>
+                <p>${email}</p>
+            </div>
         </div>
     `;
 }
 
 function showContactDetails(index) {
-    console.log("Showing details for contact:", index, loadedContacts[index]);
+    let contact = loadedContacts[index];
+    let detailsContainer = document.getElementById("contacts-detail");
+    let initial = getInitial(contact.name);
+    let badgeColor = document.querySelectorAll('.badge')[index].style.backgroundColor;
+    detailsContainer.innerHTML = "";
+    detailsContainer.innerHTML += templateContactDetails(contact, index, initial, badgeColor);
+}
+
+function templateContactDetails(contact, index, initial, badgeColor) {
+    return `
+        <div class="contacts-detail-header">
+            <div class="contact-detail-initial" style="background-color: ${badgeColor};">${initial}</div>
+            <div>
+                <h2>${contact.name}</h2>
+                <button onclick="editContact(${index})">Edit</button>
+                <button onclick="deleteContact(${index})">Delete</button>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div>Contact Information</div>
+                <div class="contact-info">
+                    <div>Email</div> 
+                    <div>${contact.email}</div>
+                    <div>Phone</div> 
+                    <div>${contact.phone || 'N/A'}</div>
+                </div>
+            </div>  
+        </div>
+    `;
 }
 
 
@@ -68,16 +109,21 @@ function addNewContact() {
 
 }
 
+function confirmAddNewContact() {
+
+}
+
 function deleteContact(contactId) {
+    console.log("Deleting contact:", contactId);
 
 }
 
 function editContact(contactId) {
-
+    console.log("Editing contact:", contactId);
 }
 
 function cancelContactEdit(contactId) {
-    
+    console.log("Canceling edit for contact:", contactId);
 }
 
 function createNewContact() {
