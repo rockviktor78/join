@@ -1,12 +1,13 @@
-/* ====== 1. Layout & Page Wrapper ======*/
-.body-login {
+/* ====== 1. Layout & Page Wrapper ====== */
+.login-body {
   height: 100dvh;
   display: flex;
   flex-direction: column;
   background-color: var(--color-gray-50);
 }
 
-.login-page {
+/* KORREKTUR: Im HTML nutzt du login-main, nicht login-page */
+.login-main {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -34,8 +35,9 @@
   gap: 1.25rem;
 }
 
-/* ====== 3. Login Card ====== */
-.login-container {
+/* ====== 3. Login Card Container ====== */
+/* KORREKTUR: Von login-container zu login-card geändert */
+.login-card {
   background-color: var(--color-white);
   padding: 2rem 6rem;
   border-radius: 1.875rem;
@@ -48,13 +50,13 @@
   margin-top: -8rem;
 }
 
-.login-container__title {
+.login-card__title {
   font-size: 3rem;
   margin: 0;
   color: var(--color-primary-light);
 }
 
-.login-container__underline {
+.login-card__underline {
   height: 0.2rem;
   width: 7rem;
   background-color: #29abe2;
@@ -63,31 +65,14 @@
 }
 
 /* ====== 4. Form Elements ====== */
-.login-container__form {
+.login-card__form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   width: 100%;
 }
 
-.login-container__input {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 0.75rem 0;
-  font-size: 1rem;
-  background: transparent;
-  min-width: 0;
-}
-
-.input-icon {
-  width: 1.5rem;
-  height: auto;
-  margin-left: 0.75rem;
-  flex-shrink: 0;
-}
-
-.input-group {
+.login-card__input-group {
   display: flex;
   align-items: center;
   background-color: white;
@@ -98,18 +83,31 @@
   width: 100%;
 }
 
-.input-group:focus-within {
+.login-card__input-group:focus-within {
   border-color: #29abe2;
 }
 
-.login-container__input::placeholder {
+.login-card__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  background: transparent;
+  min-width: 0;
+}
+
+.login-card__input::placeholder {
   color: var(--color-gray-200);
   font-size: 0.875rem;
   opacity: 1;
 }
 
-.login-container__input:focus {
-  border-color: var(--color-accent);
+.login-card__icon {
+  width: 1.5rem;
+  height: auto;
+  margin-left: 0.75rem;
+  flex-shrink: 0;
 }
 
 /* ====== 5. Footer ====== */
@@ -123,6 +121,7 @@
 
 .login-footer__link {
   color: var(--color-gray-200);
+  text-decoration: none;
   transition: color 0.2s ease;
 }
 
@@ -131,7 +130,7 @@
 }
 
 /* ====== 6. Buttons & Actions ====== */
-.login-container__actions {
+.login-card__actions {
   display: flex;
   gap: 2rem;
   justify-content: center;
@@ -139,7 +138,7 @@
 }
 
 .login-header__signup-btn,
-.login-container__btn {
+.login-card__btn {
   background-color: var(--color-primary);
   color: var(--color-white);
   border: none;
@@ -151,21 +150,22 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .login-header__signup-btn:hover,
-.login-container__btn:hover {
+.login-card__btn:hover {
   background-color: var(--color-accent);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.login-container__btn--guest {
+.login-card__btn--guest {
   background-color: transparent;
   border: 0.0625rem solid var(--color-primary);
   color: var(--color-primary);
 }
 
-.login-container__btn--guest:hover {
+.login-card__btn--guest:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
   background-color: var(--color-white);
