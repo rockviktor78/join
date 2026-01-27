@@ -93,6 +93,9 @@
   --spacing-xl: 2rem; /* 32px */
   --spacing-2xl: 3rem; /* 48px */
   --spacing-3xl: 4rem; /* 64px */
+  --spacing-4xl: 5rem; /* 80px */
+  --spacing-5xl: 6rem; /* 96px */
+  --spacing-6xl: 8rem; /* 128px */
 
   /* Border Radius */
   --radius-sm: 0.25rem; /* 4px */
