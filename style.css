@@ -1,8 +1,18 @@
-/* globaler St!yle */
+/* globaler Style */
 body {
   margin: 0;
+  padding-left: 232px;
+  padding-top: 96px;
   font-family: var(--font-primary);
   background-color: #f4f4f4;
   color: #333;
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+@media (min-width: 1920px) {
+  body {
+    height: 1080px;
+  }
+}

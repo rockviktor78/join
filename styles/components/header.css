@@ -9,7 +9,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--spacing-md);
+  padding-left: 264px;
   box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
 }
 
 .header__actions {

@@ -27,7 +27,7 @@ body::-webkit-scrollbar {
 .back-btn {
   position: fixed;
   top: calc(96px + var(--spacing-xl) * 4);
-  right: calc(50% - 400px - var(--spacing-md));
+  right: var(--spacing-6xl);
   width: 32px;
   height: 32px;
   border: none;
@@ -52,7 +52,6 @@ body::-webkit-scrollbar {
 
 .back-btn:hover img {
   transform: scale(1.15);
-
 }
 
 .help-title {
