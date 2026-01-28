@@ -1,9 +1,9 @@
 /**
- * Sidebar Menu Styles
+ * Menu Styles
  * Dark sidebar navigation matching the design system
  */
 
-.sidebar {
+.menu {
   width: 232px;
   height: 100vh;
   background-color: var(--color-primary);
@@ -16,57 +16,38 @@
 }
 
 /* Header Section */
-.sidebar__header {
-  padding: var(--spacing-2xl) var(--spacing-lg);
+.menu__header {
+  padding: var(--spacing-3xl) var(--spacing-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-sm);
 }
 
-.sidebar__logo {
+.menu__logo {
   width: 100px;
   height: auto;
 }
 
-.sidebar__version {
-  font-size: var(--font-size-xs);
-  color: var(--color-accent);
-  font-weight: var(--font-weight-medium);
-}
-
 /* Navigation Section */
-.sidebar__nav {
+.menu__nav {
   flex: 1;
   overflow-y: auto;
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-lg) 0;
+  padding-left: var(--spacing-xl);
 }
 
-.sidebar__section {
-  margin-bottom: var(--spacing-xl);
-}
-
-.sidebar__section-title {
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-300);
-  font-weight: var(--font-weight-semibold);
-  padding: 0 var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.sidebar__list {
+.menu__list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.sidebar__item {
+.menu__item {
   margin: 0;
 }
 
-.sidebar__btn {
+.menu__btn {
   width: 100%;
   display: flex;
   align-items: center;
@@ -83,7 +64,7 @@
   position: relative;
 }
 
-.sidebar__btn::before {
+.menu__btn::before {
   content: "";
   position: absolute;
   left: 0;
@@ -95,120 +76,97 @@
   transition: opacity var(--transition-base);
 }
 
-.sidebar__btn:hover {
+.menu__btn:hover {
   background-color: var(--color-primary-light);
   color: var(--color-white);
 }
 
-.sidebar__btn:hover::before {
+.menu__btn:hover::before {
   opacity: 1;
 }
 
 /* Active State */
-.sidebar__btn.active,
-.sidebar__btn[aria-current="page"] {
+.menu__btn.active,
+.menu__btn[aria-current="page"] {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
 }
 
-.sidebar__btn.active::before,
-.sidebar__btn[aria-current="page"]::before {
+.menu__btn.active::before,
+.menu__btn[aria-current="page"]::before {
   opacity: 1;
 }
 
-.sidebar__icon {
+.menu__icon {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
   filter: brightness(0.8);
 }
 
-.sidebar__btn:hover .sidebar__icon,
-.sidebar__btn.active .sidebar__icon,
-.sidebar__btn[aria-current="page"] .sidebar__icon {
+.menu__btn:hover .menu__icon,
+.menu__btn.active .menu__icon,
+.menu__btn[aria-current="page"] .menu__icon {
   filter: brightness(1.2);
 }
 
-.sidebar__label {
+.menu__label {
   flex: 1;
 }
 
 /* Footer Section */
-.sidebar__footer {
-  padding: var(--spacing-lg);
-  border-top: 1px solid var(--color-primary-light);
-}
-
-.sidebar__links {
+.menu__footer {
+  /* padding: var(--spacing-lg); */
+  padding-left: var(--spacing-3xl);
+  padding-bottom: 5rem;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  align-items: center;
-  font-size: var(--font-size-sm);
+  gap: var(--spacing-md);
+  align-items: flex-start;
 }
 
-.sidebar__footer-link {
+.menu__footer-link {
   color: var(--color-gray-300);
   text-decoration: none;
-  transition: color var(--transition-base);
+
   font-size: var(--font-size-sm);
 }
 
-.sidebar__footer-link:hover {
-  color: var(--color-white);
-}
-
-.sidebar__divider {
-  color: var(--color-gray-400);
-  margin: 0 var(--spacing-xs);
+.menu__footer-link:hover {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .sidebar {
+  .menu {
     width: 80px;
   }
 
-  .sidebar__header {
+  .menu__header {
     padding: var(--spacing-lg) var(--spacing-sm);
   }
 
-  .sidebar__logo {
+  .menu__logo {
     width: 60px;
   }
 
-  .sidebar__version {
-    display: none;
-  }
-
-  .sidebar__section-title {
-    display: none;
-  }
-
-  .sidebar__btn {
+  .menu__btn {
     flex-direction: column;
     gap: var(--spacing-xs);
     padding: var(--spacing-md) var(--spacing-sm);
     font-size: var(--font-size-xs);
   }
 
-  .sidebar__label {
+  .menu__label {
     font-size: var(--font-size-xs);
   }
 
-  .sidebar__footer {
+  .menu__footer {
     padding: var(--spacing-md) var(--spacing-sm);
   }
 
-  .sidebar__links {
-    flex-direction: column;
-  }
-
-  .sidebar__divider {
-    display: none;
-  }
-
-  .sidebar__footer-link {
+  .menu__footer-link {
     font-size: 0.625rem;
     text-align: center;
   }
