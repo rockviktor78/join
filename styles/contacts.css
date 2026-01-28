@@ -1,12 +1,14 @@
 .contacts-container {
-    display:flex
+    display:flex;
+    margin: 0px;
+    padding: 0px;
 }
 
 .contacts-list-container {
     width: 300px;
-    margin-left: 20px;
     border-right: 1px solid var(--color-gray-200);
     padding-right: 20px;
+    padding-left: 20px;
     background-color: var(--color-white);
 }
 
@@ -88,4 +90,72 @@
     color: white;
     border: 1px solid var(--color-primary);
     border-radius: 5px;
+}
+
+.letter-title {
+    margin: 20px 0 5px;
+    font-weight: bold;
+}
+
+.letter-group hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.add-new-contact-container {
+    display: flex;
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    margin: 20px;
+    
+    
+}
+
+.add-new-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 20px;
+}
+
+.form-input {
+    padding: 10px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+
+.cancel-button {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    border: solid 1px var(--color-primary);
+    padding: 10px 15px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.create-contact-button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.add-new-contact-header {
+    background-color: var(--color-primary);
+    color: white;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.add-new-contact-profile-picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
