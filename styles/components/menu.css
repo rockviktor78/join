@@ -6,11 +6,12 @@
 .menu {
   width: 232px;
   height: 100vh;
+  max-height: 1080px;
   background-color: var(--color-primary);
   display: flex;
   flex-direction: column;
   position: fixed;
-  left: 0;
+  left: max(0px, calc((100vw - 1920px) / 2));
   top: 0;
   z-index: var(--z-dropdown);
   view-transition-name: menu-persistent;
@@ -94,7 +95,8 @@
 
 .menu__btn.active::before,
 .menu__btn[aria-current="page"]::before {
-  opacity: 0;
+  background-color: var(--color-primary-dark);
+  opacity: 1;
 }
 
 .menu__icon {

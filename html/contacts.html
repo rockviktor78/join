@@ -22,11 +22,16 @@
     <link rel="stylesheet" href="../styles/base/transitions.css" />
   </head>
   <body>
-    <header
-      class="app-layout__header"
-      w3-include-html="../assets/templates/header.html"
-    ></header>
-
+   <div class="screen-wrapper">
+      <div class="content-area">
+        <header
+          class="header__content"
+          w3-include-html="../assets/templates/header.html"
+        ></header>
+        <!-- Content kommt hier hin -->
+        <div w3-include-html="../assets/templates/menu.html"></div>
+      </div>
+    </div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         includeHTML();

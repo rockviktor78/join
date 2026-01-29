@@ -9,24 +9,27 @@
     <link rel="preload" href="../styles/base/fonts.css" as="style" />
     <link rel="preload" href="../styles/base/variables.css" as="style" />
     <link rel="preload" href="../scripts/shared/include-html.js" as="script" />
-
-    <script src="../script.js" defer></script>
-    <script src="../scripts/shared/include-html.js"></script>
-    <script src="../scripts/shared/view-transitions.js"></script>
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/components/header.css" />
     <link rel="stylesheet" href="../styles/components/menu.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/variables.css" />
     <link rel="stylesheet" href="../styles/base/transitions.css" />
+    <script src="../script.js" defer></script>
+    <script src="../scripts/shared/include-html.js"></script>
+    <script src="../scripts/shared/view-transitions.js"></script>
   </head>
   <body>
-    <header
-      class="app-layout__header"
-      w3-include-html="../assets/templates/header.html"
-    ></header>
-
-    <div class="header" w3-include-html="../assets/templates/menu.html"></div>
+    <div class="screen-wrapper">
+      <div class="content-area">
+        <header
+          class="header__content"
+          w3-include-html="../assets/templates/header.html"
+        ></header>
+        <!-- Content kommt hier hin -->
+        <div w3-include-html="../assets/templates/menu.html"></div>
+      </div>
+    </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
