@@ -1,13 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privacy Policy</title>
     <script src="../script.js" defer></script>
-    <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-    
-</body>
+    <script src="../scripts/shared/include-html.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/base/fonts.css" />
+    <link rel="stylesheet" href="../styles/base/variables.css" />
+  </head>
+  <body>
+    <header
+      class="app-layout__header"
+      w3-include-html="../assets/templates/header.html"
+    ></header>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        includeHTML();
+      });
+    </script>
+  </body>
 </html>
