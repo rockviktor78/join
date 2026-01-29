@@ -51,7 +51,7 @@
 .auth-card__underline {
   height: 0.2rem;
   width: 7rem;
-  background-color: #29abe2;
+  background-color: var(--color-accent);
   margin: 0.5rem 0 2rem 0;
   border-radius: 2px;
 }
@@ -76,7 +76,11 @@
 }
 
 .auth-card__input-group:focus-within {
-  border-color: #29abe2;
+  border-color: var(--color-accent);
+}
+
+.auth-card__input-group--error {
+  border-color: var(--color-error) !important;
 }
 
 .auth-card__input {
@@ -84,15 +88,33 @@
   border: none;
   outline: none;
   padding: 0.75rem 0;
-  font-size: 1rem;
-  background: transparent;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background-color: white;
+  color: var(--color-primary);
   min-width: 0;
+}
+
+.auth-card__input:-webkit-autofill,
+.auth-card__input:-webkit-autofill:hover,
+.auth-card__input:-webkit-autofill:focus,
+.auth-card__input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: var(--color-primary) !important;
+  font-family: inherit !important;
+  font-size: 0.875rem !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .auth-card__input::placeholder {
   color: var(--color-gray-200);
   font-size: 0.875rem;
   opacity: 1;
+}
+
+.auth-card__input-group:focus-within {
+  border-color: var(--color-accent);
+  transition: border-color 0.2s ease;
 }
 
 .auth-card__icon {
