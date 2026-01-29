@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../styles/sign-up.css" />
 
     <script src="../scripts/firebase.js" defer></script>
-    <script src="../scripts/login.js" defer></script>
+    <script src="../scripts/sign_up.js" defer></script>
   </head>
 
   <body class="auth-page">
@@ -25,7 +25,7 @@
         <h2 class="auth-card__title">Sign Up</h2>
         <div class="auth-card__underline"></div>
 
-        <form class="auth-card__form">
+        <form id="signupForm" class="auth-card__form">
           <div class="auth-card__input-group">
             <input type="text" name="name" id="signupName" class="auth-card__input" placeholder="Name" required />
             <img class="auth-card__icon" src="../assets/img/auth/person-default.svg" alt="" />
