@@ -1,22 +1,26 @@
-const form = document.getElementById('signupForm');
+const signupForm = document.getElementById('signupForm');
 const nameInput = document.getElementById('signupName');
 const emailInput = document.getElementById('signupEmail');
 const passwordInput = document.getElementById('signupPassword');
 const confirmPasswordInput = document.getElementById('signupConfirmPassword');
-const submitBtn = document.getElementById('signupBtn');
+const signupBtn = document.getElementById('signupBtn');
+const errorMsg = document.getElementById("errorMsg");
 const inputGroup = confirmPasswordInput.parentElement;
+const passwortIcon = passwordInput.nextElementSibling;
+const confirmPasswordIcon = confirmPasswordInput.nextElementSibling;
+const eyeOff = "../assets/img/auth/visibility-off-default.svg";
+const eyeOn = "../assets/img/auth/visibility-on-default.svg";
 
 
 function validatePasswords() {
     const isMatch = passwordInput.value === confirmPasswordInput.value;
-
     if (!isMatch) {
-        confirmPasswordInput.setCustomValidity('Passwords do not match');
+        errorMsg.classList.add('show');
         inputGroup.classList.add('auth-card__input-group--error');
-        confirmPasswordInput.reportValidity();
     } else {
-        confirmPasswordInput.setCustomValidity('');
+        errorMsg.classList.remove('show');
         inputGroup.classList.remove('auth-card__input-group--error');
+        confirmPasswordInput.setCustomValidity('');
     }
     return isMatch;
 }
@@ -30,8 +34,9 @@ function getNewUserData() {
     };
 }
 
+
 function setSubmitting(isSubmitting) {
-    submitBtn.disabled = isSubmitting;
+    signupBtn.disabled = isSubmitting;
 }
 
 
@@ -44,7 +49,7 @@ async function addUser() {
 
     try {
         await postData("users", newUser);
-        form.reset();
+        signupForm.reset();
         // redirect und nachricht "erfolgreich angemeldet"
     } catch (error) {
         console.error("Firebase Error:", error);
@@ -54,7 +59,51 @@ async function addUser() {
 }
 
 
-form.addEventListener('submit', (onSubmit) => {
+passwordInput.onfocus = function () {
+    if (passwordInput.type === 'password') {
+        passwortIcon.src = eyeOff;
+    }
+};
+
+
+passwortIcon.onclick = function () {
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        passwortIcon.src = eyeOn;
+    } else {
+        passwordInput.type = 'password';
+        passwortIcon.src = eyeOff;
+    }
+};
+
+
+confirmPasswordInput.onfocus = function () {
+    if (confirmPasswordInput.type === 'password') {
+        confirmPasswordIcon.src = eyeOff;
+    }
+};
+
+
+confirmPasswordIcon.onclick = function () {
+    if (confirmPasswordInput.type === 'password') {
+        confirmPasswordInput.type = 'text';
+        confirmPasswordIcon.src = eyeOn;
+    } else {
+        confirmPasswordInput.type = 'password';
+        confirmPasswordIcon.src = eyeOff;
+    }
+};
+
+
+signupForm.addEventListener('submit', (onSubmit) => {
     onSubmit.preventDefault();
     addUser();
+});
+
+
+confirmPasswordInput.addEventListener('input', () => {
+    if (passwordInput.value === confirmPasswordInput.value) {
+        errorMsg.classList.remove('show');
+        inputGroup.classList.remove('auth-card__input-group--error');
+    }
 });

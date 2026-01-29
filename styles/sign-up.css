@@ -122,6 +122,21 @@
   height: auto;
   margin-left: 0.75rem;
   flex-shrink: 0;
+  cursor: pointer;
+}
+
+.error-msg-container {
+  color: var(--color-error);
+  font-size: 0.857rem;
+  text-align: center;
+  margin-top: -0.5rem;
+  line-height: 1.2rem;
+  visibility: hidden;
+  height: 1.2rem;
+}
+
+.error-msg-container.show {
+  visibility: visible;
 }
 
 /* ====== 5. Footer ====== */
