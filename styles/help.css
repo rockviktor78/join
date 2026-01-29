@@ -27,7 +27,7 @@ body::-webkit-scrollbar {
 .back-btn {
   position: fixed;
   top: calc(96px + var(--spacing-xl) * 4);
-  right: var(--spacing-6xl);
+  right: var(--spacing-5xl);
   width: 32px;
   height: 32px;
   border: none;
