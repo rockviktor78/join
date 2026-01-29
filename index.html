@@ -3,55 +3,104 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join - Login</title>
+    <title>Join - Sign Up</title>
 
-    <link rel="stylesheet" href="./styles/base/reset.css" />
-    <link rel="stylesheet" href="./styles/base/fonts.css" />
-    <link rel="stylesheet" href="./styles/base/variables.css" />
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="../styles/base/reset.css" />
+    <link rel="stylesheet" href="../styles/base/fonts.css" />
+    <link rel="stylesheet" href="../styles/base/variables.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/auth.css" />
 
-    <script src="scripts/firebase.js" defer></script>
-    <script src="scripts/login.js" defer></script>
+    <script src="../scripts/firebase.js" defer></script>
+    <script src="../scripts/auth_form_slider.js" defer></script>
+    <script src="../scripts/auth_signup.js" defer></script>
   </head>
-  <body class="login-body">
-    <header class="login-header">
+
+  <body class="auth-page">
+    <header class="auth-header">
       <a href="/index.html">
-        <img class="login-header__logo" src="./assets/img/shared/join-logo.svg" alt="Join Logo" />
+        <img id="toLogin" class="auth-header__logo" src="../assets/img/shared/join-logo.svg" alt="Join Logo" />
       </a>
-      <div class="login-header__signup-container">
-        <p class="login-header__signup-text">Not a Join user?</p>
-        <a href="./html/sign-up.html"> <button id="signupBtn" class="login-header__signup-btn">Sign Up</button></a>
+      <div class="auth-header__signup-group">
+        <p class="auth-header__signup-text">Not a Join user?</p>
+        <button id="toSignup" class="auth-card__btn">Sign Up</button>
       </div>
     </header>
 
-    <main class="login-main">
-      <section class="login-card">
-        <h2 class="login-card__title">Log in</h2>
-        <div class="login-card__underline"></div>
+    <main class="auth-main">
+      <section class="auth-card">
+        <div class="auth-card__slider" id="authSlider">
+          <!-- log in -->
+          <div class="auth-form-wrapper" id="loginWrapper">
+            <form id="loginForm" class="auth-card__form">
+              <div class="auth-card__header">
+                <h2 class="auth-card__title">Login</h2>
+                <div class="auth-card__underline"></div>
+              </div>
 
-        <form class="login-card__form">
-          <div class="login-card__input-group">
-            <input type="email" name="email" placeholder="Email" id="loginEmail" class="login-card__input" required />
-            <img src="./assets/img/auth/mail-default.svg" alt="" class="login-card__icon" />
-          </div>
+              <div class="auth-card__input-group">
+                <input type="email" id="loginEmail" class="auth-card__input" placeholder="Email" required />
+                <img class="auth-card__icon" src="../assets/img/auth/mail-default.svg" alt="" />
+              </div>
 
-          <div class="login-card__input-group">
-            <input type="password" name="password" placeholder="Password" id="loginPassword" class="login-card__input" required />
-            <img src="./assets/img/auth/lock-default.svg" alt="" class="login-card__icon" />
-          </div>
+              <div class="auth-card__input-group">
+                <input type="password" id="loginPassword" class="auth-card__input" placeholder="Password" required />
+                <img class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
+              </div>
 
-          <div class="login-card__actions">
-            <button type="submit" id="loginBtn" class="login-card__btn">Log in</button>
-            <button type="button" id="guestLogInBtn" class="login-card__btn login-card__btn--guest">Guest Log in</button>
+              <div class="auth-card__actions">
+                <button type="submit" class="auth-card__btn">Log in</button>
+                <button type="button" class="auth-card__btn auth-card__btn--guest">Guest Log in</button>
+              </div>
+            </form>
           </div>
-        </form>
+          <!-- sign up  -->
+          <div class="auth-form-wrapper" id="signupWrapper">
+            <form id="signupForm" class="auth-card__form">
+              <div class="auth-card__header">
+                <h2 class="auth-card__title">Sign Up</h2>
+                <div class="auth-card__underline"></div>
+              </div>
+
+              <div class="auth-card__input-group">
+                <input type="text" id="signupName" class="auth-card__input" placeholder="Name" required />
+                <img class="auth-card__icon" src="../assets/img/auth/person-default.svg" alt="" />
+              </div>
+
+              <div class="auth-card__input-group">
+                <input type="email" id="signupEmail" class="auth-card__input" placeholder="Email" required />
+                <img class="auth-card__icon" src="../assets/img/auth/mail-default.svg" alt="" />
+              </div>
+
+              <div id="signupPasswordGroup" class="auth-card__input-group">
+                <input type="password" id="signupPassword" class="auth-card__input" placeholder="Password" required />
+                <img id="signupPasswordIcon" class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
+              </div>
+
+              <div id="signupConfirmGroup" class="auth-card__input-group">
+                <input type="password" id="signupConfirmPassword" class="auth-card__input" placeholder="Confirm Password" required />
+                <img id="signupConfirmIcon" class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
+              </div>
+
+              <div id="errorMsg" class="error-msg-container">
+                <p>Your passwords don't match. Please try again.</p>
+              </div>
+
+              <div class="auth-card__checkbox-group">
+                <input type="checkbox" id="signup-policy" class="auth-card__checkbox-input" required />
+                <label for="signup-policy" class="auth-card__checkbox-label">
+                  <span class="auth-card__custom-checkbox"></span>
+                  <p>I accept the <a href="#" class="auth-card__link">Privacy Policy</a></p>
+                </label>
+              </div>
+
+              <div class="auth-card__actions">
+                <button type="submit" id="signupBtn" class="auth-card__btn">Sign Up</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </section>
     </main>
-
-    <footer class="login-footer">
-      <a class="login-footer__link" href="./html/privacy-policy.html">Privacy Policy</a>
-      <a class="login-footer__link" href="./html/legal-notice.html">Legal Notice</a>
-    </footer>
   </body>
 </html>
