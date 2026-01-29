@@ -1,0 +1,254 @@
+/* ====== 1. Layout ====== */
+.auth-page {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-gray-50);
+}
+
+.auth-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* ====== 2. Header ====== */
+.auth-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 3.75rem;
+  z-index: 100;
+}
+
+.auth-header__logo {
+  width: 5rem;
+}
+
+.auth-header__signup-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 1;
+}
+
+.d-none-smooth {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.auth-header__signup-text {
+  margin: 0;
+}
+
+/* ====== 3. Auth Card & Slider ====== */
+.auth-card {
+  background-color: var(--color-white);
+  border-radius: 1.875rem;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 37.125rem;
+  overflow: hidden;
+  position: relative;
+  transition:
+    transform 0.6s ease-in-out,
+    height 0.5s ease-in-out;
+}
+
+.auth-card__slider {
+  display: flex;
+  width: 200%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-to-signup {
+  transform: translateX(-50%);
+}
+
+.auth-form-wrapper {
+  width: 50%;
+  padding: 2.5rem 6rem;
+  box-sizing: border-box;
+  height: max-content;
+}
+
+/* ====== 4. Form Elements ====== */
+.auth-card__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.auth-card__title {
+  font-size: 3rem;
+  margin: 0;
+  color: var(--color-primary-light);
+}
+
+.auth-card__underline {
+  height: 0.2rem;
+  width: 7rem;
+  background-color: var(--color-accent);
+  margin-top: 0.5rem;
+  border-radius: 2px;
+}
+
+.auth-card__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-card__input-group {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 0.0625rem solid var(--color-gray-200);
+  border-radius: 0.625rem;
+  padding: 0 1.3125rem;
+  transition: border-color 0.2s ease;
+}
+
+.auth-card__input-group:focus-within {
+  border-color: var(--color-accent);
+}
+
+.auth-card__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.75rem 0;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--color-primary);
+  background-color: white;
+}
+
+.auth-card__input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: var(--color-primary) !important;
+}
+
+.auth-card__input::placeholder {
+  color: var(--color-gray-200);
+  font-size: 0.875rem;
+}
+
+.auth-card__icon {
+  width: 1.5rem;
+  height: auto;
+  margin-left: 0.75rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.error-msg-container {
+  color: var(--color-error);
+  font-size: 0.857rem;
+  text-align: center;
+  margin-top: -0.5rem;
+  line-height: 1.2rem;
+  visibility: hidden; /* Standardmäßig unsichtbar */
+  height: 1.2rem;
+}
+
+.error-msg-container.show {
+  visibility: visible;
+}
+
+.auth-card__input-group--error {
+  border-color: var(--color-error) !important;
+}
+
+/* ====== 5. Checkbox ====== */
+.auth-card__checkbox-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.auth-card__checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.auth-card__checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.auth-card__custom-checkbox {
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 8px;
+  margin-top: -2px;
+  background-image: url("../assets/img/auth/checkbox-default.svg");
+  transition: transform 0.1s ease-in-out;
+}
+
+.auth-card__checkbox-input:checked + .auth-card__checkbox-label .auth-card__custom-checkbox {
+  background-image: url("../assets/img/auth/checkbox-checked.svg");
+}
+
+.auth-card__custom-checkbox:active {
+  transform: scale(0.9);
+}
+
+/* ====== 7. Buttons & Links ====== */
+.auth-card__actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.auth-card__btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card__btn:hover {
+  background-color: var(--color-accent);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.auth-card__btn--guest {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.auth-card__btn--guest:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: var(--color-white);
+}
+
+.auth-card__link {
+  text-decoration: none;
+  color: var(--color-accent);
+}
