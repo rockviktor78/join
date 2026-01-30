@@ -1,3 +1,8 @@
+#contacts-container {
+  margin-top: 90px;
+  margin-left: 235px;
+}
+
 .contacts-container {
     display:flex;
     margin: 0px;
@@ -5,11 +10,11 @@
 }
 
 .contacts-list-container {
-    width: 300px;
+    width: 450px;
     border-right: 1px solid var(--color-gray-200);
-    padding-right: 20px;
-    padding-left: 20px;
     background-color: var(--color-white);
+    padding: 32px 24px 32px 24px;
+
 }
 
 .contact-card {
@@ -17,6 +22,14 @@
     align-items: center;
     gap: 15px;
     cursor: pointer;
+    border-radius: var(--radius-md);
+    padding: 15px 24px 15px 24px;
+}
+
+.contact-email {
+    color: #007CEE;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
 }
 
 .contacts-detail-container {
@@ -37,9 +50,17 @@
 }
 
 .contacts-detail-header-title-first {
-    font-size: 61px;
+    font-size: 59px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.separator {
+    font-size: 59px;
     font-weight: var(--font-weight-bold);
     margin-right: 5px;
+    color: #29ABE2;
     display: flex;
     align-items: center;
 }
@@ -84,17 +105,39 @@
 }
 
 .add-new-contact-button {
+    width: 100%;
     margin-top: 20px;
     padding: 10px 15px;
     background-color: var(--color-primary);
     color: white;
     border: 1px solid var(--color-primary);
-    border-radius: 5px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.add-new-contact-button:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+}
+
+.add-new-contact-button img {
+    width: 32px;
+    height: 32px;
 }
 
 .letter-title {
     margin: 20px 0 5px;
     font-weight: bold;
+}
+
+.letter-group {
+    padding: 17px 36px 17px 36px;
 }
 
 .letter-group hr {
@@ -109,8 +152,6 @@
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     margin: 20px;
-    
-    
 }
 
 .add-new-contact-form {
@@ -158,4 +199,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.contacts-form {
+    margin-left: 40px;
+    flex-grow: 1;
+    background-color: var(--color-gray-50);
+    padding: 20px;
+    transform: var(--transition-slow);
+}
+
+.active-contact {
+    background-color: var(--color-primary);
+    color: var(--color-white)
 }

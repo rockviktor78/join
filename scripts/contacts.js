@@ -91,14 +91,19 @@ function showContactDetails(index) {
     let badgeColor = document.querySelectorAll('.badge')[index].style.backgroundColor;
     detailsContainer.innerHTML = "";
     detailsContainer.innerHTML += templateContactDetails(contact, index, initial, badgeColor);
+    setActiveContact(index);
+}
+
+function setActiveContact(index) {
+    document.querySelectorAll(".active-contact").forEach(el => el.classList.remove("active-contact"));
+    document.getElementById(loadedContacts[index].name).classList.add("active-contact");
 }
 
 
 function addNewContact() {
-    let newContactContainer = document.getElementById("contacts-detail");
+    let newContactContainer = document.getElementById("contacts-form");
     newContactContainer.innerHTML = "";
     newContactContainer.innerHTML += templateAddNewContact();
-
 }
 
 function confirmAddNewContact() {
@@ -111,11 +116,10 @@ function deleteContact(index) {
 }
 
 function editContact(index) {
-    console.log("Editing contact:", index);
     let name = loadedContacts[index].name;
     let email = loadedContacts[index].email;
     let phone = loadedContacts[index].phone;
-    let editContactContainer = document.getElementById("contacts-detail");
+    let editContactContainer = document.getElementById("contacts-form");
     editContactContainer.innerHTML = "";
     editContactContainer.innerHTML += templateEditContact(index, name, email, phone);
 
@@ -123,7 +127,7 @@ function editContact(index) {
 }
 
 function cancel() {
-    document.getElementById("contacts-detail").innerHTML = "";
+    document.getElementById("contacts-form").innerHTML = "";
 }
 
 function createNewContact() {
@@ -134,7 +138,7 @@ function saveContactEdit() {
 
 }
 
-function showSuccessMessage(message) {
+function showSuccessMessage() {
 
 }
 
@@ -144,7 +148,7 @@ function templateContact(initial, name, email, index) {
             <div class="contact-initial badge">${initial}</div>
             <div>
                 <h3>${name}</h3>
-                <p>${email}</p>
+                <div class="contact-email">${email}</div>
             </div>
         </div>
     `;
@@ -171,8 +175,10 @@ function templateContactDetailHeader(contact, index, initial, badgeColor) {
        <div class="contact-detail-initial" style="background-color: ${badgeColor};">${initial}</div>
             <div>
                 <h2>${contact.name}</h2>
-                <button onclick="editContact(${index})">Edit</button>
-                <button onclick="deleteContact(${index})">Delete</button>
+                <div>
+                    <button onclick="editContact(${index})"><img src="./assets/img/edit contacts.svg" alt="Edit Contact"> </button>
+                    <button onclick="deleteContact(${index})"><img src="./assets/img/deletecontact.svg" alt="Delete Contact"></button>
+                </div>
             </div>
     `;
 }

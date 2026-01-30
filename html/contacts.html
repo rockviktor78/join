@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="../styles/contacts.css">
   </head>
   <body onload="init()">
-    <div>Sidebar-Header</div>
-    <div id="contacts-container" class="contacts-container">
+    <header class="header" w3-include-html="../assets/templates/header.html"></header>
+  <div id="contacts-container" class="contacts-container">
       <div class="contacts-list-container">
       <div>
-        <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact</button>
+        <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact <img src="./assets/img/person_add.svg" alt="Add Contact"></button>
       </div>
       <div id="contacts-list">
         <ul id="contacts-ul">
@@ -27,11 +27,16 @@
       </div>
       <div class="contacts-detail-container">
         <div class="contacts-detail-header-title">
-          <div class="contacts-detail-header-title-first">Contacts |</div> 
+          <div class="contacts-detail-header-title-first">Contacts</div> 
+          <div class="separator">|</div>
           <div class="contacts-detail-header-title-second">Better with a Team</div>
         </div>
         <div id ="contacts-detail">
       </div>
+      <div id="contacts-form" class="contacts-form" style="display: none;">
+      test
     </div>
+    </div>
+    <div class="header" w3-include-html="../assets/templates/menu.html"></div>
   </body>
 </html>
