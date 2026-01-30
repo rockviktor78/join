@@ -1,39 +1,52 @@
-const updateCardHeight = (activeWrapper) => {
+
+function updateCardHeight(activeWrapper) {
     const authCard = document.querySelector(".auth-card");
+
     if (activeWrapper && authCard) {
         const height = activeWrapper.offsetHeight;
-        authCard.style.height = `${height}px`;
+        authCard.style.height = height + "px";
     }
-};
+}
 
 
-const showSignup = (event) => {
+function showSignup(event) {
     event.preventDefault();
     const slider = document.getElementById("authSlider");
     const signupWrapper = document.getElementById("signupWrapper");
     const signupGroup = document.querySelector(".auth-header__signup-group");
 
-    slider?.classList.add("slide-to-signup");
-    signupGroup?.classList.add("d-none-smooth");
+    if (slider) slider.classList.add("slide-to-signup");
+    if (signupGroup) signupGroup.classList.add("d-none-smooth");
     updateCardHeight(signupWrapper);
-};
+}
 
 
-const showLogin = (event) => {
+function showLogin(event) {
     event.preventDefault();
+
     const slider = document.getElementById("authSlider");
     const loginWrapper = document.getElementById("loginWrapper");
     const signupGroup = document.querySelector(".auth-header__signup-group");
 
-    slider?.classList.remove("slide-to-signup");
-    signupGroup?.classList.remove("d-none-smooth");
+    if (slider) slider.classList.remove("slide-to-signup");
+    if (signupGroup) signupGroup.classList.remove("d-none-smooth");
+
     updateCardHeight(loginWrapper);
-};
+}
 
 
-window.addEventListener("load", () => {
+window.onload = function () {
     const loginWrapper = document.getElementById("loginWrapper");
     updateCardHeight(loginWrapper);
-    document.getElementById("toSignup")?.addEventListener("click", showSignup);
-    document.getElementById("toLogin")?.addEventListener("click", showLogin);
-});
+
+    const btnToSignup = document.getElementById("toSignup");
+    const btnToLogin = document.getElementById("toLogin");
+
+    if (btnToSignup) {
+        btnToSignup.onclick = showSignup;
+    }
+
+    if (btnToLogin) {
+        btnToLogin.onclick = showLogin;
+    }
+};
