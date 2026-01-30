@@ -57,6 +57,14 @@
   max-width: 37.125rem;
   overflow: hidden;
   position: relative;
+
+  /* --- Ergänzungen ???--- */
+  /* ---eight: auto; /* Erlaubt der Karte, flexibel zu wachsen */
+  /* ---min-height: 480px; /* Ein sicherer Startwert, damit die Karte nicht "zuckt" */
+  /* ---display: flex; /* Hilft, den Inhalt sauber auszurichten */
+  /* ---flex-direction: column;
+  /* ------------------- */
+
   transition:
     transform 0.6s ease-in-out,
     height 0.5s ease-in-out;
@@ -74,7 +82,7 @@
 
 .auth-form-wrapper {
   width: 50%;
-  padding: 2.5rem 6rem;
+  padding: 2.5rem 5.2rem;
   box-sizing: border-box;
   height: max-content;
 }
@@ -85,6 +93,8 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
+  position: relative;
+  width: 100%;
 }
 
 .auth-card__title {
@@ -101,10 +111,23 @@
   border-radius: 2px;
 }
 
+.auth-card__arrow {
+  position: absolute;
+  left: -2rem;
+  top: 45%;
+  width: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.auth-card__arrow:hover {
+  transform: scale(1.1);
+}
+
 .auth-card__form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 0.5rem;
 }
 
 .auth-card__input-group {
@@ -126,15 +149,25 @@
   border: none;
   outline: none;
   padding: 0.75rem 0;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-family: inherit;
   color: var(--color-primary);
-  background-color: white;
+  background-color: transparent;
 }
 
-.auth-card__input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset !important;
-  -webkit-text-fill-color: var(--color-primary) !important;
+.auth-card__input:-webkit-autofill,
+.auth-card__input:-webkit-autofill:hover,
+.auth-card__input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.auth-card__input,
+.auth-card__input-group,
+.auth-card__input:focus,
+.auth-card__input-group:focus-within {
+  outline: none !important;
+  box-shadow: none;
 }
 
 .auth-card__input::placeholder {
@@ -150,17 +183,22 @@
   flex-shrink: 0;
 }
 
-.error-msg-container {
-  color: var(--color-error);
-  font-size: 0.857rem;
-  text-align: center;
-  margin-top: -0.5rem;
-  line-height: 1.2rem;
-  visibility: hidden; /* Standardmäßig unsichtbar */
-  height: 1.2rem;
+.auth-card__input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
 }
 
-.error-msg-container.show {
+.error-placeholder {
+  color: var(--color-error);
+  font-size: 0.875rem;
+  height: 1rem;
+  visibility: hidden;
+  padding-left: 0.5rem;
+}
+
+.error-placeholder.show {
   visibility: visible;
 }
 
@@ -173,7 +211,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .auth-card__checkbox-input {
@@ -208,7 +246,55 @@
   transform: scale(0.9);
 }
 
-/* ====== 7. Buttons & Links ====== */
+/* ====== 7. Modal ====== */
+.signup-success-modal {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2a3647;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: bottom 0.5s ease-in-out;
+  z-index: 1000;
+}
+
+.signup-success-modal.show {
+  bottom: 50px;
+}
+
+/* ====== 8. Footer ====== */
+.auth-footer {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  z-index: 50;
+}
+
+.auth-footer__link {
+  color: var(--color-gray-200);
+  text-decoration: none;
+  font-size: 1rem;
+  transition:
+    color 0.2s ease,
+    font-weight 0.2s ease;
+}
+
+.auth-footer__link:hover {
+  color: var(--color-accent);
+  text-shadow:
+    0.4px 0 0 currentColor,
+    -0.4px 0 0 currentColor;
+}
+
+/* ====== 9. Buttons & Links ====== */
 .auth-card__actions {
   display: flex;
   gap: 1.5rem;
