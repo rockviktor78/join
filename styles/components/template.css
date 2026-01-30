@@ -1,19 +1,117 @@
-/**
- * Menu Styles
- * Dark sidebar navigation matching the design system
- */
+/* ========================================
+   DESKTOP LAYOUT
+   ======================================== */
+
+.desktop-layout {
+  display: grid;
+  grid-template-columns: 232px 1fr;
+  grid-template-rows: auto 1fr;
+  min-height: 100%;
+}
+
+.menu {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
+.header__content {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* ========================================
+   HEADER STYLES
+   ======================================== */
+
+.header__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1920px;
+  height: 96px;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--color-gray-100);
+  box-shadow: 1px 3px 4px 0px rgb(5 5 5 / 10%);
+  padding: 0 var(--spacing-md);
+  view-transition-name: header-persistent;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.header__help-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-white);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-gray-400);
+}
+
+.header__help-btn:hover {
+  transform: scale(1.2);
+}
+
+.header__avatar-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-white);
+  border: 3px solid var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--color-accent);
+  cursor: pointer;
+  margin-right: 1rem;
+  padding-top: 2%;
+}
+
+.header__avatar:hover {
+  background-color: var(--color-gray-100);
+}
+
+.header__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-primary);
+  margin: 0;
+
+  @media (min-width: 1024px) {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* ========================================
+   MENU STYLES
+   ======================================== */
 
 .menu {
   width: 232px;
-  height: 100vh;
-  max-height: 1080px;
+  height: 100%;
   background-color: var(--color-primary);
   display: flex;
   flex-direction: column;
-  position: fixed;
-  left: max(0px, calc((100vw - 1920px) / 2));
-  top: 0;
-  z-index: var(--z-dropdown);
   view-transition-name: menu-persistent;
 }
 

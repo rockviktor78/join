@@ -55,7 +55,7 @@
 
 /* Verhindert Flash of Unstyled Content (FOUC) */
 html {
-  background-color: var(--color-gray-50);
+  background-color: var(--bg-primary);
 }
 
 body {

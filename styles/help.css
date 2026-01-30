@@ -1,34 +1,26 @@
-/* Scrollbar verstecken */
-body::-webkit-scrollbar {
+.desktop-help {
+  display: flex;
+  flex-direction: column;
+}
+
+.help-content {
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.help-content::-webkit-scrollbar {
   display: none;
 }
 
-body {
-  -ms-overflow-style: none;
-}
-
-.desktop-help {
-  flex-direction: row;
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-.help-container {
-  width: 100%;
-  padding: var(--spacing-xl);
-}
-
-.help-header {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-xl);
-}
-
 .back-btn {
-  position: fixed;
-  top: calc(96px + var(--spacing-xl) * 4);
+  position: absolute;
+  top: var(--spacing-3xl);
   right: var(--spacing-5xl);
   width: 32px;
   height: 32px;
@@ -54,6 +46,13 @@ body {
 
 .back-btn:hover img {
   transform: scale(1.15);
+}
+
+.help-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
 }
 
 .help-title {

@@ -32,17 +32,22 @@ dd {
 /* Set core root defaults */
 html {
   scroll-behavior: smooth;
+  overflow-y: hidden;
 }
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
   text-rendering: optimizeSpeed;
   line-height: var(--line-height-normal);
   font-family: var(--font-primary);
   font-size: var(--font-size-base);
   color: var(--color-primary);
-  background-color: var(--color-gray-50);
+  background-color: var(--bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

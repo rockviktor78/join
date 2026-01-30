@@ -16,20 +16,19 @@
     <script src="../scripts/shared/view-transitions.js"></script>
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/board.css" />
-    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/template.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/variables.css" />
     <link rel="stylesheet" href="../styles/base/transitions.css" />
   </head>
   <body>
-  <div class="screen-wrapper">
+    <div class="screen-wrapper">
       <div class="content-area">
-        <header
-          class="header__content"
-          w3-include-html="../assets/templates/header.html"
-        ></header>
+        <div
+          class="desktop-template"
+          w3-include-html="../assets/templates/desktop_template.html"
+        ></div>
         <!-- Content kommt hier hin -->
-        <div w3-include-html="../assets/templates/menu.html"></div>
       </div>
     </div>
     <script>
