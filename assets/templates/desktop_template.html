@@ -1,90 +1,41 @@
-<!-- Desktop Template with integrated Header and Menu -->
-<div class="desktop-layout">
-  <!-- HEADER SECTION -->
-  <header class="header__content">
+<header class="header__content">
+  <div class="header__center-wrapper">
     <h1 class="header__title">Kanban Project Management Tool</h1>
     <div class="header__actions">
-      <button
-        type="button"
-        class="header__help-btn"
-        onclick="window.location.href = 'help.html'"
-        aria-label="Help"
-      >
-        <img
-          class="header__icon"
-          src="../assets/img/header/help-default.svg"
-          alt="Help"
-        />
+      <button class="header__help-btn" onclick="window.location.href = 'help.html'" aria-label="Help">
+        <img src="../assets/img/header/help-default.svg" alt="" />
       </button>
-      <button class="header__avatar-btn" aria-label="User Profile">
-        <span class="header__avatar" id="userAvatar">SM</span>
-      </button>
+      <div class="header__avatar" id="userAvatar">SM</div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- MENU SECTION -->
-  <aside class="menu">
-    <div class="menu__header">
-      <img
-        class="menu__logo"
-        src="../assets/img/shared/join-logo-white.svg"
-        alt="Join Logo"
-      />
-    </div>
+<aside class="menu">
+  <div class="menu__header">
+    <img class="menu__logo" src="../assets/img/shared/join-logo-white.svg" alt="Join Logo" />
+  </div>
 
-    <nav class="menu__nav">
-      <ul class="menu__list">
-        <li class="menu__item">
-          <button class="menu__btn" id="navSummary">
-            <img
-              src="../assets/img/menu/summary-default.svg"
-              class="menu__icon"
-              alt=""
-            />
-            <span class="menu__label">Summary</span>
-          </button>
-        </li>
+  <nav class="menu__nav">
+    <button class="menu__btn" id="navSummary" onclick="window.location.href = 'summary.html'">
+      <img src="../assets/img/menu/summary-default.svg" alt="" class="menu__icon" />
+      <span class="menu__label">Summary</span>
+    </button>
+    <button class="menu__btn" id="navAddTask" onclick="window.location.href = 'add_task.html'">
+      <img src="../assets/img/menu/add-task-default.svg" alt="" class="menu__icon" />
+      <span class="menu__label">Add Task</span>
+    </button>
+    <button class="menu__btn" id="navBoard" onclick="window.location.href = 'board.html'">
+      <img src="../assets/img/menu/board-default.svg" alt="" class="menu__icon" />
+      <span class="menu__label">Board</span>
+    </button>
+    <button class="menu__btn" id="navContacts" onclick="window.location.href = 'contacts.html'">
+      <img src="../assets/img/menu/contacts-default.svg" alt="" class="menu__icon" />
+      <span class="menu__label">Contacts</span>
+    </button>
+  </nav>
 
-        <li class="menu__item">
-          <button class="menu__btn" id="navAddTask">
-            <img
-              src="../assets/img/menu/add-task-default.svg"
-              class="menu__icon"
-              alt=""
-            />
-            <span class="menu__label">Add Task</span>
-          </button>
-        </li>
-
-        <li class="menu__item">
-          <button class="menu__btn" id="navBoard">
-            <img
-              src="../assets/img/menu/board-default.svg"
-              class="menu__icon"
-              alt=""
-            />
-            <span class="menu__label">Board</span>
-          </button>
-        </li>
-
-        <li class="menu__item">
-          <button class="menu__btn" id="navContacts">
-            <img
-              src="../assets/img/menu/contacts-default.svg"
-              class="menu__icon"
-              alt=""
-            />
-            <span class="menu__label">Contacts</span>
-          </button>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="menu__footer">
-      <a href="./privacy_policy.html" class="menu__footer-link"
-        >Privacy Policy</a
-      >
-      <a href="./legal_notice.html" class="menu__footer-link">Legal Notice</a>
-    </div>
-  </aside>
-</div>
+  <div class="menu__footer">
+    <a href="privacy_policy.html" class="menu__footer-link">Privacy Policy</a>
+    <a href="legal_notice.html" class="menu__footer-link">Legal Notice</a>
+  </div>
+</aside>
