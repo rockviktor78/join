@@ -4,6 +4,24 @@
  */
 
 /**
+ * Setzt den aktiven Menu-Button basierend auf der aktuellen Seite
+ */
+function setActiveMenuBtnOnLoad() {
+  const currentPage = window.location.pathname.split("/").pop();
+  const pageToButtonMap = {
+    "summary.html": "navSummary",
+    "add_task.html": "navAddTask",
+    "board.html": "navBoard",
+    "contacts.html": "navContacts",
+  };
+
+  const buttonId = pageToButtonMap[currentPage];
+  if (buttonId) {
+    setActiveMenuBtn(buttonId);
+  }
+}
+
+/**
  * Setzt den aktiven Menu-Button
  * @param {string} buttonId - Die ID des aktiven Buttons (z.B. 'navSummary', 'navAddTask', etc.)
  */
@@ -50,8 +68,11 @@ function setupMenuNavigation() {
   });
 }
 
-// Initialisierung
+// Initialisierung - warte bis Template geladen ist
 document.addEventListener("DOMContentLoaded", () => {
-  setActiveMenuButton();
-  setupMenuNavigation();
+  // Warte kurz, damit das Template geladen werden kann
+  setTimeout(() => {
+    setActiveMenuBtnOnLoad();
+    setupMenuNavigation();
+  }, 100);
 });

@@ -51,7 +51,7 @@
   text-align: left;
 }
 
-.menu__btn:hover {
+.menu__btn:hover:not(.active-menu-btn) {
   background-color: var(--color-primary-light);
   color: var(--color-white);
 }
