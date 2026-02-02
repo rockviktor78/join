@@ -1,79 +1,75 @@
-// 1. Inputs (Die Datenquellen)
 const signupForm = document.getElementById('signupForm');
-const nameInput = document.getElementById('signupName');
-const emailInput = document.getElementById('signupEmail');
-const passwordInput = document.getElementById('signupPassword');
-const confirmPasswordInput = document.getElementById('signupConfirmPassword');
+const signupName = document.getElementById('signupName');
+const signupEmail = document.getElementById('signupEmail');
+const signupPassword = document.getElementById('signupPassword');
+const signupConfirmPassword = document.getElementById('signupConfirmPassword');
 const signupBtn = document.getElementById('signupBtn');
 
-// 2. Groups & Wrappers
-const nameGroup = document.getElementById('nameGroup');
-const emailGroup = document.getElementById('emailGroup');
-const passwordGroup = document.getElementById('signupPasswordGroup');
-const confirmGroup = document.getElementById('signupConfirmGroup');
+const signUpNameGroup = document.getElementById('signUpNameGroup');
+const signEmailGroup = document.getElementById('signEmailGroup');
+const signupPasswordGroup = document.getElementById('signupPasswordGroup');
+const signupConfirmGroup = document.getElementById('signupConfirmGroup');
 
-// 3. Error Container
-const nameError = document.getElementById('nameError');
-const emailError = document.getElementById('emailError');
-const passwordError = document.getElementById('passwordError');
-const confirmError = document.getElementById('confirmError');
+const signupNameError = document.getElementById('signupNameError');
+const signupEmailError = document.getElementById('signupEmailError');
+const signupPasswordError = document.getElementById('signupPasswordError');
+const signupConfirmError = document.getElementById('signupConfirmError');
 
-// 4. UI Components (Icons, Modals, Buttons)
-const policyCheckbox = document.getElementById('signup-policy');
+const policyCheckbox = document.getElementById('policyCheckbox');
 const policyError = document.getElementById('policyError');
-const passwortIcon = document.getElementById('signupPasswordIcon');
+const passwordIcon = document.getElementById('signupPasswordIcon');
 const confirmPasswordIcon = document.getElementById('signupConfirmIcon');
-const modal = document.getElementById('signupSuccessModal');
+const signupSuccessModal = document.getElementById('signupSuccessModal');
 
-// 4. Assets 
-const eyeOff = "./assets/img/auth/visibility-off-default.svg";
-const eyeOn = "./assets/img/auth/visibility-on-default.svg";
+
+initPasswordIconToggle(signupPassword, passwordIcon);
+initPasswordIconToggle(signupConfirmPassword, confirmPasswordIcon);
 
 
 function validateName() {
-    if (nameInput.value.trim() === "") {
-        nameError.innerText = "Please enter your name.";
-        nameError.classList.add('show');
-        nameGroup.classList.add('auth-card__input-group--error');
+    if (signupName.value.trim() === "") {
+        signupNameError.innerText = "Please enter your name.";
+        signupNameError.classList.add('show');
+        signUpNameGroup.classList.add('auth-card__input-group--error');
         return false;
     }
-    nameError.classList.remove('show');
-    nameGroup.classList.remove('auth-card__input-group--error');
+    signupNameError.classList.remove('show');
+    signUpNameGroup.classList.remove('auth-card__input-group--error');
     return true;
 }
 
 
 function validateEmail() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(emailInput.value)) {
-        emailError.innerText = "Please enter a valid email.";
-        emailError.classList.add('show');
-        emailGroup.classList.add('auth-card__input-group--error');
+    if (!emailPattern.test(signupEmail.value)) {
+        signupEmailError.innerText = "Please enter a valid email.";
+        signupEmailError.classList.add('show');
+        signEmailGroup.classList.add('auth-card__input-group--error');
         return false;
     }
-    emailError.classList.remove('show');
-    emailGroup.classList.remove('auth-card__input-group--error');
+    signupEmailError.classList.remove('show');
+    signEmailGroup.classList.remove('auth-card__input-group--error');
     return true;
 }
 
 
 function validatePasswords() {
-    if (passwordInput.value.length < 6) {
-        passwordError.innerText = "Password must be at least 6 characters long.";
-        passwordError.classList.add('show');
-        passwordGroup.classList.add('auth-card__input-group--error');
+    if (signupPassword.value.length < 6) {
+        signupPasswordError.innerText = "Password must be at least 6 characters long.";
+        signupPasswordError.classList.add('show');
+        signupPasswordGroup.classList.add('auth-card__input-group--error');
         return false;
     }
-    if (passwordInput.value !== confirmPasswordInput.value) {
-        confirmError.innerText = "Your passwords don't match. Please try again.";
-        confirmError.classList.add('show');
-        confirmGroup.classList.add('auth-card__input-group--error');
+    if (signupPassword.value !== signupConfirmPassword.value) {
+        signupConfirmError.innerText = "Your passwords don't match. Please try again.";
+        signupConfirmError.classList.add('show');
+        signupConfirmGroup.classList.add('auth-card__input-group--error');
         return false;
     }
-    passwordError.classList.remove('show');
-    confirmError.classList.remove('show');
-    passwordGroup.classList.remove('auth-card__input-group--error');
-    confirmGroup.classList.remove('auth-card__input-group--error');
+    signupPasswordError.classList.remove('show');
+    signupConfirmError.classList.remove('show');
+    signupPasswordGroup.classList.remove('auth-card__input-group--error');
+    signupConfirmGroup.classList.remove('auth-card__input-group--error');
     return true;
 }
 
@@ -91,9 +87,9 @@ function validatePolicy() {
 
 function getNewUserData() {
     return {
-        name: nameInput.value.trim(),
-        email: emailInput.value.trim(),
-        password: passwordInput.value
+        name: signupName.value.trim(),
+        email: signupEmail.value.trim(),
+        password: signupPassword.value
     };
 }
 
@@ -103,26 +99,65 @@ function setSubmitting(isSubmitting) {
 }
 
 
-async function addUser() {
-    const nameOk = validateName();
-    const emailOk = validateEmail();
-    const passOk = validatePasswords();
-    const policyOk = validatePolicy();
+function isSignupValid() {
+    const isNameValid = validateName();
+    const isEmailValid = validateEmail();
+    const isPasswordValid = validatePasswords();
+    const isPolicyValid = validatePolicy();
+    return isNameValid && isEmailValid && isPasswordValid && isPolicyValid;
+}
 
-    if (!nameOk || !emailOk || !passOk || !policyOk) return;
+
+function handleSignupSuccess() {
+    signupSuccessModal.classList.add('show');
+
+    setTimeout(() => {
+        signupSuccessModal.classList.remove('show');
+        signupForm.reset();
+
+        if (typeof showLogin === "function") {
+            showLogin({ preventDefault: () => { } });
+        }
+    }, 2000);
+}
+
+
+async function checkIfEmailExists(email) {
+    const allUsers = await getData("users");
+    if (allUsers === null) {
+        return false;
+    }
+    const userList = Object.values(allUsers);
+    const found = userList.some(user => user.email.toLowerCase() === email.toLowerCase());
+    return found;
+}
+
+
+function showEmailInUseError() {
+    signupEmailError.innerText = "This email is already in use.";
+    signupEmailError.classList.add('show');
+    signEmailGroup.classList.add('auth-card__input-group--error');
+}
+
+
+async function createUser(userData) {
+    await postData("users", userData);
+}
+
+
+async function addUser() {
+    if (!isSignupValid()) return;
     const newUser = getNewUserData();
     setSubmitting(true);
     try {
-        await postData("users", newUser);
-        modal.classList.add('show');
-
-        setTimeout(() => {
-            modal.classList.remove('show');
-            signupForm.reset();
-            if (typeof showLogin === "function") {
-                showLogin({ preventDefault: () => { } });
-            }
-        }, 2000);
+        const emailExists = await checkIfEmailExists(newUser.email);
+        if (emailExists) {
+            showEmailInUseError();
+            setSubmitting(false);
+            return;
+        }
+        await createUser(newUser);
+        handleSignupSuccess();
     } catch (error) {
         console.error("Firebase Error:", error);
     } finally {
@@ -131,84 +166,48 @@ async function addUser() {
 }
 
 
-passwordInput.onfocus = function () {
-    if (passwordInput.type === 'password') {
-        passwortIcon.src = eyeOff;
-    }
-};
-
-
-passwortIcon.onclick = function () {
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        passwortIcon.src = eyeOn;
-    } else {
-        passwordInput.type = 'password';
-        passwortIcon.src = eyeOff;
-    }
-};
-
-
-confirmPasswordInput.onfocus = function () {
-    if (confirmPasswordInput.type === 'password') {
-        confirmPasswordIcon.src = eyeOff;
-    }
-};
-
-
-confirmPasswordIcon.onclick = function () {
-    if (confirmPasswordInput.type === 'password') {
-        confirmPasswordInput.type = 'text';
-        confirmPasswordIcon.src = eyeOn;
-    } else {
-        confirmPasswordInput.type = 'password';
-        confirmPasswordIcon.src = eyeOff;
-    }
-};
-
-
 signupForm.addEventListener('submit', (onSubmit) => {
     onSubmit.preventDefault();
     addUser();
 });
 
 
-nameInput.addEventListener('input', () => {
-    if (nameInput.value.trim() !== "") {
-        nameError.classList.remove('show');
-        nameGroup.classList.remove('auth-card__input-group--error');
+signupName.addEventListener('input', () => {
+    if (signupName.value.trim() !== "") {
+        signupNameError.classList.remove('show');
+        signUpNameGroup.classList.remove('auth-card__input-group--error');
     }
 });
 
 
-emailInput.addEventListener('input', () => {
+signupEmail.addEventListener('input', () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailPattern.test(emailInput.value)) {
-        emailError.classList.remove('show');
-        emailGroup.classList.remove('auth-card__input-group--error');
+    if (emailPattern.test(signupEmail.value)) {
+        signupEmailError.classList.remove('show');
+        signEmailGroup.classList.remove('auth-card__input-group--error');
     }
 });
 
 
-passwordInput.addEventListener('input', () => {
-    if (passwordInput.value.length >= 6) {
-        passwordError.classList.remove('show');
-        passwordGroup.classList.remove('auth-card__input-group--error');
+signupPassword.addEventListener('input', () => {
+    if (signupPassword.value.length >= 6) {
+        signupPasswordError.classList.remove('show');
+        signupPasswordGroup.classList.remove('auth-card__input-group--error');
     }
-    if (passwordInput.value === confirmPasswordInput.value) {
-        confirmError.classList.remove('show');
-        confirmGroup.classList.remove('auth-card__input-group--error');
+    if (signupPassword.value === signupConfirmPassword.value) {
+        signupConfirmError.classList.remove('show');
+        signupConfirmGroup.classList.remove('auth-card__input-group--error');
     }
 });
 
 
-confirmPasswordInput.addEventListener('input', () => {
-    if (passwordInput.value === confirmPasswordInput.value) {
-        confirmError.classList.remove('show');
-        confirmGroup.classList.remove('auth-card__input-group--error');
-        if (passwordInput.value.length >= 6) {
-            passwordError.classList.remove('show');
-            passwordGroup.classList.remove('auth-card__input-group--error');
+signupConfirmPassword.addEventListener('input', () => {
+    if (signupPassword.value === signupConfirmPassword.value) {
+        signupConfirmError.classList.remove('show');
+        signupConfirmGroup.classList.remove('auth-card__input-group--error');
+        if (signupPassword.value.length >= 6) {
+            signupPasswordError.classList.remove('show');
+            signupPasswordGroup.classList.remove('auth-card__input-group--error');
         }
     }
 });
