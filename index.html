@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="../styles/auth.css" />
 
     <script src="../scripts/firebase.js" defer></script>
-    <script src="../scripts/auth_form_slider.js" defer></script>
+    <script src="../scripts/auth_utilities.js" defer></script>
+    <script src="../scripts/auth_login.js" defer></script>
     <script src="../scripts/auth_signup.js" defer></script>
   </head>
 
@@ -42,22 +43,29 @@
                 <div class="auth-card__underline"></div>
               </div>
 
-              <div class="auth-card__input-group">
-                <input type="email" id="loginEmail" class="auth-card__input" placeholder="Email" />
-                <img class="auth-card__icon" src="../assets/img/auth/mail-default.svg" alt="" />
+              <div class="auth-card__input-wrapper">
+                <div id="loginEmailGroup" class="auth-card__input-group">
+                  <input type="email" id="loginEmail" class="auth-card__input" placeholder="Email" />
+                  <img class="auth-card__icon" src="../assets/img/auth/mail-default.svg" alt="" />
+                </div>
+                <div class="error-placeholder"></div>
               </div>
 
-              <div class="auth-card__input-group">
-                <input type="password" id="loginPassword" class="auth-card__input" placeholder="Password" />
-                <img class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
+              <div class="auth-card__input-wrapper">
+                <div id="loginPasswordGroup" class="auth-card__input-group">
+                  <input type="password" id="loginPassword" class="auth-card__input" placeholder="Password" />
+                  <img id="loginPasswordIcon" class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
+                </div>
+                <div id="loginErrorMessage" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__actions">
-                <button type="submit" class="auth-card__btn">Log in</button>
+                <button type="submit" id="loginBtn" class="auth-card__btn">Log in</button>
                 <button type="button" class="auth-card__btn auth-card__btn--guest">Guest Log in</button>
               </div>
             </form>
           </div>
+
           <!-- sign up  -->
           <div class="auth-form-wrapper" id="signupWrapper">
             <form id="signupForm" class="auth-card__form" novalidate>
@@ -68,19 +76,19 @@
               </div>
 
               <div class="auth-card__input-wrapper">
-                <div id="nameGroup" class="auth-card__input-group">
+                <div id="signUpNameGroup" class="auth-card__input-group">
                   <input type="text" id="signupName" class="auth-card__input" placeholder="Name" />
                   <img class="auth-card__icon" src="../assets/img/auth/person-default.svg" alt="" />
                 </div>
-                <div id="nameError" class="error-placeholder"></div>
+                <div id="signupNameError" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__input-wrapper">
-                <div id="emailGroup" class="auth-card__input-group">
+                <div id="signEmailGroup" class="auth-card__input-group">
                   <input type="email" id="signupEmail" class="auth-card__input" placeholder="Email" />
                   <img class="auth-card__icon" src="../assets/img/auth/mail-default.svg" alt="" />
                 </div>
-                <div id="emailError" class="error-placeholder"></div>
+                <div id="signupEmailError" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__input-wrapper">
@@ -88,7 +96,7 @@
                   <input type="password" id="signupPassword" class="auth-card__input" placeholder="Password" />
                   <img id="signupPasswordIcon" class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
                 </div>
-                <div id="passwordError" class="error-placeholder"></div>
+                <div id="signupPasswordError" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__input-wrapper">
@@ -96,17 +104,17 @@
                   <input type="password" id="signupConfirmPassword" class="auth-card__input" placeholder="Confirm Password" />
                   <img id="signupConfirmIcon" class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
                 </div>
-                <div id="confirmError" class="error-placeholder"></div>
+                <div id="signupConfirmError" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__checkbox-group">
-                <input type="checkbox" id="signup-policy" class="auth-card__checkbox-input" />
-                <label for="signup-policy" class="auth-card__checkbox-label">
+                <input type="checkbox" id="policyCheckbox" class="auth-card__checkbox-input" />
+                <label for="policyCheckbox" class="auth-card__checkbox-label">
                   <span class="auth-card__custom-checkbox"></span>
-                  <p>I accept the <a href="#" class="auth-card__link">Privacy Policy</a></p>
+                  <p>I accept the <a href="./html/privacy-policy.html" class="auth-card__link">Privacy Policy</a></p>
                 </label>
               </div>
-              <div id="policyError" class="error-placeholder" style="text-align: center; padding-left: 0"></div>
+              <div id="policyError" class="error-placeholder"></div>
 
               <div class="auth-card__actions">
                 <button type="submit" id="signupBtn" class="auth-card__btn">Sign Up</button>
@@ -117,7 +125,7 @@
       </section>
     </main>
     <div id="signupSuccessModal" class="signup-success-modal">
-      <span>You signed up successfully</span>
+      <span>You've signed up successfully</span>
     </div>
     <footer class="auth-footer">
       <a href="./html/privacy-policy.html" class="auth-footer__link">Privacy Policy</a>
