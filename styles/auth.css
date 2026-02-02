@@ -55,16 +55,14 @@
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 37.125rem;
+  height: auto;
+  min-height: 450px;
+  transition: height 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
   overflow: hidden;
   position: relative;
-
-  /* --- Ergänzungen ???--- */
-  /* ---eight: auto; /* Erlaubt der Karte, flexibel zu wachsen */
-  /* ---min-height: 480px; /* Ein sicherer Startwert, damit die Karte nicht "zuckt" */
-  /* ---display: flex; /* Hilft, den Inhalt sauber auszurichten */
-  /* ---flex-direction: column;
-  /* ------------------- */
-
   transition:
     transform 0.6s ease-in-out,
     height 0.5s ease-in-out;
@@ -74,6 +72,7 @@
   display: flex;
   width: 200%;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  align-items: flex-start;
 }
 
 .slide-to-signup {
@@ -84,7 +83,20 @@
   width: 50%;
   padding: 2.5rem 5.2rem;
   box-sizing: border-box;
-  height: max-content;
+  flex-shrink: 0;
+}
+
+.auth-card {
+  opacity: 0;
+  will-change: height, transform, opacity;
+}
+
+.auth-card.ready {
+  opacity: 1;
+  transition:
+    opacity 0.2s ease,
+    transform 0.6s ease-in-out,
+    height 0.5s ease-in-out;
 }
 
 /* ====== 4. Form Elements ====== */
@@ -246,23 +258,35 @@
   transform: scale(0.9);
 }
 
+#policyError {
+  text-align: center;
+  padding-left: 0;
+}
+
 /* ====== 7. Modal ====== */
 .signup-success-modal {
   position: fixed;
-  bottom: -100px;
   left: 50%;
-  transform: translateX(-50%);
-  background-color: #2a3647;
-  color: white;
+  bottom: -100px;
+  transform: translate(-50%, 100%);
+  opacity: 0;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   padding: 15px 30px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: bottom 0.5s ease-in-out;
+
+  transition:
+    transform 0.4s ease-in-out,
+    opacity 0.3s ease-in-out;
+
   z-index: 1000;
 }
 
 .signup-success-modal.show {
-  bottom: 50px;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+  opacity: 1;
 }
 
 /* ====== 8. Footer ====== */
