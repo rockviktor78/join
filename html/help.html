@@ -22,7 +22,7 @@
     ></div>
 
     <main class="content-scroll-area">
-      <div class="content-limit">
+      <div class="content-limit no-select">
         <div class="help-header">
           <h1 class="help-title">Help</h1>
           <button class="back-btn" onclick="history.back()">
@@ -141,6 +141,34 @@
         if (typeof init === "function") {
           init();
         }
+      });
+
+      // Drag-to-Scroll Funktionalität
+      const scrollArea = document.querySelector(".content-scroll-area");
+      let isDown = false;
+      let startY;
+      let scrollTop;
+
+      scrollArea.addEventListener("mousedown", (e) => {
+        isDown = true;
+        startY = e.pageY - scrollArea.offsetTop;
+        scrollTop = scrollArea.scrollTop;
+      });
+
+      scrollArea.addEventListener("mouseleave", () => {
+        isDown = false;
+      });
+
+      scrollArea.addEventListener("mouseup", () => {
+        isDown = false;
+      });
+
+      scrollArea.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const y = e.pageY - scrollArea.offsetTop;
+        const walk = (y - startY) * 2; // Scroll-Geschwindigkeit
+        scrollArea.scrollTop = scrollTop - walk;
       });
     </script>
   </body>

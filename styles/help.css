@@ -94,3 +94,11 @@
 .help-section a:hover {
   text-decoration: underline;
 }
+
+/* Verhindert Textauswahl */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
