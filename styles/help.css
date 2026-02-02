@@ -16,7 +16,7 @@
 .content-limit {
   width: 100%;
   max-width: 1440px;
-  padding: var(--spacing-6xl) var(--spacing-6xl);
+  padding: var(--spacing-5xl) var(--spacing-5xl);
   box-sizing: border-box;
 }
 
