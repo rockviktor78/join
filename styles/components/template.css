@@ -139,10 +139,6 @@
   transform: scale(1.2);
 }
 
-.header__help-btn--hidden {
-  display: none;
-}
-
 /* In template.css ergänzen oder sicherstellen */
 .content-scroll-area {
   grid-column: 2;
