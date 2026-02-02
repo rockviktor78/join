@@ -116,14 +116,40 @@ function deleteContact(index) {
 }
 
 function editContact(index) {
+    document.body.style.overflow = 'hidden';
+    event.stopPropagation();
+    showEditContact();
     let name = loadedContacts[index].name;
     let email = loadedContacts[index].email;
     let phone = loadedContacts[index].phone;
+    let initial = getInitial(loadedContacts[index].name);
+    let badgeColor = document.querySelectorAll('.badge')[index].style.backgroundColor;
     let editContactContainer = document.getElementById("contacts-form");
     editContactContainer.innerHTML = "";
-    editContactContainer.innerHTML += templateEditContact(index, name, email, phone);
+    editContactContainer.innerHTML += templateEditContact(index, name, email, phone, initial, badgeColor);
+    requestAnimationFrame(() => {editContactContainer.classList.add("active");});
+}
 
-    
+function showEditContact() {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("loaded-contact-form").style.display = "block";
+}
+
+
+document.addEventListener('click', (event) => {
+  let card = document.getElementById('loaded-contact-form');
+
+    if (!card) return;
+    if (!card.contains(event.target)) {
+        closeEditContact();
+        }
+    }
+);
+
+function closeEditContact() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("loaded-contact-form").style.display = "none";
+    document.body.style.overflow = 'auto';
 }
 
 function cancel() {
@@ -160,9 +186,7 @@ function templateContactDetails(contact, index, initial, badgeColor) {
             ${templateContactDetailHeader(contact, index, initial, badgeColor)}
         </div>
         <div>
-            <div>
-                <div>Contact Information</div>              
-            </div>  
+            <div class="contact-information-title">Contact Information</div>              
         </div>
         <div class="contacts-detail-information">
             ${templateContactDetailInformation(contact)}
@@ -173,11 +197,11 @@ function templateContactDetails(contact, index, initial, badgeColor) {
 function templateContactDetailHeader(contact, index, initial, badgeColor) {
     return `
        <div class="contact-detail-initial" style="background-color: ${badgeColor};">${initial}</div>
-            <div>
-                <h2>${contact.name}</h2>
+            <div class="contact-detail-name-and-actions">
+                <div class="contact-detail-name">${contact.name}</div>
                 <div>
-                    <button onclick="editContact(${index})"><img src="./assets/img/edit contacts.svg" alt="Edit Contact"> </button>
-                    <button onclick="deleteContact(${index})"><img src="./assets/img/deletecontact.svg" alt="Delete Contact"></button>
+                    <button onclick="editContact(${index})" class="contact-detail-edit-button"><img src="./assets/img/edit contacts.svg" alt="Edit Contact"> </button>
+                    <button onclick="deleteContact(${index})" class="contact-detail-delete-button"><img src="./assets/img/deletecontact.svg" alt="Delete Contact"></button>
                 </div>
             </div>
     `;
@@ -186,10 +210,10 @@ function templateContactDetailHeader(contact, index, initial, badgeColor) {
 function templateContactDetailInformation(contact) {
     return `
        <div class="contact-info">
-            <div>Email</div> 
-            <div>${contact.email}</div>
-            <div>Phone</div> 
-            <div>${contact.phone || 'N/A'}</div>
+            <div class="contact-info-header">Email</div> 
+            <div class="contact-info-email">${contact.email}</div>
+            <div class="contact-info-header">Phone</div> 
+            <div class="contact-info-phone">${contact.phone || 'N/A'}</div>
         </div>
     `;    
 }
@@ -224,21 +248,25 @@ function templateAddNewContact() {
     `;
 }
 
-function templateEditContact(index, name, email, phone) {
+function templateEditContact(index, name, email, phone, initial, badgeColor) {
     return `
-        <div class="add-new-contact-container">
-            <div class="add-new-contact-header">
-                <h2>Add Contact</h2>
-                <p>Tasks are better with a team!</p>
+        <div class="form-contact-container">
+            <div class="form-contact-header">
+                <h2>Edit Contact</h2>
             </div>
-                <div class="add-new-contact-profile-picture">Profile Picture Placeholder</div>
+                <div class="add-new-contact-profile-picture">
+                    <div class="contact-detail-initial" style="background-color: ${badgeColor};">
+                        ${initial}
+                    </div>
+                </div>
             <div class="add-new-contact-form">
+                <div class="close-button" onclick="closeEditContact()">X</div>
                 <input type="text" class="form-input" id="new-contact-name" placeholder="Name" value="${name}" required>
                 <input type="email" class="form-input" id="new-contact-email" placeholder="Email" value="${email}" required>
                 <input type="text" class="form-input" id="new-contact-phone" placeholder="Phone" value="${phone}" required>
                 <div>
-                    <button onclick="showContactDetails(${index})" class="cancel-button">Delete</button>
-                    <button onclick="confirmEditContact(${index})" class="create-contact-button">Save</button>
+                    <button onclick="showContactDetails(${index})" class="delete-button">Delete</button>
+                    <button onclick="confirmEditContact(${index})" class="save-contact-button">Save</button>
                 </div>
             </div>
         </div>

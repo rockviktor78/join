@@ -14,12 +14,12 @@
   </head>
   <body onload="init()">
     <header class="header" w3-include-html="../assets/templates/header.html"></header>
-  <div id="contacts-container" class="contacts-container">
+<div id="contacts-container" class="contacts-container">
       <div class="contacts-list-container">
-      <div>
+      <div class="add-new-contact-container">
         <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact <img src="./assets/img/person_add.svg" alt="Add Contact"></button>
       </div>
-      <div id="contacts-list">
+      <div class="contacts-list" id="contacts-list">
         <ul id="contacts-ul">
           <!-- Contacts will be dynamically populated here -->
         </ul>
@@ -33,10 +33,16 @@
         </div>
         <div id ="contacts-detail">
       </div>
-      <div id="contacts-form" class="contacts-form" style="display: none;">
-      test
+       <div class="overlay" id="overlay" style="display: none;">
+         <div id="loaded-contact-form">
+          <div id="contacts-form" class="contacts-form">
+            test
+        </div>
     </div>
+</div>
+
     </div>
+
     <div class="header" w3-include-html="../assets/templates/menu.html"></div>
   </body>
 </html>
