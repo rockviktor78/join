@@ -58,6 +58,7 @@
 
 .active-menu-btn {
   background-color: var(--color-primary-dark);
+  color: var(--color-white);
 }
 
 .menu__footer {
