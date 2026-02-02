@@ -15,38 +15,122 @@
   </head>
 
   <body class="desktop-layout">
-    <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
+    <div
+      w3-include-html="../assets/templates/desktop_template.html"
+      style="display: contents"
+    ></div>
 
     <main class="content-scroll-area">
       <div class="content-limit">
-        <div class="help-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl)">
-          <h1 style="font-size: var(--font-size-4xl); font-weight: var(--font-weight-bold)">Help</h1>
-          <button class="back-btn" onclick="history.back()" style="border: none; background: transparent; cursor: pointer">
+        <div class="help-header">
+          <h1 class="help-title">Help</h1>
+          <button class="back-btn" onclick="history.back()">
             <img src="../assets/img/shared/arrow-left-default.svg" alt="Back" />
           </button>
         </div>
 
-        <section class="help-section">
-          <p style="margin-bottom: var(--spacing-lg); font-size: var(--font-size-lg)">
-            Welcome to the Help section of <strong>Join</strong>. Here you will find everything you need to get started with our kanban-based project management
-            tool.
-          </p>
-
-          <h2 style="margin-top: var(--spacing-2xl); color: var(--color-primary)">What is Join?</h2>
-          <p>Join is a kanban-based project management tool developed during a web development bootcamp at the <strong>Developer Akademie</strong>.</p>
-
-          <p style="margin-top: var(--spacing-md)">
-            Kanban focuses on visualizing work and tracking progress. Join applies these principles to provide an intuitive interface for planning tasks and
-            monitoring progress.
-          </p>
-
-          <h2 style="margin-top: var(--spacing-2xl); color: var(--color-primary)">How to use Join</h2>
-          <h3 style="margin-top: var(--spacing-lg)">The Board Overview</h3>
+        <div class="help-section">
           <p>
-            The board consists of four columns: <strong>To Do</strong>, <strong>In Progress</strong>, <strong>Await Feedback</strong>, and
-            <strong>Done</strong>.
+            Welcome to the Help section of <a href="#">Join</a>. Here you will
+            find everything you need to get started with our kanban-based
+            project management tool. This page explains what
+            <a href="#">Join</a> is, how it works, and how it can help you
+            organize your tasks and projects more effectively.
           </p>
-        </section>
+
+          <h2>What is Join?</h2>
+          <p>
+            <a href="#">Join</a> is a kanban-based project management tool
+            developed by a group of motivated students during their web
+            development bootcamp at the <strong>Developer Akademie</strong>.
+          </p>
+
+          <p>
+            Kanban is a method that focuses on visualizing work and tracking
+            progress in a clear and structured way.
+            <a href="#">Join</a> applies these principles to provide an
+            intuitive interface that helps users plan tasks, monitor progress,
+            and stay organized throughout a project.
+          </p>
+
+          <p>
+            Please note that <a href="#">Join</a> is an educational project. It
+            was created for learning purposes and is not intended for
+            professional or large-scale business use. While we aim to provide a
+            smooth user experience, we cannot guarantee permanent availability,
+            reliability, or complete accuracy.
+          </p>
+        </div>
+
+        <div class="help-section">
+          <h2>How to use Join</h2>
+          <p>
+            Getting started with <a href="#">Join</a> is simple. The following
+            steps will guide you through the basic features.
+          </p>
+
+          <h3>The Board Overview</h3>
+          <p>
+            After logging in, you will see a default kanban board that
+            represents your project. The board consists of four columns:
+          </p>
+          <ul>
+            <li><strong>To Do</strong></li>
+            <li><strong>In Progress</strong></li>
+            <li><strong>Await Feedback</strong></li>
+            <li><strong>Done</strong></li>
+          </ul>
+          <p>Each column represents a different stage of your tasks.</p>
+
+          <h3>Managing Contacts</h3>
+          <p>
+            <a href="#">Join</a> allows you to collaborate with others by adding
+            contacts. To create a new contact, go to the
+            <strong>Contacts</strong> section, click on
+            <strong>New contact</strong>, and enter the required information.
+            Once added, contacts can be assigned to tasks and take part in the
+            project workflow.
+          </p>
+
+          <h3>Creating Tasks</h3>
+          <p>
+            Tasks in <a href="#">Join</a> are displayed as cards on the board.
+            You can add a new task by clicking the <strong>"+"</strong> button
+            in the appropriate column. Each card can include details such as the
+            task title, description, due date, and assigned contacts.
+          </p>
+
+          <h3>Updating Task Status</h3>
+          <p>
+            As work progresses, tasks can be moved between columns using drag
+            and drop. This makes it easy to track progress and keep the board up
+            to date.
+          </p>
+
+          <h3>Completing or Deleting Tasks</h3>
+          <p>
+            When a task is finished, move it to the
+            <strong>Done</strong> column. If a task is no longer needed, it can
+            be deleted. Please note that deleted tasks are removed permanently
+            and cannot be restored.
+          </p>
+        </div>
+
+        <div class="help-section">
+          <h2>Final Notes</h2>
+          <p>
+            <a href="#">Join</a> works best when tasks are updated regularly.
+            Keeping the board current ensures that everyone involved has a clear
+            understanding of the project's status.
+          </p>
+
+          <p>
+            If you have any questions or need further assistance, feel free to
+            contact us at <strong>join@viktor-wilhelm.de</strong>.
+          </p>
+
+          <p>We hope you enjoy using <a href="#">Join</a>.</p>
+        </div>
       </div>
     </main>
 

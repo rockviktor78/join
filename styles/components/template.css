@@ -124,6 +124,23 @@
   color: var(--color-accent);
 }
 
+.header__avatar:hover {
+  cursor: pointer;
+   background: var(--color-primary-super-light);
+}
+
+
+.header__help-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.header__help-btn:hover {
+  transform: scale(1.20);
+}
+
 /* In template.css ergänzen oder sicherstellen */
 .content-scroll-area {
   grid-column: 2;
