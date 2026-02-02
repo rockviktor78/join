@@ -16,7 +16,7 @@
 .content-limit {
   width: 100%;
   max-width: 1440px;
-  padding: var(--spacing-6xl) var(--spacing-3xl);
+  padding: var(--spacing-6xl) var(--spacing-6xl);
   box-sizing: border-box;
 }
 
@@ -33,6 +33,9 @@
 }
 
 .back-btn {
+  position: absolute;
+  top: 15rem;
+  right: 6rem;
   border: none;
   background: transparent;
   cursor: pointer;
