@@ -102,3 +102,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+.header__help-btn {
+  display: none;
+}
