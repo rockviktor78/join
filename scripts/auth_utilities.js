@@ -5,6 +5,7 @@ const signupGroup = document.querySelector(".auth-header__signup-group");
 const loginWrapper = document.getElementById("loginWrapper");
 const btnToSignup = document.getElementById("toSignup");
 const btnToLogin = document.getElementById("toLogin");
+const toSignupOnMobile = document.getElementById('toSignupOnMobile')
 
 const eyeOff = "./assets/img/auth/visibility-off-default.svg";
 const eyeOn = "./assets/img/auth/visibility-on-default.svg";
@@ -42,15 +43,18 @@ function updateCardHeight(activeWrapper) {
 function showSignup(event) {
     event.preventDefault();
     if (slider) slider.classList.add("slide-to-signup");
-    if (signupGroup) signupGroup.classList.add("d-none-smooth");
+    document.querySelectorAll(".auth-header__signup-group").forEach(group => {
+        group.classList.add("d-none-smooth");
+    });
     updateCardHeight(signupWrapper);
 }
-
 
 function showLogin(event) {
     event.preventDefault();
     if (slider) slider.classList.remove("slide-to-signup");
-    if (signupGroup) signupGroup.classList.remove("d-none-smooth");
+    document.querySelectorAll(".auth-header__signup-group").forEach(group => {
+        group.classList.remove("d-none-smooth");
+    });
     updateCardHeight(loginWrapper);
 }
 
@@ -69,9 +73,11 @@ function initAuthHeight() {
 
 document.addEventListener("DOMContentLoaded", () => {
     initAuthHeight();
-
     if (btnToSignup) {
         btnToSignup.onclick = showSignup;
+    }
+    if (toSignupOnMobile) {
+        toSignupOnMobile.onclick = showSignup;
     }
     if (btnToLogin) {
         btnToLogin.onclick = showLogin;
