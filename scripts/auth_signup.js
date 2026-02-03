@@ -166,30 +166,30 @@ async function addUser() {
 }
 
 
-signupForm.addEventListener('submit', (onSubmit) => {
-    onSubmit.preventDefault();
+function handleSignUpSubmit(event) {
+    event.preventDefault();
     addUser();
-});
+}
 
 
-signupName.addEventListener('input', () => {
+function handleNameInput() {
     if (signupName.value.trim() !== "") {
         signupNameError.classList.remove('show');
         signUpNameGroup.classList.remove('auth-card__input-group--error');
     }
-});
+}
 
 
-signupEmail.addEventListener('input', () => {
+function handleEmailInput() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailPattern.test(signupEmail.value)) {
         signupEmailError.classList.remove('show');
         signEmailGroup.classList.remove('auth-card__input-group--error');
     }
-});
+}
 
 
-signupPassword.addEventListener('input', () => {
+function handlePasswordInput() {
     if (signupPassword.value.length >= 6) {
         signupPasswordError.classList.remove('show');
         signupPasswordGroup.classList.remove('auth-card__input-group--error');
@@ -198,10 +198,10 @@ signupPassword.addEventListener('input', () => {
         signupConfirmError.classList.remove('show');
         signupConfirmGroup.classList.remove('auth-card__input-group--error');
     }
-});
+}
 
 
-signupConfirmPassword.addEventListener('input', () => {
+function handleConfirmPasswordInput() {
     if (signupPassword.value === signupConfirmPassword.value) {
         signupConfirmError.classList.remove('show');
         signupConfirmGroup.classList.remove('auth-card__input-group--error');
@@ -210,11 +210,19 @@ signupConfirmPassword.addEventListener('input', () => {
             signupPasswordGroup.classList.remove('auth-card__input-group--error');
         }
     }
-});
+}
 
 
-policyCheckbox.addEventListener('change', () => {
+function handlePolicyChange() {
     if (policyCheckbox.checked) {
         policyError.classList.remove('show');
     }
-});
+}
+
+
+if (signupForm) signupForm.addEventListener('submit', handleSignUpSubmit);
+if (signupName) signupName.addEventListener('input', handleNameInput);
+if (signupEmail) signupEmail.addEventListener('input', handleEmailInput);
+if (signupPassword) signupPassword.addEventListener('input', handlePasswordInput);
+if (signupConfirmPassword) signupConfirmPassword.addEventListener('input', handleConfirmPasswordInput);
+if (policyCheckbox) policyCheckbox.addEventListener('change', handlePolicyChange);
