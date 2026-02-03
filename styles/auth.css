@@ -68,7 +68,6 @@
   width: 100%;
   max-width: 37.125rem;
   height: auto;
-  min-height: 450px;
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -79,6 +78,12 @@
     height 0.5s ease-in-out;
   opacity: 0;
   will-change: height, transform, opacity;
+}
+
+@media (max-width: 767px) {
+  .auth-card {
+    min-height: 450px;
+  }
 }
 
 .auth-card__slider {
@@ -99,9 +104,9 @@
   flex-shrink: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .auth-form-wrapper {
-    padding: 2rem 1.2rem 2rem 1.2rem;
+    padding: 2rem clamp(1rem, 5vw, 4rem) 2rem clamp(1rem, 5vw, 4rem);
   }
 }
 
@@ -140,15 +145,15 @@
 .auth-card__arrow {
   position: absolute;
   left: -2rem;
-  top: 35%;
+  top: 30%;
   width: 1.5rem;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .auth-card__arrow {
-    left: 0rem;
+    left: 0;
   }
 }
 
@@ -346,9 +351,18 @@
 /* ====== 9. Buttons & Links ====== */
 .auth-card__actions {
   display: flex;
-  gap: 1.5rem;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .auth-card__actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
 }
 
 .auth-card__btn {
@@ -369,16 +383,15 @@
     color 0.2s ease;
 }
 
-@media (max-width: 768px) {
-  .auth-card__actions {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
+.auth-card__actions .auth-card__btn {
+  width: 100%;
+  max-width: 12rem;
+}
 
+@media (min-width: 768px) {
   .auth-card__actions .auth-card__btn {
-    width: 100%;
-    max-width: 12rem;
+    width: auto;
+    max-width: none;
   }
 }
 
@@ -405,18 +418,24 @@
 }
 
 /* ====== 10. Utilities ====== */
+.auth-card.transition-ready {
+  transition:
+    transform 0.6s ease-in-out,
+    height 0.5s ease-in-out;
+}
+
 .d-none-smooth {
   opacity: 0;
   pointer-events: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .desktop-only {
     display: none;
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .mobile-only-signup {
     display: none;
   }

@@ -60,15 +60,13 @@ function showLogin(event) {
 
 
 function initAuthHeight() {
-    authCard.style.transition = "none";
+    authCard.classList.remove("transition-ready");
     updateCardHeight(loginWrapper);
-
     requestAnimationFrame(() => {
-        authCard.classList.add("ready");
-        authCard.style.transition =
-            "transform 0.6s ease-in-out, height 0.5s ease-in-out";
+        authCard.classList.add("ready", "transition-ready");
     });
 }
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
