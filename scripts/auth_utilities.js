@@ -40,6 +40,19 @@ function updateCardHeight(activeWrapper) {
 }
 
 
+function showInputError(element, group, message) {
+    if (message) element.innerText = message;
+    element.classList.add('show');
+    if (group) group.classList.add('auth-card__input-group--error');
+}
+
+
+function hideInputError(element, group) {
+    element.classList.remove('show');
+    if (group) group.classList.remove('auth-card__input-group--error');
+}
+
+
 function showSignup(event) {
     event.preventDefault();
     if (slider) slider.classList.add("slide-to-signup");
@@ -66,7 +79,6 @@ function initAuthHeight() {
         authCard.classList.add("ready", "transition-ready");
     });
 }
-
 
 
 document.addEventListener("DOMContentLoaded", () => {
