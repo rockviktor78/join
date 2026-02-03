@@ -200,8 +200,8 @@ function templateContactDetailHeader(contact, index, initial, badgeColor) {
             <div class="contact-detail-name-and-actions">
                 <div class="contact-detail-name">${contact.name}</div>
                 <div>
-                    <button onclick="editContact(${index})" class="contact-detail-edit-button"><img src="./assets/img/edit contacts.svg" alt="Edit Contact"> </button>
-                    <button onclick="deleteContact(${index})" class="contact-detail-delete-button"><img src="./assets/img/deletecontact.svg" alt="Delete Contact"></button>
+                    <button onclick="editContact(${index})" class="contact-detail-edit-button"></button>
+                    <button onclick="deleteContact(${index})" class="contact-detail-delete-button"></button>
                 </div>
             </div>
     `;
@@ -252,7 +252,9 @@ function templateEditContact(index, name, email, phone, initial, badgeColor) {
     return `
         <div class="form-contact-container">
             <div class="form-contact-header">
-                <h2>Edit Contact</h2>
+                <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
+                <div class="form-contact-header-title">Edit Contact</div>
+                <div class="form-contact-header-line">___________________</div>
             </div>
                 <div class="add-new-contact-profile-picture">
                     <div class="contact-detail-initial" style="background-color: ${badgeColor};">
@@ -264,9 +266,9 @@ function templateEditContact(index, name, email, phone, initial, badgeColor) {
                 <input type="text" class="form-input" id="new-contact-name" placeholder="Name" value="${name}" required>
                 <input type="email" class="form-input" id="new-contact-email" placeholder="Email" value="${email}" required>
                 <input type="text" class="form-input" id="new-contact-phone" placeholder="Phone" value="${phone}" required>
-                <div>
+                <div class="form-contact-buttons">
                     <button onclick="showContactDetails(${index})" class="delete-button">Delete</button>
-                    <button onclick="confirmEditContact(${index})" class="save-contact-button">Save</button>
+                    <button onclick="confirmEditContact(${index})" class="save-contact-button">Save <img src="../assets/img/contacts/check.svg" alt="Save"></button>
                 </div>
             </div>
         </div>

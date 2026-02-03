@@ -60,6 +60,7 @@
     align-items: center;
     margin-top:  110px;
     margin-bottom: 30px;
+    gap: 30px;
 }
 
 .contacts-detail-header-title-first {
@@ -205,17 +206,19 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: 15px;
+    gap: 32px;
     margin-left: 20px;
     width: 40%;
     padding: 20px;
 }
 
 .form-input {
-    padding: 10px;
+    height: 50px;
+    padding: 13px 21px 13px 21px;
     border: 1px solid var(--color-gray-300);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-base);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-xl);
+    max-width: 430px;
 }
 
 .cancel-button {
@@ -231,9 +234,13 @@
     background-color: var(--color-white);
     color: var(--color-primary);
     border: solid 1px var(--color-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
     padding: 10px 15px;
     border-radius: var(--radius-md);
     cursor: pointer;
+    width: 115px;
+    height: 55px;
 }
 
 .create-contact-button {
@@ -248,30 +255,55 @@
 .save-contact-button {
     background-color: var(--color-primary);
     color: white;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
     border: none;
     padding: 10px 15px;
     border-radius: var(--radius-md);
     cursor: pointer;
+    width: 115px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .form-contact-header {
     background-color: var(--color-primary);
-    color: white;
     margin: 0px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 40%;
-    font-size: 61px;
+    max-width: 450px;
     font-weight: var(--font-weight-bold);
-    padding: 16px;
+    padding: 66px 46px 66px 46px;
+    border-radius: 40px 0px 0px 40px;
+}
+
+.form-contact-header-title {
+    font-size: 61px;
+    color: var(--color-white);
+    font-weight: var(--font-weight-bold);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.form-contact-header-line {
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent);
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .add-new-contact-profile-picture {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 15%;
+    width: 18%;
 }
 
 .active-contact {
@@ -279,28 +311,57 @@
     color: var(--color-white)
 }
 
-.contact-detail-edit-button{
-    padding-right: 13px;
+.contact-detail-edit-button {
+    width: 62px;
+    height: 24px;
+    background-image: url("../assets/img/contacts/edit-contacts.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border: none;
+    cursor: pointer;
 }
+
+.contact-detail-edit-button:hover {
+    background-image: url("../assets/img/contacts/edit-contacts-hover.svg");
+}
+
+.contact-detail-delete-button {
+    width: 81px;
+    height: 24px;
+    padding-left: 130px;
+    background-image: url("../assets/img/contacts/delete-contacts.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+}
+
+.contact-detail-delete-button:hover {
+    background-image: url("../assets/img/contacts/delete-contacts-hover.svg");
+}
+
 
 .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.25);
-    z-index: 1000;
-    display: none;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 
+
 .contacts-form {
-    width: 85vw;
-    height: 65vh;
+    width: 80vw;
+    max-width: 1440px;
+    overflow: hidden;
+    height: 60vh;
     position: fixed;
     top: 10%;
-    left: 10%;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: var(--color-white);
     border-radius: 40px;
     display: flex;
@@ -331,4 +392,10 @@
     font-weight: bold;
     color: var(--color-gray-600);
     cursor: pointer;
+}
+
+.form-contact-buttons {
+    padding-top: 32px;
+    display: flex;
+    gap: 25px;
 }
