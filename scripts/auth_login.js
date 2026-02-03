@@ -6,6 +6,7 @@ const loginBtn = document.getElementById('loginBtn');
 const loginEmailGroup = document.getElementById('loginEmailGroup');
 const loginPasswordGroup = document.getElementById('loginPasswordGroup');
 const loginErrorMessage = document.getElementById('loginErrorMessage');
+const guestBtn = document.querySelector('.auth-card__btn--guest');
 
 
 initPasswordIconToggle(loginPassword, loginPasswordIcon);
@@ -44,6 +45,55 @@ async function handleLogin(event) {
     } else {
         showLoginError();
     }
+}
+
+
+function getGuestUser() {
+    return {
+        name: "Guest",
+        email: "guest@mail.com",
+        password: "guest_demo123",
+        guest: true,
+    };
+}
+
+
+function fillLoginFields(user) {
+    if (loginEmail && loginPassword) {
+        loginEmail.value = user.email;
+        loginPassword.value = user.password;
+    }
+    enableLoginButton();
+}
+
+
+function enableLoginButton() {
+    if (loginBtn) loginBtn.disabled = true;
+}
+
+
+function saveGuestSession(user) {
+    sessionStorage.setItem('loggedInUser', JSON.stringify(user));
+}
+
+
+function redirectAfterDelay(url, delay = 2000) {
+    setTimeout(() => {
+        window.location.href = url;
+    }, delay);
+}
+
+
+function handleGuestLogin() {
+    const guestUser = getGuestUser();
+    fillLoginFields(guestUser);
+    saveGuestSession(guestUser);
+    redirectAfterDelay("summary.html");
+}
+
+
+if (guestBtn) {
+    guestBtn.addEventListener('click', handleGuestLogin);
 }
 
 
