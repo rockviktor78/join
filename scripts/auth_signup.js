@@ -28,13 +28,10 @@ initPasswordIconToggle(signupConfirmPassword, confirmPasswordIcon);
 
 function validateName() {
     if (signupName.value.trim() === "") {
-        signupNameError.innerText = "Please enter your name.";
-        signupNameError.classList.add('show');
-        signUpNameGroup.classList.add('auth-card__input-group--error');
+        showInputError(signupNameError, signUpNameGroup, "Please enter your name.");
         return false;
     }
-    signupNameError.classList.remove('show');
-    signUpNameGroup.classList.remove('auth-card__input-group--error');
+    hideInputError(signupNameError, signUpNameGroup);
     return true;
 }
 
@@ -42,34 +39,25 @@ function validateName() {
 function validateEmail() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(signupEmail.value)) {
-        signupEmailError.innerText = "Please enter a valid email.";
-        signupEmailError.classList.add('show');
-        signEmailGroup.classList.add('auth-card__input-group--error');
+        showInputError(signupEmailError, signEmailGroup, "Please enter a valid email.");
         return false;
     }
-    signupEmailError.classList.remove('show');
-    signEmailGroup.classList.remove('auth-card__input-group--error');
+    hideInputError(signupEmailError, signEmailGroup);
     return true;
 }
 
 
 function validatePasswords() {
     if (signupPassword.value.length < 6) {
-        signupPasswordError.innerText = "Password must be at least 6 characters long.";
-        signupPasswordError.classList.add('show');
-        signupPasswordGroup.classList.add('auth-card__input-group--error');
+        showInputError(signupPasswordError, signupPasswordGroup, "Password must be at least 6 characters long.");
         return false;
     }
     if (signupPassword.value !== signupConfirmPassword.value) {
-        signupConfirmError.innerText = "Your passwords don't match. Please try again.";
-        signupConfirmError.classList.add('show');
-        signupConfirmGroup.classList.add('auth-card__input-group--error');
+        showInputError(signupConfirmError, signupConfirmGroup, "Your passwords don't match. Please try again.");
         return false;
     }
-    signupPasswordError.classList.remove('show');
-    signupConfirmError.classList.remove('show');
-    signupPasswordGroup.classList.remove('auth-card__input-group--error');
-    signupConfirmGroup.classList.remove('auth-card__input-group--error');
+    hideInputError(signupPasswordError, signupPasswordGroup);
+    hideInputError(signupConfirmError, signupConfirmGroup);
     return true;
 }
 
@@ -174,8 +162,7 @@ function handleSignUpSubmit(event) {
 
 function handleNameInput() {
     if (signupName.value.trim() !== "") {
-        signupNameError.classList.remove('show');
-        signUpNameGroup.classList.remove('auth-card__input-group--error');
+        hideInputError(signupNameError, signUpNameGroup);
     }
 }
 
@@ -183,32 +170,20 @@ function handleNameInput() {
 function handleEmailInput() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailPattern.test(signupEmail.value)) {
-        signupEmailError.classList.remove('show');
-        signEmailGroup.classList.remove('auth-card__input-group--error');
+        hideInputError(signupEmailError, signEmailGroup);
     }
 }
 
 
 function handlePasswordInput() {
-    if (signupPassword.value.length >= 6) {
-        signupPasswordError.classList.remove('show');
-        signupPasswordGroup.classList.remove('auth-card__input-group--error');
-    }
-    if (signupPassword.value === signupConfirmPassword.value) {
-        signupConfirmError.classList.remove('show');
-        signupConfirmGroup.classList.remove('auth-card__input-group--error');
-    }
+    if (signupPassword.value.length >= 6) hideInputError(signupPasswordError, signupPasswordGroup);
+    if (signupPassword.value === signupConfirmPassword.value) hideInputError(signupConfirmError, signupConfirmGroup);
 }
-
 
 function handleConfirmPasswordInput() {
     if (signupPassword.value === signupConfirmPassword.value) {
-        signupConfirmError.classList.remove('show');
-        signupConfirmGroup.classList.remove('auth-card__input-group--error');
-        if (signupPassword.value.length >= 6) {
-            signupPasswordError.classList.remove('show');
-            signupPasswordGroup.classList.remove('auth-card__input-group--error');
-        }
+        hideInputError(signupConfirmError, signupConfirmGroup);
+        if (signupPassword.value.length >= 6) hideInputError(signupPasswordError, signupPasswordGroup);
     }
 }
 
