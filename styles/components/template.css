@@ -141,10 +141,10 @@
 
 .header__dropdown {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: 100%;
   right: 0;
   background-color: var(--color-primary);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);
   box-shadow: var(--shadow-lg);
   padding: 0.75rem 0;
   display: flex;
