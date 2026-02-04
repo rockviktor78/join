@@ -1,3 +1,8 @@
+/* globaler St!yle */
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--color-gray-50);
 /* Reset CSS importieren */
 @import url("./styles/base/reset.css");
 
