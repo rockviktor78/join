@@ -10,6 +10,7 @@ const guestBtn = document.querySelector('.auth-card__btn--guest');
 
 
 initPasswordIconToggle(loginPassword, loginPasswordIcon);
+toggleLoginButton();
 
 
 function toggleLoginButton() {
@@ -116,5 +117,3 @@ function resetLoginErrors() {
 loginForm.addEventListener('submit', handleLogin);
 loginEmail.addEventListener('input', toggleLoginButton);
 loginPassword.addEventListener('input', toggleLoginButton);
-
-toggleLoginButton();
