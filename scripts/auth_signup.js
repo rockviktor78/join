@@ -40,7 +40,8 @@ function validateName() {
 }
 
 
-/** Validates the email input in the signup form.
+/** 
+ * Validates the email input in the signup form.
  * @returns {boolean} True if the email is valid; false otherwise.
  */
 function validateEmail() {
@@ -155,6 +156,9 @@ async function checkIfEmailExists(email) {
 }
 
 
+/**
+ * Displays an error message indicating the email is already in use.    
+ */
 function showEmailInUseError() {
     signupEmailError.innerText = "This email is already in use.";
     signupEmailError.classList.add('show');
@@ -162,11 +166,18 @@ function showEmailInUseError() {
 }
 
 
+/**
+ * Creates a new user in the database.
+ * @param {Object} userData - The new user's data.
+ */
 async function createUser(userData) {
     await postData("users", userData);
 }
 
-
+/**
+ * Adds a new user after validating the signup form and checking for email uniqueness.
+ * @return {Promise<void> } A promise that resolves when the user is added or an error occurs.
+ */
 async function addUser() {
     if (!isSignupValid()) return;
     const newUser = getNewUserData();
@@ -188,12 +199,19 @@ async function addUser() {
 }
 
 
+/**
+ * Handles the signup form submission event.
+ * @param {Event} event - The form submission event.  
+ */
 function handleSignUpSubmit(event) {
     event.preventDefault();
     addUser();
 }
 
 
+/**
+ * Handles input in the name field to hide error messages when valid.
+ */
 function handleNameInput() {
     if (signupName.value.trim() !== "") {
         hideInputError(signupNameError, signUpNameGroup);
@@ -201,6 +219,9 @@ function handleNameInput() {
 }
 
 
+/**
+ * Handles input in the email field to hide error messages when valid.
+ */
 function handleEmailInput() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailPattern.test(signupEmail.value)) {
@@ -209,11 +230,18 @@ function handleEmailInput() {
 }
 
 
+/**
+ * Handles input in the password field to hide error messages when valid.
+ */
 function handlePasswordInput() {
     if (signupPassword.value.length >= 6) hideInputError(signupPasswordError, signupPasswordGroup);
     if (signupPassword.value === signupConfirmPassword.value) hideInputError(signupConfirmError, signupConfirmGroup);
 }
 
+
+/**
+ * Handles input in the confirm password field to hide error messages when valid.
+ */
 function handleConfirmPasswordInput() {
     if (signupPassword.value === signupConfirmPassword.value) {
         hideInputError(signupConfirmError, signupConfirmGroup);
@@ -222,6 +250,9 @@ function handleConfirmPasswordInput() {
 }
 
 
+/**
+ * Handles changes to the policy checkbox to hide error messages when checked.
+ */
 function handlePolicyChange() {
     if (policyCheckbox.checked) {
         policyError.classList.remove('show');
