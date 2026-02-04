@@ -22,7 +22,6 @@ dd {
 html,
 body {
   height: 100%;
-  overflow: hidden; /* Verhindert das "Wackeln" der Seite auf Mobile/Desktop */
 }
 
 /* Remove iOS Safari default tap highlight */
