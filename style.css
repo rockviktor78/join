@@ -1,1 +1,7 @@
-/* globaler Style */
+/* globaler St!yle */
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: #f4f4f4;
+  color: #333;
+}
