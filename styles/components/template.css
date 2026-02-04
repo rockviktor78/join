@@ -131,6 +131,7 @@
   padding: 0;
   border-width: 3px;
   font: inherit;
+  anchor-name: --header-avatar;
 }
 
 .header__avatar:hover {
@@ -144,22 +145,31 @@
 
 .header__dropdown {
   position: absolute;
-  top: 100%;
-  right: 0;
+  position-anchor: --header-avatar;
+  top: anchor(bottom);
+  right: anchor(right);
+  margin-right: -1.5rem;
+  margin-top: var(--spacing-lg);
   background-color: var(--color-primary);
-  border-radius: var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);
+  border-radius: var(--radius-2xl) 0 var(--radius-2xl) var(--radius-2xl);
   box-shadow: var(--shadow-lg);
-  padding: 0.75rem 0;
+  padding: 1.1rem 0;
   display: flex;
   flex-direction: column;
-  min-width: 160px;
+  min-width: 140px;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-4px);
   transition:
     opacity var(--transition-base),
     transform var(--transition-base);
   z-index: var(--z-dropdown);
+}
+
+@supports not (anchor-name: --header-avatar) {
+  .header__dropdown {
+    top: 100%;
+    right: 0;
+  }
 }
 
 .header__dropdown.is-open {
