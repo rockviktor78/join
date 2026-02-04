@@ -1,0 +1,69 @@
+/* View Transitions API für smooth page transitions */
+@view-transition {
+  navigation: auto;
+}
+
+/* Verhindere Animation für persistente Elemente */
+::view-transition-old(header-persistent),
+::view-transition-new(header-persistent),
+::view-transition-old(menu-persistent),
+::view-transition-new(menu-persistent) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Root-Transition - nur für Content-Bereich */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}
+
+/* Fade-Effekt nur für Content */
+::view-transition-old(root) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in;
+}
+
+/* Animationen definieren */
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fallback für Browser ohne View Transitions API */
+@supports not (view-transition-name: none) {
+  body {
+    animation: fade-in 0.3s ease-in-out;
+  }
+}
+
+/* Verhindert Flash of Unstyled Content (FOUC) */
+html {
+  background-color: var(--bg-primary);
+}
+
+body {
+  opacity: 0;
+  animation: fade-in 0.3s ease-in-out forwards;
+}
+
+/* Sicherstellen, dass der Body sichtbar wird, auch wenn JS nicht lädt */
+body.loaded {
+  opacity: 1;
+}

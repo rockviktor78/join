@@ -1,0 +1,84 @@
+<header class="header__content">
+  <div class="header__center-wrapper">
+    <h1 class="header__title">Kanban Project Management Tool</h1>
+    <div class="header__actions">
+      <button
+        class="header__help-btn"
+        onclick="window.location.href = 'help.html'"
+        aria-label="Help"
+      >
+        <img src="../assets/img/header/help-default.svg" alt="" />
+      </button>
+      <div class="header__user">
+        <button
+          class="header__avatar"
+          id="userAvatar"
+          aria-haspopup="menu"
+          aria-expanded="false"
+          aria-label="User menu"
+        >
+          SM
+        </button>
+        <div class="header__dropdown" id="userMenu" aria-hidden="true">
+          <a class="header__dropdown-link" href="legal_notice.html">
+            Legal Notice
+          </a>
+          <a class="header__dropdown-link" href="privacy_policy.html">
+            Privacy Policy
+          </a>
+          <a class="header__dropdown-link" href="../index.html">Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<aside class="menu">
+  <div class="menu__header">
+    <img
+      class="menu__logo"
+      src="../assets/img/shared/join-logo-white.svg"
+      alt="Join Logo"
+    />
+  </div>
+
+  <nav class="menu__nav">
+    <button class="menu__btn" id="navSummary">
+      <img
+        src="../assets/img/menu/summary-default.svg"
+        alt=""
+        class="menu__icon"
+      />
+      <span class="menu__label">Summary</span>
+    </button>
+    <button class="menu__btn" id="navAddTask">
+      <img
+        src="../assets/img/menu/add-task-default.svg"
+        alt=""
+        class="menu__icon"
+      />
+      <span class="menu__label">Add Task</span>
+    </button>
+    <button class="menu__btn" id="navBoard">
+      <img
+        src="../assets/img/menu/board-default.svg"
+        alt=""
+        class="menu__icon"
+      />
+      <span class="menu__label">Board</span>
+    </button>
+    <button class="menu__btn" id="navContacts">
+      <img
+        src="../assets/img/menu/contacts-default.svg"
+        alt=""
+        class="menu__icon"
+      />
+      <span class="menu__label">Contacts</span>
+    </button>
+  </nav>
+
+  <div class="menu__footer">
+    <a href="privacy_policy.html" class="menu__footer-link">Privacy Policy</a>
+    <a href="legal_notice.html" class="menu__footer-link">Legal Notice</a>
+  </div>
+</aside>

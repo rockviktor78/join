@@ -1,60 +1,101 @@
-/**
- * Bindet externe HTML-Dateien in Elemente mit dem Attribut "w3-include-html" ein.
- *
- * Diese Funktion sucht alle Elemente im DOM, die das Attribut "w3-include-html" besitzen,
- * lädt die angegebene HTML-Datei per Fetch-API und fügt den Inhalt in das Element ein.
- * Nach dem erfolgreichen Laden wird das Attribut automatisch entfernt.
- *
- * @function includeHTML
- * @returns {void} Diese Funktion gibt keinen Wert zurück
- *
- * @example
- * // HTML-Verwendung:
- * <div w3-include-html="../assets/templates/header.html"></div>
- *
- * // JavaScript-Aufruf:
- * includeHTML();
- *
- * @description
- * Ablauf:
- * 1. Sucht alle Elemente mit dem Attribut [w3-include-html]
- * 2. Lädt für jedes Element die angegebene HTML-Datei
- * 3. Fügt den Inhalt in das Element ein
- * 4. Entfernt das Attribut nach erfolgreichem Laden
- * 5. Zeigt Fehlermeldungen bei Problemen
- *
- * @throws {Error} Gibt einen Fehler in der Konsole aus, wenn das Laden fehlschlägt
- */
-function includeHTML() {
-  // Alle Elemente mit dem Attribut "w3-include-html" auswählen
+async function includeHTML() {
   const elements = document.querySelectorAll("[w3-include-html]");
-
-  // Jedes Element durchlaufen und HTML-Inhalt laden
-  elements.forEach(async (element) => {
-    // Dateipfad aus dem Attribut auslesen
-    const file = element.getAttribute("w3-include-html");
-
-    if (file) {
-      try {
-        // HTML-Datei per Fetch-API laden
-        const response = await fetch(file);
-
-        if (response.ok) {
-          // Erfolgreicher Abruf: HTML-Text extrahieren und einfügen
-          const html = await response.text();
-          element.innerHTML = html;
-        } else {
-          // Fehler beim Abruf: Fehlermeldung anzeigen
-          element.innerHTML = "Page not found.";
-        }
-      } catch (error) {
-        // Fehlerbehandlung bei Netzwerk- oder anderen Fehlern
-        element.innerHTML = "Error loading page.";
-        console.error("Error loading HTML:", error);
+  for (const node of elements) {
+    const file = node.getAttribute("w3-include-html");
+    try {
+      const resp = await fetch(file);
+      if (resp.ok) {
+        node.innerHTML = await resp.text();
       }
+    } catch (e) {
+      console.error("Error loading include:", file);
+    }
+    node.removeAttribute("w3-include-html");
+  }
+}
 
-      // Attribut entfernen, um doppeltes Laden zu verhindern
-      element.removeAttribute("w3-include-html");
+function updateNavigation() {
+  const path = window.location.pathname.toLowerCase();
+
+  document.querySelectorAll(".menu__btn").forEach((btn) => {
+    btn.classList.remove("active"); // Erstmal alle aufräumen
+
+    const pageName = btn.id.replace("nav", "").toLowerCase();
+
+    // Prüft ob der Seitenname in der URL vorkommt
+    if (path.includes(pageName)) {
+      btn.classList.add("active");
+    }
+
+    // Spezialfall: Wenn man auf der Root-Ebene ist, Summary markieren
+    if (path.endsWith("/") && pageName === "summary") {
+      btn.classList.add("active");
     }
   });
+}
+
+async function init() {
+  await includeHTML();
+  updateNavigation();
+  // Optional: Avatar setzen
+  const avatar = document.getElementById("userAvatar");
+  if (avatar) avatar.innerText = "SM";
+
+  setupUserMenu();
+
+  // Aktiviere den richtigen Menu-Button
+  if (typeof setActiveMenuBtnOnLoad === "function") {
+    setActiveMenuBtnOnLoad();
+  }
+  // Setup Menu Navigation
+  if (typeof setupMenuNavigation === "function") {
+    setupMenuNavigation();
+  }
+}
+
+function setupUserMenu() {
+  const elements = getUserMenuElements();
+  if (!elements) return;
+  const { avatar, menu } = elements;
+  avatar.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleUserMenu(avatar, menu);
+  });
+  menu.addEventListener("click", () => setUserMenuState(avatar, menu, false));
+  document.addEventListener("click", (event) =>
+    handleOutsideClick(event, avatar, menu),
+  );
+  document.addEventListener("keydown", (event) =>
+    handleEscape(event, avatar, menu),
+  );
+}
+
+function getUserMenuElements() {
+  const avatar = document.getElementById("userAvatar");
+  const menu = document.getElementById("userMenu");
+  if (!avatar || !menu) return null;
+  return { avatar, menu };
+}
+
+function setUserMenuState(avatar, menu, open) {
+  menu.classList.toggle("is-open", open);
+  avatar.setAttribute("aria-expanded", String(open));
+  menu.setAttribute("aria-hidden", String(!open));
+}
+
+function toggleUserMenu(avatar, menu) {
+  const isOpen = menu.classList.contains("is-open");
+  setUserMenuState(avatar, menu, !isOpen);
+}
+
+function handleOutsideClick(event, avatar, menu) {
+  if (!menu.contains(event.target) && event.target !== avatar) {
+    setUserMenuState(avatar, menu, false);
+  }
+}
+
+function handleEscape(event, avatar, menu) {
+  if (event.key === "Escape") {
+    setUserMenuState(avatar, menu, false);
+  }
 }

@@ -1,0 +1,201 @@
+.desktop-layout {
+  display: grid;
+  grid-template-columns: 215px 1fr;
+  grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--bg-page);
+  font-family: var(--font-primary);
+}
+
+/* SIDEBAR */
+.menu {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  background-color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.menu__header {
+  padding: 3.5rem 3.5rem 0rem 3.5rem;
+}
+
+.menu__logo {
+  width: 100px;
+}
+
+.menu__nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 6rem;
+}
+
+.menu__btn {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 2rem 0.4rem 3rem;
+  gap: 3rem 10px;
+  margin: 0rem 0 1rem 0;
+  border: none;
+  background: transparent;
+  color: var(--color-gray-200);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    color var(--transition-base);
+  text-align: left;
+}
+
+.menu__btn:hover:not(.active-menu-btn) {
+  background-color: var(--color-primary-light);
+  color: var(--color-white);
+}
+
+.active-menu-btn {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+}
+
+.menu__footer {
+  padding: var(--spacing-xl) var(--spacing-2xl) var(--spacing-3xl)
+    var(--spacing-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.menu__footer-link {
+  color: var(--color-gray-300);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+}
+
+.menu__footer-link:hover {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+/* HEADER */
+.header__content {
+  grid-column: 2;
+  grid-row: 1;
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+.header__center-wrapper {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-2xl) 0 var(--spacing-6xl);
+}
+
+.header__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-primary);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.header__user {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header__avatar {
+  width: 45px;
+  height: 45px;
+  border: 3px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  background: transparent;
+  padding: 0;
+  border-width: 3px;
+  font: inherit;
+}
+
+.header__avatar:hover {
+  cursor: pointer;
+  background: var(--color-primary-super-light);
+}
+
+.header__dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+  z-index: var(--z-dropdown);
+}
+
+.header__dropdown.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.header__dropdown-link {
+  color: var(--color-gray-200);
+  text-decoration: none;
+  padding: 0.6rem 1.25rem;
+  font-size: var(--font-size-sm);
+}
+
+.header__dropdown-link:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-white);
+}
+
+.header__help-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.header__help-btn:hover {
+  transform: scale(1.2);
+}
+
+/* In template.css ergänzen oder sicherstellen */
+.content-scroll-area {
+  grid-column: 2;
+  grid-row: 2;
+  overflow-y: auto; /* Aktiviert das Scrollen nur für den Content */
+  height: 100%; /* Füllt den Rest des Grids aus */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-page);
+}
