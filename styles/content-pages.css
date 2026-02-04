@@ -1,0 +1,165 @@
+/**
+ * Content Pages Styles
+ * Gemeinsame Styles für Help, Legal Notice und Privacy Policy
+ */
+
+.content-scroll-area {
+  grid-column: 2;
+  grid-row: 2;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.content-scroll-area::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.content-limit {
+  width: 100%;
+  max-width: 1440px;
+  padding: var(--spacing-5xl) var(--spacing-5xl);
+  box-sizing: border-box;
+}
+
+.help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.help-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.back-btn {
+  position: absolute;
+  top: 14rem;
+  right: 6rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-btn:hover {
+  background: var(--color-primary-super-light);
+  transform: scale(1.15);
+}
+
+.help-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.help-section p {
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-md);
+}
+
+.help-section h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+.help-section h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+}
+
+.help-section ul {
+  margin: var(--spacing-md) 0;
+  padding-left: var(--spacing-xl);
+}
+
+.help-section li {
+  margin-bottom: var(--spacing-xs);
+  line-height: var(--line-height-normal);
+}
+
+.help-section a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.help-section a:hover {
+  text-decoration: underline;
+}
+
+/* Verhindert Textauswahl */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.header__help-btn {
+  display: none;
+}
+
+/* Content Page Headings */
+.content-limit h1 {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-primary);
+}
+
+.content-limit h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+.content-limit h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-primary);
+}
+
+.content-limit ul {
+  margin: var(--spacing-md) 0;
+  padding-left: var(--spacing-xl);
+}
+
+.content-limit li {
+  margin-bottom: var(--spacing-xs);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-700);
+}
+
+.content-limit p {
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-md);
+}
+
+.content-limit a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.content-limit a:hover {
+  text-decoration: underline;
+  color: var(--color-accent);
+}

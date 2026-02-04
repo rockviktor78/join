@@ -47,7 +47,7 @@ function setActiveMenuBtn(buttonId) {
 function setupMenuNavigation() {
   const menuButtons = {
     navSummary: "../html/summary.html",
-    navAddTask: "../html/add_task.html",
+    navAddTask: "../html/add-task.html",
     navBoard: "../html/board.html",
     navContacts: "../html/contacts.html",
   };

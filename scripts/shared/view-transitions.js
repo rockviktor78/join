@@ -20,7 +20,6 @@ function supportsViewTransitions() {
  */
 function setupViewTransitions() {
   if (!supportsViewTransitions()) {
-    console.log("View Transitions API not supported");
     return;
   }
 

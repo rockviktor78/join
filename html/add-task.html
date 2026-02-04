@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../styles/components/template.css" />
 
     <script src="../scripts/shared/include-html.js" defer></script>
+    <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
   </head>
@@ -28,13 +29,5 @@
         <p>Dies ist die Add Task-Seite zum Testen des Menüs.</p>
       </div>
     </main>
-
-    <script>
-      window.addEventListener("load", () => {
-        if (typeof init === "function") {
-          init();
-        }
-      });
-    </script>
   </body>
 </html>

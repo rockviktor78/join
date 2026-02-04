@@ -1,5 +1,4 @@
 <!doctype html>
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -11,28 +10,185 @@
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/transitions.css" />
     <link rel="stylesheet" href="../styles/components/template.css" />
+    <link rel="stylesheet" href="../styles/content-pages.css" />
 
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
+    <script src="../scripts/shared/init-template.js" defer></script>
   </head>
 
   <body class="desktop-layout">
-    <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
+    <div
+      w3-include-html="../assets/templates/desktop_template.html"
+      style="display: contents"
+    ></div>
 
     <main class="content-scroll-area">
       <div class="content-limit">
         <h1>Privacy Policy</h1>
-        <p>Dies ist die Privacy Policy-Seite zum Testen des Menüs.</p>
+
+        <h2>Inhaltsübersicht</h2>
+        <ul>
+          <li><a href="#verantwortlicher">Verantwortlicher</a></li>
+          <li>
+            <a href="#datenverarbeitung"
+              >Überblick über die Datenverarbeitung</a
+            >
+          </li>
+          <li><a href="#rechtsgrundlagen">Rechtsgrundlagen</a></li>
+          <li><a href="#sicherheitsmasnahmen">Sicherheitsmaßnahmen</a></li>
+          <li><a href="#uploads">Verarbeitung von Uploads und Anhängen</a></li>
+          <li><a href="#loeschung">Löschung und Speicherdauer</a></li>
+          <li><a href="#technisch">Technische Rahmenbedingungen</a></li>
+          <li><a href="#rechte">Rechte der betroffenen Personen</a></li>
+        </ul>
+
+        <h2 id="verantwortlicher">1. Verantwortlicher</h2>
+        <p>
+          <strong>Join Gruppe 2485</strong><br />
+          Vertreten durch:<br />
+          Maximilian Schmidt<br />
+          Viktor Wilhelm<br />
+          Stefan Sträter
+        </p>
+        <p>
+          E-Mail:
+          <a href="mailto:join@viktor-wilhelm.de">join@viktor-wilhelm.de</a>
+        </p>
+
+        <h2 id="datenverarbeitung">2. Überblick über die Datenverarbeitung</h2>
+        <p>
+          Bei der Nutzung unserer Anwendung werden personenbezogene Daten
+          verarbeitet, um die Funktionen der Plattform bereitzustellen.
+        </p>
+
+        <h3>Verarbeitete Datenkategorien</h3>
+        <ul>
+          <li>Bestandsdaten</li>
+          <li>Kontaktdaten</li>
+          <li>Inhaltsdaten (z. B. Aufgaben, Beschreibungen)</li>
+          <li>Nutzungs- und Protokolldaten</li>
+          <li>Meta- und Kommunikationsdaten</li>
+          <li>Hochgeladene Dateien (insbesondere Bilder)</li>
+        </ul>
+
+        <h3>Betroffene Personen</h3>
+        <ul>
+          <li>Nutzer der Anwendung</li>
+          <li>Kommunikationspartner</li>
+        </ul>
+
+        <h3>Zwecke der Verarbeitung</h3>
+        <ul>
+          <li>Bereitstellung und Betrieb des Onlineangebots</li>
+          <li>Verwaltung von Aufgaben und Dateianhlängen</li>
+          <li>Nutzer-Authentifizierung</li>
+          <li>Gewährleistung von Sicherheit und Stabilität</li>
+          <li>Kommunikation mit Nutzern</li>
+        </ul>
+
+        <h2 id="rechtsgrundlagen">3. Rechtsgrundlagen</h2>
+        <p>
+          Die Verarbeitung personenbezogener Daten erfolgt insbesondere auf
+          Grundlage von:
+        </p>
+        <ul>
+          <li>Art. 6 Abs. 1 lit. a DSGVO – Einwilligung</li>
+          <li>Art. 6 Abs. 1 lit. b DSGVO – Vertragserfüllung</li>
+          <li>
+            Art. 6 Abs. 1 lit. f DSGVO – Berechtigtes Interesse (technischer
+            Betrieb und Sicherheit)
+          </li>
+        </ul>
+
+        <h2 id="sicherheitsmasnahmen">4. Sicherheitsmaßnahmen</h2>
+        <p>
+          Zum Schutz der Daten werden angemessene technische und
+          organisatorische Maßnahmen eingesetzt, insbesondere:
+        </p>
+        <ul>
+          <li>Verschlüsselte Datenübertragung (TLS/SSL)</li>
+          <li>Zugriffsschutz durch Authentifizierung</li>
+          <li>Rollenbasierte Berechtigungen</li>
+          <li>Nutzung einer abgesicherten Cloud-Infrastruktur</li>
+        </ul>
+
+        <h2 id="uploads">5. Verarbeitung von Uploads und Anhängen</h2>
+
+        <h3>Lokale Verarbeitung</h3>
+        <p>Hochgeladene Dateien werden zunächst im Browser bearbeitet:</p>
+        <ul>
+          <li>
+            Automatische Skalierung von Bildern auf maximal 800 × 800 Pixel
+          </li>
+          <li>Komprimierung auf etwa 70 % Qualität</li>
+          <li>Umwandlung in ein geeignetes Übertragungsformat</li>
+        </ul>
+
+        <h3>Cloud-Speicherung</h3>
+        <p>
+          Die Daten werden verschlüsselt an Firebase Storage (Google Cloud
+          Platform, Standort Europa) übertragen und dort gespeichert. Dabei
+          werden:
+        </p>
+        <ul>
+          <li>Übertragungen per HTTPS gesichert</li>
+          <li>Daten im Ruhezustand verschlüsselt</li>
+          <li>Dateien eindeutig einer Aufgabe zugeordnet</li>
+          <li>Zugriffe nur für authentifizierte Nutzer ermöglicht</li>
+        </ul>
+
+        <h3>Zugriffskontrolle</h3>
+        <ul>
+          <li>Authentifizierung über Firebase Authentication</li>
+          <li>Blockierung unberechtigter Zugriffe</li>
+          <li>Geschützte Download-URLs</li>
+        </ul>
+
+        <h2 id="loeschung">6. Löschung und Speicherdauer</h2>
+        <ul>
+          <li>
+            Beim Löschen einer Aufgabe werden alle zugehörigen Anhänge
+            unverzüglich und endgültig entfernt.
+          </li>
+          <li>Nutzer können einzelne Dateien jederzeit selbst löschen.</li>
+          <li>Eine zusätzliche Archivierung gelöschter Daten erfolgt nicht.</li>
+        </ul>
+
+        <h2 id="technisch">7. Technische Rahmenbedingungen</h2>
+        <p>Unterstützte Dateiformate sind insbesondere:</p>
+        <ul>
+          <li>JPEG, PNG, GIF, WebP</li>
+        </ul>
+        <p>
+          Firebase bzw. Google Cloud Platform wird als Auftragsverarbeiter gemäß
+          Art. 28 DSGVO eingesetzt.
+        </p>
+
+        <h2 id="rechte">8. Rechte der betroffenen Personen</h2>
+        <p>
+          Betroffene Personen haben nach der DSGVO insbesondere folgende Rechte:
+        </p>
+        <ul>
+          <li>Recht auf Auskunft</li>
+          <li>Recht auf Berichtigung</li>
+          <li>Recht auf Löschung</li>
+          <li>Recht auf Einschränkung der Verarbeitung</li>
+          <li>Recht auf Datenübertragbarkeit</li>
+          <li>Recht auf Widerruf erteilter Einwilligungen</li>
+          <li>Beschwerderecht bei einer Aufsichtsbehörde</li>
+        </ul>
+
+        <h3>Kontakt</h3>
+        <p>
+          <strong>Join Gruppe 2485</strong><br />
+          Vertreten durch:<br />
+          Maximilian Schmidt · Viktor Wilhelm · Stefan Sträter<br />
+          <br />
+          📧 <a href="mailto:join@viktor-wilhelm.de">join@viktor-wilhelm.de</a>
+        </p>
       </div>
     </main>
-
-    <script>
-      window.addEventListener("load", () => {
-        if (typeof init === "function") {
-          init();
-        }
-      });
-    </script>
   </body>
 </html>
