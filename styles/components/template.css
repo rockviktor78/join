@@ -126,7 +126,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: var(--font-weight-bold);
   color: var(--color-accent);
   background: transparent;
   padding: 0;
@@ -137,6 +136,10 @@
 .header__avatar:hover {
   cursor: pointer;
   background: var(--color-primary-super-light);
+}
+
+.header__user-initials {
+  font-weight: var(--font-weight-bold);
 }
 
 .header__dropdown {

@@ -39,7 +39,11 @@ async function init() {
   updateNavigation();
   // Optional: Avatar setzen
   const avatar = document.getElementById("userAvatar");
-  if (avatar) avatar.innerText = "SM";
+  if (avatar) {
+    const initials = avatar.querySelector(".header__user-initials");
+    if (initials) initials.textContent = "SM";
+    else avatar.textContent = "SM";
+  }
 
   setupUserMenu();
 
