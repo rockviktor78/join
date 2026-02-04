@@ -9,7 +9,26 @@
       >
         <img src="../assets/img/header/help-default.svg" alt="" />
       </button>
-      <div class="header__avatar" id="userAvatar">SM</div>
+      <div class="header__user">
+        <button
+          class="header__avatar"
+          id="userAvatar"
+          aria-haspopup="menu"
+          aria-expanded="false"
+          aria-label="User menu"
+        >
+          SM
+        </button>
+        <div class="header__dropdown" id="userMenu" aria-hidden="true">
+          <a class="header__dropdown-link" href="legal_notice.html">
+            Legal Notice
+          </a>
+          <a class="header__dropdown-link" href="privacy_policy.html">
+            Privacy Policy
+          </a>
+          <a class="header__dropdown-link" href="../index.html">Log out</a>
+        </div>
+      </div>
     </div>
   </div>
 </header>
