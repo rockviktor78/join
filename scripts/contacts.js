@@ -59,7 +59,6 @@ function renderContact(container, contact, index) {
     container.innerHTML += templateContact(initial, contact.name, contact.email, index);
 }
 
-
 function getInitial(name) {
      if (!name) return "";
 
@@ -82,8 +81,6 @@ function applyRandomBadgeColor() {
   });
 }
 
-
-
 function showContactDetails(index) {
     let contact = loadedContacts[index];
     let detailsContainer = document.getElementById("contacts-detail");
@@ -101,18 +98,28 @@ function setActiveContact(index) {
 
 
 function addNewContact() {
+    document.body.style.overflow = 'hidden';
+    event.stopPropagation();
+    showEditContact();
     let newContactContainer = document.getElementById("contacts-form");
     newContactContainer.innerHTML = "";
     newContactContainer.innerHTML += templateAddNewContact();
+    requestAnimationFrame(() => {newContactContainer.classList.add("active");});
 }
 
-function confirmAddNewContact() {
-
+function confirmAddNewContact(index) {
+    let name = document.getElementById("new-contact-name").value.trim();
+    let phone = document.getElementById("new-contact-email").value.trim();
+    let email = document.getElementById("new-contact-phone").value.trim();
+    updateContact(index, name, phone, email);
 }
 
 function deleteContact(index) {
-    console.log("Deleting contact:", index);
-
+    loadedContacts.splice(index, 1);
+    document.getElementById("contacts-detail").innerHTML = "";
+    sortContacts();
+    renderContactList(loadedContacts);
+    closeEditContact();
 }
 
 function editContact(index) {
@@ -147,9 +154,12 @@ document.addEventListener('click', (event) => {
 );
 
 function closeEditContact() {
+    document.getElementById("contacts-form").classList.remove("active");
+    setTimeout(() => {
     document.getElementById("overlay").style.display = "none";
     document.getElementById("loaded-contact-form").style.display = "none";
     document.body.style.overflow = 'auto';
+    }, 350);
 }
 
 function cancel() {
@@ -157,120 +167,46 @@ function cancel() {
 }
 
 function createNewContact() {
-
+    let name = document.getElementById("new-contact-name").value.trim();
+    let phone = document.getElementById("new-contact-email").value.trim();
+    let email = document.getElementById("new-contact-phone").value.trim();
+    if (!isContactFormValid(name, phone, email)) {return;}
+    let newContact = {
+        name: name,
+        phone: phone,
+        email: email
+    };
+    loadedContacts.push(newContact);
+    sortContacts();
+    renderContactList(loadedContacts);
+    clearContactForm();
 }
 
-function saveContactEdit() {
-
+function isContactFormValid(name, phone, email) {
+    if (!name || !phone || !email) {
+        alert("Bitte alle Felder ausfüllen");
+        return false;}
+    return true;
 }
+
+function clearContactForm() {
+    document.getElementById("new-contact-name").value = "";
+    document.getElementById("new-contact-email").value = "";
+    document.getElementById("new-contact-phone").value = "";
+    closeEditContact();
+}
+
+function updateContact(index, name, phone, email) {
+    loadedContacts[index].name = name;
+    loadedContacts[index].phone = phone;
+    loadedContacts[index].email = email;
+    console.log(email)
+
+    sortContacts();
+    renderContactList(loadedContacts);
+}
+
 
 function showSuccessMessage() {
 
-}
-
-function templateContact(initial, name, email, index) {
-    return `
-        <div class="contact-card" id="${name}" onclick="showContactDetails('${index}')">
-            <div class="contact-initial badge">${initial}</div>
-            <div>
-                <h3>${name}</h3>
-                <div class="contact-email">${email}</div>
-            </div>
-        </div>
-    `;
-}
-
-function templateContactDetails(contact, index, initial, badgeColor) {
-    return `
-        <div class="contacts-detail-header">
-            ${templateContactDetailHeader(contact, index, initial, badgeColor)}
-        </div>
-        <div>
-            <div class="contact-information-title">Contact Information</div>              
-        </div>
-        <div class="contacts-detail-information">
-            ${templateContactDetailInformation(contact)}
-        </div>
-    `;
-}
-
-function templateContactDetailHeader(contact, index, initial, badgeColor) {
-    return `
-       <div class="contact-detail-initial" style="background-color: ${badgeColor};">${initial}</div>
-            <div class="contact-detail-name-and-actions">
-                <div class="contact-detail-name">${contact.name}</div>
-                <div>
-                    <button onclick="editContact(${index})" class="contact-detail-edit-button"></button>
-                    <button onclick="deleteContact(${index})" class="contact-detail-delete-button"></button>
-                </div>
-            </div>
-    `;
-}
-
-function templateContactDetailInformation(contact) {
-    return `
-       <div class="contact-info">
-            <div class="contact-info-header">Email</div> 
-            <div class="contact-info-email">${contact.email}</div>
-            <div class="contact-info-header">Phone</div> 
-            <div class="contact-info-phone">${contact.phone || 'N/A'}</div>
-        </div>
-    `;    
-}
-
-function templateRenderLetterGroup(firstLetter) {
-    return `
-        <div class="letter-group">
-            <h2 class="letter-title">${firstLetter}</h2>
-            <hr>
-        </div>
-    `;
-}
-
-function templateAddNewContact() {
-    return `
-        <div class="add-new-contact-container">
-            <div class="add-new-contact-header">
-                <h2>Add Contact</h2>
-                <p>Tasks are better with a team!</p>
-            </div>
-                <div class="add-new-contact-profile-picture">Profile Picture Placeholder</div>
-            <div class="add-new-contact-form">
-                <input type="text" class="form-input" id="new-contact-name" placeholder="Name" required>
-                <input type="email" class="form-input" id="new-contact-email" placeholder="Email" required>
-                <input type="text" class="form-input" id="new-contact-phone" placeholder="Phone" required>
-                <div>
-                    <button onclick="cancel()" class="cancel-button">Cancel X</button>
-                    <button onclick="confirmAddNewContact()" class="create-contact-button">Create contact</button>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function templateEditContact(index, name, email, phone, initial, badgeColor) {
-    return `
-        <div class="form-contact-container">
-            <div class="form-contact-header">
-                <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
-                <div class="form-contact-header-title">Edit Contact</div>
-                <div class="form-contact-header-line">___________________</div>
-            </div>
-                <div class="add-new-contact-profile-picture">
-                    <div class="contact-detail-initial" style="background-color: ${badgeColor};">
-                        ${initial}
-                    </div>
-                </div>
-            <div class="add-new-contact-form">
-                <div class="close-button" onclick="closeEditContact()">X</div>
-                <input type="text" class="form-input" id="new-contact-name" placeholder="Name" value="${name}" required>
-                <input type="email" class="form-input" id="new-contact-email" placeholder="Email" value="${email}" required>
-                <input type="text" class="form-input" id="new-contact-phone" placeholder="Phone" value="${phone}" required>
-                <div class="form-contact-buttons">
-                    <button onclick="showContactDetails(${index})" class="delete-button">Delete</button>
-                    <button onclick="confirmEditContact(${index})" class="save-contact-button">Save <img src="../assets/img/contacts/check.svg" alt="Save"></button>
-                </div>
-            </div>
-        </div>
-    `;
 }
