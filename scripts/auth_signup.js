@@ -26,6 +26,10 @@ initPasswordIconToggle(signupPassword, passwordIcon);
 initPasswordIconToggle(signupConfirmPassword, confirmPasswordIcon);
 
 
+/**
+ * Validates the name input in the signup form.
+ * @returns {boolean} True if the input is non-empty; false otherwise.
+ */
 function validateName() {
     if (signupName.value.trim() === "") {
         showInputError(signupNameError, signUpNameGroup, "Please enter your name.");
@@ -36,6 +40,9 @@ function validateName() {
 }
 
 
+/** Validates the email input in the signup form.
+ * @returns {boolean} True if the email is valid; false otherwise.
+ */
 function validateEmail() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(signupEmail.value)) {
@@ -47,6 +54,10 @@ function validateEmail() {
 }
 
 
+/**
+ * Validates the password and confirm password inputs in the signup form.
+ * @return {boolean} True if both passwords are valid and match; false otherwise.
+ */
 function validatePasswords() {
     if (signupPassword.value.length < 6) {
         showInputError(signupPasswordError, signupPasswordGroup, "Password must be at least 6 characters long.");
@@ -62,6 +73,10 @@ function validatePasswords() {
 }
 
 
+/**
+ * Validates if the privacy policy checkbox is checked.
+ * @return {boolean} True if checked; false otherwise.
+ */
 function validatePolicy() {
     if (!policyCheckbox.checked) {
         policyError.innerText = "Please accept the Privacy Policy.";
@@ -73,6 +88,10 @@ function validatePolicy() {
 }
 
 
+/**
+ * Gathers new user data from the signup form.
+ * @return {Object} An object containing the user's name, email, and password.
+ */
 function getNewUserData() {
     return {
         name: signupName.value.trim(),
@@ -81,12 +100,19 @@ function getNewUserData() {
     };
 }
 
-
+/**
+ * Sets the submitting state of the signup button.
+ * @param {boolean} isSubmitting - Whether the form is currently submitting.
+ */
 function setSubmitting(isSubmitting) {
     signupBtn.disabled = isSubmitting;
 }
 
 
+/**
+ * Validates all signup form inputs.
+ * @return {boolean} True if all inputs are valid; false otherwise. 
+ */
 function isSignupValid() {
     const isNameValid = validateName();
     const isEmailValid = validateEmail();
@@ -96,6 +122,9 @@ function isSignupValid() {
 }
 
 
+/**
+ * Handles successful signup by showing a modal and switching to the login form.
+ */
 function handleSignupSuccess() {
     signupSuccessModal.classList.add('show');
 
@@ -110,6 +139,11 @@ function handleSignupSuccess() {
 }
 
 
+/**
+ * Checks if an email already exists in the database.
+ * @param {string} email - The email to check.
+ * @return {boolean} True if the email exists; false otherwise.
+ */
 async function checkIfEmailExists(email) {
     const allUsers = await getData("users");
     if (allUsers === null) {
@@ -195,9 +229,9 @@ function handlePolicyChange() {
 }
 
 
-if (signupForm) signupForm.addEventListener('submit', handleSignUpSubmit);
-if (signupName) signupName.addEventListener('input', handleNameInput);
-if (signupEmail) signupEmail.addEventListener('input', handleEmailInput);
-if (signupPassword) signupPassword.addEventListener('input', handlePasswordInput);
-if (signupConfirmPassword) signupConfirmPassword.addEventListener('input', handleConfirmPasswordInput);
-if (policyCheckbox) policyCheckbox.addEventListener('change', handlePolicyChange);
+signupForm.addEventListener('submit', handleSignUpSubmit);
+signupName.addEventListener('input', handleNameInput);
+signupEmail.addEventListener('input', handleEmailInput);
+signupPassword.addEventListener('input', handlePasswordInput);
+signupConfirmPassword.addEventListener('input', handleConfirmPasswordInput);
+policyCheckbox.addEventListener('change', handlePolicyChange);
