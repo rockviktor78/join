@@ -10,7 +10,7 @@ function setActiveMenuBtnOnLoad() {
   const currentPage = window.location.pathname.split("/").pop();
   const pageToButtonMap = {
     "summary.html": "navSummary",
-    "add_task.html": "navAddTask",
+    "add-task.html": "navAddTask",
     "board.html": "navBoard",
     "contacts.html": "navContacts",
   };
@@ -19,6 +19,9 @@ function setActiveMenuBtnOnLoad() {
   if (buttonId) {
     setActiveMenuBtn(buttonId);
   }
+
+  // Footer-Links aktivieren
+  setActiveFooterLink(currentPage);
 }
 
 /**
@@ -41,6 +44,23 @@ function setActiveMenuBtn(buttonId) {
   if (activeButton) {
     activeButton.classList.add("active-menu-btn");
   }
+}
+
+/**
+ * Setzt den aktiven Footer-Link basierend auf der aktuellen Seite
+ * @param {string} currentPage - Der aktuelle Dateiname (z.B. 'privacy-policy.html')
+ */
+function setActiveFooterLink(currentPage) {
+  const footerLinks = document.querySelectorAll(".menu__footer-link");
+
+  footerLinks.forEach((link) => {
+    link.classList.remove("active-menu-btn");
+
+    const linkHref = link.getAttribute("href");
+    if (linkHref === currentPage) {
+      link.classList.add("active-menu-btn");
+    }
+  });
 }
 
 // Navigation Handler für Menu Buttons
