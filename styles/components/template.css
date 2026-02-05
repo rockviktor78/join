@@ -1,6 +1,6 @@
 .desktop-layout {
   display: grid;
-  grid-template-columns: 215px 1fr;
+  grid-template-columns: 232px 1fr;
   grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
   height: 100vh;
   width: 100vw;
