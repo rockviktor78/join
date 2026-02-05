@@ -62,18 +62,17 @@
 }
 
 .menu__footer {
-  /* padding: var(--spacing-xl) var(--spacing-2xl) var(--spacing-3xl)
-    var(--spacing-3xl); */
+  padding: 0 0 var(--spacing-3xl) 0;
   display: flex;
   flex-direction: column;
- }
+}
 
 .menu__footer-link {
   display: block;
   color: var(--color-gray-200);
   text-decoration: none;
   font-size: var(--font-size-sm);
-  padding: 0.4rem 0;
+  padding: 0.4rem 0 0.4rem 4rem;
   transition:
     background var(--transition-base),
     color var(--transition-base);

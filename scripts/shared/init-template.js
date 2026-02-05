@@ -12,6 +12,11 @@ async function initTemplate() {
   await includeHTML();
   updateNavigation();
 
+  // Initialisiere Menu-Navigation nach dem Template-Laden
+  if (typeof initMenuNavigation === "function") {
+    initMenuNavigation();
+  }
+
   const avatar = document.getElementById("userAvatar");
   if (avatar) {
     const initials = avatar.querySelector(".header__user-initials");

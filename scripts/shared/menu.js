@@ -63,6 +63,14 @@ function setActiveFooterLink(currentPage) {
   });
 }
 
+/**
+ * Initialisiert die Menu-Navigation - wird von init-template.js aufgerufen
+ */
+function initMenuNavigation() {
+  setActiveMenuBtnOnLoad();
+  setupMenuNavigation();
+}
+
 // Navigation Handler für Menu Buttons
 function setupMenuNavigation() {
   const menuButtons = {
@@ -87,12 +95,3 @@ function setupMenuNavigation() {
     }
   });
 }
-
-// Initialisierung - warte bis Template geladen ist
-document.addEventListener("DOMContentLoaded", () => {
-  // Warte kurz, damit das Template geladen werden kann
-  setTimeout(() => {
-    setActiveMenuBtnOnLoad();
-    setupMenuNavigation();
-  }, 100);
-});
