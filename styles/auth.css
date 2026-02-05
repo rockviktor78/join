@@ -125,21 +125,13 @@
 .auth-card__title {
   font-size: var(--font-size-6xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-primary-light);
+  color: var(--color-black);
 }
 
 @media (max-width: 767px) {
   .auth-card__title {
     font-size: var(--font-size-5xl);
   }
-}
-
-.auth-card__underline {
-  height: 0.2rem;
-  width: 7rem;
-  background-color: var(--color-accent);
-  margin-top: 0.5rem;
-  border-radius: 2px;
 }
 
 .auth-card__arrow {
