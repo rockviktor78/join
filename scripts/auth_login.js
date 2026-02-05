@@ -6,7 +6,7 @@ const loginBtn = document.getElementById('loginBtn');
 const loginEmailGroup = document.getElementById('loginEmailGroup');
 const loginPasswordGroup = document.getElementById('loginPasswordGroup');
 const loginErrorMessage = document.getElementById('loginErrorMessage');
-const guestBtn = document.querySelector('.auth-card__btn--guest');
+const guestBtn = document.getElementById('guestBtn');
 
 
 initPasswordIconToggle(loginPassword, loginPasswordIcon);
