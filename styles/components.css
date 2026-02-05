@@ -1,3 +1,4 @@
+/* ====== Buttons ====== */
 .btn {
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -41,4 +42,33 @@
   .btn {
     font-size: var(--font-size-base);
   }
+}
+
+/* ====== Separators ====== */
+.separator--v {
+  width: 0.125rem;
+  height: auto;
+  align-self: stretch;
+  display: inline-block;
+  border-radius: 0.625rem;
+}
+
+.separator--v-blue {
+  background-color: var(--color-accent);
+}
+
+.separator--v-gray {
+  background-color: var(--color-gray-200);
+}
+
+.separator--h {
+  width: 7rem;
+  height: 0.125rem;
+  margin: 0.5rem 0;
+  display: block;
+  border-radius: 0.625rem;
+}
+
+.separator--h-blue {
+  background-color: var(--color-accent);
 }
