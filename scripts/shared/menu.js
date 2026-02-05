@@ -67,8 +67,16 @@ function setActiveFooterLink(currentPage) {
  * Initialisiert die Menu-Navigation - wird von init-template.js aufgerufen
  */
 function initMenuNavigation() {
-  setActiveMenuBtnOnLoad();
-  setupMenuNavigation();
+  // Prüfe ob DOM bereit ist
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      setActiveMenuBtnOnLoad();
+      setupMenuNavigation();
+    });
+  } else {
+    setActiveMenuBtnOnLoad();
+    setupMenuNavigation();
+  }
 }
 
 // Navigation Handler für Menu Buttons

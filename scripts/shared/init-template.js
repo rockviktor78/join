@@ -12,13 +12,15 @@ async function initTemplate() {
   await includeHTML();
   updateNavigation();
 
+  // Setze User-Initialen sofort
+  setUserInitials();
+
   // Initialisiere Menu-Navigation nach dem Template-Laden
   if (typeof initMenuNavigation === "function") {
     initMenuNavigation();
+  } else {
+    console.warn("initMenuNavigation ist noch nicht verfügbar");
   }
-
-  // Setze User-Initialen
-  setUserInitials();
 
   const logoutLink = document.getElementById("logoutLink");
   if (logoutLink) {
