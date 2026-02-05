@@ -1,7 +1,7 @@
 const authCard = document.querySelector(".auth-card");
 const slider = document.getElementById("authSlider");
 const signupWrapper = document.getElementById("signupWrapper");
-const signupGroup = document.querySelector(".auth-header__signup-group");
+const signupGroup = document.querySelectorAll(".auth-signup-group");
 const loginWrapper = document.getElementById("loginWrapper");
 const btnToSignup = document.getElementById("toSignup");
 const btnToLogin = document.getElementById("toLogin");
@@ -80,7 +80,7 @@ function hideInputError(element, group) {
 function showSignup(event) {
     event.preventDefault();
     if (slider) slider.classList.add("slide-to-signup");
-    document.querySelectorAll(".auth-header__signup-group").forEach(group => {
+    signupGroup.forEach(group => {
         group.classList.add("d-none-smooth");
     });
     updateCardHeight(signupWrapper);
@@ -94,7 +94,7 @@ function showSignup(event) {
 function showLogin(event) {
     event.preventDefault();
     if (slider) slider.classList.remove("slide-to-signup");
-    document.querySelectorAll(".auth-header__signup-group").forEach(group => {
+    signupGroup.forEach(group => {
         group.classList.remove("d-none-smooth");
     });
     updateCardHeight(loginWrapper);
