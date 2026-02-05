@@ -1,0 +1,69 @@
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-gray-50);
+  z-index: 10000;
+  transition: background-color 0.8s ease-in-out;
+}
+
+.animating-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12.5rem;
+  z-index: 10001;
+  transition:
+    all 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.5s ease-in-out;
+}
+
+.logo-fly-to-header {
+  top: 1.5rem;
+  left: 3.5rem;
+  transform: translate(0, 0);
+  width: 6.25rem;
+  z-index: 10001;
+}
+
+.loader-fade-out {
+  background-color: transparent;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .preloader {
+    background-color: var(--color-primary-light);
+    transition: background-color 0.8s ease-in-out;
+  }
+
+  .animating-logo {
+    width: 8rem;
+  }
+
+  .logo-fly-to-header {
+    width: 4rem;
+    top: 1.5rem;
+    left: 1rem;
+  }
+}
+
+.loader-fade-out {
+  background-color: transparent !important;
+  pointer-events: none;
+}
+
+.header-logo-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.header-logo-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.1s ease-in;
+}
