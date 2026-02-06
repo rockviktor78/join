@@ -3,8 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../assets/img/favicon/favicon.svg"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../assets/img/favicon/apple-touch-icon.png"
+    />
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" />
 
     <title>Join</title>
@@ -16,15 +24,19 @@
     <link rel="stylesheet" href="../styles/auth.css" />
 
     <script src="../scripts/firebase.js" defer></script>
-    <script src="../scripts/auth_utilities.js" defer></script>
-    <script src="../scripts/auth_login.js" defer></script>
-    <script src="../scripts/auth_signup.js" defer></script>
+    <script src="../scripts/auth/auth_utilities.js" defer></script>
+    <script src="../scripts/auth/auth_login.js" defer></script>
+    <script src="../scripts/auth/auth_signup.js" defer></script>
   </head>
 
   <body class="auth-page">
     <header class="auth-header">
       <a href="/index.html">
-        <img class="auth-header__logo" src="../assets/img/shared/join-logo-blue.svg" alt="Join Logo" />
+        <img
+          class="auth-header__logo"
+          src="../assets/img/shared/join-logo-blue.svg"
+          alt="Join Logo"
+        />
       </a>
       <div class="auth-header__signup-group desktop-only">
         <p class="auth-header__signup-text">Not a Join user?</p>
@@ -45,23 +57,49 @@
 
               <div class="auth-card__input-wrapper">
                 <div id="loginEmailGroup" class="auth-card__input-group">
-                  <input type="email" id="loginEmail" class="auth-card__input" placeholder="Email" />
-                  <img class="auth-card__icon" src="../assets/img/auth/mail-default.svg" alt="" />
+                  <input
+                    type="email"
+                    id="loginEmail"
+                    class="auth-card__input"
+                    placeholder="Email"
+                  />
+                  <img
+                    class="auth-card__icon"
+                    src="../assets/img/auth/mail-default.svg"
+                    alt=""
+                  />
                 </div>
                 <div class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__input-wrapper">
                 <div id="loginPasswordGroup" class="auth-card__input-group">
-                  <input type="password" id="loginPassword" class="auth-card__input" placeholder="Password" />
-                  <img id="loginPasswordIcon" class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
+                  <input
+                    type="password"
+                    id="loginPassword"
+                    class="auth-card__input"
+                    placeholder="Password"
+                  />
+                  <img
+                    id="loginPasswordIcon"
+                    class="auth-card__icon"
+                    src="../assets/img/auth/lock-default.svg"
+                    alt=""
+                  />
                 </div>
                 <div id="loginErrorMessage" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__actions">
-                <button type="submit" id="loginBtn" class="auth-card__btn">Log in</button>
-                <button type="button" class="auth-card__btn auth-card__btn--guest">Guest Log in</button>
+                <button type="submit" id="loginBtn" class="auth-card__btn">
+                  Log in
+                </button>
+                <button
+                  type="button"
+                  class="auth-card__btn auth-card__btn--guest"
+                >
+                  Guest Log in
+                </button>
               </div>
             </form>
           </div>
@@ -72,52 +110,109 @@
               <div class="auth-card__header">
                 <h2 class="auth-card__title">Sign Up</h2>
                 <div class="auth-card__underline"></div>
-                <img id="toLogin" class="auth-card__arrow" src="./assets/img/shared/arrow-left-default.svg" alt="" />
+                <img
+                  id="toLogin"
+                  class="auth-card__arrow"
+                  src="./assets/img/shared/arrow-left-default.svg"
+                  alt=""
+                />
               </div>
 
               <div class="auth-card__input-wrapper">
                 <div id="signUpNameGroup" class="auth-card__input-group">
-                  <input type="text" id="signupName" class="auth-card__input" placeholder="Name" />
-                  <img class="auth-card__icon" src="../assets/img/auth/person-default.svg" alt="" />
+                  <input
+                    type="text"
+                    id="signupName"
+                    class="auth-card__input"
+                    placeholder="Name"
+                  />
+                  <img
+                    class="auth-card__icon"
+                    src="../assets/img/auth/person-default.svg"
+                    alt=""
+                  />
                 </div>
                 <div id="signupNameError" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__input-wrapper">
                 <div id="signEmailGroup" class="auth-card__input-group">
-                  <input type="email" id="signupEmail" class="auth-card__input" placeholder="Email" />
-                  <img class="auth-card__icon" src="../assets/img/auth/mail-default.svg" alt="" />
+                  <input
+                    type="email"
+                    id="signupEmail"
+                    class="auth-card__input"
+                    placeholder="Email"
+                  />
+                  <img
+                    class="auth-card__icon"
+                    src="../assets/img/auth/mail-default.svg"
+                    alt=""
+                  />
                 </div>
                 <div id="signupEmailError" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__input-wrapper">
                 <div id="signupPasswordGroup" class="auth-card__input-group">
-                  <input type="password" id="signupPassword" class="auth-card__input" placeholder="Password" />
-                  <img id="signupPasswordIcon" class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
+                  <input
+                    type="password"
+                    id="signupPassword"
+                    class="auth-card__input"
+                    placeholder="Password"
+                  />
+                  <img
+                    id="signupPasswordIcon"
+                    class="auth-card__icon"
+                    src="../assets/img/auth/lock-default.svg"
+                    alt=""
+                  />
                 </div>
                 <div id="signupPasswordError" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__input-wrapper">
                 <div id="signupConfirmGroup" class="auth-card__input-group">
-                  <input type="password" id="signupConfirmPassword" class="auth-card__input" placeholder="Confirm Password" />
-                  <img id="signupConfirmIcon" class="auth-card__icon" src="../assets/img/auth/lock-default.svg" alt="" />
+                  <input
+                    type="password"
+                    id="signupConfirmPassword"
+                    class="auth-card__input"
+                    placeholder="Confirm Password"
+                  />
+                  <img
+                    id="signupConfirmIcon"
+                    class="auth-card__icon"
+                    src="../assets/img/auth/lock-default.svg"
+                    alt=""
+                  />
                 </div>
                 <div id="signupConfirmError" class="error-placeholder"></div>
               </div>
 
               <div class="auth-card__checkbox-group">
-                <input type="checkbox" id="policyCheckbox" class="auth-card__checkbox-input" />
+                <input
+                  type="checkbox"
+                  id="policyCheckbox"
+                  class="auth-card__checkbox-input"
+                />
                 <label for="policyCheckbox" class="auth-card__checkbox-label">
                   <span class="auth-card__custom-checkbox"></span>
-                  <p>I accept the <a href="./html/privacy-policy.html" class="auth-card__link">Privacy Policy</a></p>
+                  <p>
+                    I accept the
+                    <a href="./html/privacy-policy.html" class="auth-card__link"
+                      >Privacy Policy</a
+                    >
+                  </p>
                 </label>
-                <div id="policyError" class=".auth-card__policy-error error-placeholder"></div>
+                <div
+                  id="policyError"
+                  class=".auth-card__policy-error error-placeholder"
+                ></div>
               </div>
 
               <div class="auth-card__actions">
-                <button type="submit" id="signupBtn" class="auth-card__btn">Sign Up</button>
+                <button type="submit" id="signupBtn" class="auth-card__btn">
+                  Sign Up
+                </button>
               </div>
             </form>
           </div>
@@ -132,8 +227,12 @@
       <span>You've signed up successfully</span>
     </div>
     <footer class="auth-footer">
-      <a href="./html/privacy-policy.html" class="auth-footer__link">Privacy Policy</a>
-      <a href="./html/legal-notice.html" class="auth-footer__link">Legal Notice</a>
+      <a href="./html/privacy-policy.html" class="auth-footer__link"
+        >Privacy Policy</a
+      >
+      <a href="./html/legal-notice.html" class="auth-footer__link"
+        >Legal Notice</a
+      >
     </footer>
   </body>
 </html>

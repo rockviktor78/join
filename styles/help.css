@@ -1,23 +1,29 @@
-.content-scroll-area {
-  grid-column: 2;
-  grid-row: 2;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+/* Content-scroll-area wird in template.css definiert */
+.content-scroll-area::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Edge */
 }
 
-.content-scroll-area::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+.content-scroll-area {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
 }
 
 .content-limit {
   width: 100%;
   max-width: 1440px;
-  padding: var(--spacing-5xl) var(--spacing-5xl);
+  /* Mobile: Kleineres Padding */
+  padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
+}
+
+/* Desktop: Größeres Padding */
+@media (min-width: 769px) {
+  .content-limit {
+    padding: var(--spacing-5xl) var(--spacing-5xl);
+  }
 }
 
 .help-header {
@@ -28,14 +34,21 @@
 }
 
 .help-title {
-  font-size: var(--font-size-5xl);
+  /* Mobile: Kleinere Größe */
+  font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
 }
 
+/* Desktop: Größere Größe */
+@media (min-width: 769px) {
+  .help-title {
+    font-size: var(--font-size-5xl);
+  }
+}
+
 .back-btn {
-  position: absolute;
-  top: 14rem;
-  right: 6rem;
+  /* Mobile: Normaler Button */
+  position: static;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -44,6 +57,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: var(--spacing-sm);
+}
+
+/* Desktop: Absolute positioned */
+@media (min-width: 769px) {
+  .back-btn {
+    position: absolute;
+    top: 14rem;
+    right: 6rem;
+    padding: 0;
+  }
 }
 
 .back-btn:hover {
@@ -62,18 +86,35 @@
 }
 
 .help-section h2 {
-  font-size: var(--font-size-3xl);
+  /* Mobile */
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  margin-top: var(--spacing-2xl);
+  margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-md);
   color: var(--color-primary);
 }
 
+/* Desktop */
+@media (min-width: 769px) {
+  .help-section h2 {
+    font-size: var(--font-size-3xl);
+    margin-top: var(--spacing-2xl);
+  }
+}
+
 .help-section h3 {
-  font-size: var(--font-size-xl);
+  /* Mobile */
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   margin-top: var(--spacing-lg);
   margin-bottom: var(--spacing-sm);
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .help-section h3 {
+    font-size: var(--font-size-xl);
+  }
 }
 
 .help-section ul {

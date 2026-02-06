@@ -1,7 +1,9 @@
-.desktop-layout {
-  display: grid;
-  grid-template-columns: 232px 1fr;
-  grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
+/* APP LAYOUT - Mobile First */
+.desktop-layout,
+.app-layout {
+  /* Mobile: Flexbox Layout */
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -9,8 +11,18 @@
   font-family: var(--font-primary);
 }
 
+/* Desktop: Grid Layout ab 769px */
+@media (min-width: 769px) {
+  .desktop-layout,
+  .app-layout {
+    display: grid;
+    grid-template-columns: 232px 1fr;
+    grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
+  }
+}
+
 /* SIDEBAR */
-.menu {
+/* .menu {
   grid-column: 1;
   grid-row: 1 / span 2;
   background-color: var(--color-primary);
@@ -85,10 +97,10 @@
 .menu__footer-link.active-menu-btn {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
-}
+} */
 
 /* HEADER */
-.header__content {
+/* .header__content {
   grid-column: 2;
   grid-row: 1;
   background-color: var(--color-white);
@@ -206,16 +218,26 @@
 
 .header__help-btn:hover {
   transform: scale(1.2);
-}
+} */
 
-/* In template.css ergänzen oder sicherstellen */
+/* CONTENT AREA - Mobile First */
 .content-scroll-area {
-  grid-column: 2;
-  grid-row: 2;
-  overflow-y: auto; /* Aktiviert das Scrollen nur für den Content */
-  height: 100%; /* Füllt den Rest des Grids aus */
+  /* Mobile: Nimmt verfügbaren Platz */
+  flex: 1;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--bg-page);
+  /* Für Mobile: Padding um Bottom-Nav Platz zu machen */
+  padding-bottom: 80px;
+}
+
+/* Desktop: Grid-Positionierung */
+@media (min-width: 769px) {
+  .content-scroll-area {
+    grid-column: 2;
+    grid-row: 2;
+    padding-bottom: 0;
+  }
 }
