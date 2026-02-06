@@ -162,10 +162,10 @@
 
 .menu__footer-link {
   display: block;
-  color: var(--color-gray-200);
+  color: var(--color-gray-300);
   text-decoration: none;
-  font-size: var(--font-size-sm);
-  padding: 0.4rem 0 0.4rem 4rem;
+  font-size: var(--font-size-base);
+  padding: 0.5rem 0 0.4rem 0;
   transition:
     background var(--transition-base),
     color var(--transition-base);
