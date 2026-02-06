@@ -53,6 +53,11 @@
   border-radius: 0.625rem;
 }
 
+.separator--v-short {
+  height: 60%;
+  align-self: center;
+}
+
 .separator--v-blue {
   background-color: var(--color-accent);
 }
