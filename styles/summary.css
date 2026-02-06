@@ -1,6 +1,8 @@
 /* ====== 1. Layout (Summary & Grid) ====== */
 .summary {
-  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .summary__header {
@@ -14,6 +16,13 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1.25rem;
+  flex: 1;
+}
+
+.summary__greeting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* ====== 2. Typography ====== */
@@ -23,11 +32,23 @@
   color: var(--color-black);
 }
 
+.summary__greeting-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.summary__greeting-name {
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
 /* ====== 3. Card Component (Base) ====== */
 .card {
-  background: white;
+  background: var(--color-white);
   border-radius: 1.25rem;
-  padding: 2rem 2rem;
+  padding: 2rem 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -46,6 +67,12 @@
 }
 
 /* ====== 4. Card Elements ====== */
+.card__info {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
 .card__icon {
   width: 4.3125rem;
   height: 4.3125rem;
@@ -57,7 +84,6 @@
 .card__icon--todo {
   background-image: url("../assets/img/shared/to-do.svg");
 }
-
 .card__icon--done {
   background-image: url("../assets/img/shared/done.svg");
 }
@@ -65,7 +91,6 @@
 .card:hover .card__icon--todo {
   background-image: url("../assets/img/shared/to-do-hover.svg");
 }
-
 .card:hover .card__icon--done {
   background-image: url("../assets/img/shared/done-hover.svg");
 }
@@ -82,6 +107,7 @@
 .card__date {
   font-weight: bold;
   font-size: 1.2rem;
+  margin-bottom: 0.2rem;
 }
 
 .card__urgent-info {
@@ -94,13 +120,8 @@
 /* ====== 5. Card Modifiers ====== */
 .card--half {
   grid-column: span 3;
-  display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
   gap: 1rem;
-  background: white;
-  border-radius: 1.25rem;
 }
 
 .card--full {
@@ -110,6 +131,7 @@
 .card--urgent {
   flex-direction: row;
   gap: 2rem;
+  padding: 1.5rem 2.5rem;
 }
 
 .card--third {
