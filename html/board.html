@@ -10,23 +10,46 @@
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/transitions.css" />
     <link rel="stylesheet" href="../styles/components/template.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
 
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
+    <script src="../scripts/board.js"></script>
   </head>
 
   <body class="desktop-layout">
-    <div
-      w3-include-html="../assets/templates/desktop_template.html"
-      style="display: contents"
-    ></div>
+    <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
 
-    <main class="content-scroll-area">
+    <main>
       <div class="content-limit">
-        <h1>Board</h1>
-        <p>Dies ist die Board-Seite zum Testen des Menüs.</p>
-      </div>
+
+        <div class="headline-container">
+          <div class="headline">Board</div>
+          <div class="search-and-add-container">
+            <div><input type="text" class="search-task" id="search-task" placeholder="Find Task" value=""></div>
+            <div><button onclick="addTask()" class="add-task-button">Add task <img src="../assets/img/board/add.svg"></button></div>
+          </div>
+        </div>
+
+        <div class="task-container"> 
+          <div class="tasks" style="padding-left: 39px;">
+            <div class="tasks-header">To do <button onclick="addTask(id)"><img src="../assets/img/board/plusbutton.svg"></button></div>
+            <div class="drag-drop">Drag and drop</div>
+          </div>
+          <div class="tasks">
+            <div class="tasks-header">In progress <button onclick="addTask(id)"><img src="../assets/img/board/plusbutton.svg"></button></div>
+            <div class="drag-drop">Drag and drop</div>
+          </div>
+          <div class="tasks">
+            <div class="tasks-header">Await feedback <button onclick="addTask(id)"><img src="../assets/img/board/plusbutton.svg"></button></div>
+            <div class="drag-drop">Drag and drop</div>
+          </div>
+          <div class="tasks" style="padding-right: 39px;">
+            <div class="tasks-header">Done</div>
+            <div class="drag-drop">Drag and drop</div>
+          </div>
+      </div>   
     </main>
 
     <script>
