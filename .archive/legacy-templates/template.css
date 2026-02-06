@@ -1,0 +1,46 @@
+/* APP LAYOUT - Mobile First */
+.desktop-layout,
+.app-layout {
+  /* Mobile: Flexbox Layout */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--bg-page);
+  font-family: var(--font-primary);
+}
+
+/* Desktop: Grid Layout ab 769px */
+@media (min-width: 769px) {
+  .desktop-layout,
+  .app-layout {
+    display: grid;
+    grid-template-columns: 232px 1fr;
+    grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
+  }
+}
+
+
+
+/* CONTENT AREA - Mobile First */
+.content-scroll-area {
+  /* Mobile: Nimmt verfügbaren Platz */
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-page);
+  /* Für Mobile: Padding um Bottom-Nav Platz zu machen */
+  padding-bottom: 80px;
+}
+
+/* Desktop: Grid-Positionierung */
+@media (min-width: 769px) {
+  .content-scroll-area {
+    grid-column: 2;
+    grid-row: 2;
+    padding-bottom: 0;
+  }
+}

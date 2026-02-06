@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="../styles/base/variables.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/transitions.css" />
-    <link rel="stylesheet" href="../styles/components/template.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/sidebar.css" />
+    <link rel="stylesheet" href="../styles/components/layout.css" />
 
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/init-template.js" defer></script>
@@ -17,13 +19,17 @@
     <script src="../scripts/shared/menu.js" defer></script>
   </head>
 
-  <body class="desktop-layout">
+  <body class="app-layout">
     <div
-      w3-include-html="../assets/templates/layout.html"
+      w3-include-html="../assets/templates/header.html"
+      style="display: contents"
+    ></div>
+    <div
+      w3-include-html="../assets/templates/sidebar.html"
       style="display: contents"
     ></div>
 
-    <main class="content-scroll-area">
+    <main class="content-area">
       <div class="content-limit">
         <h1>Board</h1>
         <p>Dies ist die Board-Seite zum Testen des Menüs.</p>

@@ -8,12 +8,9 @@
     <link rel="stylesheet" href="../styles/base/reset.css" />
     <link rel="stylesheet" href="../styles/base/variables.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
-    <link rel="stylesheet" href="../styles/components/template.css" />
-    <link rel="stylesheet" href="../styles/components/menu-mobile-first.css" />
-    <link
-      rel="stylesheet"
-      href="../styles/components/header-mobile-first.css"
-    />
+    <link rel="stylesheet" href="../styles/components/layout.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/sidebar.css" />
     <link rel="stylesheet" href="../styles/content-pages.css" />
     <link rel="stylesheet" href="../styles/help.css" />
 
@@ -22,13 +19,17 @@
     <script src="../scripts/shared/menu.js" defer></script>
   </head>
 
-  <body class="desktop-layout">
+  <body class="app-layout">
     <div
-      w3-include-html="../assets/templates/layout.html"
+      w3-include-html="../assets/templates/header.html"
+      style="display: contents"
+    ></div>
+    <div
+      w3-include-html="../assets/templates/sidebar.html"
       style="display: contents"
     ></div>
 
-    <main class="content-scroll-area">
+    <main class="content-area">
       <div class="content-limit no-select">
         <div class="help-header">
           <h1 class="help-title">Help</h1>
@@ -143,7 +144,7 @@
       });
 
       // Drag-to-Scroll Funktionalität
-      const scrollArea = document.querySelector(".content-scroll-area");
+      const scrollArea = document.querySelector(".content-area");
       let isDown = false;
       let startY;
       let scrollTop;

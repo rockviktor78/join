@@ -1,10 +1,10 @@
-/* Content-scroll-area wird in template.css definiert */
-.content-scroll-area::-webkit-scrollbar {
+/* Content-area wird in layout.css definiert */
+.content-area::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Edge */
 }
 
-.content-scroll-area {
+.content-area {
   scrollbar-width: none;
   /* Firefox */
   -ms-overflow-style: none;

@@ -3,7 +3,7 @@
  * Gemeinsame Styles für Help, Legal Notice und Privacy Policy
  */
 
-.content-scroll-area {
+.content-area {
   grid-column: 2;
   grid-row: 2;
   overflow-y: auto;
@@ -14,7 +14,7 @@
   -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
-.content-scroll-area::-webkit-scrollbar {
+.content-area::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
 }
 

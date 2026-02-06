@@ -1,50 +1,67 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contacts</title>
-    <script src="../script.js" defer></script>
-    <script src="../scripts/contacts.js"></script>
-    <script src="../scripts/contacts-templates.js"></script>
-    <link rel="stylesheet" href="../styles/base/fonts.css">
-    <link rel="stylesheet" href="../styles/base/reset.css">
-    <link rel="stylesheet" href="../styles/base/variables.css">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../styles/contacts.css">
-    <link rel="stylesheet" href="../styles/contacts-form.css">
-  </head>
-  <body onload="init()">
-    <header class="header" w3-include-html="../assets/templates/header.html"></header>
-<div id="contacts-container" class="contacts-container">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacts - Join</title>
+
+  <link rel="stylesheet" href="../styles/base/reset.css" />
+  <link rel="stylesheet" href="../styles/base/variables.css" />
+  <link rel="stylesheet" href="../styles/base/fonts.css" />
+  <link rel="stylesheet" href="../styles/base/transitions.css" />
+  <link rel="stylesheet" href="../styles/components/layout.css" />
+  <link rel="stylesheet" href="../styles/components/header.css" />
+  <link rel="stylesheet" href="../styles/components/sidebar.css" />
+  <link rel="stylesheet" href="../styles/contacts.css" />
+  <link rel="stylesheet" href="../styles/contacts-form.css" />
+
+  <script src="../scripts/shared/include-html.js" defer></script>
+  <script src="../scripts/shared/init-template.js" defer></script>
+  <script src="../scripts/shared/view-transitions.js" defer></script>
+  <script src="../scripts/shared/menu.js" defer></script>
+  <script src="../scripts/cont`1acts.js" defer></script>
+  <script src="../scripts/contacts-templates.js" defer></script>
+</head>
+
+<body class="app-layout" onload="init()">
+  <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
+  <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
+
+  <main class="content-area">
+    <div id="contacts-container" class="contacts-container">
       <div class="contacts-list-container">
-      <div class="add-new-contact-container">
-        <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact <img src="../assets/img/contacts/person_add.svg" alt="Add Contact"></button>
+        <div class="add-new-contact-container">
+          <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact <img
+              src="../assets/img/contacts/person_add.svg" alt="Add Contact"></button>
+        </div>
+
+        <div class="contacts-list" id="contacts-list">
+          <ul id="contacts-ul">
+            <!-- Contacts will be dynamically populated here -->
+          </ul>
+        </div>
       </div>
-      <div class="contacts-list" id="contacts-list">
-        <ul id="contacts-ul">
-          <!-- Contacts will be dynamically populated here -->
-        </ul>
-      </div>
-      </div>
+
       <div class="contacts-detail-container">
         <div class="contacts-detail-header-title">
-          <div class="contacts-detail-header-title-first">Contacts</div> 
+          <div class="contacts-detail-header-title-first">Contacts</div>
           <div class="separator">|</div>
           <div class="contacts-detail-header-title-second">Better with a Team</div>
         </div>
-        <div id ="contacts-detail">
-      </div>
-       <div class="overlay" id="overlay" style="display: none;">
-         <div id="loaded-contact-form">
-          <div id="contacts-form" class="contacts-form">
-            test
+        <div id="contacts-detail">
         </div>
-    </div>
-</div>
+        
+        <div class="overlay" id="overlay" style="display: none;">
+          <div id="loaded-contact-form">
+            <div id="contacts-form" class="contacts-form">
+              test
+            </div>
+          </div>
+        </div>
 
-    </div>
+      </div>
+  </main>
+</body>
 
-    <div class="header" w3-include-html="../assets/templates/menu.html"></div>
-  </body>
 </html>
