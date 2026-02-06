@@ -12,6 +12,7 @@ const guestBtn = document.getElementById('guestBtn');
 initPasswordIconToggle(loginPassword, loginPasswordIcon);
 toggleLoginButton();
 
+
 /**
  * Enables or disables the login button based on input field values.
  */
@@ -29,7 +30,9 @@ function toggleLoginButton() {
  */
 async function getUserByEmail(email) {
     const allUsers = await getData("users");
+
     if (!allUsers) return null;
+
     const userList = Object.values(allUsers);
     const foundUser = userList.find(u => u.email.toLowerCase() === email.toLowerCase());
     return foundUser || null;
@@ -38,7 +41,6 @@ async function getUserByEmail(email) {
 
 /**
  * Handles the login form submission.
- * @param {Event} event - The form submission event.    
  */
 async function handleLogin(event) {
     event.preventDefault();
@@ -47,8 +49,9 @@ async function handleLogin(event) {
     const email = loginEmail.value.trim();
     const password = loginPassword.value;
     const user = await getUserByEmail(email);
+
     if (user && user.password === password) {
-        loginSuccessful(user);
+        completeUserLogin(user);
     } else {
         showLoginError();
     }
@@ -71,39 +74,30 @@ function getGuestUser() {
 
 /**
  * Fills the login fields with the provided user's credentials.
- * @param {Object} user - The user object containing email and password.
+ * @param {Object} guestUser - The guest user object containing email and password.
  */
-function fillLoginFields(user) {
+function fillLoginFields(guestUser) {
     if (loginEmail && loginPassword) {
-        loginEmail.value = user.email;
-        loginPassword.value = user.password;
+        loginEmail.value = guestUser.email;
+        loginPassword.value = guestUser.password;
     }
-    enableLoginButton();
+    disableLoginButton();
 }
 
 /**
  * Disables the login button.
  */
-function enableLoginButton() {
+function disableLoginButton() {
     if (loginBtn) loginBtn.disabled = true;
-}
-
-
-/**
- * Saves the guest user session in session storage.
- * @param {Object} user - The user object to save.
- */
-function saveGuestSession(user) {
-    sessionStorage.setItem('loggedInUser', JSON.stringify(user));
 }
 
 
 /**
  * Redirects to the specified URL after a delay.
  * @param {string} url - The URL to redirect to.
- * @param {number} [delay=2000] - The delay in milliseconds before redirecting.
+ * @param {number} [delay=500] - The delay in milliseconds before redirecting.
  */
-function redirectAfterDelay(url, delay = 2000) {
+function redirectAfterDelay(url, delay = 500) {
     setTimeout(() => {
         window.location.href = url;
     }, delay);
@@ -116,20 +110,29 @@ function redirectAfterDelay(url, delay = 2000) {
 function handleGuestLogin() {
     const guestUser = getGuestUser();
     fillLoginFields(guestUser);
-    saveGuestSession(guestUser);
-    redirectAfterDelay("summary.html");
+    disableLoginButton();
+    completeGuestLogin(guestUser);
+}
+
+/**
+ * Finalizes the login for a registered user and redirects.
+ * @param {Object} currentUser - The user object.
+ */
+function completeUserLogin(currentUser) {
+    sessionStorage.setItem('loggedInUser', JSON.stringify(currentUser));
+    window.location.href = "./html/summary.html";
 }
 
 
 /**
- * Handles successful login.
- * @param {Object} user - The user object that was successfully logged in.
+ * Finalizes the login for a guest and redirects with a delay.
+ * @param {Object} guestUser - The guest user object.
  */
-function loginSuccessful(user) {
-    console.log("Login erfolgreich!");
-    sessionStorage.setItem('loggedInUser', JSON.stringify(user));
-    window.location.href = "summary.html";
+function completeGuestLogin(guestUser) {
+    sessionStorage.setItem('loggedInUser', JSON.stringify(guestUser));
+    redirectAfterDelay("./html/summary.html");
 }
+
 
 /**
  * Displays login error messages and highlights input fields.
