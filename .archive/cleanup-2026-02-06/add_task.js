@@ -1,0 +1,1 @@
+// Funktion, die nur für add_task gedacht sind

@@ -87,7 +87,7 @@
   .menu__btn {
     flex-direction: row;
     justify-content: flex-start;
-    padding: 0.4rem 2rem 0.4rem 3rem;
+    padding: 0.4rem 4.6rem 0.4rem 3rem;
     gap: 10px;
     margin: 0 0 1rem 0;
     font-size: var(--font-size-base);
@@ -121,11 +121,13 @@
 .menu__btn:hover:not(.active-menu-btn) {
   background-color: var(--color-primary-light);
   color: var(--color-white);
+  width: 100%;
 }
 
 .active-menu-btn {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
+  width: 100%;
 }
 
 /* Mobile: Aktiver Button mit Indikator */
@@ -165,6 +167,7 @@
   color: var(--color-gray-300);
   text-decoration: none;
   font-size: var(--font-size-base);
+  width: 100%;
   padding: 0.4rem 3.5rem 0.4rem 4.4rem;
   transition:
     background var(--transition-base),

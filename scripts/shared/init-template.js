@@ -112,21 +112,6 @@ function handleEscape(event, avatar, menu) {
  * @param {string} name - Der vollständige Name (z.B. "Max Mustermann")
  * @returns {string} Die Initialen (z.B. "MM")
  */
-function getInitialsFromName(name) {
-  if (!name) return "MS";
-
-  const nameParts = name.trim().split(/\s+/);
-  if (nameParts.length === 1) {
-    // Nur ein Name: Nimm die ersten 2 Buchstaben
-    return nameParts[0].substring(0, 2).toUpperCase();
-  }
-
-  // Mehrere Namen: Nimm ersten Buchstaben von erstem und letztem Namen
-  const firstInitial = nameParts[0][0];
-  const lastInitial = nameParts[nameParts.length - 1][0];
-  return (firstInitial + lastInitial).toUpperCase();
-}
-
 /**
  * Setzt die User-Initialen im Header-Avatar
  */
@@ -142,7 +127,7 @@ function setUserInitials() {
     try {
       const user = JSON.parse(loggedInUserString);
       if (user && user.name) {
-        initials = getInitialsFromName(user.name);
+        initials = getInitials(user.name, "MS");
       }
     } catch (e) {
       console.error("Fehler beim Parsen der User-Daten:", e);
