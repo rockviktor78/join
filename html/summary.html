@@ -13,68 +13,78 @@
     <link rel="stylesheet" href="../styles/components.css" />
     <link rel="stylesheet" href="../styles/summary.css" />
 
+    <script src="../scripts/firebase.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
+    <script src="../scripts/summary.js" defer></script>
   </head>
 
   <body class="desktop-layout">
     <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
-
     <main class="content-scroll-area">
-      <div class="summary">
-        <header class="summary__header">
-          <h1 class="summary__title">Join360</h1>
-          <div class="separator--v separator--v-blue"></div>
-          <span class="summary__subtitle">Key metrics at a Glance</span>
-        </header>
+      <header class="summary__header">
+        <h1 class="summary__title">Join360</h1>
+        <div class="separator--v separator--v-short separator--v-blue" role="separator"></div>
+        <span class="summary__subtitle">Key metrics at a Glance</span>
+      </header>
 
-        <main class="summary__grid">
-          <div class="card card--half">
-            <div class="card__icon card__icon--todo"></div>
+      <section class="summary">
+        <div class="summary__grid">
+          <article class="card card--half">
+            <div class="card__icon card__icon--todo" aria-hidden="true"></div>
             <div class="card__info">
               <div class="card__count" id="todo-count">0</div>
               <span class="card__label">To do</span>
             </div>
-          </div>
+          </article>
 
-          <div class="card card--half">
-            <div class="card__icon card__icon--done"></div>
+          <article class="card card--half">
+            <div class="card__icon card__icon--done" aria-hidden="true"></div>
             <div class="card__info">
               <div class="card__count" id="done-count">0</div>
               <span class="card__label">Done</span>
             </div>
-          </div>
+          </article>
 
-          <div class="card card--full card--urgent">
+          <article class="card card--full card--urgent">
             <div class="card__urgent-info">
-              <img class="card__icon" src="../assets/img/shared/urgent.svg" alt="Urgent Icon" />
+              <img class="card__icon" src="../assets/img/shared/urgent.svg" alt="" aria-hidden="true" />
               <div class="card__info">
                 <div class="card__count" id="urgent-count">0</div>
-                <div class="card__label">Urgent</div>
+                <span class="card__label">Urgent</span>
               </div>
             </div>
-            <div class="separator--v separator--v-gray"></div>
+
+            <div class="separator--v separator--v-gray" role="separator"></div>
+
             <div class="card__info">
-              <div class="card__date" id="display-date">October 16, 2023</div>
+              <time class="card__date" datetime="" id="display-date"></time>
               <span>Upcoming Deadlines</span>
             </div>
-          </div>
+          </article>
 
-          <div class="card card--third">
+          <article class="card card--third">
             <div class="card__count" id="board-count">0</div>
             <span class="card__label">Tasks in Board</span>
-          </div>
-          <div class="card card--third">
+          </article>
+
+          <article class="card card--third">
             <div class="card__count" id="progress-count">0</div>
-            <span class="card__label">Taks in Progress</span>
-          </div>
-          <div class="card card--third">
+            <span class="card__label">Tasks in Progress</span>
+          </article>
+
+          <article class="card card--third">
             <div class="card__count" id="feedback-count">0</div>
             <span class="card__label">Awaiting Feedback</span>
-          </div>
-        </main>
-      </div>
+          </article>
+        </div>
+
+        <div class="summary__greeting">
+          <h2 class="summary__greeting-title"></h2>
+          <span class="summary__greeting-name" id="user-name-display"></span>
+        </div>
+      </section>
     </main>
 
     <script>
