@@ -4,7 +4,8 @@ body {
   font-family: var(--font-primary);
   background-color: var(--color-gray-50);
 /* Reset CSS importieren */
-@import url("./styles/base/reset.css");
+@import url("../styles/base/reset.css");
+}
 
 /* Screen Wrapper - begrenzt Content auf 1920x1080 */
 .screen-wrapper {

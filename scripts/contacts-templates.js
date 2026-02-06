@@ -1,5 +1,5 @@
 function templateContact(initial, name, email, index) {
-    return `
+  return `
         <div class="contact-card" id="${name}" onclick="showContactDetails('${index}')">
             <div class="contact-initial badge">${initial}</div>
             <div>
@@ -11,7 +11,7 @@ function templateContact(initial, name, email, index) {
 }
 
 function templateContactDetails(contact, index, initial, badgeColor) {
-    return `
+  return `
         <div class="contact-detail-slide">
             <div class="contacts-detail-header">
                 ${templateContactDetailHeader(contact, index, initial, badgeColor)}
@@ -27,7 +27,7 @@ function templateContactDetails(contact, index, initial, badgeColor) {
 }
 
 function templateContactDetailHeader(contact, index, initial, badgeColor) {
-    return `
+  return `
        <div class="contact-detail-initial" style="background-color: ${badgeColor};">${initial}</div>
             <div class="contact-detail-name-and-actions">
                 <div class="contact-detail-name">${contact.name}</div>
@@ -40,18 +40,18 @@ function templateContactDetailHeader(contact, index, initial, badgeColor) {
 }
 
 function templateContactDetailInformation(contact) {
-    return `
+  return `
        <div class="contact-info">
             <div class="contact-info-header">Email</div> 
             <div class="contact-info-email">${contact.email}</div>
             <div class="contact-info-header">Phone</div> 
-            <div class="contact-info-phone">${contact.phone || 'N/A'}</div>
+            <div class="contact-info-phone">${contact.phone || "N/A"}</div>
         </div>
-    `;    
+    `;
 }
 
 function templateRenderLetterGroup(firstLetter) {
-    return `
+  return `
         <div class="letter-group">
             <h2 class="letter-title">${firstLetter}</h2>
             <hr>
@@ -60,7 +60,7 @@ function templateRenderLetterGroup(firstLetter) {
 }
 
 function templateAddNewContact() {
-    return `
+  return `
         <div class="form-contact-container">
             <div class="form-contact-header">
                 ${templateAddNewContactheader()}
@@ -76,7 +76,7 @@ function templateAddNewContact() {
 }
 
 function templateAddNewContactheader() {
-    return `
+  return `
         <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
         <div>
             <div class="form-contact-header-title">Add Contact </div>
@@ -87,13 +87,13 @@ function templateAddNewContactheader() {
 }
 
 function templateAddNewContactProfilePicture() {
-    return `
-        <div class="contact-detail-initial" style="background-color: #D1D1D1;"><img src="../assets/img/contacts/person.svg" alt="Contact Initial"></div>
+  return `
+        <div class="contact-detail-initial" style="background-color: #D1D1D1;"><img src="../assets/img/contacts/personwhite.svg" alt="Contact Initial"></div>
     `;
 }
 
 function templateAddNewContactForm() {
-    return `
+  return `
         <div class="close-button" onclick="closeEditContact()"><img src="../assets/img/contacts/cancel.svg" alt="Cancel"></div>
         <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" value="" required>
         <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" value="" required>
@@ -106,7 +106,7 @@ function templateAddNewContactForm() {
 }
 
 function templateEditContact(index, name, email, phone, initial, badgeColor) {
-    return `
+  return `
         <div class="form-contact-container">
             <div class="form-contact-header">
               ${templateEditContactHeader()}
@@ -122,15 +122,15 @@ function templateEditContact(index, name, email, phone, initial, badgeColor) {
 }
 
 function templateEditContactHeader() {
-    return `
+  return `
         <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
-        <div class="form-contact-header-title">Edit Contact</div>
+        <div class="form-contact-header-title">Edit contact</div>
         <div class="form-contact-header-line">___________________</div>
     `;
 }
 
 function templateEditContactProfilePicture(badgeColor, initial) {
-    return `
+  return `
         <div class="contact-detail-initial" style="background-color: ${badgeColor};">
             ${initial}
         </div>
@@ -139,11 +139,11 @@ function templateEditContactProfilePicture(badgeColor, initial) {
 }
 
 function templateEditContactForm(name, email, phone, index) {
-    return `
+  return `
         <div class="close-button" onclick="closeEditContact()"><img src="../assets/img/contacts/cancel.svg" alt="Cancel"></div>
-        <input type="text" class="form-input" id="new-contact-name" placeholder="Name" value="${name}" required>
-        <input type="email" class="form-input" id="new-contact-email" placeholder="Email" value="${email}" required>
-        <input type="text" class="form-input" id="new-contact-phone" placeholder="Phone" value="${phone}" required>
+        <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" value="${name}" required>
+        <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" value="${email}" required>
+        <input type="text" class="form-input-phone" id="new-contact-phone" placeholder="Phone" value="${phone}" required>
         <div class="form-contact-buttons">
             <button onclick="deleteContact(${index})" class="delete-button">Delete</button>
             <button onclick="confirmEditContact(${index})" class="save-contact-button">Save <img src="../assets/img/contacts/check.svg" alt="Save"></button>

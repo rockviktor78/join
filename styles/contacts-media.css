@@ -1,0 +1,197 @@
+@media (min-width: 1025px) and (max-width: 1250px) {
+  .contacts-list-container {
+    width: 350px;
+    padding-left: 5px;
+  }
+
+  .contacts-detail-header-title-first {
+    font-size: 50px;
+  }
+
+  .separator {
+    font-size: 49px;
+  }
+
+  .contacts-detail-header-title-second {
+    font-size: 20px;
+  }
+
+  .contact-detail-name-and-actions {
+    padding-left: 34px;
+  }
+
+  .contact-detail-name {
+    font-size: 37px;
+  }
+
+  .contact-detail-initial {
+    width: 90px;
+    height: 90px;
+    font-size: 37px;
+  }
+
+  .contact-card {
+    gap: 10px;
+  }
+
+  .create-contact-button {
+    font-size: var(--font-size-base);
+    padding: 5px;
+  }
+
+  .cancel-button {
+    font-size: var(--font-size-base);
+    padding: 5px;
+  }
+
+  .form-contact-header-title {
+    font-size: 45px;
+  }
+
+  .form-contact-subtitle {
+    font-size: 24px;
+  }
+
+  .contacts-form active {
+    height: 55vh;
+    top: 20%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .add-new-contact-container {
+    padding: 16px 12px 16px 12px;
+  }
+
+  .add-new-contact-button {
+    font-size: var(--font-size-base);
+    padding: 5px 5px;
+  }
+
+  .add-new-contact-button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .contacts-list-container {
+    width: 250px;
+    padding-left: 5px;
+  }
+
+  .letter-title {
+    font-size: var(--font-size-base);
+    padding-bottom: 7px;
+    padding-top: 7px;
+  }
+
+  .contacts-list {
+    padding: 8px 12px 16px 14px;
+  }
+
+  .contacts-detail-container {
+    margin-left: 0px;
+  }
+
+  .contacts-detail-header-title {
+    margin-top: 50px;
+    gap: 10px;
+  }
+
+  .contacts-detail-header-title-first {
+    font-size: 35px;
+  }
+
+  .separator {
+    font-size: 39px;
+  }
+
+  .contacts-detail-header-title-second {
+    font-size: 24px;
+  }
+
+  .contact-detail-name-and-actions {
+    padding-left: 24px;
+  }
+
+  .contact-detail-name {
+    font-size: 27px;
+  }
+
+  .contact-detail-initial {
+    width: 70px;
+    height: 70px;
+    font-size: 25px;
+  }
+
+  .contact-card {
+    gap: 5px;
+    padding: 8px 12px 8px 12px;
+  }
+
+  .contact-email {
+    font-size: var(--font-size-xs);
+  }
+
+  .contact-initial {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-xs);
+  }
+
+  h3,
+  .h3 {
+    font-size: var(--font-size-base);
+  }
+
+  .contact-detail-edit-button {
+    width: 50px;
+    height: 20px;
+  }
+
+  .contact-detail-delete-button {
+    width: 50px;
+    height: 20px;
+  }
+
+  .contacts-detail-header {
+    gap: 5px;
+  }
+
+  .form-contact-header {
+    padding: 33px 23px 33px 23px;
+  }
+
+  .form-contact-header-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .contacts-form active {
+    height: 55vh;
+    top: 20%;
+  }
+
+  .form-input-name,
+  .form-input-email,
+  .form-input-phone {
+    padding: 10px;
+    height: 40px;
+    font-size: var(--font-size-base);
+  }
+
+  .cancel-button img {
+    max-width: 100px;
+  }
+
+  .cancel-button {
+    padding: 5px;
+    font-size: var(--font-size-base);
+  }
+
+  .create-contact-button {
+    padding: 5px;
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+}
