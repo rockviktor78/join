@@ -39,5 +39,8 @@
     grid-column: 2;
     grid-row: 2;
     padding-bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 }
