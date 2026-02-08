@@ -57,8 +57,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-sm);
-}
+  transform: translateY(-1rem);
+ }
 
 .back-btn:hover {
   background: var(--color-primary-super-light);
