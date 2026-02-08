@@ -85,6 +85,17 @@
   margin-bottom: var(--spacing-md);
 }
 
+/* "Join" Links hellblau stylen */
+.help-section a[href="#"] {
+  color: var(--color-accent); /* Hellblau */
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.help-section a[href="#"]:hover {
+  text-decoration: underline;
+}
+
 .help-section h2 {
   /* Mobile */
   font-size: var(--font-size-2xl);

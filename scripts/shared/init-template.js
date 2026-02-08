@@ -127,7 +127,7 @@ function setUserInitials() {
     try {
       const user = JSON.parse(loggedInUserString);
       if (user && user.name) {
-        initials = getInitials(user.name, "MS");
+        initials = getInitials(user.name, "SM");
       }
     } catch (e) {
       console.error("Fehler beim Parsen der User-Daten:", e);

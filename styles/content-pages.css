@@ -4,6 +4,7 @@
  */
 
 .content-area {
+  color: var(--color-black); /* Globale Schriftfarbe für alle Page-Inhalte */
   grid-column: 2;
   grid-row: 2;
   overflow-y: auto;
@@ -62,7 +63,7 @@
 
 .help-section p {
   line-height: var(--line-height-normal);
-  color: var(--color-gray-700);
+  color: var(--color-black);
   margin-bottom: var(--spacing-md);
 }
 
@@ -71,7 +72,7 @@
   font-weight: var(--font-weight-bold);
   margin-top: var(--spacing-2xl);
   margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
+  color: var(--color-black);
 }
 
 .help-section h3 {
@@ -92,7 +93,7 @@
 }
 
 .help-section a {
-  color: var(--color-accent);
+  color: var(--color-black);
   text-decoration: none;
 }
 
@@ -114,10 +115,10 @@
 
 /* Content Page Headings */
 .content-limit h1 {
-  font-size: var(--font-size-5xl);
+  font-size: var(--font-size-6xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-xl);
-  color: var(--color-primary);
+  color: var(--color-black);
 }
 
 .content-limit h2 {
@@ -125,7 +126,7 @@
   font-weight: var(--font-weight-bold);
   margin-top: var(--spacing-2xl);
   margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
+  color: var(--color-black);
 }
 
 .content-limit h3 {
@@ -133,7 +134,7 @@
   font-weight: var(--font-weight-semibold);
   margin-top: var(--spacing-lg);
   margin-bottom: var(--spacing-sm);
-  color: var(--color-primary);
+  color: var(--color-black);
 }
 
 .content-limit ul {
@@ -144,22 +145,22 @@
 .content-limit li {
   margin-bottom: var(--spacing-xs);
   line-height: var(--line-height-normal);
-  color: var(--color-gray-700);
+  color: var(--color-black);
 }
 
 .content-limit p {
   line-height: var(--line-height-normal);
-  color: var(--color-gray-700);
+  color: var(--color-black);
   margin-bottom: var(--spacing-md);
 }
 
 .content-limit a {
-  color: var(--color-accent);
+  color: var(--color-black);
   text-decoration: none;
   transition: all var(--transition-fast);
 }
 
 .content-limit a:hover {
   text-decoration: underline;
-  color: var(--color-accent);
+  color: var(--color-black);
 }

@@ -11,6 +11,7 @@
   justify-content: space-around;
   align-items: center;
   z-index: 20;
+  height: 80px; /* Feste Höhe für stabiles Layout */
   padding: var(--spacing-sm) 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -23,6 +24,7 @@
     grid-row: 1 / span 2;
     flex-direction: column;
     justify-content: flex-start;
+    height: auto; /* Desktop: auto height */
     padding: 0;
     box-shadow: none;
   }
@@ -35,7 +37,7 @@
 @media (min-width: 769px) {
   .menu__header {
     display: block;
-    padding: 3.5rem 3.5rem 0rem 3.5rem;
+    padding: 3.2rem 3.5rem 0rem 3.5rem;
   }
 }
 
@@ -57,7 +59,7 @@
     flex: 1;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 6rem;
+    padding-top: 7rem;
     width: auto;
   }
 }
@@ -83,13 +85,23 @@
   min-width: 60px;
 }
 
+/* Mobile: Feste Button-Größe für stabiles Layout */
+@media (max-width: 768px) {
+  .menu__btn {
+    width: 80px;
+    height: 76px;
+    padding: 8px 4px;
+    border-radius: 16px;
+  }
+}
+
 @media (min-width: 769px) {
   .menu__btn {
     flex-direction: row;
     justify-content: flex-start;
     padding: 0.4rem 4.6rem 0.4rem 3rem;
     gap: 10px;
-    margin: 0 0 1rem 0;
+    margin: 0 0 1.35rem 0;
     font-size: var(--font-size-base);
     text-align: left;
     min-width: auto;
@@ -99,6 +111,14 @@
 .menu__icon {
   width: 24px;
   height: 24px;
+}
+
+/* Mobile: Größere Icons für bessere Lesbarkeit */
+@media (max-width: 768px) {
+  .menu__icon {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 @media (min-width: 769px) {
@@ -112,40 +132,56 @@
   font-size: var(--font-size-xs);
 }
 
+/* Mobile: Größere Schrift für bessere Lesbarkeit */
+@media (max-width: 768px) {
+  .menu__label {
+    font-size: 16px;
+  }
+}
+
 @media (min-width: 769px) {
   .menu__label {
     font-size: var(--font-size-base);
   }
 }
 
+/* Mobile: Hover ohne Layout-Shift (nur Farbe) */
 .menu__btn:hover:not(.active-menu-btn) {
   background-color: var(--color-primary-light);
   color: var(--color-white);
-  width: 100%;
 }
 
+/* Mobile: Hover mit fester Größe und Border-Radius */
+@media (max-width: 768px) {
+  .menu__btn:hover:not(.active-menu-btn) {
+    /* Größe bereits durch .menu__btn definiert (80x76px, border-radius: 16px) */
+  }
+}
+
+/* Desktop: Hover mit width: 100% */
+@media (min-width: 769px) {
+  .menu__btn:hover:not(.active-menu-btn) {
+    width: 100%;
+  }
+}
+
+/* Mobile: Active State ohne Layout-Shift */
 .active-menu-btn {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
-  width: 100%;
 }
 
-/* Mobile: Aktiver Button mit Indikator */
+/* Desktop: Active mit width: 100% */
+@media (min-width: 769px) {
+  .active-menu-btn {
+    width: 100%;
+  }
+}
+
+/* Mobile: Active Button mit Border-Radius (ohne Indikator) */
 @media (max-width: 768px) {
   .active-menu-btn {
-    position: relative;
-  }
-
-  .active-menu-btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 3px;
-    background-color: var(--color-accent);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    /* Größe bereits durch .menu__btn definiert (80x76px, border-radius: 16px) */
   }
 }
 

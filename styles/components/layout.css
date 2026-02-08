@@ -5,7 +5,7 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  /* overflow: hidden entfernt - verhindert position: fixed für Mobile Menu */
   background-color: var(--bg-page);
   font-family: var(--font-primary);
 }
@@ -16,6 +16,7 @@
     display: grid;
     grid-template-columns: 232px 1fr;
     grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
+    overflow: hidden; /* Nur Desktop: verhindert Scroll auf Grid-Container */
   }
 }
 
@@ -38,6 +39,5 @@
     grid-column: 2;
     grid-row: 2;
     padding-bottom: 0;
-    
   }
 }
