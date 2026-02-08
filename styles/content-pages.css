@@ -21,9 +21,24 @@
 
 .content-limit {
   width: 100%;
-  max-width: calc( var(--content-max-width) - var(--sidebar-width) );
-  padding: var(--spacing-5xl) var(--spacing-5xl);
+  max-width: calc(var(--content-max-width) - var(--sidebar-width));
+  /* Mobile: Kleineres Padding */
+  padding: var(--spacing-2xl) var(--spacing-md);
   box-sizing: border-box;
+}
+
+/* Extra Small Screens: Noch kleineres Padding */
+@media (max-width: 480px) {
+  .content-limit {
+    padding: var(--spacing-xl) var(--spacing-sm);
+  }
+}
+
+/* Desktop: Größeres Padding */
+@media (min-width: 769px) {
+  .content-limit {
+    padding: var(--spacing-5xl) var(--spacing-5xl);
+  }
 }
 
 .help-header {
@@ -115,18 +130,43 @@
 
 /* Content Page Headings */
 .content-limit h1 {
-  font-size: var(--font-size-6xl);
+  /* Mobile: Kleinere Schrift */
+  font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
   color: var(--color-black);
 }
 
+/* Tablet: Mittlere Größe */
+@media (min-width: 481px) {
+  .content-limit h1 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-xl);
+  }
+}
+
+/* Desktop: Große Schrift */
+@media (min-width: 769px) {
+  .content-limit h1 {
+    font-size: var(--font-size-5xl);
+  }
+}
+
 .content-limit h2 {
-  font-size: var(--font-size-3xl);
+  /* Mobile: Kleinere Schrift */
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  margin-top: var(--spacing-2xl);
+  margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-md);
   color: var(--color-black);
+}
+
+/* Desktop: Größere Schrift */
+@media (min-width: 769px) {
+  .content-limit h2 {
+    font-size: var(--font-size-3xl);
+    margin-top: var(--spacing-2xl);
+  }
 }
 
 .content-limit h3 {

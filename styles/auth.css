@@ -229,7 +229,7 @@
 
 .error-placeholder {
   color: var(--color-error);
-  font-size: 0.875rem;
+  font-size: var(--font-size-base); /* Accessibility: min 1rem */
   height: 1rem;
   visibility: hidden;
   padding-left: 0.5rem;
@@ -263,7 +263,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--font-size-base); /* Accessibility: min 1rem */
 }
 
 .auth-card__custom-checkbox {
@@ -276,7 +276,9 @@
   transition: transform 0.1s ease-in-out;
 }
 
-.auth-card__checkbox-input:checked + .auth-card__checkbox-label .auth-card__custom-checkbox {
+.auth-card__checkbox-input:checked
+  + .auth-card__checkbox-label
+  .auth-card__custom-checkbox {
   background-image: url("../assets/img/auth/checkbox-checked.svg");
 }
 

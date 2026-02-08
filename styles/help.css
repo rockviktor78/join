@@ -13,7 +13,7 @@
 
 .content-limit {
   width: 100%;
-  max-width: calc( var(--content-max-width) - var(--sidebar-width) );
+  max-width: calc(var(--content-max-width) - var(--sidebar-width));
   /* Mobile: Kleineres Padding */
   padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
@@ -53,16 +53,19 @@
   background: transparent;
   cursor: pointer;
   border-radius: 50%;
-  transition: all var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translateY(-1rem);
- }
+  transform-origin: center;
+}
 
 .back-btn:hover {
   background: var(--color-primary-super-light);
-  transform: scale(1.15);
+  transform: translateY(-1rem) scale(1.15);
 }
 
 .help-section {

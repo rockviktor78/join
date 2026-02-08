@@ -88,6 +88,13 @@ function setUserMenuState(avatar, menu, open) {
   menu.classList.toggle("is-open", open);
   avatar.setAttribute("aria-expanded", String(open));
   menu.setAttribute("aria-hidden", String(!open));
+
+  // Toggle inert attribute to enable/disable interactions
+  if (open) {
+    menu.removeAttribute("inert");
+  } else {
+    menu.setAttribute("inert", "");
+  }
 }
 
 function toggleUserMenu(avatar, menu) {
