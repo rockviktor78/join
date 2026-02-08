@@ -22,12 +22,12 @@
 
 .search-task {
     padding: 8px 16px;
-    border-radius: 10px;
-    border: 1px solid var(--color-gray-300);
+    font-size: var(--font-size-2xl);
     gap: 10px;
     background-color: var(--color-white);
     width: 280px;
-    font-size: var(--font-size-2xl);
+    border-radius: 10px;
+    border: 1px solid var(--color-gray-300);    
 }
 
 .add-task-button {
@@ -73,5 +73,48 @@
 }
 
 .drag-drop {
+
+}
+
+.drag-area {
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px dashed black;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.drag-area-highlight {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.todo-card {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    font-size: var(--font-size-base);
+}
+
+.todo-card-title {
+
+}
+
+.todo-card-description {
+
+}
+
+.todo-card-subtastks {
+
+}
+
+.todo-card-assignedto {
+    
+}
+
+.todo-card-priority {
 
 }
