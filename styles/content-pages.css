@@ -21,7 +21,7 @@
 
 .content-limit {
   width: 100%;
-  max-width: 1440px;
+  max-width: calc( var(--content-max-width) - var(--sidebar-width) );
   padding: var(--spacing-5xl) var(--spacing-5xl);
   box-sizing: border-box;
 }

@@ -27,12 +27,20 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--spacing-md);
+  transition: padding var(--transition-base);
 }
 
 @media (min-width: 769px) {
   .header__center-wrapper {
     max-width: calc(1440px - 232px);
     padding: 0 var(--spacing-xl) 0 var(--spacing-5xl);
+  }
+}
+
+/* Mid-Range: Reduziertes Padding für Tablet-Bereich */
+@media (min-width: 769px) and (max-width: 820px) {
+  .header__center-wrapper {
+    padding: 0 var(--spacing-xl) 0 var(--spacing-3xl);
   }
 }
 
@@ -65,6 +73,7 @@
   font-weight: var(--font-weight-normal);
   color: var(--color-black);
   margin: 0;
+  transition: font-size var(--transition-base);
 }
 
 /* Mobile: Text ausblenden */
@@ -76,6 +85,13 @@
 
 /* Desktop: Text sichtbar */
 @media (min-width: 769px) {
+  .header__title {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Desktop: Größere Schrift ab 821px */
+@media (min-width: 821px) {
   .header__title {
     font-size: var(--font-size-xl);
   }

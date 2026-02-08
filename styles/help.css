@@ -13,7 +13,7 @@
 
 .content-limit {
   width: 100%;
-  max-width: 1440px;
+  max-width: calc( var(--content-max-width) - var(--sidebar-width) );
   /* Mobile: Kleineres Padding */
   padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
@@ -58,16 +58,6 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-sm);
-}
-
-/* Desktop: Absolute positioned */
-@media (min-width: 769px) {
-  .back-btn {
-    position: absolute;
-    top: 14rem;
-    right: 6rem;
-    padding: 0;
-  }
 }
 
 .back-btn:hover {

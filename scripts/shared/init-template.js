@@ -126,12 +126,17 @@ function setUserInitials() {
   if (loggedInUserString) {
     try {
       const user = JSON.parse(loggedInUserString);
+      console.log("User-Daten:", user); // DEBUG
+      console.log("User-Name:", user?.name); // DEBUG
       if (user && user.name) {
         initials = getInitials(user.name, "SM");
+        console.log("Berechnete Initialen:", initials); // DEBUG
       }
     } catch (e) {
       console.error("Fehler beim Parsen der User-Daten:", e);
     }
+  } else {
+    console.warn("Kein User in sessionStorage gefunden"); // DEBUG
   }
 
   // Setze die Initialen
