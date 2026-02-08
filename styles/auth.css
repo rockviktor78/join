@@ -64,7 +64,7 @@
 .auth-card {
   background-color: var(--color-white);
   border-radius: 1.875rem;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 0.75rem 0 rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 37.125rem;
   height: auto;
@@ -82,7 +82,7 @@
 
 @media (max-width: 767px) {
   .auth-card {
-    min-height: 450px;
+    min-height: 28.125rem;
   }
 }
 
@@ -270,7 +270,7 @@
   display: inline-block;
   height: 1.5rem;
   width: 1.5rem;
-  margin-right: 8px;
+  margin-right: 0.5rem;
   margin-top: -2px;
   background-image: url("../assets/img/auth/checkbox-default.svg");
   transition: transform 0.1s ease-in-out;
@@ -295,14 +295,14 @@
 .signup-success-modal {
   position: fixed;
   left: 50%;
-  bottom: -100px;
+  bottom: -6.25rem;
   transform: translate(-50%, 100%);
   opacity: 0;
   background-color: var(--color-primary);
   color: var(--color-white);
-  padding: 15px 30px;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 0.9375rem 1.875rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 0.625rem rgba(0, 0, 0, 0.2);
   transition:
     transform 0.4s ease-in-out,
     opacity 0.3s ease-in-out;
@@ -399,7 +399,7 @@
 
 .auth-card__btn:hover {
   background-color: var(--color-accent);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 0.5rem rgba(0, 0, 0, 0.15);
 }
 
 .auth-card__btn--guest {

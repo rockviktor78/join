@@ -11,9 +11,9 @@
   justify-content: space-around;
   align-items: center;
   z-index: 20;
-  height: 80px; /* Feste Höhe für stabiles Layout */
+  height: 5rem; /* Feste Höhe für stabiles Layout */
   padding: var(--spacing-sm) 0;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 0.625rem rgba(0, 0, 0, 0.1);
 }
 
 /* Desktop: Sidebar */
@@ -42,7 +42,7 @@
 }
 
 .menu__logo {
-  width: 100px;
+  width: 6.25rem;
 }
 
 .menu__nav {
@@ -82,16 +82,16 @@
     background var(--transition-base),
     color var(--transition-base);
   text-align: center;
-  min-width: 60px;
+  min-width: 3.75rem;
 }
 
 /* Mobile: Feste Button-Größe für stabiles Layout */
 @media (max-width: 768px) {
   .menu__btn {
-    width: 80px;
-    height: 76px;
-    padding: 8px 4px;
-    border-radius: 16px;
+    width: 5rem;
+    height: 4.75rem;
+    padding: 0.5rem 4px;
+    border-radius: 1rem;
   }
 }
 
@@ -100,7 +100,7 @@
     flex-direction: row;
     justify-content: flex-start;
     padding: 0.4rem 4.6rem 0.4rem 3rem;
-    gap: 10px;
+    gap: 0.625rem;
     margin: 0 0 1.35rem 0;
     font-size: var(--font-size-base);
     text-align: left;
@@ -109,22 +109,22 @@
 }
 
 .menu__icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 /* Mobile: Größere Icons für bessere Lesbarkeit */
 @media (max-width: 768px) {
   .menu__icon {
-    width: 28px;
-    height: 28px;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }
 
 @media (min-width: 769px) {
   .menu__icon {
-    width: 28px;
-    height: 28px;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }
 

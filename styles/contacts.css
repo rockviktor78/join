@@ -15,14 +15,14 @@
 .contacts-list {
   flex: 1;
   overflow-y: auto;
-  padding: 16px 24px 32px 28px;
+  padding: 1rem 1.5rem 2rem 1.75rem;
 }
 
 .contacts-list-container {
-  width: 450px;
+  width: 28.125rem;
   border-right: 1px solid var(--color-gray-200);
   background-color: var(--color-white);
-  padding-left: 28px;
+  padding-left: 1.75rem;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -31,10 +31,10 @@
 .contact-card {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 2.1875rem;
   cursor: pointer;
   border-radius: var(--radius-md);
-  padding: 15px 24px 15px 24px;
+  padding: 0.9375rem 1.5rem 0.9375rem 1.5rem;
 }
 
 .contact-email {
@@ -44,28 +44,28 @@
 }
 
 .contacts-detail-container {
-  margin-left: 40px;
+  margin-left: 2.5rem;
   flex-grow: 1;
   background-color: var(--color-gray-50);
-  padding-left: 21px;
+  padding-left: 1.3125rem;
   overflow: hidden;
 }
 .contacts-detail-header {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 0.9375rem;
 }
 
 .contacts-detail-header-title {
   display: flex;
   align-items: center;
-  margin-top: 110px;
-  margin-bottom: 30px;
-  gap: 30px;
+  margin-top: 6.875rem;
+  margin-bottom: 1.875rem;
+  gap: 1.875rem;
 }
 
 .contacts-detail-header-title-first {
-  font-size: 61px;
+  font-size: 3.8125rem;
   font-weight: var(--font-weight-bold);
   margin-right: 5px;
   display: flex;
@@ -73,7 +73,7 @@
 }
 
 .separator {
-  font-size: 59px;
+  font-size: 3.6875rem;
   font-weight: var(--font-weight-medium);
   margin-right: 5px;
   color: var(--color-accent);
@@ -82,7 +82,7 @@
 }
 
 .contacts-detail-header-title-second {
-  font-size: 27px;
+  font-size: 1.6875rem;
   font-weight: var(--font-weight-normal);
   color: var(--color-primary);
   display: flex;
@@ -90,29 +90,29 @@
 }
 
 .contact-detail-initial {
-  width: 120px;
-  height: 120px;
+  width: 7.5rem;
+  height: 7.5rem;
   border-radius: var(--radius-full);
   color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 47px;
+  font-size: 2.9375rem;
   font-weight: var(--font-weight-medium);
   border: 3px solid var(--color-white);
 }
 
 .contact-detail-initial img {
-  width: 42px;
-  height: 42px;
+  width: 2.625rem;
+  height: 2.625rem;
 }
 
 .contact-detail-name-and-actions {
-  padding-left: 54px;
+  padding-left: 3.375rem;
 }
 
 .contact-detail-name {
-  font-size: 47px;
+  font-size: 2.9375rem;
   font-weight: var(--font-weight-medium);
   padding-bottom: 5px;
 }
@@ -123,8 +123,8 @@
 }
 
 .contact-initial {
-  width: 50px;
-  height: 50px;
+  width: 3.125rem;
+  height: 3.125rem;
   border-radius: var(--radius-full);
   color: var(--color-white);
   display: flex;
@@ -138,8 +138,8 @@
 .contact-information-title {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-normal);
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 1.875rem;
+  margin-bottom: 1.875rem;
   display: flex;
   align-items: center;
 }
@@ -147,8 +147,8 @@
 .contact-info-header {
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: 0.9375rem;
+  margin-top: 0.9375rem;
 }
 
 .contact-info-email {
@@ -164,7 +164,7 @@
 
 .add-new-contact-button {
   width: 100%;
-  padding: 10px 15px;
+  padding: 0.625rem 0.9375rem;
   background-color: var(--color-primary);
   color: var(--color-white);
   border: 1px solid var(--color-primary);
@@ -172,7 +172,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 1rem;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
 }
@@ -184,27 +184,27 @@
 }
 
 .add-new-contact-button img {
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
 }
 
 .letter-title {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-regular);
-  padding: 17px 36px 17px 36px;
+  padding: 1.0625rem 2.25rem 1.0625rem 2.25rem;
 }
 
 .letter-group hr {
   border: none;
   border-top: 1px solid #ccc;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .add-new-contact-container {
   display: flex;
   background-color: var(--color-white);
   border-radius: var(--radius-md);
-  padding: 32px 24px 32px 24px;
+  padding: 2rem 1.5rem;
   flex-shrink: 0;
 }
 
@@ -221,8 +221,8 @@
 }
 
 .contact-detail-edit-button {
-  width: 62px;
-  height: 24px;
+  width: 3.875rem;
+  height: 1.5rem;
   background-image: url("../assets/img/contacts/edit-contacts.svg");
   background-repeat: no-repeat;
   background-size: contain;
@@ -236,9 +236,9 @@
 }
 
 .contact-detail-delete-button {
-  width: 81px;
-  height: 24px;
-  padding-left: 130px;
+  width: 5.0625rem;
+  height: 1.5rem;
+  padding-left: 8.125rem;
   background-image: url("../assets/img/contacts/delete-contacts.svg");
   background-repeat: no-repeat;
   background-size: contain;

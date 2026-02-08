@@ -8,7 +8,7 @@
   box-shadow: var(--shadow-md);
   z-index: 10;
   padding: 0;
-  height: 80px;
+  height: 5rem;
 }
 
 /* Desktop: Grid-Positionierung */
@@ -32,7 +32,7 @@
 
 @media (min-width: 769px) {
   .header__center-wrapper {
-    max-width: calc(1440px - 232px);
+    max-width: calc(90rem - 14.5rem);
     padding: 0 var(--spacing-xl) 0 var(--spacing-5xl);
   }
 }
@@ -45,15 +45,15 @@
 }
 
 .header__logo {
-  height: 39px;
+  height: 2.4375rem;
   width: auto;
 }
 
 /* Mobile: Logo mit Avatar-ähnlichen Eigenschaften */
 @media (max-width: 768px) {
   .header__logo {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     object-fit: contain;
     padding: 0;
     background: transparent;
@@ -106,8 +106,8 @@
 }
 
 .header__help-btn img {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 /* Mobile: Help-Button ausblenden */
@@ -120,8 +120,8 @@
 /* Desktop: Help-Button sichtbar */
 @media (min-width: 769px) {
   .header__help-btn img {
-    width: 32px;
-    height: 32px;
+    width: 2rem;
+    height: 2rem;
   }
 }
 
@@ -148,8 +148,8 @@
 }
 
 .header__avatar {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border: 2px solid var(--color-primary);
   border-radius: var(--radius-full);
   display: flex;
@@ -164,8 +164,8 @@
 
 @media (min-width: 769px) {
   .header__avatar {
-    width: 56px;
-    height: 56px;
+    width: 3.5rem;
+    height: 3.5rem;
     border-width: 3px;
   }
 }
@@ -197,7 +197,7 @@
   padding: 1.1rem 0;
   display: flex;
   flex-direction: column;
-  min-width: 150px;
+  min-width: 9.375rem;
   opacity: 0;
   pointer-events: none;
   transition:
