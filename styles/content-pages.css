@@ -204,3 +204,27 @@
   text-decoration: underline;
   color: var(--color-black);
 }
+
+/* Mailto-Links: Blauer Link-Style */
+.content-limit a[href^="mailto:"],
+.content-limit .email-link {
+  color: #007cee;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.content-limit a[href^="mailto:"]:hover,
+.content-limit a[href^="mailto:"]:focus,
+.content-limit .email-link:hover,
+.content-limit .email-link:focus {
+  text-decoration: underline;
+  font-weight: var(--font-weight-bold);
+}
+
+/* Brand Names: Hellblau ohne Unterstreichung und ohne Cursor */
+.content-limit .brand-name {
+  color: #007cee;
+  text-decoration: none;
+  cursor: default;
+}
