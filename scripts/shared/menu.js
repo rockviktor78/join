@@ -1,10 +1,10 @@
 /**
  * Menu Navigation Handler
- * Verwaltet aktive Zustände und Navigation
+ * Manages active states and navigation
  */
 
 /**
- * Setzt den aktiven Menu-Button basierend auf der aktuellen Seite
+ * Sets the active menu button based on the current page
  */
 function setActiveMenuBtnOnLoad() {
   const currentPage = window.location.pathname.split("/").pop();
@@ -14,32 +14,25 @@ function setActiveMenuBtnOnLoad() {
     "board.html": "navBoard",
     "contacts.html": "navContacts",
   };
-
   const buttonId = pageToButtonMap[currentPage];
   if (buttonId) {
     setActiveMenuBtn(buttonId);
   }
-
-  // Footer-Links aktivieren
   setActiveFooterLink(currentPage);
 }
 
 /**
- * Setzt den aktiven Menu-Button
- * @param {string} buttonId - Die ID des aktiven Buttons (z.B. 'navSummary', 'navAddTask', etc.)
+ * Sets the active menu button
+ * @param {string} buttonId - The ID of the active button (e.g., 'navSummary', 'navAddTask', etc.)
  */
 function setActiveMenuBtn(buttonId) {
   const menuButtonIds = ["navSummary", "navAddTask", "navBoard", "navContacts"];
-
-  // Entferne active-menu-btn von allen Buttons
   menuButtonIds.forEach((id) => {
     const btn = document.getElementById(id);
     if (btn) {
       btn.classList.remove("active-menu-btn");
     }
   });
-
-  // Setze active-menu-btn auf den gewählten Button
   const activeButton = document.getElementById(buttonId);
   if (activeButton) {
     activeButton.classList.add("active-menu-btn");
@@ -47,15 +40,13 @@ function setActiveMenuBtn(buttonId) {
 }
 
 /**
- * Setzt den aktiven Footer-Link basierend auf der aktuellen Seite
- * @param {string} currentPage - Der aktuelle Dateiname (z.B. 'privacy-policy.html')
+ * Sets the active footer link based on the current page
+ * @param {string} currentPage - The current filename (e.g., 'privacy-policy.html')
  */
 function setActiveFooterLink(currentPage) {
   const footerLinks = document.querySelectorAll(".menu__footer-link");
-
   footerLinks.forEach((link) => {
     link.classList.remove("active-menu-btn");
-
     const linkHref = link.getAttribute("href");
     if (linkHref === currentPage) {
       link.classList.add("active-menu-btn");
@@ -64,10 +55,9 @@ function setActiveFooterLink(currentPage) {
 }
 
 /**
- * Initialisiert die Menu-Navigation - wird von init-template.js aufgerufen
+ * Initializes menu navigation - called from init-template.js
  */
 function initMenuNavigation() {
-  // Prüfe ob DOM bereit ist
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       setActiveMenuBtnOnLoad();
@@ -79,7 +69,9 @@ function initMenuNavigation() {
   }
 }
 
-// Navigation Handler für Menu Buttons
+/**
+ * Sets up navigation handlers for menu buttons
+ */
 function setupMenuNavigation() {
   const menuButtons = {
     navSummary: "../pages/summary.html",
@@ -87,19 +79,23 @@ function setupMenuNavigation() {
     navBoard: "../pages/board.html",
     navContacts: "../pages/contacts.html",
   };
-
   Object.entries(menuButtons).forEach(([id, url]) => {
-    const button = document.getElementById(id);
-    if (button) {
-      button.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        // Setze den aktiven Button
-        setActiveMenuBtn(id);
-
-        // Navigiere zur Seite
-        window.location.href = url;
-      });
-    }
+    setupMenuButton(id, url);
   });
+}
+
+/**
+ * Sets up a single menu button with click handler
+ * @param {string} id - The button ID
+ * @param {string} url - The navigation URL
+ */
+function setupMenuButton(id, url) {
+  const button = document.getElementById(id);
+  if (button) {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      setActiveMenuBtn(id);
+      window.location.href = url;
+    });
+  }
 }

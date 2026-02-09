@@ -1,5 +1,5 @@
 /**
- * Initializes the shared template (header/menu) after includes are loaded.
+ * Initializes the shared template (header/menu) after includes are loaded
  */
 async function initTemplate() {
   if (typeof includeHTML !== "function") {
@@ -8,20 +8,28 @@ async function initTemplate() {
     );
     return;
   }
-
   await includeHTML();
   updateNavigation();
-
-  // Setze User-Initialen sofort
   setUserInitials();
+  initializeMenuAndLogout();
+}
 
-  // Initialisiere Menu-Navigation nach dem Template-Laden
+/**
+ * Initializes menu navigation and logout functionality
+ */
+function initializeMenuAndLogout() {
   if (typeof initMenuNavigation === "function") {
     initMenuNavigation();
-  } else {
-    console.warn("initMenuNavigation ist noch nicht verfügbar");
   }
+  setupLogoutLink();
+  setupUserMenu();
+  initializeMenuFeatures();
+}
 
+/**
+ * Sets up the logout link functionality
+ */
+function setupLogoutLink() {
   const logoutLink = document.getElementById("logoutLink");
   if (logoutLink) {
     logoutLink.addEventListener("click", (event) => {
@@ -30,36 +38,40 @@ async function initTemplate() {
       window.location.href = "../index.html";
     });
   }
+}
 
-  setupUserMenu();
-
+/**
+ * Initializes additional menu features if available
+ */
+function initializeMenuFeatures() {
   if (typeof setActiveMenuBtnOnLoad === "function") {
     setActiveMenuBtnOnLoad();
   }
-
   if (typeof setupMenuNavigation === "function") {
     setupMenuNavigation();
   }
 }
 
+/**
+ * Updates navigation state based on current page
+ */
 function updateNavigation() {
   const path = window.location.pathname.toLowerCase();
-
   document.querySelectorAll(".menu__btn").forEach((btn) => {
     btn.classList.remove("active");
-
     const pageName = btn.id.replace("nav", "").toLowerCase();
-
-    if (path.includes(pageName)) {
-      btn.classList.add("active");
-    }
-
-    if (path.endsWith("/") && pageName === "summary") {
+    if (
+      path.includes(pageName) ||
+      (path.endsWith("/") && pageName === "summary")
+    ) {
       btn.classList.add("active");
     }
   });
 }
 
+/**
+ * Sets up the user menu with event listeners
+ */
 function setupUserMenu() {
   const elements = getUserMenuElements();
   if (!elements) return;
@@ -77,6 +89,10 @@ function setupUserMenu() {
   );
 }
 
+/**
+ * Gets user menu DOM elements
+ * @returns {Object|null} Object with avatar and menu elements, or null if not found
+ */
 function getUserMenuElements() {
   const avatar = document.getElementById("userAvatar");
   const menu = document.getElementById("userMenu");
@@ -84,12 +100,16 @@ function getUserMenuElements() {
   return { avatar, menu };
 }
 
+/**
+ * Sets the user menu state (open/closed)
+ * @param {HTMLElement} avatar - The avatar element
+ * @param {HTMLElement} menu - The menu element
+ * @param {boolean} open - Whether the menu should be open
+ */
 function setUserMenuState(avatar, menu, open) {
   menu.classList.toggle("is-open", open);
   avatar.setAttribute("aria-expanded", String(open));
   menu.setAttribute("aria-hidden", String(!open));
-
-  // Toggle inert attribute to enable/disable interactions
   if (open) {
     menu.removeAttribute("inert");
   } else {
@@ -97,17 +117,34 @@ function setUserMenuState(avatar, menu, open) {
   }
 }
 
+/**
+ * Toggles the user menu between open and closed states
+ * @param {HTMLElement} avatar - The avatar element
+ * @param {HTMLElement} menu - The menu element
+ */
 function toggleUserMenu(avatar, menu) {
   const isOpen = menu.classList.contains("is-open");
   setUserMenuState(avatar, menu, !isOpen);
 }
 
+/**
+ * Handles clicks outside the user menu to close it
+ * @param {Event} event - The click event
+ * @param {HTMLElement} avatar - The avatar element
+ * @param {HTMLElement} menu - The menu element
+ */
 function handleOutsideClick(event, avatar, menu) {
   if (!menu.contains(event.target) && event.target !== avatar) {
     setUserMenuState(avatar, menu, false);
   }
 }
 
+/**
+ * Handles escape key press to close the user menu
+ * @param {KeyboardEvent} event - The keyboard event
+ * @param {HTMLElement} avatar - The avatar element
+ * @param {HTMLElement} menu - The menu element
+ */
 function handleEscape(event, avatar, menu) {
   if (event.key === "Escape") {
     setUserMenuState(avatar, menu, false);
@@ -115,38 +152,41 @@ function handleEscape(event, avatar, menu) {
 }
 
 /**
- * Extrahiert Initialen aus einem Namen
- * @param {string} name - Der vollständige Name (z.B. "Max Mustermann")
- * @returns {string} Die Initialen (z.B. "MM")
- */
-/**
- * Setzt die User-Initialen im Header-Avatar
+ * Sets user initials in the header avatar
  */
 function setUserInitials() {
   const avatar = document.getElementById("userAvatar");
   if (!avatar) return;
+  const initials = getUserInitials();
+  setInitialsToAvatar(avatar, initials);
+}
 
-  // Hole User-Daten aus sessionStorage
+/**
+ * Retrieves user initials from session storage
+ * @returns {string} User initials or default "MS"
+ */
+function getUserInitials() {
   const loggedInUserString = sessionStorage.getItem("loggedInUser");
-  let initials = "MS"; // Default: Monika Simens
-
+  let initials = "MS";
   if (loggedInUserString) {
     try {
       const user = JSON.parse(loggedInUserString);
-      console.log("User-Daten:", user); // DEBUG
-      console.log("User-Name:", user?.name); // DEBUG
       if (user && user.name) {
         initials = getInitials(user.name, "SM");
-        console.log("Berechnete Initialen:", initials); // DEBUG
       }
     } catch (e) {
-      console.error("Fehler beim Parsen der User-Daten:", e);
+      console.error("Error parsing user data:", e);
     }
-  } else {
-    console.warn("Kein User in sessionStorage gefunden"); // DEBUG
   }
+  return initials;
+}
 
-  // Setze die Initialen
+/**
+ * Sets the initials to the avatar element
+ * @param {HTMLElement} avatar - The avatar element
+ * @param {string} initials - The initials to display
+ */
+function setInitialsToAvatar(avatar, initials) {
   const initialsElement = avatar.querySelector(".header__user-initials");
   if (initialsElement) {
     initialsElement.textContent = initials;

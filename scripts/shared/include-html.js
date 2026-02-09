@@ -1,3 +1,8 @@
+/**
+ * Includes external HTML files into the current page
+ * Looks for elements with the w3-include-html attribute and replaces their content
+ * @returns {Promise<void>}
+ */
 async function includeHTML() {
   const elements = document.querySelectorAll("[w3-include-html]");
   for (const node of elements) {
