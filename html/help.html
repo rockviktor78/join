@@ -136,42 +136,5 @@
         </div>
       </div>
     </main>
-
-    <script>
-      // Startet die Initialisierung, sobald das Fenster geladen ist
-      window.addEventListener("load", () => {
-        if (typeof init === "function") {
-          init();
-        }
-      });
-
-      // Drag-to-Scroll Funktionalität
-      const scrollArea = document.querySelector(".content-area");
-      let isDown = false;
-      let startY;
-      let scrollTop;
-
-      scrollArea.addEventListener("mousedown", (e) => {
-        isDown = true;
-        startY = e.pageY - scrollArea.offsetTop;
-        scrollTop = scrollArea.scrollTop;
-      });
-
-      scrollArea.addEventListener("mouseleave", () => {
-        isDown = false;
-      });
-
-      scrollArea.addEventListener("mouseup", () => {
-        isDown = false;
-      });
-
-      scrollArea.addEventListener("mousemove", (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const y = e.pageY - scrollArea.offsetTop;
-        const walk = (y - startY) * 2; // Scroll-Geschwindigkeit
-        scrollArea.scrollTop = scrollTop - walk;
-      });
-    </script>
   </body>
 </html>

@@ -200,6 +200,19 @@
   font-weight: var(--font-weight-bold);
 }
 
+/* Inhaltsverzeichnis-Links (Anker-Links) */
+.content-limit ul li a[href^="#"] {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.content-limit ul li a[href^="#"]:hover,
+.content-limit ul li a[href^="#"]:focus {
+  text-decoration: none;
+  font-weight: var(--font-weight-bold);
+}
+
 /* Brand Names: Hellblau ohne Unterstreichung und ohne Cursor */
 .content-limit .brand-name {
   color: var(--color-accent);
