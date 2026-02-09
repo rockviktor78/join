@@ -186,7 +186,7 @@
 /* Mailto-Links: Blauer Link-Style */
 .content-limit a[href^="mailto:"],
 .content-limit .email-link {
-  color: #007cee;
+  color: var(--color-accent);
   cursor: pointer;
   text-decoration: none;
   transition: all var(--transition-fast);
