@@ -60,7 +60,7 @@
 
 .help-section p {
   line-height: var(--line-height-normal);
-  color: var(--color-gray-700);
+  color: var(--color-black);
   margin-bottom: var(--spacing-md);
 }
 
@@ -102,6 +102,38 @@
   line-height: var(--line-height-normal);
 }
 
+/* Nummerierte Liste für "How to use it" */
+.help-steps {
+  margin: var(--spacing-md) 0;
+  padding-left: var(--spacing-xl);
+  counter-reset: step-counter;
+  list-style: none;
+}
+
+.help-steps > li {
+  margin-bottom: var(--spacing-xl);
+  counter-increment: step-counter;
+  position: relative;
+}
+
+.help-steps > li::before {
+  content: counter(step-counter) ".";
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+  position: absolute;
+  left: calc(-1 * var(--spacing-xl));
+}
+
+.help-steps h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-sm);
+}
+
+.help-steps p {
+  margin-bottom: 0;
+}
+
 .help-section a {
   color: var(--color-primary);
   text-decoration: none;
@@ -111,12 +143,38 @@
   text-decoration: underline;
 }
 
+/* E-Mail-Links: Keine Unterstreichung */
+.help-section a[href^="mailto:"] {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.help-section a[href^="mailto:"]:hover {
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+}
+
 /* Verhindert Textauswahl */
 .no-select {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+/* Brand Name "Join" - blau, keine Unterstreichung, kein cursor */
+.brand-name {
+  color: var(--color-accent);
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Company Name "Developer Akademie GmbH" - blau + semibold */
+.company-name {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  cursor: default;
 }
 
 .header__help-btn {
@@ -136,7 +194,7 @@
   }
 
   .help-section h2 {
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-h2);
     margin-top: var(--spacing-2xl);
   }
 

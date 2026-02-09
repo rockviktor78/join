@@ -188,7 +188,7 @@
   }
 
   .header__title {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
   }
 
   .header__help-btn img {

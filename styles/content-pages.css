@@ -196,7 +196,7 @@
 .content-limit a[href^="mailto:"]:focus,
 .content-limit .email-link:hover,
 .content-limit .email-link:focus {
-  text-decoration: underline;
+  text-decoration: none;
   font-weight: var(--font-weight-bold);
 }
 
@@ -216,7 +216,7 @@
   }
 
   .content-limit h1 {
-    font-size: var(--font-size-5xl);
+    font-size: var(--font-size-6xl);
   }
 
   .content-limit h2 {
