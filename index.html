@@ -10,11 +10,14 @@
     <title>Join</title>
 
     <link rel="stylesheet" href="../styles/base/reset.css" />
+    <link rel="stylesheet" href="../styles/preloader.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/variables.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/auth.css" />
 
+    <script src="../scripts/preloader.js" defer></script>
     <script src="../scripts/firebase.js" defer></script>
     <script src="../scripts/auth_utilities.js" defer></script>
     <script src="../scripts/auth_login.js" defer></script>
@@ -22,13 +25,28 @@
   </head>
 
   <body class="auth-page">
+    <!-- preloader -->
+    <div id="preloader" class="preloader">
+      <picture>
+        <source media="(min-width: 768px)" srcset="../assets/img/shared/join-logo-blue.svg" />
+
+        <img id="animatingLogo" src="../assets/img/shared/join-logo-white.svg" class="animating-logo" loading="eager" alt="Join Logo" />
+      </picture>
+    </div>
+
     <header class="auth-header">
       <a href="/index.html">
-        <img class="auth-header__logo" src="../assets/img/shared/join-logo-blue.svg" alt="Join Logo" />
+        <img
+          id="header-logo-final"
+          class="auth-header__logo header-logo-hidden"
+          loading="eager"
+          src="../assets/img/shared/join-logo-blue.svg"
+          alt="Join Logo"
+        />
       </a>
-      <div class="auth-header__signup-group desktop-only">
-        <p class="auth-header__signup-text">Not a Join user?</p>
-        <button id="toSignup" class="auth-card__btn">Sign Up</button>
+      <div class="auth-signup-group desktop-only">
+        <p class="auth-signup-group__text">Not a Join user?</p>
+        <button id="toSignup" class="btn">Sign Up</button>
       </div>
     </header>
 
@@ -40,7 +58,7 @@
             <form id="loginForm" class="auth-card__form" novalidate>
               <div class="auth-card__header">
                 <h2 class="auth-card__title">Login</h2>
-                <div class="auth-card__underline"></div>
+                <div class="separator--h separator--h-blue"></div>
               </div>
 
               <div class="auth-card__input-wrapper">
@@ -60,8 +78,8 @@
               </div>
 
               <div class="auth-card__actions">
-                <button type="submit" id="loginBtn" class="auth-card__btn">Log in</button>
-                <button type="button" class="auth-card__btn auth-card__btn--guest">Guest Log in</button>
+                <button type="submit" id="loginBtn" class="btn">Log in</button>
+                <button type="button" id="guestBtn" class="btn btn--outline">Guest Log in</button>
               </div>
             </form>
           </div>
@@ -71,7 +89,7 @@
             <form id="signupForm" class="auth-card__form" novalidate>
               <div class="auth-card__header">
                 <h2 class="auth-card__title">Sign Up</h2>
-                <div class="auth-card__underline"></div>
+                <div class="separator--h separator--h-blue"></div>
                 <img id="toLogin" class="auth-card__arrow" src="./assets/img/shared/arrow-left-default.svg" alt="" />
               </div>
 
@@ -117,23 +135,26 @@
               </div>
 
               <div class="auth-card__actions">
-                <button type="submit" id="signupBtn" class="auth-card__btn">Sign Up</button>
+                <button type="submit" id="signupBtn" class="btn">Sign Up</button>
               </div>
             </form>
           </div>
         </div>
       </section>
-      <div class="auth-header__signup-group mobile-only-signup">
-        <p class="auth-header__signup-text">Not a Join user?</p>
-        <button id="toSignupOnMobile" class="auth-card__btn">Sign Up</button>
-      </div>
     </main>
     <div id="signupSuccessModal" class="signup-success-modal">
       <span>You've signed up successfully</span>
     </div>
     <footer class="auth-footer">
-      <a href="./html/privacy-policy.html" class="auth-footer__link">Privacy Policy</a>
-      <a href="./html/legal-notice.html" class="auth-footer__link">Legal Notice</a>
+      <div class="auth-signup-group mobile-only-signup">
+        <p class="auth-signup-group__text">Not a Join user?</p>
+        <button id="toSignupOnMobile" class="btn">Sign Up</button>
+      </div>
+
+      <div class="footer-links-group">
+        <a href="./html/privacy-policy.html" class="footer-links-group">Privacy Policy</a>
+        <a href="./html/legal-notice.html" class="footer-links-group">Legal Notice</a>
+      </div>
     </footer>
   </body>
 </html>

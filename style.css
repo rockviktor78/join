@@ -1,24 +1,9 @@
-/* globaler St!yle */
 body {
   margin: 0;
   font-family: var(--font-primary);
   background-color: var(--color-gray-50);
-/* Reset CSS importieren */
-@import url("../styles/base/reset.css");
 }
 
-/* Screen Wrapper - begrenzt Content auf 1920x1080 */
-.screen-wrapper {
-  display: flex;
-  width: 100%;
-  max-width: 1920px;
-  max-height: 1080px;
-  margin: 0 auto;
-}
-
-/* Content Area innerhalb des Wrappers */
-.content-area {
-  display: flex;
-  flex-direction: row;
-  background-color: var(--bg-page);
+body p {
+  font-size: var(--font-size-base);
 }

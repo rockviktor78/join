@@ -1,0 +1,139 @@
+/* ====== 1. Layout (Summary & Grid) ====== */
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.summary__header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.summary__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.summary__greeting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ====== 2. Typography ====== */
+.summary__title {
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-black);
+}
+
+.summary__greeting-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.summary__greeting-name {
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* ====== 3. Card Component (Base) ====== */
+.card {
+  background: var(--color-white);
+  border-radius: 1.25rem;
+  padding: 2rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transform: scale(1.03);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ====== 4. Card Elements ====== */
+.card__info {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+.card__icon {
+  width: 4.3125rem;
+  height: 4.3125rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: background-image 0.2s ease;
+}
+
+.card__icon--todo {
+  background-image: url("../assets/img/shared/to-do.svg");
+}
+.card__icon--done {
+  background-image: url("../assets/img/shared/done.svg");
+}
+
+.card:hover .card__icon--todo {
+  background-image: url("../assets/img/shared/to-do-hover.svg");
+}
+.card:hover .card__icon--done {
+  background-image: url("../assets/img/shared/done-hover.svg");
+}
+
+.card__count {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.card__label {
+  font-size: var(--font-size-xl);
+}
+
+.card__date {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.card__urgent-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: start;
+}
+
+/* ====== 5. Card Modifiers ====== */
+.card--half {
+  grid-column: span 3;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.card--full {
+  grid-column: span 6;
+}
+
+.card--urgent {
+  flex-direction: row;
+  gap: 2rem;
+  padding: 1.5rem 2.5rem;
+}
+
+.card--third {
+  grid-column: span 2;
+}

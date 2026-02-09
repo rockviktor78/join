@@ -1,6 +1,6 @@
 /* ====== 1. Layout ====== */
 .auth-page {
-  height: 100dvh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   background-color: var(--color-gray-50);
@@ -10,19 +10,20 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding: 3rem 1rem 3rem 1rem;
+  padding: 0 1rem;
   width: 100%;
-  gap: 4rem;
 }
 
-@media (min-width: 768px) {
-  .auth-main {
-    min-height: 100vh;
-    justify-content: center;
-    gap: 0;
-  }
+.auth-signup-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.auth-signup-group__text {
+  font-size: 1.25rem;
 }
 
 /* ====== 2. Header ====== */
@@ -30,34 +31,27 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: clamp(1.5rem, 1.1rem + 1.25vw, 3.5rem);
-  z-index: 100;
+  padding: 1.5rem 3.5rem;
   width: 100%;
-  box-sizing: border-box;
+  /* min-height: 120px;*/
+  flex: 0 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .auth-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    padding: 1.5rem 1rem;
   }
 }
 
 .auth-header__logo {
-  width: clamp(4rem, 8vw, 6.25rem);
-  height: auto;
+  width: 4rem;
 }
 
-.auth-header__signup-group {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.auth-header__signup-text {
-  margin: 0;
+@media (min-width: 768px) {
+  .auth-header__logo {
+    width: 6.25rem;
+    height: auto;
+  }
 }
 
 /* ====== 3. Auth Card & Slider ====== */
@@ -129,17 +123,15 @@
 }
 
 .auth-card__title {
-  font-size: var(--font-size-5xl);
-  margin: 0;
-  color: var(--color-primary-light);
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-black);
 }
 
-.auth-card__underline {
-  height: 0.2rem;
-  width: 7rem;
-  background-color: var(--color-accent);
-  margin-top: 0.5rem;
-  border-radius: 2px;
+@media (max-width: 767px) {
+  .auth-card__title {
+    font-size: var(--font-size-5xl);
+  }
 }
 
 .auth-card__arrow {
@@ -210,7 +202,7 @@
 
 .auth-card__input::placeholder {
   color: var(--color-gray-200);
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .auth-card__icon {
@@ -316,32 +308,31 @@
 
 /* ====== 8. Footer ====== */
 .auth-footer {
-  position: relative;
-  padding: 2rem 1rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 4rem;
+  padding: 1rem;
+  min-height: 120px;
+  flex: 0 0 auto;
+}
+
+.footer-links-group {
+  display: flex;
   gap: 2rem;
-  z-index: 50;
-  width: 100%;
-  box-sizing: border-box;
+  color: var(--color-gray-200);
 }
 
 @media (min-width: 768px) {
   .auth-footer {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 0;
-    right: 0;
-    padding: 0;
+    flex-direction: row;
+    align-items: end;
+    gap: 1.5rem;
   }
 }
 
-.auth-footer__link {
-  color: var(--color-gray-200);
-}
-
-.auth-footer__link:hover {
+.footer-links-group:hover {
   color: var(--color-accent);
   text-shadow:
     0.4px 0 0 currentColor,
@@ -365,51 +356,16 @@
   }
 }
 
-.auth-card__btn {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border: none;
-  padding: 0.625rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    background-color 0.2s ease,
-    box-shadow 0.2s ease,
-    color 0.2s ease;
-}
-
-.auth-card__actions .auth-card__btn {
+.auth-card__actions .btn {
   width: 100%;
   max-width: 12rem;
 }
 
 @media (min-width: 768px) {
-  .auth-card__actions .auth-card__btn {
+  .auth-card__actions .btn {
     width: auto;
     max-width: none;
   }
-}
-
-.auth-card__btn:hover {
-  background-color: var(--color-accent);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.auth-card__btn--guest {
-  background-color: transparent;
-  border: 1px solid var(--color-primary);
-  color: var(--color-primary);
-}
-
-.auth-card__btn--guest:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  background-color: var(--color-white);
 }
 
 .auth-card__link {
@@ -435,7 +391,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .mobile-only-signup {
     display: none;
   }
