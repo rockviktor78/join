@@ -8,20 +8,29 @@
     <link rel="stylesheet" href="../styles/base/reset.css" />
     <link rel="stylesheet" href="../styles/base/variables.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
-    <link rel="stylesheet" href="../styles/components/template.css" />
+    <link rel="stylesheet" href="../styles/base/transitions.css" />
+    <link rel="stylesheet" href="../styles/components/layout.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/sidebar.css" />
+    <link rel="stylesheet" href="../styles/content-pages.css" />
     <link rel="stylesheet" href="../styles/help.css" />
-
-    <script src="../scripts/shared/menu.js" defer></script>
+    <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
+    <script src="../scripts/shared/init-template.js" defer></script>
+    <script src="../scripts/shared/menu.js" defer></script>
   </head>
 
-  <body class="desktop-layout">
+  <body class="app-layout">
     <div
-      w3-include-html="../assets/templates/desktop_template.html"
+      w3-include-html="../assets/templates/header.html"
+      style="display: contents"
+    ></div>
+    <div
+      w3-include-html="../assets/templates/sidebar.html"
       style="display: contents"
     ></div>
 
-    <main class="content-scroll-area">
+    <main class="content-area">
       <div class="content-limit no-select">
         <div class="help-header">
           <h1 class="help-title">Help</h1>
@@ -31,14 +40,6 @@
         </div>
 
         <div class="help-section">
-          <p>
-            Welcome to the Help section of <a href="#">Join</a>. Here you will
-            find everything you need to get started with our kanban-based
-            project management tool. This page explains what
-            <a href="#">Join</a> is, how it works, and how it can help you
-            organize your tasks and projects more effectively.
-          </p>
-
           <h2>What is Join?</h2>
           <p>
             <a href="#">Join</a> is a kanban-based project management tool
@@ -127,7 +128,8 @@
 
           <p>
             If you have any questions or need further assistance, feel free to
-            contact us at <strong>join@viktor-wilhelm.de</strong>.
+            contact us at
+            <a href="mailto:join@viktor-wilhelm.de">join@viktor-wilhelm.de</a>.
           </p>
 
           <p>We hope you enjoy using <a href="#">Join</a>.</p>
@@ -144,7 +146,7 @@
       });
 
       // Drag-to-Scroll Funktionalität
-      const scrollArea = document.querySelector(".content-scroll-area");
+      const scrollArea = document.querySelector(".content-area");
       let isDown = false;
       let startY;
       let scrollTop;

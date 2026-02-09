@@ -1,38 +1,136 @@
 <!doctype html>
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Legal Notice - Join</title>
-
     <link rel="stylesheet" href="../styles/base/reset.css" />
     <link rel="stylesheet" href="../styles/base/variables.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/transitions.css" />
-    <link rel="stylesheet" href="../styles/components/template.css" />
-
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/sidebar.css" />
+    <link rel="stylesheet" href="../styles/components/layout.css" />
+    <link rel="stylesheet" href="../styles/content-pages.css" />
+    <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
+    <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
   </head>
 
-  <body class="desktop-layout">
-    <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
+  <body class="app-layout">
+    <div
+      w3-include-html="../assets/templates/header.html"
+      style="display: contents"
+    ></div>
+    <div
+      w3-include-html="../assets/templates/sidebar.html"
+      style="display: contents"
+    ></div>
 
-    <main class="content-scroll-area">
+    <main class="content-area">
       <div class="content-limit">
         <h1>Legal Notice</h1>
-        <p>Dies ist die Legal Notice-Seite zum Testen des Menüs.</p>
+
+        <h2>Imprint</h2>
+
+        <ul>
+          <li>Maximilian Schmidt</li>
+          <li>Viktor Wilhelm</li>
+          <li>Stefan Sträter</li>
+        </ul>
+
+        <p>
+          Email:
+          <a href="mailto:join@viktor-wilhelm.de" class="email-link"
+            >join@viktor-wilhelm.de</a
+          >
+        </p>
+
+        <h2>Acceptance of terms</h2>
+        <p>
+          By accessing and using <span class="brand-name">Join</span> (Product),
+          you acknowledge and agree to the following terms and conditions, and
+          any policies, guidelines, or amendments thereto that may be presented
+          to you from time to time. We, the listed students, may update or
+          change the terms and conditions from time to time without notice.
+        </p>
+
+        <h2>Scope and ownership of the product</h2>
+        <p>
+          <span class="brand-name">Join</span> has been developed as part of a
+          student group project in a web development bootcamp at the
+          <span class="brand-name">Developer Akademie GmbH</span>. It has an
+          educational purpose and is not intended for extensive personal &
+          business usage. As such, we cannot guarantee consistent availability,
+          reliability, accuracy, or any other aspect of quality regarding this
+          Product.
+        </p>
+        <p>
+          The design of <span class="brand-name">Join</span> is owned by the
+          <span class="brand-name">Developer Akademie GmbH</span>. Unauthorized
+          use, reproduction, modification, distribution, or replication of the
+          design is strictly prohibited.
+        </p>
+
+        <h2>Proprietary rights</h2>
+        <p>
+          Aside from the design owned by
+          <span class="brand-name">Developer Akademie GmbH</span>, we, the
+          listed students, retain all proprietary rights in
+          <span class="brand-name">Join</span>, including any associated
+          copyrighted material, trademarks, and other proprietary information.
+        </p>
+
+        <h2>Use of the product</h2>
+        <p>
+          <span class="brand-name">Join</span> is intended to be used for lawful
+          purposes only, in accordance with all applicable laws and regulations.
+          Any use of <span class="brand-name">Join</span> for illegal
+          activities, or to harass, harm, threaten, or intimidate another
+          person, is strictly prohibited. You are solely responsible for your
+          interactions with other users of <span class="brand-name">Join</span>.
+        </p>
+
+        <h2>Disclaimer of warranties and limitation of liability</h2>
+        <p>
+          <span class="brand-name">Join</span> is provided "as is" without
+          warranty of any kind, whether express or implied, including but not
+          limited to the implied warranties of merchantability, fitness for a
+          particular purpose, and non-infringement. In no event will we, the
+          listed students, or the
+          <span class="brand-name">Developer Akademie</span> be liable for any
+          direct, indirect, incidental, special, consequential or exemplary
+          damages, including but not limited to damages for loss of profits,
+          goodwill, use, data, or other intangible losses, even if we have been
+          advised of the possibility of such damages, arising out of or in
+          connection with the use or performance of
+          <span class="brand-name">Join</span>.
+        </p>
+
+        <h2>Indemnity</h2>
+        <p>
+          You agree to indemnify, defend and hold harmless us, the listed
+          students, the <span class="brand-name">Developer Akademie</span>, and
+          our affiliates, partners, officers, directors, agents, and employees,
+          from and against any claim, demand, loss, damage, cost, or liability
+          (including reasonable legal fees) arising out of or relating to your
+          use of <span class="brand-name">Join</span> and/or your breach of this
+          Legal Notice.
+        </p>
+
+        <p>
+          For any questions or notices, please contact us at
+          <a href="mailto:join@viktor-wilhelm.de" class="email-link"
+            >join@viktor-wilhelm.de</a
+          >.
+        </p>
+
+        <p>
+          <strong>Date: February 9, 2026</strong>
+        </p>
       </div>
     </main>
-
-    <script>
-      window.addEventListener("load", () => {
-        if (typeof init === "function") {
-          init();
-        }
-      });
-    </script>
   </body>
 </html>
