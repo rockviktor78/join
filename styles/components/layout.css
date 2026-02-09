@@ -10,16 +10,6 @@
   font-family: var(--font-primary);
 }
 
-/* Desktop: Grid Layout ab 769px */
-@media (min-width: 769px) {
-  .app-layout {
-    display: grid;
-    grid-template-columns: 14.5rem 1fr;
-    grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
-    overflow: hidden; /* Nur Desktop: verhindert Scroll auf Grid-Container */
-  }
-}
-
 /* CONTENT AREA - Mobile First */
 .content-area {
   /* Mobile: Nimmt verfügbaren Platz */
@@ -33,8 +23,17 @@
   padding-bottom: 5rem;
 }
 
-/* Desktop: Grid-Positionierung */
+/* ================================================
+   Desktop Styles (Tablet/Desktop)
+   ================================================ */
 @media (min-width: 769px) {
+  .app-layout {
+    display: grid;
+    grid-template-columns: 14.5rem 1fr;
+    grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
+    overflow: hidden; /* Nur Desktop: verhindert Scroll auf Grid-Container */
+  }
+
   .content-area {
     grid-column: 2;
     grid-row: 2;

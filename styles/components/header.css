@@ -11,16 +11,6 @@
   height: 5rem;
 }
 
-/* Desktop: Grid-Positionierung */
-@media (min-width: 769px) {
-  .header__content {
-    grid-column: 2;
-    grid-row: 1;
-    height: auto;
-    padding: 0;
-  }
-}
-
 .header__center-wrapper {
   width: 100%;
   display: flex;
@@ -28,13 +18,6 @@
   align-items: center;
   padding: 0 var(--spacing-md);
   transition: padding var(--transition-base);
-}
-
-@media (min-width: 769px) {
-  .header__center-wrapper {
-    max-width: calc(90rem - 14.5rem);
-    padding: 0 var(--spacing-xl) 0 var(--spacing-5xl);
-  }
 }
 
 /* Mid-Range: Reduziertes Padding für Tablet-Bereich */
@@ -49,45 +32,12 @@
   width: auto;
 }
 
-/* Mobile: Logo mit Avatar-ähnlichen Eigenschaften */
-@media (max-width: 768px) {
-  .header__logo {
-    width: 2.5rem;
-    height: 2.5rem;
-    object-fit: contain;
-    padding: 0;
-    background: transparent;
-    cursor: pointer;
-  }
-}
-
-/* Desktop: Logo ausblenden */
-@media (min-width: 769px) {
-  .header__logo {
-    display: none;
-  }
-}
-
 .header__title {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-normal);
   color: var(--color-black);
   margin: 0;
   transition: font-size var(--transition-base);
-}
-
-/* Mobile: Text ausblenden */
-@media (max-width: 768px) {
-  .header__title {
-    display: none;
-  }
-}
-
-/* Desktop: Text sichtbar */
-@media (min-width: 769px) {
-  .header__title {
-    font-size: var(--font-size-lg);
-  }
 }
 
 /* Desktop: Größere Schrift ab 821px */
@@ -110,21 +60,6 @@
   height: 1.5rem;
 }
 
-/* Mobile: Help-Button ausblenden */
-@media (max-width: 768px) {
-  .header__help-btn {
-    display: none;
-  }
-}
-
-/* Desktop: Help-Button sichtbar */
-@media (min-width: 769px) {
-  .header__help-btn img {
-    width: 2rem;
-    height: 2rem;
-  }
-}
-
 .header__help-btn:hover {
   transform: scale(1.2);
 }
@@ -133,12 +68,6 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
-}
-
-@media (min-width: 769px) {
-  .header__actions {
-    gap: var(--spacing-lg);
-  }
 }
 
 .header__user {
@@ -162,14 +91,6 @@
   anchor-name: --header-avatar;
 }
 
-@media (min-width: 769px) {
-  .header__avatar {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-width: 3px;
-  }
-}
-
 .header__avatar:hover {
   cursor: pointer;
   background: var(--color-primary-super-light);
@@ -180,13 +101,6 @@
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-base); /* Accessibility: min 1rem */
   line-height: 1;
-}
-
-/* Desktop: Initials Sizing */
-@media (min-width: 769px) {
-  .header__user-initials {
-    font-size: var(--font-size-xl);
-  }
 }
 
 .header__dropdown {
@@ -209,13 +123,6 @@
   right: 0;
 }
 
-/* Desktop: Größerer Abstand */
-@media (min-width: 769px) {
-  .header__dropdown {
-    top: calc(100% + var(--spacing-md));
-  }
-}
-
 .header__dropdown.is-open {
   opacity: 1;
   pointer-events: auto;
@@ -235,8 +142,78 @@
   color: var(--color-white);
 }
 
-/* Desktop: Help-Link ausblenden */
+/* ================================================
+   Mobile Specific Styles (< 768px)
+   ================================================ */
+@media (max-width: 768px) {
+  /* Mobile: Logo mit Avatar-ähnlichen Eigenschaften */
+  .header__logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  /* Mobile: Text ausblenden */
+  .header__title {
+    display: none;
+  }
+
+  /* Mobile: Help-Button ausblenden */
+  .header__help-btn {
+    display: none;
+  }
+}
+
+/* ================================================
+   Desktop Styles (Tablet/Desktop)
+   ================================================ */
 @media (min-width: 769px) {
+  .header__content {
+    grid-column: 2;
+    grid-row: 1;
+    height: auto;
+    padding: 0;
+  }
+
+  .header__center-wrapper {
+    max-width: calc(90rem - 14.5rem);
+    padding: 0 var(--spacing-xl) 0 var(--spacing-5xl);
+  }
+
+  .header__logo {
+    display: none;
+  }
+
+  .header__title {
+    font-size: var(--font-size-lg);
+  }
+
+  .header__help-btn img {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .header__actions {
+    gap: var(--spacing-lg);
+  }
+
+  .header__avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-width: 3px;
+  }
+
+  .header__user-initials {
+    font-size: var(--font-size-xl);
+  }
+
+  .header__dropdown {
+    top: calc(100% + var(--spacing-md));
+  }
+
   .header__dropdown-link--help {
     display: none;
   }

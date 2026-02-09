@@ -15,7 +15,7 @@
  * getInitials("") // Returns "MS" (fallback)
  * getInitials("", "AB") // Returns "AB" (custom fallback)
  */
-function getInitials(name, fallback = "MS") {
+function getInitials(name, fallback = "SM") {
   if (!name || !name.trim()) return fallback;
 
   const parts = name.trim().split(/\s+/);

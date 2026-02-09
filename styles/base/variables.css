@@ -108,6 +108,7 @@
   --radius-md: 0.5rem; /* 8px */
   --radius-lg: 0.75rem; /* 12px */
   --radius-xl: 1rem; /* 16px */
+  --radius-2xl: 1.25rem; /* 20px */ 
   --radius-full: 9999px;
 
   /* Shadows */
@@ -137,4 +138,9 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
+
+    /* App specific */
+  --content-max-width: 1440px;
+  --sidebar-width: 232px;
 }
+

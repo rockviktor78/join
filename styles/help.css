@@ -19,13 +19,6 @@
   box-sizing: border-box;
 }
 
-/* Desktop: Größeres Padding */
-@media (min-width: 769px) {
-  .content-limit {
-    padding: var(--spacing-5xl) var(--spacing-5xl);
-  }
-}
-
 .help-header {
   display: flex;
   justify-content: space-between;
@@ -37,13 +30,6 @@
   /* Mobile: Kleinere Größe */
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-}
-
-/* Desktop: Größere Größe */
-@media (min-width: 769px) {
-  .help-title {
-    font-size: var(--font-size-5xl);
-  }
 }
 
 .back-btn {
@@ -98,27 +84,12 @@
   color: var(--color-primary);
 }
 
-/* Desktop */
-@media (min-width: 769px) {
-  .help-section h2 {
-    font-size: var(--font-size-3xl);
-    margin-top: var(--spacing-2xl);
-  }
-}
-
 .help-section h3 {
   /* Mobile */
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   margin-top: var(--spacing-lg);
   margin-bottom: var(--spacing-sm);
-}
-
-/* Desktop */
-@media (min-width: 769px) {
-  .help-section h3 {
-    font-size: var(--font-size-xl);
-  }
 }
 
 .help-section ul {
@@ -150,4 +121,26 @@
 
 .header__help-btn {
   display: none;
+}
+
+/* ================================================
+   Desktop Styles (Tablet/Desktop)
+   ================================================ */
+@media (min-width: 769px) {
+  .content-limit {
+    padding: var(--spacing-5xl) var(--spacing-5xl);
+  }
+
+  .help-title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .help-section h2 {
+    font-size: var(--font-size-3xl);
+    margin-top: var(--spacing-2xl);
+  }
+
+  .help-section h3 {
+    font-size: var(--font-size-xl);
+  }
 }

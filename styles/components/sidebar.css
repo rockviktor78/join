@@ -16,29 +16,8 @@
   box-shadow: 0 -2px 0.625rem rgba(0, 0, 0, 0.1);
 }
 
-/* Desktop: Sidebar */
-@media (min-width: 769px) {
-  .menu {
-    position: static;
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: auto; /* Desktop: auto height */
-    padding: 0;
-    box-shadow: none;
-  }
-}
-
 .menu__header {
   display: none;
-}
-
-@media (min-width: 769px) {
-  .menu__header {
-    display: block;
-    padding: 3.2rem 3.5rem 0rem 3.5rem;
-  }
 }
 
 .menu__logo {
@@ -52,16 +31,6 @@
   width: 100%;
   justify-content: space-around;
   padding: 0;
-}
-
-@media (min-width: 769px) {
-  .menu__nav {
-    flex: 1;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 7rem;
-    width: auto;
-  }
 }
 
 .menu__btn {
@@ -85,64 +54,13 @@
   min-width: 3.75rem;
 }
 
-/* Mobile: Feste Button-Größe für stabiles Layout */
-@media (max-width: 768px) {
-  .menu__btn {
-    width: 5rem;
-    height: 4.75rem;
-    padding: 0.5rem 4px;
-    border-radius: 1rem;
-  }
-}
-
-@media (min-width: 769px) {
-  .menu__btn {
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0.4rem 4.6rem 0.4rem 3rem;
-    gap: 0.625rem;
-    margin: 0 0 1.35rem 0;
-    font-size: var(--font-size-base);
-    text-align: left;
-    min-width: auto;
-  }
-}
-
 .menu__icon {
   width: 1.5rem;
   height: 1.5rem;
 }
 
-/* Mobile: Größere Icons für bessere Lesbarkeit */
-@media (max-width: 768px) {
-  .menu__icon {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-}
-
-@media (min-width: 769px) {
-  .menu__icon {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-}
-
 .menu__label {
   font-size: var(--font-size-base); /* Accessibility: min 1rem */
-}
-
-/* Mobile: Explizite Bestätigung */
-@media (max-width: 768px) {
-  .menu__label {
-    font-size: var(--font-size-base);
-  }
-}
-
-@media (min-width: 769px) {
-  .menu__label {
-    font-size: var(--font-size-base);
-  }
 }
 
 /* Mobile: Hover ohne Layout-Shift (nur Farbe) */
@@ -151,51 +69,15 @@
   color: var(--color-white);
 }
 
-/* Mobile: Hover mit fester Größe und Border-Radius */
-@media (max-width: 768px) {
-  .menu__btn:hover:not(.active-menu-btn) {
-    /* Größe bereits durch .menu__btn definiert (80x76px, border-radius: 16px) */
-  }
-}
-
-/* Desktop: Hover mit width: 100% */
-@media (min-width: 769px) {
-  .menu__btn:hover:not(.active-menu-btn) {
-    width: 100%;
-  }
-}
-
 /* Mobile: Active State ohne Layout-Shift */
 .active-menu-btn {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
 }
 
-/* Desktop: Active mit width: 100% */
-@media (min-width: 769px) {
-  .active-menu-btn {
-    width: 100%;
-  }
-}
-
-/* Mobile: Active Button mit Border-Radius (ohne Indikator) */
-@media (max-width: 768px) {
-  .active-menu-btn {
-    /* Größe bereits durch .menu__btn definiert (80x76px, border-radius: 16px) */
-  }
-}
-
 .menu__footer {
   /* Mobile: Versteckt */
   display: none;
-}
-
-@media (min-width: 769px) {
-  .menu__footer {
-    display: flex;
-    padding: 0 0 var(--spacing-3xl) 0;
-    flex-direction: column;
-  }
 }
 
 .menu__footer-link {
@@ -218,4 +100,82 @@
 .menu__footer-link.active-menu-btn {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
+}
+
+/* ================================================
+   Mobile Specific Styles (< 768px)
+   ================================================ */
+@media (max-width: 768px) {
+  /* Mobile: Feste Button-Größe für stabiles Layout */
+  .menu__btn {
+    width: 5rem;
+    height: 4.75rem;
+    padding: 0.5rem 4px;
+    border-radius: 1rem;
+  }
+
+  /* Mobile: Größere Icons für bessere Lesbarkeit */
+  .menu__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+/* ================================================
+   Desktop Styles (Tablet/Desktop)
+   ================================================ */
+@media (min-width: 769px) {
+  .menu {
+    position: static;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto; /* Desktop: auto height */
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .menu__header {
+    display: block;
+    padding:4rem 3.5rem 0rem 3.5rem;
+  }
+
+  .menu__nav {
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 7rem;
+    width: auto;
+  }
+
+  .menu__btn {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.4rem 4.6rem 0.4rem 3rem;
+    gap: 0.625rem;
+    margin: 0 0 1.35rem 0;
+    font-size: var(--font-size-base);
+    text-align: left;
+    min-width: auto;
+  }
+
+  .menu__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .menu__btn:hover:not(.active-menu-btn) {
+    width: 100%;
+  }
+
+  .active-menu-btn {
+    width: 100%;
+  }
+
+  .menu__footer {
+    display: flex;
+    padding: 0 0 var(--spacing-3xl) 0;
+    flex-direction: column;
+  }
 }

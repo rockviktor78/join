@@ -34,13 +34,6 @@
   }
 }
 
-/* Desktop: Größeres Padding */
-@media (min-width: 769px) {
-  .content-limit {
-    padding: var(--spacing-5xl) var(--spacing-5xl);
-  }
-}
-
 .help-header {
   display: flex;
   justify-content: space-between;
@@ -145,13 +138,6 @@
   }
 }
 
-/* Desktop: Große Schrift */
-@media (min-width: 769px) {
-  .content-limit h1 {
-    font-size: var(--font-size-5xl);
-  }
-}
-
 .content-limit h2 {
   /* Mobile: Kleinere Schrift */
   font-size: var(--font-size-2xl);
@@ -159,14 +145,6 @@
   margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-md);
   color: var(--color-black);
-}
-
-/* Desktop: Größere Schrift */
-@media (min-width: 769px) {
-  .content-limit h2 {
-    font-size: var(--font-size-3xl);
-    margin-top: var(--spacing-2xl);
-  }
 }
 
 .content-limit h3 {
@@ -227,4 +205,22 @@
   color: #007cee;
   text-decoration: none;
   cursor: default;
+}
+
+/* ================================================
+   Desktop Styles (Tablet/Desktop)
+   ================================================ */
+@media (min-width: 769px) {
+  .content-limit {
+    padding: var(--spacing-5xl) var(--spacing-5xl);
+  }
+
+  .content-limit h1 {
+    font-size: var(--font-size-5xl);
+  }
+
+  .content-limit h2 {
+    font-size: var(--font-size-3xl);
+    margin-top: var(--spacing-2xl);
+  }
 }
