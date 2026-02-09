@@ -10,7 +10,7 @@ function setActiveMenuBtnOnLoad() {
   const currentPage = window.location.pathname.split("/").pop();
   const pageToButtonMap = {
     "summary.html": "navSummary",
-    "add_task.html": "navAddTask",
+    "add-task.html": "navAddTask",
     "board.html": "navBoard",
     "contacts.html": "navContacts",
   };
@@ -19,6 +19,9 @@ function setActiveMenuBtnOnLoad() {
   if (buttonId) {
     setActiveMenuBtn(buttonId);
   }
+
+  // Footer-Links aktivieren
+  setActiveFooterLink(currentPage);
 }
 
 /**
@@ -43,13 +46,46 @@ function setActiveMenuBtn(buttonId) {
   }
 }
 
+/**
+ * Setzt den aktiven Footer-Link basierend auf der aktuellen Seite
+ * @param {string} currentPage - Der aktuelle Dateiname (z.B. 'privacy-policy.html')
+ */
+function setActiveFooterLink(currentPage) {
+  const footerLinks = document.querySelectorAll(".menu__footer-link");
+
+  footerLinks.forEach((link) => {
+    link.classList.remove("active-menu-btn");
+
+    const linkHref = link.getAttribute("href");
+    if (linkHref === currentPage) {
+      link.classList.add("active-menu-btn");
+    }
+  });
+}
+
+/**
+ * Initialisiert die Menu-Navigation - wird von init-template.js aufgerufen
+ */
+function initMenuNavigation() {
+  // Prüfe ob DOM bereit ist
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      setActiveMenuBtnOnLoad();
+      setupMenuNavigation();
+    });
+  } else {
+    setActiveMenuBtnOnLoad();
+    setupMenuNavigation();
+  }
+}
+
 // Navigation Handler für Menu Buttons
 function setupMenuNavigation() {
   const menuButtons = {
-    navSummary: "../html/summary.html",
-    navAddTask: "../html/add_task.html",
-    navBoard: "../html/board.html",
-    navContacts: "../html/contacts.html",
+    navSummary: "../pages/summary.html",
+    navAddTask: "../pages/add-task.html",
+    navBoard: "../pages/board.html",
+    navContacts: "../pages/contacts.html",
   };
 
   Object.entries(menuButtons).forEach(([id, url]) => {
@@ -67,12 +103,3 @@ function setupMenuNavigation() {
     }
   });
 }
-
-// Initialisierung - warte bis Template geladen ist
-document.addEventListener("DOMContentLoaded", () => {
-  // Warte kurz, damit das Template geladen werden kann
-  setTimeout(() => {
-    setActiveMenuBtnOnLoad();
-    setupMenuNavigation();
-  }, 100);
-});

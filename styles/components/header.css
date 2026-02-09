@@ -1,0 +1,243 @@
+/* HEADER - Mobile First */
+.header__content {
+  /* Mobile: Oben, kompakt */
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  justify-content: flex-start;
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  padding: 0;
+  height: 5rem;
+}
+
+/* Desktop: Grid-Positionierung */
+@media (min-width: 769px) {
+  .header__content {
+    grid-column: 2;
+    grid-row: 1;
+    height: auto;
+    padding: 0;
+  }
+}
+
+.header__center-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-md);
+  transition: padding var(--transition-base);
+}
+
+@media (min-width: 769px) {
+  .header__center-wrapper {
+    max-width: calc(90rem - 14.5rem);
+    padding: 0 var(--spacing-xl) 0 var(--spacing-5xl);
+  }
+}
+
+/* Mid-Range: Reduziertes Padding für Tablet-Bereich */
+@media (min-width: 769px) and (max-width: 820px) {
+  .header__center-wrapper {
+    padding: 0 var(--spacing-xl) 0 var(--spacing-3xl);
+  }
+}
+
+.header__logo {
+  height: 2.4375rem;
+  width: auto;
+}
+
+/* Mobile: Logo mit Avatar-ähnlichen Eigenschaften */
+@media (max-width: 768px) {
+  .header__logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+}
+
+/* Desktop: Logo ausblenden */
+@media (min-width: 769px) {
+  .header__logo {
+    display: none;
+  }
+}
+
+.header__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-black);
+  margin: 0;
+  transition: font-size var(--transition-base);
+}
+
+/* Mobile: Text ausblenden */
+@media (max-width: 768px) {
+  .header__title {
+    display: none;
+  }
+}
+
+/* Desktop: Text sichtbar */
+@media (min-width: 769px) {
+  .header__title {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Desktop: Größere Schrift ab 821px */
+@media (min-width: 821px) {
+  .header__title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+.header__help-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  padding: var(--spacing-xs);
+}
+
+.header__help-btn img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Mobile: Help-Button ausblenden */
+@media (max-width: 768px) {
+  .header__help-btn {
+    display: none;
+  }
+}
+
+/* Desktop: Help-Button sichtbar */
+@media (min-width: 769px) {
+  .header__help-btn img {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.header__help-btn:hover {
+  transform: scale(1.2);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 769px) {
+  .header__actions {
+    gap: var(--spacing-lg);
+  }
+}
+
+.header__user {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  anchor-name: --header-avatar;
+}
+
+@media (min-width: 769px) {
+  .header__avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-width: 3px;
+  }
+}
+
+.header__avatar:hover {
+  cursor: pointer;
+  background: var(--color-primary-super-light);
+}
+
+/* Mobile: Initials Sizing */
+.header__user-initials {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base); /* Accessibility: min 1rem */
+  line-height: 1;
+}
+
+/* Desktop: Initials Sizing */
+@media (min-width: 769px) {
+  .header__user-initials {
+    font-size: var(--font-size-xl);
+  }
+}
+
+.header__dropdown {
+  position: absolute;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-2xl) 0 var(--radius-2xl) var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+  padding: 1.1rem 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 9.375rem;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+  z-index: var(--z-dropdown);
+  /* Mobile: Unter dem Avatar */
+  top: calc(100% + var(--spacing-xs));
+  right: 0;
+}
+
+/* Desktop: Größerer Abstand */
+@media (min-width: 769px) {
+  .header__dropdown {
+    top: calc(100% + var(--spacing-md));
+  }
+}
+
+.header__dropdown.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.header__dropdown-link {
+  color: var(--color-gray-200);
+  text-decoration: none;
+  padding: 0.6rem 1.25rem;
+  font-size: var(--font-size-base); /* Accessibility: min 1rem */
+  white-space: nowrap;
+}
+
+.header__dropdown-link:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-white);
+}
+
+/* Desktop: Help-Link ausblenden */
+@media (min-width: 769px) {
+  .header__dropdown-link--help {
+    display: none;
+  }
+}

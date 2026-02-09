@@ -20,7 +20,6 @@ function supportsViewTransitions() {
  */
 function setupViewTransitions() {
   if (!supportsViewTransitions()) {
-    console.log("View Transitions API not supported");
     return;
   }
 
@@ -41,14 +40,26 @@ function setupViewTransitions() {
       return;
     }
 
+    // Überspringe View Transitions für Footer-Links (Legal Notice, Privacy Policy)
+    // Diese verursachen Race Conditions beim schnellen Klicken
+    if (link.classList.contains("menu__footer-link")) {
+      return; // Normale Navigation ohne View Transition
+    }
+
     // Verhindere Standard-Navigation
     e.preventDefault();
 
-    // Starte View Transition
+    // Starte View Transition mit Fehlerbehandlung
     if (document.startViewTransition) {
-      document.startViewTransition(() => {
+      try {
+        document.startViewTransition(() => {
+          window.location.href = link.href;
+        });
+      } catch (error) {
+        // Fallback bei Fehler
+        console.warn("View Transition failed, using normal navigation:", error);
         window.location.href = link.href;
-      });
+      }
     } else {
       // Fallback ohne Transition
       window.location.href = link.href;

@@ -1,23 +1,29 @@
-.content-scroll-area {
-  grid-column: 2;
-  grid-row: 2;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+/* Content-area wird in layout.css definiert */
+.content-area::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Edge */
 }
 
-.content-scroll-area::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+.content-area {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
 }
 
 .content-limit {
   width: 100%;
-  max-width: 1440px;
-  padding: var(--spacing-5xl) var(--spacing-5xl);
+  max-width: calc(var(--content-max-width) - var(--sidebar-width));
+  /* Mobile: Kleineres Padding */
+  padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
+}
+
+/* Desktop: Größeres Padding */
+@media (min-width: 769px) {
+  .content-limit {
+    padding: var(--spacing-5xl) var(--spacing-5xl);
+  }
 }
 
 .help-header {
@@ -28,27 +34,38 @@
 }
 
 .help-title {
-  font-size: var(--font-size-5xl);
+  /* Mobile: Kleinere Größe */
+  font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
 }
 
+/* Desktop: Größere Größe */
+@media (min-width: 769px) {
+  .help-title {
+    font-size: var(--font-size-5xl);
+  }
+}
+
 .back-btn {
-  position: absolute;
-  top: 15rem;
-  right: 6rem;
+  /* Mobile: Normaler Button */
+  position: static;
   border: none;
   background: transparent;
   cursor: pointer;
   border-radius: 50%;
-  transition: all var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translateY(-1rem);
+  transform-origin: center;
 }
 
 .back-btn:hover {
   background: var(--color-primary-super-light);
-  transform: scale(1.15);
+  transform: translateY(-1rem) scale(1.15);
 }
 
 .help-section {
@@ -61,19 +78,47 @@
   margin-bottom: var(--spacing-md);
 }
 
+/* "Join" Links hellblau stylen */
+.help-section a[href="#"] {
+  color: var(--color-accent); /* Hellblau */
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.help-section a[href="#"]:hover {
+  text-decoration: underline;
+}
+
 .help-section h2 {
-  font-size: var(--font-size-3xl);
+  /* Mobile */
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  margin-top: var(--spacing-2xl);
+  margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-md);
   color: var(--color-primary);
 }
 
+/* Desktop */
+@media (min-width: 769px) {
+  .help-section h2 {
+    font-size: var(--font-size-3xl);
+    margin-top: var(--spacing-2xl);
+  }
+}
+
 .help-section h3 {
-  font-size: var(--font-size-xl);
+  /* Mobile */
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   margin-top: var(--spacing-lg);
   margin-bottom: var(--spacing-sm);
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .help-section h3 {
+    font-size: var(--font-size-xl);
+  }
 }
 
 .help-section ul {
