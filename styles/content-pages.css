@@ -202,7 +202,7 @@
 
 /* Brand Names: Hellblau ohne Unterstreichung und ohne Cursor */
 .content-limit .brand-name {
-  color: #007cee;
+  color: var(--color-accent);
   text-decoration: none;
   cursor: default;
 }
