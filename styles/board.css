@@ -1,0 +1,120 @@
+.headline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    padding-top: 80px;
+    padding-left: 64px;
+    padding-right: 64px;
+    padding-bottom: 100px;
+}
+
+.headline {
+    font-size: 61px;
+    font-weight: var( --font-weight-bold);
+    
+}
+
+.search-and-add-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-task {
+    padding: 8px 16px;
+    font-size: var(--font-size-2xl);
+    gap: 10px;
+    background-color: var(--color-white);
+    width: 280px;
+    border-radius: 10px;
+    border: 1px solid var(--color-gray-300);    
+}
+
+.add-task-button {
+    padding: 8px 16px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: 1px var(--color-primary);
+    border-radius: 10px;
+    font-size: var(--font-size-2xl);
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+    gap: 10px;
+}
+
+.add-task-button img {
+    width: 19px;
+    height: 19px;
+}
+
+.task-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tasks {
+    width: 25%;
+    padding-left: 25px;
+    font-size: var(--font-size-2xl);
+    color: #42526E;
+}
+
+.tasks-header {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    justify-content: space-between;
+}
+
+.tasks-header img {
+  
+}
+
+.drag-drop {
+
+}
+
+.drag-area {
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px dashed black;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.drag-area-highlight {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.todo-card {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    font-size: var(--font-size-base);
+}
+
+.todo-card-title {
+
+}
+
+.todo-card-description {
+
+}
+
+.todo-card-subtastks {
+
+}
+
+.todo-card-assignedto {
+    
+}
+
+.todo-card-priority {
+
+}

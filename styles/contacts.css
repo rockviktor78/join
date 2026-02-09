@@ -1,7 +1,5 @@
-/* #contacts-container {
-  padding-top: 90px;
+#contacts-container {
   margin-top: 0px;
-  margin-left: 235px;
   height: 100vh;
   box-sizing: border-box;
 } */
@@ -264,4 +262,37 @@
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+.success-message {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    width: 330px;
+    height: 75px;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-regular);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+}
+
+.success-message-slide {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(100%) translateX(-50%);
+    z-index: 9999;
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.success-message-slide.show {
+    transform: translateX(-50%);
+    opacity: 1;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.25);
 }

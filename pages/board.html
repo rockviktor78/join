@@ -9,32 +9,53 @@
     <link rel="stylesheet" href="../styles/base/variables.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/transitions.css" />
-    <link rel="stylesheet" href="../styles/components/header.css" />
-    <link rel="stylesheet" href="../styles/components/sidebar.css" />
-    <link rel="stylesheet" href="../styles/components/layout.css" />
+    <link rel="stylesheet" href="../styles/components/template.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
 
     <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
+    <script src="../scripts/board.js"></script>
   </head>
 
-  <body class="app-layout">
-    <div
-      w3-include-html="../assets/templates/header.html"
-      style="display: contents"
-    ></div>
-    <div
-      w3-include-html="../assets/templates/sidebar.html"
-      style="display: contents"
-    ></div>
+  <body class="desktop-layout" onload="initBoard()">
+    <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
 
-    <main class="content-area">
+    <main>
       <div class="content-limit">
-        <h1>Board</h1>
-        <p>Dies ist die Board-Seite zum Testen des Menüs.</p>
-      </div>
+
+        <div class="headline-container">
+          <div class="headline">Board</div>
+          <div class="search-and-add-container">
+            <div class="search-wrapper">
+              <input type="text" class="search-task" id="search-task" placeholder="Find Task" value="">
+              <span class="search-divider"></span>
+              <button class="search-icon-btn" aria-label="Search"> <img src="../assets/img/board/search.svg" alt=""></button>
+            </div>
+            <div><button onclick="addTask()" class="add-task-button">Add task <img src="../assets/img/board/add.svg"></button></div>
+          </div>
+        </div>
+
+        <div class="task-container"> 
+          <div class="tasks" style="padding-left: 64px;">
+            <div class="tasks-header">To do <button onclick="addTask(id)"><img src="../assets/img/board/plusbutton.svg"></button></div>
+            <div class="drag-area" id="todo" ondrop="moveTo('todo')" ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')"></div>
+          </div>
+          <div class="tasks">
+            <div class="tasks-header">In progress <button onclick="addTask(id)"><img src="../assets/img/board/plusbutton.svg"></button></div>
+            <div class="drag-area" id="inprogress" ondrop="moveTo('inprogress')" ondragleave="removeHighlight('inprogress')" ondragover="allowDrop(event); highlight('inprogress')"></div>
+          </div>
+          <div class="tasks">
+            <div class="tasks-header">Await feedback <button onclick="addTask(id)"><img src="../assets/img/board/plusbutton.svg"></button></div>
+            <div class="drag-area" id="awaitfeedback" ondrop="moveTo('awaitfeedback')" ondragleave="removeHighlight('awaitfeedback')" ondragover="allowDrop(event); highlight('awaitfeedback')"></div>
+          </div>
+          <div class="tasks" style="padding-right: 64px;">
+            <div class="tasks-header">Done</div>
+            <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')"></div>
+          </div>
+      </div>   
     </main>
   </body>
 </html>

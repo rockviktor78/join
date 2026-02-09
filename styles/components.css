@@ -1,0 +1,79 @@
+/* ====== Buttons ====== */
+.btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--color-accent);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn--outline {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--outline:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: var(--color-white);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* ====== Separators ====== */
+.separator--v {
+  width: 0.125rem;
+  height: auto;
+  align-self: stretch;
+  display: inline-block;
+  border-radius: 0.625rem;
+}
+
+.separator--v-short {
+  height: 60%;
+  align-self: center;
+}
+
+.separator--v-blue {
+  background-color: var(--color-accent);
+}
+
+.separator--v-gray {
+  background-color: var(--color-gray-200);
+}
+
+.separator--h {
+  width: 7rem;
+  height: 0.125rem;
+  margin: 0.5rem 0;
+  display: block;
+  border-radius: 0.625rem;
+}
+
+.separator--h-blue {
+  background-color: var(--color-accent);
+}
