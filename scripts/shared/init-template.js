@@ -12,6 +12,7 @@ async function initTemplate() {
   updateNavigation();
   setUserInitials();
   initializeMenuAndLogout();
+  applySidebarMode();
 }
 
 /**
@@ -192,6 +193,23 @@ function setInitialsToAvatar(avatar, initials) {
     initialsElement.textContent = initials;
   } else {
     avatar.textContent = initials;
+  }
+}
+
+/**
+ * Applies the appropriate sidebar mode based on the current page
+ */
+function applySidebarMode() {
+  if (
+    typeof isExternalPage === "function" &&
+    typeof setSidebarMode === "function"
+  ) {
+    const mode = isExternalPage() ? "external" : "internal";
+    setSidebarMode(mode);
+
+    if (mode === "external" && typeof setupLoginButton === "function") {
+      setupLoginButton();
+    }
   }
 }
 

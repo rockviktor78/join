@@ -138,7 +138,7 @@
 
   .menu__header {
     display: block;
-    padding:4rem 3.5rem 0rem 3.5rem;
+    padding: 4rem 3.5rem 0rem 3.5rem;
   }
 
   .menu__nav {
@@ -178,4 +178,9 @@
     padding: 0 0 var(--spacing-3xl) 0;
     flex-direction: column;
   }
+}
+
+/* ====== Utility Classes ====== */
+.d-none {
+  display: none !important;
 }

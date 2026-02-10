@@ -99,3 +99,59 @@ function setupMenuButton(id, url) {
     });
   }
 }
+
+/**
+ * Sets the sidebar mode (internal vs external)
+ * @param {string} mode - "external" or "internal"
+ */
+function setSidebarMode(mode) {
+  const internalButtons = [
+    "navSummary",
+    "navAddTask",
+    "navBoard",
+    "navContacts",
+  ];
+  const loginButton = document.getElementById("navLogin");
+
+  if (mode === "external") {
+    // Hide internal navigation buttons
+    internalButtons.forEach((id) => {
+      const btn = document.getElementById(id);
+      if (btn) btn.classList.add("d-none");
+    });
+    // Show login button
+    if (loginButton) loginButton.classList.remove("d-none");
+  } else {
+    // Show internal navigation buttons
+    internalButtons.forEach((id) => {
+      const btn = document.getElementById(id);
+      if (btn) btn.classList.remove("d-none");
+    });
+    // Hide login button
+    if (loginButton) loginButton.classList.add("d-none");
+  }
+}
+
+/**
+ * Detects if current page is an external page
+ * @returns {boolean} True if external page (privacy-policy or legal-notice)
+ */
+function isExternalPage() {
+  const path = window.location.pathname.toLowerCase();
+  return (
+    path.includes("privacy-policy.html") || path.includes("legal-notice.html")
+  );
+}
+
+/**
+ * Sets up the login button navigation handler
+ */
+function setupLoginButton() {
+  const loginButton = document.getElementById("navLogin");
+  if (loginButton) {
+    loginButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "../index.html";
+    });
+  }
+}
