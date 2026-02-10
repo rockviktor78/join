@@ -23,7 +23,7 @@ async function getData(path = "") {
  * @param {Object} [data={}] The data to be posted.
  * @return {Promise<any>} The response from the server as a JSON object.    
  */
-async function postData(path = "users", data = {}) {
+async function postData(path, data) {
     try {
         let response = await fetch(BASE_URL + path + ".json", {
             method: "POST",
@@ -37,4 +37,6 @@ async function postData(path = "users", data = {}) {
         console.error("Error loading data:", error);
     }
 }
+
+
 
