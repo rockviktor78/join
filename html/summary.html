@@ -9,19 +9,23 @@
     <link rel="stylesheet" href="../styles/base/variables.css" />
     <link rel="stylesheet" href="../styles/base/fonts.css" />
     <link rel="stylesheet" href="../styles/base/transitions.css" />
-    <link rel="stylesheet" href="../styles/components/template.css" />
+    <link rel="stylesheet" href="../styles/components/layout.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/sidebar.css" />
     <link rel="stylesheet" href="../styles/components.css" />
     <link rel="stylesheet" href="../styles/summary.css" />
 
     <script src="../scripts/firebase.js" defer></script>
+    <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
-    <script src="../scripts/shared/view-transitions.js" defer></script>
+    <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
     <script src="../scripts/summary.js" defer></script>
   </head>
 
-  <body class="desktop-layout">
-    <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
+  <body class="app-layout">
+    <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
+    <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
     <main class="content-scroll-area">
       <header class="summary__header">
         <h1 class="summary__title">Join360</h1>
