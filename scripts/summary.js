@@ -2,7 +2,7 @@ let allTasks = [];
 let currentUser = {};
 
 const greetingEl = document.querySelector('.summary__greeting-title');
-const nameElement = document.getElementById('user-name-display');
+const nameEl = document.getElementById('user-name-display');
 const todoCountEl = document.getElementById('todoCount');
 const doneCountEl = document.getElementById('doneCount');
 const progressCountEl = document.getElementById('progressCount');
@@ -104,7 +104,7 @@ function displayGreeting(user) {
     greetingEl.innerText =
         `${data.greeting}${data.symbol}`;
 
-    nameElement.innerText = data.name;
+    nameEl.innerText = data.name;
 }
 
 
