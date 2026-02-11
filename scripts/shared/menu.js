@@ -112,8 +112,11 @@ function setSidebarMode(mode) {
     "navContacts",
   ];
   const loginButton = document.getElementById("navLogin");
+  const menu = document.querySelector(".menu");
 
   if (mode === "external") {
+    // Add external class to menu
+    if (menu) menu.classList.add("external");
     // Hide internal navigation buttons
     internalButtons.forEach((id) => {
       const btn = document.getElementById(id);
@@ -122,6 +125,8 @@ function setSidebarMode(mode) {
     // Show login button
     if (loginButton) loginButton.classList.remove("d-none");
   } else {
+    // Remove external class from menu
+    if (menu) menu.classList.remove("external");
     // Show internal navigation buttons
     internalButtons.forEach((id) => {
       const btn = document.getElementById(id);

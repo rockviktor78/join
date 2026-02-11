@@ -119,6 +119,16 @@
     width: 1.75rem;
     height: 1.75rem;
   }
+
+  /* Mobile: External-Modus - Navigation links ausrichten */
+  .external .menu__nav {
+    justify-content: flex-start;
+  }
+
+  /* Mobile: Login-Button im External-Modus */
+  .external .login-button {
+    margin-left: 1rem;
+  }
 }
 
 /* ================================================
@@ -162,7 +172,7 @@
   }
 
   .login-button {
-   padding: 0.4rem 4.6rem 0.4rem 4.6rem;
+    padding: 0.4rem 4.6rem 0.4rem 4.6rem;
   }
 
   .menu__icon {
@@ -189,4 +199,3 @@
 .d-none {
   display: none !important;
 }
-
