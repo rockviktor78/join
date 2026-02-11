@@ -31,7 +31,7 @@ function shouldUseTransition(link, e) {
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
     return false;
   }
-  if (link.classList.contains("menu__footer-link")) {
+  if (link.classList.contains("menu__mobile__link")) {
     return false;
   }
   return true;

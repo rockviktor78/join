@@ -44,12 +44,12 @@ function setActiveMenuBtn(buttonId) {
  * @param {string} currentPage - The current filename (e.g., 'privacy-policy.html')
  */
 function setActiveFooterLink(currentPage) {
-  const footerLinks = document.querySelectorAll(".menu__footer-link");
-  footerLinks.forEach((link) => {
-    link.classList.remove("active-menu-btn");
+  const mobileLinks = document.querySelectorAll(".menu__mobile__link");
+  mobileLinks.forEach((link) => {
+    link.classList.remove("menu__mobile__link--active");
     const linkHref = link.getAttribute("href");
     if (linkHref === currentPage) {
-      link.classList.add("active-menu-btn");
+      link.classList.add("menu__mobile__link--active");
     }
   });
 }

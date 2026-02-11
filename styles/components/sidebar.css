@@ -12,7 +12,6 @@
   align-items: center;
   z-index: 20;
   height: 5rem; /* Feste Höhe für stabiles Layout */
-  padding: var(--spacing-sm) 0;
   box-shadow: 0 -2px 0.625rem rgba(0, 0, 0, 0.1);
 }
 
@@ -75,12 +74,12 @@
   color: var(--color-white);
 }
 
-.menu__footer {
+.menu__mobile {
   /* Mobile: Versteckt */
   display: none;
 }
 
-.menu__footer-link {
+.menu__mobile__link {
   display: block;
   color: var(--color-gray-300);
   text-decoration: none;
@@ -90,14 +89,14 @@
   transform-origin: left center;
 }
 
-.menu__footer-link:hover:not(.active-menu-btn),
-.menu__footer-link:focus-visible:not(.active-menu-btn) {
+.menu__mobile__link:hover:not(.menu__mobile__link--active),
+.menu__mobile__link:focus-visible:not(.menu__mobile__link--active) {
   color: var(--color-accent);
   transform: scaleX(1.02);
   text-shadow: 0 0 2px currentColor;
 }
 
-.menu__footer-link.active-menu-btn {
+.menu__mobile__link--active {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
 }
@@ -123,11 +122,78 @@
   /* Mobile: External-Modus - Navigation links ausrichten */
   .external .menu__nav {
     justify-content: flex-start;
+    width: auto;
   }
 
   /* Mobile: Login-Button im External-Modus */
   .external .login-button {
+    margin-left: 0.5rem;
+  }
+
+  /* Mobile: Mobile-Links im External-Modus anzeigen */
+  .external .menu__mobile {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+    margin-left: 3rem;
+    align-items: center;
+  }
+
+  /* Mobile: Mobile-Links im External-Modus */
+  .external .menu__mobile__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0.5rem 0.75rem;
+    font-size: var(--font-size-base);
+    color: var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    width: 7.25rem;
+    height: 4.75rem;
+    transition: all var(--transition-base);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* Mobile: Mobile-Link Hover */
+  .external .menu__mobile__link:hover {
+    background-color: var(--color-primary-light);
+    color: var(--color-white);
+    transform: none;
+    text-shadow: none;
+  }
+
+  /* Mobile: Mobile-Link Active */
+  .external .menu__mobile__link--active {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+  }
+}
+
+/* ================================================
+   Extra Small Mobile (< 375px)
+   ================================================ */
+@media (max-width: 374px) {
+  /* Extra Small: Login-Button kleiner */
+  .external .login-button {
+    width: 4rem;
     margin-left: 1rem;
+  }
+
+  /* Extra Small: Mobile-Links Container */
+  .external .menu__mobile {
+    margin-left: 1rem;
+    gap: 0.5rem;
+  }
+
+  /* Extra Small: Mobile-Links kleiner */
+  .external .menu__mobile__link {
+    width: 6rem;
+    height: 4.75rem;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.5rem;
   }
 }
 
@@ -188,7 +254,7 @@
     width: 100%;
   }
 
-  .menu__footer {
+  .menu__mobile {
     display: flex;
     padding: 0 0 var(--spacing-3xl) 0;
     flex-direction: column;
