@@ -36,6 +36,7 @@ function setupLogoutLink() {
     logoutLink.addEventListener("click", (event) => {
       event.preventDefault();
       sessionStorage.removeItem("loggedInUser");
+      sessionStorage.removeItem('allTasks');
       window.location.href = "../index.html";
     });
   }
