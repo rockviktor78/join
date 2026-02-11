@@ -1,3 +1,12 @@
+/**
+ * Generates the HTML template for a contact list entry.
+ *
+ * @param {string} initial - Initials of the contact
+ * @param {string} name - Full name of the contact
+ * @param {string} email - Email address of the contact
+ * @param {number} index - Index of the contact in the list
+ * @returns {string} HTML string for the contact card
+ */
 function templateContact(initial, name, email, index) {
   return `
         <div class="contact-card" id="${name}" onclick="showContactDetails('${index}')">
@@ -10,6 +19,15 @@ function templateContact(initial, name, email, index) {
     `;
 }
 
+/**
+ * Generates the HTML template for the contact detail view.
+ *
+ * @param {{name: string, email: string, phone: string}} contact - Contact object
+ * @param {number} index - Index of the contact
+ * @param {string} initial - Initials of the contact
+ * @param {string} badgeColor - Background color of the contact badge
+ * @returns {string} HTML string for the contact detail view
+ */
 function templateContactDetails(contact, index, initial, badgeColor) {
   return `
         <div class="contact-detail-slide">
@@ -26,6 +44,15 @@ function templateContactDetails(contact, index, initial, badgeColor) {
     `;
 }
 
+/**
+ * Generates the HTML template for the contact detail header.
+ *
+ * @param {{name: string}} contact - Contact object
+ * @param {number} index - Index of the contact
+ * @param {string} initial - Initials of the contact
+ * @param {string} badgeColor - Background color of the badge
+ * @returns {string} HTML string for the contact detail header
+ */
 function templateContactDetailHeader(contact, index, initial, badgeColor) {
   return `
        <div class="contact-detail-initial" style="background-color: ${badgeColor};">${initial}</div>
@@ -39,6 +66,12 @@ function templateContactDetailHeader(contact, index, initial, badgeColor) {
     `;
 }
 
+/**
+ * Generates the HTML template for contact information.
+ *
+ * @param {{email: string, phone: string}} contact - Contact object
+ * @returns {string} HTML string for contact information
+ */
 function templateContactDetailInformation(contact) {
   return `
        <div class="contact-info">
@@ -50,6 +83,12 @@ function templateContactDetailInformation(contact) {
     `;
 }
 
+/**
+ * Generates the HTML template for a letter group header.
+ *
+ * @param {string} firstLetter - The letter used for grouping contacts
+ * @returns {string} HTML string for the letter group
+ */
 function templateRenderLetterGroup(firstLetter) {
   return `
         <div class="letter-group">
@@ -59,6 +98,11 @@ function templateRenderLetterGroup(firstLetter) {
     `;
 }
 
+/**
+ * Generates the HTML template for the "Add New Contact" view.
+ *
+ * @returns {string} HTML string for the add contact view
+ */
 function templateAddNewContact() {
   return `
         <div class="form-contact-container">
@@ -75,6 +119,11 @@ function templateAddNewContact() {
     `;
 }
 
+/**
+ * Generates the header section for the "Add New Contact" view.
+ *
+ * @returns {string} HTML string for the add contact header
+ */
 function templateAddNewContactheader() {
   return `
         <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
@@ -86,12 +135,22 @@ function templateAddNewContactheader() {
     `;
 }
 
+/**
+ * Generates the profile picture placeholder for a new contact.
+ *
+ * @returns {string} HTML string for the profile picture
+ */
 function templateAddNewContactProfilePicture() {
   return `
         <div class="contact-detail-initial" style="background-color: #D1D1D1;"><img src="../assets/img/contacts/personwhite.svg" alt="Contact Initial"></div>
     `;
 }
 
+/**
+ * Generates the form for adding a new contact.
+ *
+ * @returns {string} HTML string for the add contact form
+ */
 function templateAddNewContactForm() {
   return `
         <div class="close-button" onclick="closeEditContact()"><img src="../assets/img/contacts/cancel.svg" alt="Cancel"></div>
@@ -105,6 +164,17 @@ function templateAddNewContactForm() {
     `;
 }
 
+/**
+ * Generates the HTML template for the "Edit Contact" view.
+ *
+ * @param {number} index - Index of the contact
+ * @param {string} name - Contact name
+ * @param {string} email - Contact email
+ * @param {string} phone - Contact phone number
+ * @param {string} initial - Contact initials
+ * @param {string} badgeColor - Background color of the badge
+ * @returns {string} HTML string for the edit contact view
+ */
 function templateEditContact(index, name, email, phone, initial, badgeColor) {
   return `
         <div class="form-contact-container">
@@ -121,6 +191,11 @@ function templateEditContact(index, name, email, phone, initial, badgeColor) {
     `;
 }
 
+/**
+ * Generates the header section for the "Edit Contact" view.
+ *
+ * @returns {string} HTML string for the edit contact header
+ */
 function templateEditContactHeader() {
   return `
         <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
@@ -129,6 +204,13 @@ function templateEditContactHeader() {
     `;
 }
 
+/**
+ * Generates the profile picture for editing a contact.
+ *
+ * @param {string} badgeColor - Background color of the badge
+ * @param {string} initial - Contact initials
+ * @returns {string} HTML string for the profile picture
+ */
 function templateEditContactProfilePicture(badgeColor, initial) {
   return `
         <div class="contact-detail-initial" style="background-color: ${badgeColor};">
@@ -138,6 +220,15 @@ function templateEditContactProfilePicture(badgeColor, initial) {
     `;
 }
 
+/**
+ * Generates the form for editing a contact.
+ *
+ * @param {string} name - Contact name
+ * @param {string} email - Contact email
+ * @param {string} phone - Contact phone number
+ * @param {number} index - Index of the contact
+ * @returns {string} HTML string for the edit contact form
+ */
 function templateEditContactForm(name, email, phone, index) {
   return `
         <div class="close-button" onclick="closeEditContact()"><img src="../assets/img/contacts/cancel.svg" alt="Cancel"></div>
