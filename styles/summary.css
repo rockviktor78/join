@@ -26,6 +26,24 @@
   justify-content: center;
 }
 
+@media (max-width: 1200px) {
+  .summary__greeting {
+    display: none;
+  }
+}
+
+.content-max-width {
+  max-width: calc(90rem - 14.5rem);
+  padding: 0 var(--spacing-5xl) 0 var(--spacing-5xl);
+}
+
+@media (max-width: 1200px) {
+  .content-max-width {
+    margin: 0 auto;
+    padding: 0 var(--spacing-xl) 0 var(--spacing-xl);
+  }
+}
+
 /* ====== 2. Typography ====== */
 .summary__title {
   font-size: var(--font-size-6xl);
