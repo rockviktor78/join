@@ -113,10 +113,12 @@ function setSidebarMode(mode) {
   ];
   const loginButton = document.getElementById("navLogin");
   const menu = document.querySelector(".menu");
+  const header = document.querySelector(".header__content");
 
   if (mode === "external") {
-    // Add external class to menu
+    // Add external class to menu and header
     if (menu) menu.classList.add("external");
+    if (header) header.classList.add("external");
     // Hide internal navigation buttons
     internalButtons.forEach((id) => {
       const btn = document.getElementById(id);
@@ -125,8 +127,9 @@ function setSidebarMode(mode) {
     // Show login button
     if (loginButton) loginButton.classList.remove("d-none");
   } else {
-    // Remove external class from menu
+    // Remove external class from menu and header
     if (menu) menu.classList.remove("external");
+    if (header) header.classList.remove("external");
     // Show internal navigation buttons
     internalButtons.forEach((id) => {
       const btn = document.getElementById(id);
@@ -155,6 +158,20 @@ function setupLoginButton() {
   const loginButton = document.getElementById("navLogin");
   if (loginButton) {
     loginButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "../index.html";
+    });
+  }
+}
+
+/**
+ * Sets up the header back button in external mode
+ * Always navigates to login page
+ */
+function setupHeaderBackButton() {
+  const backButton = document.querySelector(".header__content .back-btn");
+  if (backButton) {
+    backButton.addEventListener("click", (e) => {
       e.preventDefault();
       window.location.href = "../index.html";
     });
