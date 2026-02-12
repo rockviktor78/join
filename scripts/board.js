@@ -10,15 +10,15 @@ async function initBoard() {
 }
 
 async function fetchTasks(path = "tasks") {
-    let response = await fetch(BASE_URL+ path + ".json");
-   const data = await response.json();
+    let response = await fetch(BASE_URL + path + ".json");
+    const data = await response.json();
 
     tasks = Object.keys(data).map((key, index) => ({
         id: index,
         ...data[key]
     }));
     console.log(tasks);
-   
+
 }
 
 function updateHTML() {
@@ -29,7 +29,7 @@ function updateHTML() {
 }
 
 function sortTodo() {
-    let todo = tasks.filter(t => t['category'] == 'todo');
+    let todo = tasks.filter(t => t['category'] == 'to do');
     document.getElementById('todo').innerHTML = '';
 
     for (let index = 0; index < todo.length; index++) {
@@ -49,7 +49,7 @@ function sortInprogress() {
 }
 
 function sortAwaitfeedback() {
-    let awaitfeedback = tasks.filter(t => t['category'] == 'awaitfeedback');
+    let awaitfeedback = tasks.filter(t => t['category'] == 'await feedback');
     document.getElementById('awaitfeedback').innerHTML = '';
 
     for (let index = 0; index < awaitfeedback.length; index++) {
