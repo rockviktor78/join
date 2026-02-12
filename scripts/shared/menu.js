@@ -74,10 +74,10 @@ function initMenuNavigation() {
  */
 function setupMenuNavigation() {
   const menuButtons = {
-    navSummary: "../pages/summary.html",
-    navAddTask: "../pages/add-task.html",
-    navBoard: "../pages/board.html",
-    navContacts: "../pages/contacts.html",
+    navSummary: "../html/summary.html",
+    navAddTask: "../html/add-task.html",
+    navBoard: "../html/board.html",
+    navContacts: "../html/contacts.html",
   };
   Object.entries(menuButtons).forEach(([id, url]) => {
     setupMenuButton(id, url);
