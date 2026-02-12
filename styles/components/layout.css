@@ -43,3 +43,21 @@
     align-items: center;
   }
 }
+
+/* ================================================
+   Content Limit Container
+   ================================================ */
+.content-limit {
+  width: 100%;
+  max-width: calc(var(--content-max-width) - var(--sidebar-width));
+  /* Mobile: Kleineres Padding */
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  box-sizing: border-box;
+}
+
+/* Extra Small Screens: Etwas kleineres Padding */
+@media (max-width: 480px) {
+  .content-limit {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+}
