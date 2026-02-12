@@ -53,11 +53,6 @@
   }
 }
 
-/* Verhindert Flash of Unstyled Content (FOUC) */
-html {
-  background-color: var(--bg-primary);
-}
-
 body {
   opacity: 0;
   animation: fade-in 0.3s ease-in-out forwards;
