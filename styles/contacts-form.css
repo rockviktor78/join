@@ -273,3 +273,11 @@
     display: flex;
     gap: 1.5625rem;
 }
+
+.close-button__desktop {
+    display: block;
+  }
+
+  .close-button__mobile {
+    display: none;
+  }

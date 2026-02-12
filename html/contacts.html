@@ -7,8 +7,9 @@
     <script src="../script.js" defer></script>
     <script src="../scripts/contacts.js"></script>
     <script src="../scripts/contacts-templates.js"></script>
+    <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
-    <script src="../scripts/shared/view-transitions.js" defer></script>
+    <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
 
     <link rel="stylesheet" href="../styles/base/fonts.css">
@@ -19,42 +20,51 @@
     <link rel="stylesheet" href="../styles/contacts-form.css">
     <link rel="stylesheet" href="../styles/contacts-media.css">
     <link rel="stylesheet" href="../styles/base/transitions.css" />
-    <link rel="stylesheet" href="../styles/components/template.css" />
+    <link rel="stylesheet" href="../styles/components/layout.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/sidebar.css" />
   </head>
-  <body onload="initContacts()" class="desktop-layout">
-    <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
-<div id="contacts-container" class="contacts-container">
+<body class="app-layout" onload="initContacts()">
+  <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
+  <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
+
+  <main class="content-scroll-area content-max-width">
+    <div id="contacts-container" class="contacts-container">
       <div class="contacts-list-container">
-      <div class="add-new-contact-container">
-        <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact <img src="../assets/img/contacts/person_add.svg" alt="Add Contact"></button>
-      </div>
-      <div class="contacts-list" id="contacts-list">
-        <ul id="contacts-ul"></ul>
-      </div>
+        <div class="add-new-contact-container">
+          <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact <img src="../assets/img/contacts/person_add.svg" alt="Add Contact"></button>
+        </div>
+        <div class="contacts-list" id="contacts-list">
+          <ul id="contacts-ul"></ul>
+        </div>
       </div>
       <div class="contacts-detail-container">
         <div class="contacts-detail-header-title">
           <div class="contacts-detail-header-title-first">Contacts</div> 
           <div class="separator">|</div>
           <div class="contacts-detail-header-title-second">Better with a Team</div>
+          <div class="separator-mobile">___________</div>
         </div>
-        <div id ="contacts-detail">
+      <div id ="contacts-detail"></div>
+    </div>
+      <div class="success-message-slide" id="successMessage">
+        <div class="success-message">
+          Contact successfully created
+        </div>
       </div>
-       <div class="overlay" id="overlay" style="display: none;">
-         <div id="loaded-contact-form">
-          <div id="contacts-form" class="contacts-form">
-            test
+    <div class="overlay" id="overlay" style="display: none;">
+        <div id="loaded-contact-form">
+          <div id="contacts-form" class="contacts-form"></div>
         </div>
-    </div>
-</div>
+      </div>
+    <button class="add-contact__fab" aria-label="Add contact" onclick="addNewContact()">
+      <i class="icon-user-plus"><img src="../assets/img/contacts/person_add.svg"> </i>
+    </button>
 
-  <div class="success-message-slide" id="successMessage">
-    <div class="success-message">
-        Contact successfully created
-    </div>
-  </div>
-
-
+    <button class="action__fab" id="action__fab" aria-label="Show more" onclick="showMoreAction(index)">
+      <i class="icon-user-plus"><img src="../assets/img/contacts/more.svg"> </i>
+    </button>
+</main>
     <script>
       window.addEventListener("load", () => {
         if (typeof init === "function") {
