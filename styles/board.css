@@ -1,13 +1,4 @@
 /* ====== 1. Layout ====== */
-.board {
-  padding-top: 80px;
-}
-
-.board__container {
-  width: 100%;
-  max-width: calc(var(--content-max-width) - var(--sidebar-width));
-  padding: 0 64px;
-}
 
 /* ====== 2. Typographie ====== */
 .board__title {
@@ -28,7 +19,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 48px;
+  flex-wrap: wrap; /* Erlaubt das Umbrechen auf kleinen Screens */
+  gap: 20px; /* Abstand, wenn sie untereinander stehen */
+  margin-bottom: 40px;
+}
+
+/* Suchleiste auf Mobilgeräten volle Breite */
+@media (max-width: 600px) {
+  .board__actions {
+    width: 100%;
+  }
+  .search-bar {
+    flex-grow: 1;
+  }
 }
 
 .board__actions {
