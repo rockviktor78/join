@@ -30,77 +30,73 @@
   <body class="app-layout">
     <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
     <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
-    <main class="content-scroll-area content-max-width">
-      <header class="summary__header">
-        <h1 class="summary__title">Join360</h1>
-        <div class="separator--v separator--v-short separator--v-blue" role="separator"></div>
-        <span class="summary__subtitle">Key metrics at a Glance</span>
-      </header>
+    <main class="content-area">
+      <div class="content-limit no-select">
+        <header class="summary__header">
+          <h1 class="summary__title">Join360</h1>
+          <div class="separator separator--h-mobile separator--blue" role="separator"></div>
+          <div class="separator separator--v-short separator--blue" role="separator"></div>
+          <span class="summary__subtitle">Key metrics at a Glance</span>
+        </header>
 
-      <section class="summary">
-        <div class="summary__grid">
-          <article class="card card--half">
-            <div class="card__icon card__icon--todo" aria-hidden="true"></div>
-            <div class="card__info">
-              <div class="card__count" id="todoCount"></div>
-              <span class="card__label">To do</span>
-            </div>
-          </article>
-
-          <article class="card card--half">
-            <div class="card__icon card__icon--done" aria-hidden="true"></div>
-            <div class="card__info">
-              <div class="card__count" id="doneCount"></div>
-              <span class="card__label">Done</span>
-            </div>
-          </article>
-
-          <article class="card card--full card--urgent">
-            <div class="card__urgent-info">
-              <img class="card__icon" src="../assets/img/shared/urgent.svg" alt="" aria-hidden="true" />
+        <section class="summary">
+          <div class="summary__grid">
+            <article class="card card--half">
+              <div class="card__icon card__icon--todo" aria-hidden="true"></div>
               <div class="card__info">
-                <div class="card__count" id="urgentCount">0</div>
-                <span class="card__label">Urgent</span>
+                <div class="card__count" id="todoCount"></div>
+                <span class="card__label">To do</span>
               </div>
-            </div>
+            </article>
 
-            <div class="separator--v separator--v-gray" role="separator"></div>
+            <article class="card card--half">
+              <div class="card__icon card__icon--done" aria-hidden="true"></div>
+              <div class="card__info">
+                <div class="card__count" id="doneCount"></div>
+                <span class="card__label">Done</span>
+              </div>
+            </article>
 
-            <div class="card__info">
-              <time class="card__date" datetime="" id="displayDate"></time>
-              <span>Upcoming Deadlines</span>
-            </div>
-          </article>
+            <article class="card card--full card--urgent">
+              <div class="card__urgent-info">
+                <img class="card__icon" src="../assets/img/shared/urgent.svg" alt="" aria-hidden="true" />
+                <div class="card__info">
+                  <div class="card__count" id="urgentCount">0</div>
+                  <span class="card__label">Urgent</span>
+                </div>
+              </div>
 
-          <article class="card card--third">
-            <div class="card__count" id="boardCount"></div>
-            <span class="card__label">Tasks in Board</span>
-          </article>
+              <div class="separator--v separator-gray" role="separator"></div>
 
-          <article class="card card--third">
-            <div class="card__count" id="progressCount"></div>
-            <span class="card__label">Tasks in Progress</span>
-          </article>
+              <div class="card__info">
+                <time class="card__date" datetime="" id="displayDate"></time>
+                <span class="card_deadlines">Upcoming Deadlines</span>
+              </div>
+            </article>
 
-          <article class="card card--third">
-            <div class="card__count" id="feedbackCount"></div>
-            <span class="card__label">Awaiting Feedback</span>
-          </article>
-        </div>
+            <article class="card card--third">
+              <div class="card__count" id="boardCount"></div>
+              <span class="card__label">Tasks in Board</span>
+            </article>
 
-        <div class="summary__greeting">
-          <h2 class="summary__greeting-title"></h2>
-          <span class="summary__greeting-name" id="user-name-display"></span>
-        </div>
-      </section>
+            <article class="card card--third">
+              <div class="card__count" id="progressCount"></div>
+              <span class="card__label">Tasks in Progress</span>
+            </article>
+
+            <article class="card card--third">
+              <div class="card__count" id="feedbackCount"></div>
+              <span class="card__label">Awaiting Feedback</span>
+            </article>
+          </div>
+
+          <div class="summary__greeting">
+            <h2 class="summary__greeting-title"></h2>
+            <span class="summary__greeting-name" id="user-name-display"></span>
+          </div>
+        </section>
+      </div>
     </main>
-
-    <script>
-      window.addEventListener("load", () => {
-        if (typeof init === "function") {
-          init();
-        }
-      });
-    </script>
+    <div class="summary__greeting-overlay" id="greetingOverlay"></div>
   </body>
 </html>

@@ -17,9 +17,12 @@ const displayDateEl = document.getElementById('displayDate');
  */
 async function initSummary() {
     loadUserFromSessionStorage();
-    displayGreeting(currentUser);
+    displayGreetingDesktop(currentUser);
+    displayGreetingMobile(currentUser);
     await loadTasksFromSessionOrFirebase();
 }
+
+
 
 /**
  * Loads the logged-in user's data from session storage. 
@@ -43,15 +46,20 @@ function loadUserFromSessionStorage() {
  */
 async function loadTasksFromSessionOrFirebase() {
     const sessionData = sessionStorage.getItem('allTasks');
-
+    let loadFromFirebase = true;
     if (sessionData) {
-        allTasks = JSON.parse(sessionData);
-        console.log("Tasks aus SessionStorage geladen");  // remove console.log in finnal version
-    } else {
+        const parsed = JSON.parse(sessionData);
+        if (parsed && parsed.length > 0) {
+            allTasks = parsed;
+            loadFromFirebase = false;
+            console.log("Tasks aus SessionStorage geladen");
+        }
+    }
+    if (loadFromFirebase) {
         const firebaseData = await getData("tasks");
         allTasks = transformData(firebaseData);
         sessionStorage.setItem('allTasks', JSON.stringify(allTasks));
-        console.log("Tasks von Firebase geladen");        // remove console.log in finnal version
+        console.log("Tasks von Firebase geladen");
     }
     renderSummary();
 }
@@ -98,7 +106,7 @@ function getGreetingText(user) {
  * and the time of day.
  * @param {Object} user - The user object containing guest and name properties.
  */
-function displayGreeting(user) {
+function displayGreetingDesktop(user) {
     const data = getGreetingText(user);
 
     greetingEl.innerText =
@@ -106,7 +114,6 @@ function displayGreeting(user) {
 
     nameEl.innerText = data.name;
 }
-
 
 
 /**
@@ -153,4 +160,64 @@ function getNextDeadline() {
 }
 
 
+/**
+ * Main function to handle the mobile greeting lifecycle.
+ * @param {Object} user - The user object.     
+ */
+function displayGreetingMobile(user) {
+    if (window.innerWidth > 768) return;
+
+    const data = getGreetingText(user);
+    const overlay = createOverlayElement(data);
+    document.body.appendChild(overlay);
+    runOverlayAnimation(overlay);
+}
+
+
+/**
+ * Creates the overlay DOM element and fills it with HTML.
+ * @param {Object} data - The greeting data object.
+ * @return {Element} - The created overlay element.
+ */
+function createOverlayElement(data) {
+    const overlay = document.createElement('div');
+
+    overlay.id = 'greetingOverlay';
+    overlay.className = 'summary__greeting-overlay';
+    overlay.innerHTML = getGreetingOverlayHTML(data);
+    return overlay;
+}
+
+
+/**
+ * Manages the timing: Show -> Fade Out -> Remove.
+ * @param {Element} overlay - The overlay element to animate.
+ */
+function runOverlayAnimation(overlay) {
+    overlay.classList.add('show');
+
+    setTimeout(() => {
+        overlay.classList.remove('show');
+
+        setTimeout(() => overlay.remove(), 1000);
+    }, 1500);
+}
+
+
+/**
+ * Pure HTML Template for the overlay.
+ * @param {Object} data - The greeting data object.
+ * @return {string} - The HTML string for the overlay.
+ */
+function getGreetingOverlayHTML(data) {
+    return `
+        <h2 class="summary__greeting-title">${data.greeting}${data.symbol}</h2>
+        <span class="summary__greeting-name">${data.name}</span>
+    `;
+}
+
+
 document.addEventListener("DOMContentLoaded", initSummary);
+
+
+

@@ -1,103 +1,198 @@
 let tasks = [];
+let contacts = {};
+let currentDraggedElement = null;
 
-let currentDraggedElement;
-let BASE_URL = "https://join-7c944-default-rtdb.europe-west1.firebasedatabase.app/";
+const columns = ["todo", "inprogress", "awaitfeedback", "done"];
+const CATEGORY_MAP = {
+    "todo": "to do",
+    "inprogress": "in progress",
+    "awaitfeedback": "await feedback",
+    "done": "done"
+};
+
 
 async function initBoard() {
-    await fetchTasks();
-    console.log(tasks);
-    updateHTML();
+    await loadContactsFromFirebase()
+    await loadTasksFromFirebase();
+    renderBoard();
+    initDragAndDrop();
+    initButtons();
 }
 
-async function fetchTasks(path = "tasks") {
-    let response = await fetch(BASE_URL+ path + ".json");
-   const data = await response.json();
 
-    tasks = Object.keys(data).map((key, index) => ({
-        id: index,
+async function loadContactsFromFirebase() {
+    const data = await getData("contacts");
+    contacts = data || {};
+}
+
+
+/**
+ * LOAD TASKS FROM FIREBASE (READ ONLY)
+ */
+async function loadTasksFromFirebase() {
+    const data = await getData("tasks");
+
+    if (!data) {
+        tasks = [];
+        return;
+    }
+
+    tasks = Object.keys(data).map((key) => ({
+        id: key,
         ...data[key]
     }));
-    console.log(tasks);
-   
 }
 
-function updateHTML() {
-    sortTodo();
-    sortInprogress();
-    sortAwaitfeedback();
-    sortDone();
+/**
+ * RENDER COMPLETE BOARD
+ */
+function renderBoard() {
+    renderTaskColumn("todo", "to do");
+    renderTaskColumn("inprogress", "in progress");
+    renderTaskColumn("awaitfeedback", "await feedback");
+    renderTaskColumn("done", "done");
+    attachDragEventsToCards();
 }
 
-function sortTodo() {
-    let todo = tasks.filter(t => t['category'] == 'todo');
-    document.getElementById('todo').innerHTML = '';
+/**
+ * RENDER SINGLE COLUMN
+ */
+function renderTaskColumn(columnId, categoryName) {
+    const column = document.getElementById(columnId);
+    column.innerHTML = "";
 
-    for (let index = 0; index < todo.length; index++) {
-        const element = todo[index];
-        document.getElementById('todo').innerHTML += generateTodoHTML(element);
-    }
+    const filteredTasks = tasks.filter(
+        (task) => task.category === categoryName
+    );
+
+    filteredTasks.forEach((task) => {
+        column.innerHTML += generateTaskHTML(task);
+    });
 }
 
-function sortInprogress() {
-    let inprogress = tasks.filter(t => t['category'] == 'in progress');
-    document.getElementById('inprogress').innerHTML = '';
+/**
+ * GENERATE TASK CARD (Updated to BEM)
+ */
+function generateTaskHTML(task) {
 
-    for (let index = 0; index < inprogress.length; index++) {
-        const element = inprogress[index];
-        document.getElementById('inprogress').innerHTML += generateTodoHTML(element);
-    }
-}
+    const typeClass = task.taskType.toLowerCase().replace(/\s/g, '-');
 
-function sortAwaitfeedback() {
-    let awaitfeedback = tasks.filter(t => t['category'] == 'awaitfeedback');
-    document.getElementById('awaitfeedback').innerHTML = '';
+    const assignedCircles = task.assignedTo
+        .map(id => {
+            const contact = contacts[id];
+            const initials = contact ? contact.name.split(" ").map(n => n[0]).join("") : "?";
 
-    for (let index = 0; index < awaitfeedback.length; index++) {
-        const element = awaitfeedback[index];
-        document.getElementById('awaitfeedback').innerHTML += generateTodoHTML(element);
-    }
-}
+            const bgColor = contact?.color || "#29abe2";
+            return `<div class="task-card__user-badge" style="background-color: ${bgColor}" title="${contact?.name || 'Unassigned'}">${initials}</div>`;
+        })
+        .join("");
 
-function sortDone() {
-    let done = tasks.filter(t => t['category'] == 'done');
-    document.getElementById('done').innerHTML = '';
-
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        document.getElementById('done').innerHTML += generateTodoHTML(element);
-    }
-}
-
-function startDragging(id) {
-    currentDraggedElement = id;
-}
-
-function generateTodoHTML(element) {
     return `
-        <div draggable="true" ondragstart="startDragging(${element['id']})" class="todo-card">
-            <div></div>
-            <div class="todo-card-title">${element['title']}</div>
-            <div class="todo-card-description">${element['description']}</div>
-            <div class="todo-card-subtastks">${element['subtasks']}</div>
-            <div class="todo-card-assignedto">${element['assignedTo']}</div>
-            <div class="todo-card-priority">${element['priority']}</div>
+        <div draggable="true"
+             class="task-card"
+             data-id="${task.id}">
+             
+            <div class="task-card__category task-card__category--${typeClass}">${task.taskType}</div>
+            
+            <div class="task-card__content">
+                <div class="task-card__title">${task.title}</div>
+                <div class="task-card__description">${task.description}</div>
+            </div>
+
+            <div class="task-card__footer">
+                <div class="task-card__assigned-users">
+                    ${assignedCircles}
+                </div>
+                <div class="task-card__priority">
+                    <img class="task-card__priority-icon" src="../assets/img/board/prio-${task.priority.toLowerCase()}.svg" alt="${task.priority}">
+                </div>
+            </div>
         </div>
     `;
 }
 
-function allowDrop(ev) {
-    ev.preventDefault();
+
+
+/**
+ * ATTACH DRAG EVENTS TO CARDS (Updated Class Name)
+ */
+function attachDragEventsToCards() {
+    const cards = document.querySelectorAll(".task-card");
+
+    cards.forEach((card) => {
+        card.addEventListener("dragstart", () => {
+            currentDraggedElement = card.dataset.id;
+        });
+    });
 }
 
-function moveTo(category) {
-    tasks[currentDraggedElement]['category'] = category;
-    updateHTML();
+/**
+ * DRAG & DROP SETUP (Updated Highlight Class)
+ */
+function initDragAndDrop() {
+    columns.forEach((columnId) => {
+        const dropZone = document.getElementById(columnId);
+
+        dropZone.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropZone.classList.add("board-column__drop-zone--highlight");
+        });
+
+        dropZone.addEventListener("dragleave", () => {
+            dropZone.classList.remove("board-column__drop-zone--highlight");
+        });
+
+        dropZone.addEventListener("drop", () => {
+            moveTaskToColumn(columnId);
+            dropZone.classList.remove("board-column__drop-zone--highlight");
+        });
+    });
 }
 
-function highlight(id) {
-    document.getElementById(id).classList.add('drag-area-highlight');
+
+/**
+ * MOVE TASK (DEMO ONLY – LOCAL CHANGE)
+ */
+function moveTaskToColumn(columnId) {
+    const newCategory = CATEGORY_MAP[columnId];
+    if (!newCategory) return;
+
+    const task = tasks.find(t => t.id === currentDraggedElement);
+    if (!task) return;
+
+    task.category = newCategory;
+    renderBoard();
 }
 
-function removeHighlight(id) {
-    document.getElementById(id).classList.remove('drag-area-highlight');
+
+/**
+ * BUTTON EVENTS (Updated Selectors)
+ */
+function initButtons() {
+    // Header-Button (neue Klasse aus dem HTML)
+    const headerButton = document.querySelector(".board__add-btn");
+    if (headerButton) {
+        headerButton.addEventListener("click", addTask);
+    }
+
+    // Spalten-Buttons
+    const gridButtons = document.querySelectorAll(".board-column__add-btn");
+    gridButtons.forEach((btn) => {
+        btn.addEventListener("click", addTask);
+    });
 }
+
+/**
+ * DEMO ADD TASK
+ */
+function addTask() {
+    alert("Demo-Version: Task hinzufügen ist deaktiviert.");
+}
+
+
+
+
+/**
+ * INIT
+ */
+document.addEventListener("DOMContentLoaded", initBoard);
