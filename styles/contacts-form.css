@@ -103,7 +103,7 @@
 .cancel-button {
     background-color: var(--color-white);
     color: var(--color-primary);
-    border: solid 1px var(--color-primary);
+    border: solid 0.063rem var(--color-primary);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-normal);
     padding: 0.625rem 0.9375rem;
@@ -273,3 +273,11 @@
     display: flex;
     gap: 1.5625rem;
 }
+
+.close-button__desktop {
+    display: block;
+  }
+
+  .close-button__mobile {
+    display: none;
+  }

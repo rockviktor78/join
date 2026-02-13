@@ -154,6 +154,7 @@ function showContactDetails(index) {
   detailsContainer.innerHTML = "";
   detailsContainer.innerHTML += templateContactDetails(contact, index, initial, badgeColor);
   setActiveContact(index);
+  checkMobile(index);
 }
 
 /**
@@ -204,6 +205,7 @@ function deleteContact(index) {
   sortContacts();
   renderContactList(loadedContacts);
   closeEditContact();
+  closeActionFab();
 }
 
 /**

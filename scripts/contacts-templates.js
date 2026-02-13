@@ -58,7 +58,7 @@ function templateContactDetailHeader(contact, index, initial, badgeColor) {
        <div class="contact-detail-initial" style="background-color: ${badgeColor};">${initial}</div>
             <div class="contact-detail-name-and-actions">
                 <div class="contact-detail-name">${contact.name}</div>
-                <div>
+                <div class="action__button">
                     <button onclick="editContact(${index})" class="contact-detail-edit-button"></button>
                     <button onclick="deleteContact(${index})" class="contact-detail-delete-button"></button>
                 </div>
@@ -126,7 +126,7 @@ function templateAddNewContact() {
  */
 function templateAddNewContactheader() {
   return `
-        <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
+        <div class="form-contact__logo"><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
         <div>
             <div class="form-contact-header-title">Add Contact </div>
             <div class="form-contact-subtitle">Tasks are better with a team!</div>
@@ -142,7 +142,7 @@ function templateAddNewContactheader() {
  */
 function templateAddNewContactProfilePicture() {
   return `
-        <div class="contact-detail-initial" style="background-color: #D1D1D1;"><img src="../assets/img/contacts/personwhite.svg" alt="Contact Initial"></div>
+        <div class="contact-detail-initial-form" style="background-color: #D1D1D1;"><img src="../assets/img/contacts/personwhite.svg" alt="Contact Initial"></div>
     `;
 }
 
@@ -153,7 +153,10 @@ function templateAddNewContactProfilePicture() {
  */
 function templateAddNewContactForm() {
   return `
-        <div class="close-button" onclick="closeEditContact()"><img src="../assets/img/contacts/cancel.svg" alt="Cancel"></div>
+        <div class="close-button" onclick="closeEditContact()">
+            <img src="../assets/img/contacts/cancel.svg" class="close-button__desktop" alt="Cancel">
+            <img src="../assets/img/contacts/closewhite.svg" class="close-button__mobile" alt="Cancel">
+        </div>
         <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" value="" required>
         <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" value="" required>
         <input type="text" class="form-input-phone" id="new-contact-phone" placeholder="Phone" value="" required>
@@ -198,7 +201,7 @@ function templateEditContact(index, name, email, phone, initial, badgeColor) {
  */
 function templateEditContactHeader() {
   return `
-        <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo"></div>
+        <div><img src="../assets/img/contacts/join_logo.svg" alt="Join Logo" class="form-contact__logo"></div>
         <div class="form-contact-header-title">Edit contact</div>
         <div class="form-contact-header-line">___________________</div>
     `;
@@ -213,7 +216,7 @@ function templateEditContactHeader() {
  */
 function templateEditContactProfilePicture(badgeColor, initial) {
   return `
-        <div class="contact-detail-initial" style="background-color: ${badgeColor};">
+        <div class="contact-detail-initial-form" style="background-color: ${badgeColor};">
             ${initial}
         </div>
 
@@ -231,7 +234,10 @@ function templateEditContactProfilePicture(badgeColor, initial) {
  */
 function templateEditContactForm(name, email, phone, index) {
   return `
-        <div class="close-button" onclick="closeEditContact()"><img src="../assets/img/contacts/cancel.svg" alt="Cancel"></div>
+        <div class="close-button" onclick="closeEditContact()">
+            <img src="../assets/img/contacts/cancel.svg" class="close-button__desktop" alt="Cancel">
+            <img src="../assets/img/contacts/closewhite.svg" class="close-button__mobile" alt="Cancel">
+        </div>
         <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" value="${name}" required>
         <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" value="${email}" required>
         <input type="text" class="form-input-phone" id="new-contact-phone" placeholder="Phone" value="${phone}" required>
@@ -239,5 +245,33 @@ function templateEditContactForm(name, email, phone, index) {
             <button onclick="deleteContact(${index})" class="delete-button">Delete</button>
             <button onclick="confirmEditContact(${index})" class="save-contact-button">Save <img src="../assets/img/contacts/check.svg" alt="Save"></button>
         </div>
+    `;
+}
+
+/**
+ * Generates the HTML template for the "show more" action buttons on mobile devices.
+ * The template includes buttons for editing and deleting a contact.
+ *
+ * @param {number} index - The index of the contact in the contacts array.
+ * @returns {string} HTML string containing the mobile action buttons.
+ */
+function templateShowMoreAction(index) {
+    return `
+        <div class="action__button-mobile">
+            <div><button onclick="editContact(${index}), closeActionFab()" class="contact-detail-edit-button"></button></div>
+            <div><button onclick="deleteContact(${index}), contactsBackMobile(${index})" class="contact-detail-delete-button"></button></div>
+        </div>
+    `;
+}
+
+/**
+ * Generates the HTML template for the floating action button (FAB).
+ * The button is represented by an icon used to trigger additional actions.
+ *
+ * @returns {string} HTML string containing the floating action button icon.
+ */
+function templateActionFab() {
+    return `
+        <i class="icon-user-plus"><img src="../assets/img/contacts/more.svg"> </i>
     `;
 }
