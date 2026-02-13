@@ -24,16 +24,6 @@
   margin-bottom: 40px;
 }
 
-/* Suchleiste auf Mobilgeräten volle Breite */
-@media (max-width: 600px) {
-  .board__actions {
-    width: 100%;
-  }
-  .search-bar {
-    flex-grow: 1;
-  }
-}
-
 .board__actions {
   display: flex;
   align-items: center;
@@ -118,7 +108,7 @@
   background-color: #e0f0ff;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 768px) {
   .board__columns {
     flex-direction: column;
     align-items: center;
