@@ -3,26 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contacts</title>
+    <title>Contacts - Join</title>
+
+    <link rel="stylesheet" href="../styles/base/reset.css" />
+    <link rel="stylesheet" href="../styles/base/variables.css" />
+    <link rel="stylesheet" href="../styles/base/fonts.css" />
+    <link rel="stylesheet" href="../styles/base/transitions.css" />
+    <link rel="stylesheet" href="../styles/components/layout.css" />
+    <link rel="stylesheet" href="../styles/components/header.css" />
+    <link rel="stylesheet" href="../styles/components/sidebar.css" />
+    <link rel="stylesheet" href="../styles/contacts.css" />
+    <link rel="stylesheet" href="../styles/contacts-form.css" />
+    <link rel="stylesheet" href="../styles/contacts-media.css" />
+
     <script src="../script.js" defer></script>
     <script src="../scripts/contacts.js"></script>
     <script src="../scripts/contacts-templates.js"></script>
+    <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
+    <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
-
-    <link rel="stylesheet" href="../styles/base/fonts.css">
-    <link rel="stylesheet" href="../styles/base/reset.css">
-    <link rel="stylesheet" href="../styles/base/variables.css">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../styles/contacts.css">
-    <link rel="stylesheet" href="../styles/contacts-form.css">
-    <link rel="stylesheet" href="../styles/contacts-media.css">
-    <link rel="stylesheet" href="../styles/base/transitions.css" />
-    <link rel="stylesheet" href="../styles/components/template.css" />
   </head>
-  <body onload="initContacts()" class="desktop-layout">
-    <div w3-include-html="../assets/templates/desktop_template.html" style="display: contents"></div>
+
+  <body onload="initContacts()" class="app-layout">
+    <div
+      w3-include-html="../assets/templates/header.html"
+      style="display: contents"
+    ></div>
+    <div
+      w3-include-html="../assets/templates/sidebar.html"
+      style="display: contents"
+    ></div>
+
+    <main class="content-area">
 <div id="contacts-container" class="contacts-container">
       <div class="contacts-list-container">
       <div class="add-new-contact-container">
@@ -53,7 +67,7 @@
         Contact successfully created
     </div>
   </div>
-
+    </main>
 
     <script>
       window.addEventListener("load", () => {

@@ -207,8 +207,13 @@ function applySidebarMode() {
     const mode = isExternalPage() ? "external" : "internal";
     setSidebarMode(mode);
 
-    if (mode === "external" && typeof setupLoginButton === "function") {
-      setupLoginButton();
+    if (mode === "external") {
+      if (typeof setupLoginButton === "function") {
+        setupLoginButton();
+      }
+      if (typeof setupHeaderBackButton === "function") {
+        setupHeaderBackButton();
+      }
     }
   }
 }

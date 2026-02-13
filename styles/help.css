@@ -24,6 +24,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xl);
+  /* Placeholder für fixed back-btn */
+  padding-right: 3rem;
 }
 
 .help-title {
@@ -33,8 +35,11 @@
 }
 
 .back-btn {
-  /* Mobile: Normaler Button */
-  position: static;
+  /* Fixed: Scrollt nicht mit */
+  position: fixed;
+  top: calc(5rem + var(--spacing-2xl));
+  right: var(--spacing-lg);
+  z-index: 100;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -189,6 +194,15 @@
     padding: var(--spacing-5xl) var(--spacing-5xl);
   }
 
+  .help-header {
+    padding-right: 4rem;
+  }
+
+  .back-btn {
+    top: calc(6rem + var(--spacing-5xl));
+    right: var(--spacing-5xl);
+  }
+
   .help-title {
     font-size: var(--font-size-5xl);
   }
@@ -200,5 +214,15 @@
 
   .help-section h3 {
     font-size: var(--font-size-xl);
+  }
+}
+
+/* ================================================
+   Large Screens: Button bleibt bei 1440px Grenze
+   ================================================ */
+@media (min-width: 1441px) {
+  .back-btn {
+    /* Button bleibt an gleicher Position wie Header-Elemente */
+    right: calc((100vw - 1440px) + var(--spacing-5xl));
   }
 }

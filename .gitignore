@@ -1,7 +1,12 @@
 # Standard .gitignore für Frontend/Node-Projekte
 
-# CI/CD,
+# CI/CD
 .github/
+*.md
+docs/
+
+# But include the main README
+!README.md
 
 # Node
 node_modules/
@@ -58,9 +63,4 @@ Thumbs.db
 # Misc
 /dist-exports/
 
-# Markdown files (documentation)
-# Exclude all markdown files by default
-*.md
 
-# But include the main README
-!README.md

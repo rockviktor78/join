@@ -44,12 +44,12 @@ function setActiveMenuBtn(buttonId) {
  * @param {string} currentPage - The current filename (e.g., 'privacy-policy.html')
  */
 function setActiveFooterLink(currentPage) {
-  const footerLinks = document.querySelectorAll(".menu__footer-link");
-  footerLinks.forEach((link) => {
-    link.classList.remove("active-menu-btn");
+  const mobileLinks = document.querySelectorAll(".menu__mobile__link");
+  mobileLinks.forEach((link) => {
+    link.classList.remove("menu__mobile__link--active");
     const linkHref = link.getAttribute("href");
     if (linkHref === currentPage) {
-      link.classList.add("active-menu-btn");
+      link.classList.add("menu__mobile__link--active");
     }
   });
 }
@@ -74,10 +74,10 @@ function initMenuNavigation() {
  */
 function setupMenuNavigation() {
   const menuButtons = {
-    navSummary: "../pages/summary.html",
-    navAddTask: "../pages/add-task.html",
-    navBoard: "../pages/board.html",
-    navContacts: "../pages/contacts.html",
+    navSummary: "../html/summary.html",
+    navAddTask: "../html/add-task.html",
+    navBoard: "../html/board.html",
+    navContacts: "../html/contacts.html",
   };
   Object.entries(menuButtons).forEach(([id, url]) => {
     setupMenuButton(id, url);
@@ -112,8 +112,13 @@ function setSidebarMode(mode) {
     "navContacts",
   ];
   const loginButton = document.getElementById("navLogin");
+  const menu = document.querySelector(".menu");
+  const header = document.querySelector(".header__content");
 
   if (mode === "external") {
+    // Add external class to menu and header
+    if (menu) menu.classList.add("external");
+    if (header) header.classList.add("external");
     // Hide internal navigation buttons
     internalButtons.forEach((id) => {
       const btn = document.getElementById(id);
@@ -122,6 +127,9 @@ function setSidebarMode(mode) {
     // Show login button
     if (loginButton) loginButton.classList.remove("d-none");
   } else {
+    // Remove external class from menu and header
+    if (menu) menu.classList.remove("external");
+    if (header) header.classList.remove("external");
     // Show internal navigation buttons
     internalButtons.forEach((id) => {
       const btn = document.getElementById(id);
@@ -150,6 +158,20 @@ function setupLoginButton() {
   const loginButton = document.getElementById("navLogin");
   if (loginButton) {
     loginButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "../index.html";
+    });
+  }
+}
+
+/**
+ * Sets up the header back button in external mode
+ * Always navigates to login page
+ */
+function setupHeaderBackButton() {
+  const backButton = document.querySelector(".header__content .back-btn");
+  if (backButton) {
+    backButton.addEventListener("click", (e) => {
       e.preventDefault();
       window.location.href = "../index.html";
     });
