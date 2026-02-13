@@ -273,15 +273,3 @@
     display: none !important;
   }
 }
-
-.content-limit {
-  width: 100%;
-  max-width: calc(var(--content-max-width) - var(--sidebar-width));
-  padding: var(--spacing-2xl) var(--spacing-md);
-}
-
-@media (min-width: 769px) {
-  .content-limit {
-    padding: var(--spacing-5xl) var(--spacing-5xl);
-  }
-}
