@@ -1,6 +1,6 @@
 # Standard .gitignore für Frontend/Node-Projekte
 
-CI/CD,
+# CI/CD
 .github/
 *.md
 docs/
