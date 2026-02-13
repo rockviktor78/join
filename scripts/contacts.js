@@ -205,6 +205,7 @@ function deleteContact(index) {
   sortContacts();
   renderContactList(loadedContacts);
   closeEditContact();
+  closeActionFab();
 }
 
 /**
@@ -350,19 +351,4 @@ function showSuccessMessage() {
   setTimeout(() => {
     message.classList.remove("show");
   }, 2000);
-}
-
-function checkMobile(index) {
-  if (window.innerWidth < 768) {
-    document.querySelector(".contacts-detail-container").classList.add("active");
-    let fab = document.getElementById("action__fab");
-    fab.style.display = "flex";
-    fab.setAttribute("onclick", `showMoreAction(${index})`);
-  }
-}
-
-function showMoreAction(index) {
-  let more = document.getElementById('action__fab');
-  more.innerHTML = "";
-  more.innerHTML += templateShowMoreAction(index);
 }

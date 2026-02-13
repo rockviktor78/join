@@ -17,7 +17,7 @@
 
 .contacts-list-container {
     width: 28.125rem;
-    border-right: 1px solid var(--color-gray-200);
+    border-right: 0.063rem solid var(--color-gray-200);
     background-color: var(--color-white);
     padding-left: 1.75rem;
     display: flex;
@@ -44,7 +44,7 @@
     margin-left: 2.5rem;
     flex-grow: 1;
     background-color: var(--color-gray-50);
-    padding-left: 21px;
+    padding-left: 1.313rem;
     overflow: hidden;
     
 }
@@ -63,9 +63,9 @@
 }
 
 .contacts-detail-header-title-first {
-    font-size: 61px;
+    font-size: 3.813rem;
     font-weight: var(--font-weight-bold);
-    margin-right: 5px;
+    margin-right: 0.313rem;
     display: flex;
     align-items: center;
 }
@@ -73,7 +73,7 @@
 .separator {
     font-size: 3.6875rem;
     font-weight: var(--font-weight-medium);
-    margin-right: 5px;
+    margin-right: 0.313rem;
     color: var(--color-accent);
     display: flex;
     align-items: center;
@@ -318,21 +318,21 @@
 
 .add-contact__fab {
   position: fixed;
-  bottom: 90px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
+  bottom: 6.25rem;
+  right: 1.25rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
   background-color: var(--color-primary);
   color: white;
   border: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.25);
   cursor: pointer;
   display: none;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  z-index: 998;
+  font-size: 1.375rem;
+  z-index: 7;
 }
 
 .add-contact__fab:hover {
@@ -350,12 +350,26 @@
     font-weight: var(--font-weight-bold);
 }
 
+.contacts-detail__back {
+    display: none;
+    color: var(--color-accent);
+    width: 1.563rem;
+    height: 1.563rem;
+    position: fixed;
+    top: 6.875rem;
+    right: 1.875rem;
+}
+
+.contacts-detail__back:hover {
+    cursor: pointer;
+}
+
 .action__fab {
   position: fixed;
-  bottom: 90px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
+  bottom: 6.25rem;
+  right: 1.25rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
   background-color: var(--color-primary);
   color: white;
@@ -365,8 +379,8 @@
   display: none;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  z-index: 999;
+  font-size: 1.375rem;
+  z-index: 6;
 }
 
 .action__fab:hover {
@@ -375,18 +389,24 @@
 
 .action__button-mobile {
   position: fixed;
-  bottom: 60px;
-  right: 20px;
-  width: 120px;
-  height: 100px;
+  bottom: 6.25rem;
+  right: 1.25rem;
+  width: 7.5rem;
+  height: 7.5rem;
   border-radius: 10%;
   background-color: var(--color-white);
   color: white;
   border: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.25);
   cursor: pointer;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   justify-content: center;
-  font-size: 22px;
-  z-index: 1000;
+  font-size: 1.375rem;
+  z-index: 15;
+}
+
+.action__button-mobile:hover {
+    cursor: pointer;
 }

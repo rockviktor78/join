@@ -234,7 +234,10 @@ function templateEditContactProfilePicture(badgeColor, initial) {
  */
 function templateEditContactForm(name, email, phone, index) {
   return `
-        <div class="close-button" onclick="closeEditContact()"><img src="../assets/img/contacts/cancel.svg" alt="Cancel"></div>
+        <div class="close-button" onclick="closeEditContact()">
+            <img src="../assets/img/contacts/cancel.svg" class="close-button__desktop" alt="Cancel">
+            <img src="../assets/img/contacts/closewhite.svg" class="close-button__mobile" alt="Cancel">
+        </div>
         <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" value="${name}" required>
         <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" value="${email}" required>
         <input type="text" class="form-input-phone" id="new-contact-phone" placeholder="Phone" value="${phone}" required>
@@ -245,11 +248,30 @@ function templateEditContactForm(name, email, phone, index) {
     `;
 }
 
+/**
+ * Generates the HTML template for the "show more" action buttons on mobile devices.
+ * The template includes buttons for editing and deleting a contact.
+ *
+ * @param {number} index - The index of the contact in the contacts array.
+ * @returns {string} HTML string containing the mobile action buttons.
+ */
 function templateShowMoreAction(index) {
     return `
         <div class="action__button-mobile">
-            <button onclick="editContact(${index})" class="contact-detail-edit-button"></button>
-            <button onclick="deleteContact(${index})" class="contact-detail-delete-button"></button>
+            <div><button onclick="editContact(${index}), closeActionFab()" class="contact-detail-edit-button"></button></div>
+            <div><button onclick="deleteContact(${index}), contactsBackMobile(${index})" class="contact-detail-delete-button"></button></div>
         </div>
+    `;
+}
+
+/**
+ * Generates the HTML template for the floating action button (FAB).
+ * The button is represented by an icon used to trigger additional actions.
+ *
+ * @returns {string} HTML string containing the floating action button icon.
+ */
+function templateActionFab() {
+    return `
+        <i class="icon-user-plus"><img src="../assets/img/contacts/more.svg"> </i>
     `;
 }
