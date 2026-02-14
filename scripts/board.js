@@ -2,11 +2,11 @@ let tasks = [];
 let contacts = {};
 let currentDraggedElement = null;
 
-const columns = ["todo", "inprogress", "awaitfeedback", "done"];
+const columns = ["toDo", "inProgress", "awaitFeedback", "done"];
 const CATEGORY_MAP = {
-    "todo": "to do",
-    "inprogress": "in progress",
-    "awaitfeedback": "await feedback",
+    "toDo": "to do",
+    "inProgress": "in progress",
+    "awaitFeedback": "await feedback",
     "done": "done"
 };
 
@@ -26,9 +26,6 @@ async function loadContactsFromFirebase() {
 }
 
 
-/**
- * LOAD TASKS FROM FIREBASE (READ ONLY)
- */
 async function loadTasksFromFirebase() {
     const data = await getData("tasks");
 
@@ -43,68 +40,66 @@ async function loadTasksFromFirebase() {
     }));
 }
 
-/**
- * RENDER COMPLETE BOARD
- */
+
 function renderBoard() {
-    renderTaskColumn("todo", "to do");
-    renderTaskColumn("inprogress", "in progress");
-    renderTaskColumn("awaitfeedback", "await feedback");
+    renderTaskColumn("toDo", "to do");
+    renderTaskColumn("inProgress", "in progress");
+    renderTaskColumn("awaitFeedback", "await feedback");
     renderTaskColumn("done", "done");
     attachDragEventsToCards();
 }
 
+
 /**
- * RENDER SINGLE COLUMN
+ * Renders a single column by filtering tasks and generating their HTML.
  */
 function renderTaskColumn(columnId, categoryName) {
     const column = document.getElementById(columnId);
-    column.innerHTML = "";
+    if (!column) return;
 
-    const filteredTasks = tasks.filter(
-        (task) => task.category === categoryName
-    );
+    const filteredTasks = tasks.filter(task => task.category === categoryName);
 
-    filteredTasks.forEach((task) => {
-        column.innerHTML += generateTaskHTML(task);
-    });
+    if (filteredTasks.length === 0) {
+        column.innerHTML = `<div class="no-tasks">No tasks</div>`;
+    } else {
+        column.innerHTML = filteredTasks.map(task => generateTaskHTML(task)).join("");
+    }
 }
 
 /**
- * GENERATE TASK CARD (Updated to BEM)
+ * Main function to assemble the Task Card HTML.
  */
 function generateTaskHTML(task) {
-
     const typeClass = task.taskType.toLowerCase().replace(/\s/g, '-');
+    const subtasksSection = createSubtasksHTML(task.subtasks);
+    const assignedSection = createAssignedUsersHTML(task.assignedTo);
+    const prioIcon = `../assets/img/board/prio-${task.priority.toLowerCase()}.svg`;
 
-    const assignedCircles = task.assignedTo
-        .map(id => {
-            const contact = contacts[id];
-            const initials = contact ? contact.name.split(" ").map(n => n[0]).join("") : "?";
+    // Wir rufen die Template-Funktion auf und übergeben nur die fertigen Bausteine
+    return getTaskCardTemplate(task, typeClass, subtasksSection, assignedSection, prioIcon);
+}
 
-            const bgColor = contact?.color || "#29abe2";
-            return `<div class="task-card__user-badge" style="background-color: ${bgColor}" title="${contact?.name || 'Unassigned'}">${initials}</div>`;
-        })
-        .join("");
 
+/**
+ * Template function: Only returns the HTML structure.
+ */
+function getTaskCardTemplate(task, typeClass, subtasksSection, assignedSection, prioIcon) {
     return `
-        <div draggable="true"
-             class="task-card"
-             data-id="${task.id}">
-             
-            <div class="task-card__category task-card__category--${typeClass}">${task.taskType}</div>
-            
+        <div draggable="true" class="task-card" data-id="${task.id}" onclick="openTaskDetails('${task.id}')">
+            <div class="task-card__category task-card__category--${typeClass}">
+                ${task.taskType}
+            </div>
             <div class="task-card__content">
                 <div class="task-card__title">${task.title}</div>
                 <div class="task-card__description">${task.description}</div>
             </div>
-
+            ${subtasksSection}
             <div class="task-card__footer">
                 <div class="task-card__assigned-users">
-                    ${assignedCircles}
+                    ${assignedSection}
                 </div>
                 <div class="task-card__priority">
-                    <img class="task-card__priority-icon" src="../assets/img/board/prio-${task.priority.toLowerCase()}.svg" alt="${task.priority}">
+                    <img class="task-card__priority-icon" src="${prioIcon}" alt="${task.priority}">
                 </div>
             </div>
         </div>
@@ -112,10 +107,52 @@ function generateTaskHTML(task) {
 }
 
 
+/**
+ * Helper: Generates the Progress Bar HTML only if subtasks exist.
+ */
+function createSubtasksHTML(subtasks) {
+    if (!subtasks || subtasks.length === 0) return "";
+
+    const total = subtasks.length;
+    const done = subtasks.filter(st => st.done).length;
+    const percentage = (done / total) * 100;
+
+    return `
+        <div class="task-card__progress-container">
+            <div class="task-card__progress-bar">
+                <div class="task-card__progress-fill" style="width: ${percentage}%"></div>
+            </div>
+            <span class="task-card__progress-text">${done}/${total} Subtasks</span>
+        </div>
+    `;
+}
 
 /**
- * ATTACH DRAG EVENTS TO CARDS (Updated Class Name)
+ * Helper: Generates the initials-badges for assigned contacts.
  */
+function createAssignedUsersHTML(assignedIds) {
+    if (!assignedIds) return "";
+
+    return assignedIds.map(id => {
+        const contact = contacts[id];
+        const initials = contact ? contact.name.split(" ").map(n => n[0]).join("") : "?";
+        const bgColor = contact?.color || "#29abe2";
+
+        return `
+            <div class="task-card__user-badge" 
+                 style="background-color: ${bgColor}" 
+                 title="${contact?.name || 'Unassigned'}">
+                 ${initials}
+            </div>`;
+    }).join("");
+}
+
+
+
+
+
+
+
 function attachDragEventsToCards() {
     const cards = document.querySelectorAll(".task-card");
 
@@ -126,9 +163,7 @@ function attachDragEventsToCards() {
     });
 }
 
-/**
- * DRAG & DROP SETUP (Updated Highlight Class)
- */
+
 function initDragAndDrop() {
     columns.forEach((columnId) => {
         const dropZone = document.getElementById(columnId);
@@ -150,9 +185,8 @@ function initDragAndDrop() {
 }
 
 
-/**
- * MOVE TASK (DEMO ONLY – LOCAL CHANGE)
- */
+
+
 function moveTaskToColumn(columnId) {
     const newCategory = CATEGORY_MAP[columnId];
     if (!newCategory) return;
@@ -160,7 +194,19 @@ function moveTaskToColumn(columnId) {
     const task = tasks.find(t => t.id === currentDraggedElement);
     if (!task) return;
 
+    // 1. Kategorie aktualisieren (Spalte wechseln)
     task.category = newCategory;
+
+    // 2. WICHTIG: Wenn in "done" geschoben, alle Subtasks auf erledigt setzen
+    if (columnId === "done" && task.subtasks && task.subtasks.length > 0) {
+        task.subtasks.forEach(subtask => {
+            subtask.done = true;
+        });
+    }
+
+    // 3. Optional: Hier könntest du den Task auch wieder in Firebase speichern
+    // updateTaskInFirebase(task); 
+
     renderBoard();
 }
 
