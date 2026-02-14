@@ -22,60 +22,58 @@
 
   <body>
     <main class="board">
-      <div class="board__container no-select">
-        <header class="board__header">
-          <h1 class="board__title">Board</h1>
+      <header class="board__header">
+        <h1 class="board__title">Board</h1>
 
-          <div class="board__actions">
-            <div class="search-bar">
-              <input type="text" class="search-bar__input" id="search-task" placeholder="Find Task" />
-              <span class="search-bar__divider"></span>
-              <button class="search-bar__button" aria-label="Search">
-                <img src="../assets/img/board/search.svg" alt="" />
-              </button>
-            </div>
-            <button class="button button--primary board__add-btn">Add task <img src="../assets/img/board/add.svg" alt="" /></button>
+        <div class="board__actions">
+          <div class="search-bar">
+            <input type="text" class="search-bar__input" id="search-task" placeholder="Find Task" />
+            <span class="search-bar__divider"></span>
+            <button class="search-bar__button" aria-label="Search">
+              <img src="../assets/img/board/search.svg" alt="" />
+            </button>
           </div>
-        </header>
-
-        <div class="board__columns">
-          <section class="board-column">
-            <div class="board-column__header">
-              <span class="board-column__title">To do</span>
-              <button class="board-column__add-btn" aria-label="Add task to column">
-                <img src="../assets/img/board/plusbutton.svg" alt="" />
-              </button>
-            </div>
-            <div class="board-column__drop-zone" id="todo"></div>
-          </section>
-
-          <section class="board-column">
-            <div class="board-column__header">
-              <span class="board-column__title">In progress</span>
-              <button class="board-column__add-btn">
-                <img src="../assets/img/board/plusbutton.svg" alt="" />
-              </button>
-            </div>
-            <div class="board-column__drop-zone" id="inprogress"></div>
-          </section>
-
-          <section class="board-column">
-            <div class="board-column__header">
-              <span class="board-column__title">Await feedback</span>
-              <button class="board-column__add-btn">
-                <img src="../assets/img/board/plusbutton.svg" alt="" />
-              </button>
-            </div>
-            <div class="board-column__drop-zone" id="awaitfeedback"></div>
-          </section>
-
-          <section class="board-column">
-            <div class="board-column__header">
-              <span class="board-column__title">Done</span>
-            </div>
-            <div class="board-column__drop-zone" id="done"></div>
-          </section>
+          <button class="btn board__add-btn">Add task <img src="../assets/img/board/add.svg" alt="" /></button>
         </div>
+      </header>
+
+      <div class="board__columns">
+        <section class="board-column">
+          <div class="board-column__header">
+            <span class="board-column__title" title="To do">To do</span>
+            <button class="board-column__add-btn" aria-label="Add task to column">
+              <img src="../assets/img/board/plusbutton.svg" alt="" />
+            </button>
+          </div>
+          <div class="board-column__drop-zone" id="toDo"></div>
+        </section>
+
+        <section class="board-column">
+          <div class="board-column__header">
+            <span class="board-column__title" title="In progress">In progress</span>
+            <button class="board-column__add-btn">
+              <img src="../assets/img/board/plusbutton.svg" alt="" />
+            </button>
+          </div>
+          <div class="board-column__drop-zone" id="inProgress"></div>
+        </section>
+
+        <section class="board-column">
+          <div class="board-column__header">
+            <span class="board-column__title" title="Await feedback">Await feedback</span>
+            <button class="board-column__add-btn">
+              <img src="../assets/img/board/plusbutton.svg" alt="" />
+            </button>
+          </div>
+          <div class="board-column__drop-zone" id="awaitFeedback"></div>
+        </section>
+
+        <section class="board-column">
+          <div class="board-column__header">
+            <span class="board-column__title" title="Done">Done</span>
+          </div>
+          <div class="board-column__drop-zone" id="done"></div>
+        </section>
       </div>
     </main>
   </body>
