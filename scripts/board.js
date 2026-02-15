@@ -11,6 +11,10 @@ const CATEGORY_MAP = {
 };
 
 
+/**
+ * Initializes the board: loads data, renders tasks, and sets up event listeners.
+ * @async
+ */
 async function initBoard() {
     await loadContactsFromFirebase()
     await loadTasksFromFirebase();
@@ -20,20 +24,26 @@ async function initBoard() {
 }
 
 
+/**
+ * Fetches contact data from Firebase and updates the local contacts object.
+ */
 async function loadContactsFromFirebase() {
     const data = await getData("contacts");
     contacts = data || {};
 }
 
 
+/**
+ * Fetches tasks from Firebase and transforms the data into an array with IDs.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function loadTasksFromFirebase() {
     const data = await getData("tasks");
-
     if (!data) {
         tasks = [];
         return;
     }
-
     tasks = Object.keys(data).map((key) => ({
         id: key,
         ...data[key]
@@ -41,6 +51,9 @@ async function loadTasksFromFirebase() {
 }
 
 
+/**
+ * Renders all task columns and initializes drag events for the cards.
+ */
 function renderBoard() {
     renderTaskColumn("toDo", "to do");
     renderTaskColumn("inProgress", "in progress");
@@ -51,64 +64,44 @@ function renderBoard() {
 
 
 /**
- * Renders a single column by filtering tasks and generating their HTML.
+ * Filters tasks by category and renders them into the corresponding column.
+ * @param {string} columnId - The ID of the HTML container element.
+ * @param {string} categoryName - The category string used to filter the tasks.
  */
 function renderTaskColumn(columnId, categoryName) {
-    const column = document.getElementById(columnId);
-    if (!column) return;
+    const taskColumn = document.getElementById(columnId);
+    if (!taskColumn) return;
 
     const filteredTasks = tasks.filter(task => task.category === categoryName);
 
     if (filteredTasks.length === 0) {
-        column.innerHTML = `<div class="no-tasks">No tasks</div>`;
+        taskColumn.innerHTML = getNoTaskTemplate();
     } else {
-        column.innerHTML = filteredTasks.map(task => generateTaskHTML(task)).join("");
+        taskColumn.innerHTML = filteredTasks.map(task => generateTaskHTML(task)).join("");
     }
 }
 
+
 /**
- * Main function to assemble the Task Card HTML.
+ * Assembles the full HTML structure for a task card by processing subtasks, assignments, and priority.
+ * @param {Object} task - The task object containing all card data.
+ * @returns {string} The complete HTML string for the task card.
  */
 function generateTaskHTML(task) {
-    const typeClass = task.taskType.toLowerCase().replace(/\s/g, '-');
+    const taskType = task.taskType.toLowerCase().replace(/\s/g, '-');
     const subtasksSection = createSubtasksHTML(task.subtasks);
     const assignedSection = createAssignedUsersHTML(task.assignedTo);
-    const prioIcon = `../assets/img/board/prio-${task.priority.toLowerCase()}.svg`;
+    const priorityIcon = `../assets/img/board/prio-${task.priority.toLowerCase()}.svg`;
 
-    // Wir rufen die Template-Funktion auf und übergeben nur die fertigen Bausteine
-    return getTaskCardTemplate(task, typeClass, subtasksSection, assignedSection, prioIcon);
+    return getTaskCardTemplate(task, taskType, subtasksSection, assignedSection, priorityIcon);
 }
 
 
-/**
- * Template function: Only returns the HTML structure.
- */
-function getTaskCardTemplate(task, typeClass, subtasksSection, assignedSection, prioIcon) {
-    return `
-        <div draggable="true" class="task-card" data-id="${task.id}" onclick="openTaskDetails('${task.id}')">
-            <div class="task-card__category task-card__category--${typeClass}">
-                ${task.taskType}
-            </div>
-            <div class="task-card__content">
-                <div class="task-card__title">${task.title}</div>
-                <div class="task-card__description">${task.description}</div>
-            </div>
-            ${subtasksSection}
-            <div class="task-card__footer">
-                <div class="task-card__assigned-users">
-                    ${assignedSection}
-                </div>
-                <div class="task-card__priority">
-                    <img class="task-card__priority-icon" src="${prioIcon}" alt="${task.priority}">
-                </div>
-            </div>
-        </div>
-    `;
-}
-
 
 /**
- * Helper: Generates the Progress Bar HTML only if subtasks exist.
+ * Calculates progress and returns the subtasks progress bar HTML if subtasks exist.
+ * @param {Array} subtasks - Array of subtask objects.
+ * @returns {string} The formatted progress bar HTML or an empty string.
  */
 function createSubtasksHTML(subtasks) {
     if (!subtasks || subtasks.length === 0) return "";
@@ -117,45 +110,35 @@ function createSubtasksHTML(subtasks) {
     const done = subtasks.filter(st => st.done).length;
     const percentage = (done / total) * 100;
 
-    return `
-        <div class="task-card__progress-container">
-            <div class="task-card__progress-bar">
-                <div class="task-card__progress-fill" style="width: ${percentage}%"></div>
-            </div>
-            <span class="task-card__progress-text">${done}/${total} Subtasks</span>
-        </div>
-    `;
+    return getSubtasksTemplate(done, total, percentage);
 }
 
+
 /**
- * Helper: Generates the initials-badges for assigned contacts.
+ * Maps assigned user IDs to their respective contact data and returns a string of badge HTML.
+ * @param {string[]} assignedIds - Array of contact IDs assigned to the task.
+ * @returns {string} A concatenated string of user badge HTML templates.
  */
 function createAssignedUsersHTML(assignedIds) {
-    if (!assignedIds) return "";
+    if (!assignedIds || assignedIds.length === 0) return "";
 
     return assignedIds.map(id => {
         const contact = contacts[id];
         const initials = contact ? contact.name.split(" ").map(n => n[0]).join("") : "?";
         const bgColor = contact?.color || "#29abe2";
+        const name = contact?.name || 'Unassigned';
 
-        return `
-            <div class="task-card__user-badge" 
-                 style="background-color: ${bgColor}" 
-                 title="${contact?.name || 'Unassigned'}">
-                 ${initials}
-            </div>`;
+        return getAssignedUserBadgeTemplate(initials, bgColor, name);
     }).join("");
 }
 
 
 
-
-
-
-
+/**
+ * Attaches dragstart event listeners to all task cards to track the currently dragged element.
+ */
 function attachDragEventsToCards() {
     const cards = document.querySelectorAll(".task-card");
-
     cards.forEach((card) => {
         card.addEventListener("dragstart", () => {
             currentDraggedElement = card.dataset.id;
@@ -164,6 +147,9 @@ function attachDragEventsToCards() {
 }
 
 
+/**
+ * Sets up dragover, dragleave, and drop event listeners for each task column.
+ */
 function initDragAndDrop() {
     columns.forEach((columnId) => {
         const dropZone = document.getElementById(columnId);
@@ -185,8 +171,10 @@ function initDragAndDrop() {
 }
 
 
-
-
+/**
+ * Updates a task's category based on the drop target and re-renders the board.
+ * @param {string} columnId - The ID of the target column where the task was dropped.
+ */
 function moveTaskToColumn(columnId) {
     const newCategory = CATEGORY_MAP[columnId];
     if (!newCategory) return;
@@ -194,39 +182,40 @@ function moveTaskToColumn(columnId) {
     const task = tasks.find(t => t.id === currentDraggedElement);
     if (!task) return;
 
-    // 1. Kategorie aktualisieren (Spalte wechseln)
     task.category = newCategory;
 
-    // 2. WICHTIG: Wenn in "done" geschoben, alle Subtasks auf erledigt setzen
-    if (columnId === "done" && task.subtasks && task.subtasks.length > 0) {
-        task.subtasks.forEach(subtask => {
-            subtask.done = true;
-        });
+    if (columnId === "done") {
+        autoCompleteSubtasks(task);
     }
-
-    // 3. Optional: Hier könntest du den Task auch wieder in Firebase speichern
-    // updateTaskInFirebase(task); 
-
     renderBoard();
 }
 
 
 /**
- * BUTTON EVENTS (Updated Selectors)
+ * Helper to mark all subtasks as done.
+ */
+function autoCompleteSubtasks(task) {
+    if (task.subtasks && task.subtasks.length > 0) {
+        task.subtasks.forEach(subtask => subtask.done = true);
+    }
+}
+
+
+/**
+ * Attaches click event listeners to all 'Add Task' buttons in the header and columns.
  */
 function initButtons() {
-    // Header-Button (neue Klasse aus dem HTML)
     const headerButton = document.querySelector(".board__add-btn");
     if (headerButton) {
         headerButton.addEventListener("click", addTask);
     }
 
-    // Spalten-Buttons
     const gridButtons = document.querySelectorAll(".board-column__add-btn");
     gridButtons.forEach((btn) => {
         btn.addEventListener("click", addTask);
     });
 }
+
 
 /**
  * DEMO ADD TASK
@@ -236,9 +225,12 @@ function addTask() {
 }
 
 
-
-
 /**
- * INIT
+ * DEMO ADD TASK
  */
+function openTaskDetails(params) {
+    alert("ADD task details overlay");
+}
+
+
 document.addEventListener("DOMContentLoaded", initBoard);
