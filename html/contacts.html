@@ -5,17 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contacts - Join</title>
 
-    <link rel="stylesheet" href="../styles/base/reset.css" />
-    <link rel="stylesheet" href="../styles/base/variables.css" />
-    <link rel="stylesheet" href="../styles/base/fonts.css" />
-    <link rel="stylesheet" href="../styles/base/transitions.css" />
-    <link rel="stylesheet" href="../styles/components/layout.css" />
-    <link rel="stylesheet" href="../styles/components/header.css" />
-    <link rel="stylesheet" href="../styles/components/sidebar.css" />
-    <link rel="stylesheet" href="../styles/contacts.css" />
-    <link rel="stylesheet" href="../styles/contacts-form.css" />
-    <link rel="stylesheet" href="../styles/contacts-media.css" />
-
     <script src="../script.js" defer></script>
     <script src="../scripts/contacts.js"></script>
     <script src="../scripts/contacts-templates.js"></script>
@@ -29,12 +18,13 @@
     <link rel="stylesheet" href="../styles/base/fonts.css">
     <link rel="stylesheet" href="../styles/base/reset.css">
     <link rel="stylesheet" href="../styles/base/variables.css">
+    <link rel="stylesheet" href="../styles/base/transitions.css" />
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/contacts.css">
     <link rel="stylesheet" href="../styles/contacts-form.css">
     <link rel="stylesheet" href="../styles/contacts-media.css">
     <link rel="stylesheet" href="../styles/contacts-media-mobile.css">
-    <link rel="stylesheet" href="../styles/base/transitions.css" />
+    <link rel="stylesheet" href="../styles/contacts-media-mobile-small.css">     
     <link rel="stylesheet" href="../styles/components/layout.css" />
     <link rel="stylesheet" href="../styles/components/header.css" />
     <link rel="stylesheet" href="../styles/components/sidebar.css" />
@@ -52,7 +42,7 @@
 
     <main class="content-area">
   <div id="contacts-container" class="contacts-container">
-      <div class="contacts-list-container">
+      <div id="contacts-list-container" class="contacts-list-container">
         <div class="add-new-contact-container">
           <button class="add-new-contact-button" onclick="addNewContact()">Add New Contact <img src="../assets/img/contacts/person_add.svg" alt="Add Contact"></button>
         </div>
