@@ -1,6 +1,8 @@
 /* HEADER - Mobile First */
 .header__content {
   /* Mobile: Oben, kompakt */
+  position: sticky;
+  top: 0;
   background-color: var(--color-white);
   display: flex;
   justify-content: center;
