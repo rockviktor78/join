@@ -1,36 +1,53 @@
-/* APP LAYOUT - Mobile First */
+/* ================================================
+   APP LAYOUT — Mobile First
+   ================================================ */
+
 .app-layout {
-  /* Mobile: Flexbox Layout */
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh; /* volle dynamische Höhe des Viewports */
   width: 100vw;
-  /* overflow: hidden entfernt - verhindert position: fixed für Mobile Menu */
   background-color: var(--bg-page);
   font-family: var(--font-primary);
 }
 
-/* CONTENT AREA - Mobile First */
+/* ================================================
+   CONTENT AREA — Mobile
+   ================================================ */
+
 .content-area {
-  /* Mobile: Nimmt verfügbaren Platz */
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   background-color: var(--bg-page);
-  /* Für Mobile: Padding um Bottom-Nav Platz zu machen */
   padding-bottom: 5rem;
+  overflow: auto;
+  min-height: 0;
 }
 
 /* ================================================
-   Desktop Styles (Tablet/Desktop)
+   CONTENT LIMIT - Mobile First
    ================================================ */
+
+.content-limit {
+  width: 100%;
+  max-width: 100%;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  box-sizing: border-box;
+}
+
+/* ================================================
+   DESKTOP LAYOUT (Grid)
+   ================================================ */
+
 @media (min-width: 769px) {
   .app-layout {
     display: grid;
-    grid-template-columns: 14.5rem 1fr;
-    grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
-    overflow: hidden; /* Nur Desktop: verhindert Scroll auf Grid-Container */
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: var(--spacing-5xl) 1fr;
+    overflow: hidden;
+    height: 100dvh;
   }
 
   .content-area {
@@ -38,22 +55,22 @@
     grid-row: 2;
     padding-bottom: 0;
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    overflow: auto;
+    min-height: 0;
+  }
+
+  .content-limit {
+    max-width: calc(1440px - var(--sidebar-width));
+    margin: 0;
+    padding-left: var(--spacing-xl);
+    padding-right: var(--spacing-xl);
   }
 }
 
 /* ================================================
-   Content Limit Container
+   Optional: Extra kleine Bildschirme (<480px)
    ================================================ */
-.content-limit {
-  width: 100%;
-  max-width: calc(var(--content-max-width) - var(--sidebar-width));
-  /* Mobile: Kleineres Padding */
-  padding: var(--spacing-2xl) var(--spacing-lg);
-  box-sizing: border-box;
-}
-
-/* Extra Small Screens: Etwas kleineres Padding */
 @media (max-width: 480px) {
   .content-limit {
     padding: var(--spacing-sm) var(--spacing-md);
