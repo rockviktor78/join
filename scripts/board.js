@@ -2,15 +2,19 @@ let tasks = [];
 let contacts = {};
 let currentDraggedElement = null;
 
-const columns = ["todo", "inprogress", "awaitfeedback", "done"];
+const columns = ["toDo", "inProgress", "awaitFeedback", "done"];
 const CATEGORY_MAP = {
-    "todo": "to do",
-    "inprogress": "in progress",
-    "awaitfeedback": "await feedback",
+    "toDo": "to do",
+    "inProgress": "in progress",
+    "awaitFeedback": "await feedback",
     "done": "done"
 };
 
 
+/**
+ * Initializes the board: loads data, renders tasks, and sets up event listeners.
+ * @async
+ */
 async function initBoard() {
     await loadContactsFromFirebase()
     await loadTasksFromFirebase();
@@ -20,6 +24,9 @@ async function initBoard() {
 }
 
 
+/**
+ * Fetches contact data from Firebase and updates the local contacts object.
+ */
 async function loadContactsFromFirebase() {
     const data = await getData("contacts");
     contacts = data || {};
@@ -27,98 +34,111 @@ async function loadContactsFromFirebase() {
 
 
 /**
- * LOAD TASKS FROM FIREBASE (READ ONLY)
+ * Fetches tasks from Firebase and transforms the data into an array with IDs.
+ * @async
+ * @returns {Promise<void>}
  */
 async function loadTasksFromFirebase() {
     const data = await getData("tasks");
-
     if (!data) {
         tasks = [];
         return;
     }
-
     tasks = Object.keys(data).map((key) => ({
         id: key,
         ...data[key]
     }));
 }
 
+
 /**
- * RENDER COMPLETE BOARD
+ * Renders all task columns and initializes drag events for the cards.
  */
 function renderBoard() {
-    renderTaskColumn("todo", "to do");
-    renderTaskColumn("inprogress", "in progress");
-    renderTaskColumn("awaitfeedback", "await feedback");
+    renderTaskColumn("toDo", "to do");
+    renderTaskColumn("inProgress", "in progress");
+    renderTaskColumn("awaitFeedback", "await feedback");
     renderTaskColumn("done", "done");
     attachDragEventsToCards();
 }
 
+
 /**
- * RENDER SINGLE COLUMN
+ * Filters tasks by category and renders them into the corresponding column.
+ * @param {string} columnId - The ID of the HTML container element.
+ * @param {string} categoryName - The category string used to filter the tasks.
  */
 function renderTaskColumn(columnId, categoryName) {
-    const column = document.getElementById(columnId);
-    column.innerHTML = "";
+    const taskColumn = document.getElementById(columnId);
+    if (!taskColumn) return;
 
-    const filteredTasks = tasks.filter(
-        (task) => task.category === categoryName
-    );
+    const filteredTasks = tasks.filter(task => task.category === categoryName);
 
-    filteredTasks.forEach((task) => {
-        column.innerHTML += generateTaskHTML(task);
-    });
+    if (filteredTasks.length === 0) {
+        taskColumn.innerHTML = getNoTaskTemplate();
+    } else {
+        taskColumn.innerHTML = filteredTasks.map(task => generateTaskHTML(task)).join("");
+    }
 }
 
+
 /**
- * GENERATE TASK CARD (Updated to BEM)
+ * Assembles the full HTML structure for a task card by processing subtasks, assignments, and priority.
+ * @param {Object} task - The task object containing all card data.
+ * @returns {string} The complete HTML string for the task card.
  */
 function generateTaskHTML(task) {
+    const taskType = task.taskType.toLowerCase().replace(/\s/g, '-');
+    const subtasksSection = createSubtasksHTML(task.subtasks);
+    const assignedSection = createAssignedUsersHTML(task.assignedTo);
+    const priorityIcon = `../assets/img/board/prio-${task.priority.toLowerCase()}.svg`;
 
-    const typeClass = task.taskType.toLowerCase().replace(/\s/g, '-');
-
-    const assignedCircles = task.assignedTo
-        .map(id => {
-            const contact = contacts[id];
-            const initials = contact ? contact.name.split(" ").map(n => n[0]).join("") : "?";
-
-            const bgColor = contact?.color || "#29abe2";
-            return `<div class="task-card__user-badge" style="background-color: ${bgColor}" title="${contact?.name || 'Unassigned'}">${initials}</div>`;
-        })
-        .join("");
-
-    return `
-        <div draggable="true"
-             class="task-card"
-             data-id="${task.id}">
-             
-            <div class="task-card__category task-card__category--${typeClass}">${task.taskType}</div>
-            
-            <div class="task-card__content">
-                <div class="task-card__title">${task.title}</div>
-                <div class="task-card__description">${task.description}</div>
-            </div>
-
-            <div class="task-card__footer">
-                <div class="task-card__assigned-users">
-                    ${assignedCircles}
-                </div>
-                <div class="task-card__priority">
-                    <img class="task-card__priority-icon" src="../assets/img/board/prio-${task.priority.toLowerCase()}.svg" alt="${task.priority}">
-                </div>
-            </div>
-        </div>
-    `;
+    return getTaskCardTemplate(task, taskType, subtasksSection, assignedSection, priorityIcon);
 }
 
 
 
 /**
- * ATTACH DRAG EVENTS TO CARDS (Updated Class Name)
+ * Calculates progress and returns the subtasks progress bar HTML if subtasks exist.
+ * @param {Array} subtasks - Array of subtask objects.
+ * @returns {string} The formatted progress bar HTML or an empty string.
+ */
+function createSubtasksHTML(subtasks) {
+    if (!subtasks || subtasks.length === 0) return "";
+
+    const total = subtasks.length;
+    const done = subtasks.filter(st => st.done).length;
+    const percentage = (done / total) * 100;
+
+    return getSubtasksTemplate(done, total, percentage);
+}
+
+
+/**
+ * Maps assigned user IDs to their respective contact data and returns a string of badge HTML.
+ * @param {string[]} assignedIds - Array of contact IDs assigned to the task.
+ * @returns {string} A concatenated string of user badge HTML templates.
+ */
+function createAssignedUsersHTML(assignedIds) {
+    if (!assignedIds || assignedIds.length === 0) return "";
+
+    return assignedIds.map(id => {
+        const contact = contacts[id];
+        const initials = contact ? contact.name.split(" ").map(n => n[0]).join("") : "?";
+        const bgColor = contact?.color || "#29abe2";
+        const name = contact?.name || 'Unassigned';
+
+        return getAssignedUserBadgeTemplate(initials, bgColor, name);
+    }).join("");
+}
+
+
+
+/**
+ * Attaches dragstart event listeners to all task cards to track the currently dragged element.
  */
 function attachDragEventsToCards() {
     const cards = document.querySelectorAll(".task-card");
-
     cards.forEach((card) => {
         card.addEventListener("dragstart", () => {
             currentDraggedElement = card.dataset.id;
@@ -126,8 +146,9 @@ function attachDragEventsToCards() {
     });
 }
 
+
 /**
- * DRAG & DROP SETUP (Updated Highlight Class)
+ * Sets up dragover, dragleave, and drop event listeners for each task column.
  */
 function initDragAndDrop() {
     columns.forEach((columnId) => {
@@ -151,7 +172,8 @@ function initDragAndDrop() {
 
 
 /**
- * MOVE TASK (DEMO ONLY – LOCAL CHANGE)
+ * Updates a task's category based on the drop target and re-renders the board.
+ * @param {string} columnId - The ID of the target column where the task was dropped.
  */
 function moveTaskToColumn(columnId) {
     const newCategory = CATEGORY_MAP[columnId];
@@ -161,26 +183,39 @@ function moveTaskToColumn(columnId) {
     if (!task) return;
 
     task.category = newCategory;
+
+    if (columnId === "done") {
+        autoCompleteSubtasks(task);
+    }
     renderBoard();
 }
 
 
 /**
- * BUTTON EVENTS (Updated Selectors)
+ * Helper to mark all subtasks as done.
+ */
+function autoCompleteSubtasks(task) {
+    if (task.subtasks && task.subtasks.length > 0) {
+        task.subtasks.forEach(subtask => subtask.done = true);
+    }
+}
+
+
+/**
+ * Attaches click event listeners to all 'Add Task' buttons in the header and columns.
  */
 function initButtons() {
-    // Header-Button (neue Klasse aus dem HTML)
     const headerButton = document.querySelector(".board__add-btn");
     if (headerButton) {
         headerButton.addEventListener("click", addTask);
     }
 
-    // Spalten-Buttons
     const gridButtons = document.querySelectorAll(".board-column__add-btn");
     gridButtons.forEach((btn) => {
         btn.addEventListener("click", addTask);
     });
 }
+
 
 /**
  * DEMO ADD TASK
@@ -190,9 +225,12 @@ function addTask() {
 }
 
 
-
-
 /**
- * INIT
+ * DEMO ADD TASK
  */
+function openTaskDetails(params) {
+    alert("ADD task details overlay");
+}
+
+
 document.addEventListener("DOMContentLoaded", initBoard);

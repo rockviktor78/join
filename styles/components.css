@@ -47,7 +47,7 @@
 /* ====== Separators ====== */
 .separator {
   border-radius: 0.625rem;
-  background-color: var(--color-gray-200); /* default Farbe */
+  background-color: var(--color-gray-200);
 }
 
 .separator--v {
