@@ -1,23 +1,34 @@
+@media (max-width: 399px) {
 
-@media (min-width: 400px) and (max-width: 768px) {
-  .add-new-contact-container {
+.add-new-contact-container {
     display: none;
   }
 
   .contacts-list-container {
     width: 100vw;
     z-index: 1;
-    padding-bottom: 10rem;
-  }
-
-  .contacts-list {
-    padding: 1rem 1.5rem 2rem 1.75rem;
+    padding: 0;
   }
 
   .contact-detail-slide {
     z-index: 2;
   }
+
+  .contacts-list {
+    padding: 0.5rem;
+  }
   
+  .contact-initial {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: var(--font-size-base);
+  }
+
+ .contact-card {
+    gap: 1rem;
+  }
+
+
   .add-contact__fab {
     display: flex;
   }
@@ -30,6 +41,7 @@
     top: 3%;
     height: 92vh;
   }
+
   .form-contact-container {
     display: flex;
     width: 100%;
@@ -51,7 +63,11 @@
   }
 
   .form-contact-header-title {
-    font-size: 3.2rem;
+    font-size: 2.5rem;
+  }
+
+  .form-contact-subtitle {
+    font-size: 1.5rem;
   }
 
   .add-new-contact-profile-picture {
@@ -68,11 +84,18 @@
   .form-input-email,
   .form-input-phone {
     width: 100%;
-    height: 2.8rem;
+    height: 2.5rem;
+    font-size: var(--font-size-base);
   }
 
   .close-button {
     color: white;
+  }
+
+  .create-contact-button {
+    width: 11rem;
+    height: 3rem;
+    font-size: 1rem;
   }
 
   .add-new-contact-form {
@@ -80,9 +103,10 @@
     align-items: center;
     padding: revert;
     padding-top: 3.125rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding-left: 0.938rem;
+    padding-right: 0.938rem;
     margin-left: 0;
+    gap: 1rem;
   }
 
   .form-contact-buttons {
@@ -142,18 +166,23 @@
 
   .contacts-detail__back {
     display: revert;
+    right: 0.625rem;
+  }
+
+  .contacts-detail-header {
+    gap: 0;
   }
 
   .contact-detail-initial {
-    width: 5rem;
-    height: 5rem;
-    font-size: 1.688rem;
+    width: 4.75rem;
+    height: 4.75rem;
+    font-size: 1.5rem;
   }
 
   .contact-detail-initial-form {
-    width: 7.5rem;
-    height: 7.5rem;
-    font-size: 2.9375rem;
+    width: 6.25rem;
+    height: 6.25rem;
+    font-size: 2.5rem;
   }
 
   .contact-detail-initial-form img {
@@ -166,7 +195,7 @@
   }
 
   .contact-detail-name {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 
   .action__button {
@@ -175,9 +204,24 @@
 
   .delete-button,
   .save-contact-button {
-    width: 6.8rem;
-    height: 3rem;
+    width: 6rem;
+    height: 2.5rem;
+    font-size: var(--font-size-base);
   }
+
+.success-message {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    width: 18rem;
+    height: 4rem;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-regular);
+    border-radius: 1.25rem;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+}
 
 .success-message-slide {
     position: fixed;

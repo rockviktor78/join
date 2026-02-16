@@ -19,6 +19,7 @@
     <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
+    <script src="../scripts/add_task.js" defer></script>
   </head>
 
   <body class="app-layout">
@@ -33,8 +34,50 @@
 
     <main class="content-area">
       <div class="content-limit">
-        <h1>Add Task</h1>
-        <p>Dies ist die Add Task-Seite zum Testen des Menüs.</p>
+        <div class="add-task-title">Add Task</div>
+        <div class="add-task-content">
+        <div class="left-side">
+          <div>
+            <div>Title</div>
+            <div><input type="text" id="task-title" name="title" placeholder="Enter a title" required></div>
+          </div>
+          <div>
+              <div>Description</div>
+              <div><input type="text" id="task-description" name="description" placeholder="Enter a description" required></div>
+          </div>
+          <div>
+            <div>Due Date</div>
+            <div><input type="date" id="task-due-date" name="due-date" required></div>            
+          </div>
+        </div>
+        <div>
+          <div class="right-side">
+            <div>Priority</div>
+            <div>
+                <button value="urgent" onclick="selectPriority(this)">Urgent</button>
+                <button value="medium" onclick="selectPriority(this)">Medium</button>
+                <button value="low" onclick="selectPriority(this)">Low</button>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div>Assigned to</div>
+            <div><input type="text" id="task-assigned-to" name="assigned-to" placeholder="Enter a name"></div>
+          </div>
+          <div>
+            <div>Category</div>
+            <div><input type="text" id="task-category" name="category" placeholder="Enter a category"></div>
+          </div>
+          <div>
+            <div>Subtasks</div>
+            <div><input type="text" id="task-title" name="title" placeholder="Enter a title" required></div>
+          </div>
+        </div>
+        </div>
+        <div class="add-task__button">
+          <button id="clear__button" onclick="clearFields()">Clear</button>
+          <button id="create-task-button" onclick="createTask()">Create Task</button>
+        </div>
       </div>
     </main>
 
