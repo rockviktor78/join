@@ -29,8 +29,7 @@
   .app-layout {
     display: grid;
     grid-template-columns: 14.5rem 1fr;
-    grid-template-rows: var(--spacing-5xl) 1fr; /* 96px */
-    overflow: hidden; /* Nur Desktop: verhindert Scroll auf Grid-Container */
+    grid-template-rows: var(--spacing-5xl) 1fr; 
   }
 
   .content-area {

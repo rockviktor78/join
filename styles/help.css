@@ -34,31 +34,6 @@
   font-weight: var(--font-weight-bold);
 }
 
-.back-btn {
-  /* Fixed: Scrollt nicht mit */
-  position: fixed;
-  top: calc(5rem + var(--spacing-2xl));
-  right: var(--spacing-lg);
-  z-index: 100;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 50%;
-  transition:
-    transform var(--transition-fast),
-    background var(--transition-fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-1rem);
-  transform-origin: center;
-}
-
-.back-btn:hover {
-  background: var(--color-primary-super-light);
-  transform: translateY(-1rem) scale(1.15);
-}
-
 .help-section {
   margin-bottom: var(--spacing-2xl);
 }

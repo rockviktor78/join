@@ -141,15 +141,16 @@ function setSidebarMode(mode) {
 }
 
 /**
+ * @deprecated - External page detection is now handled in shouldUseExternalMode() in init-template.js
  * Detects if current page is an external page
  * @returns {boolean} True if external page (privacy-policy or legal-notice)
  */
-function isExternalPage() {
-  const path = window.location.pathname.toLowerCase();
-  return (
-    path.includes("privacy-policy.html") || path.includes("legal-notice.html")
-  );
-}
+// function isExternalPage() {
+//   const path = window.location.pathname.toLowerCase();
+//   return (
+//     path.includes("privacy-policy.html") || path.includes("legal-notice.html")
+//   );
+// }
 
 /**
  * Sets up the login button navigation handler
@@ -165,15 +166,16 @@ function setupLoginButton() {
 }
 
 /**
+ * @deprecated - Back button is now managed centrally via setBackButtonMode() in init-template.js
  * Sets up the header back button in external mode
  * Always navigates to login page
  */
-function setupHeaderBackButton() {
-  const backButton = document.querySelector(".header__content .back-btn");
-  if (backButton) {
-    backButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      window.location.href = "../index.html";
-    });
-  }
-}
+// function setupHeaderBackButton() {
+//   const backButton = document.querySelector(".header__content .back-btn");
+//   if (backButton) {
+//     backButton.addEventListener("click", (e) => {
+//       e.preventDefault();
+//       window.location.href = "../index.html";
+//     });
+//   }
+// }

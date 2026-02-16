@@ -46,25 +46,6 @@
   font-weight: var(--font-weight-bold);
 }
 
-.back-btn {
-  position: absolute;
-  top: 8rem;
-  right: 1rem;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: all var(--transition-fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.back-btn:hover {
-  background: var(--color-primary-super-light);
-  transform: scale(1.15);
-}
-
 .help-section {
   margin-bottom: var(--spacing-2xl);
 }

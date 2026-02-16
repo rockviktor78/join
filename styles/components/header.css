@@ -161,18 +161,14 @@
     display: none;
   }
 
-  /* Mobile + External: Avatar verstecken, Back-Button zeigen */
+  /* Mobile + External: Avatar verstecken (Back-Button wird über Body-Klassen gesteuert) */
   .external .header__user {
     display: none;
-  }
-
-  .external .back-btn {
-    display: flex;
   }
 }
 
 /* ================================================
-   Back Button - Position fixed wie in Help-Seite
+   Back Button - Zentrale Steuerung über Body-Klassen
    ================================================ */
 .back-btn {
   /* Fixed: Scrollt nicht mit */
@@ -197,6 +193,23 @@
 .back-btn:hover {
   background: var(--color-primary-super-light);
   transform: translateY(-1rem) scale(1.15);
+}
+
+/* Help-Seite: Back-Button IMMER sichtbar (Desktop + Mobile) */
+.has-back-btn .back-btn {
+  display: inline-flex;
+}
+
+/* Privacy/Legal: Back-Button standardmäßig versteckt */
+.back-btn-mobile-only .back-btn {
+  display: none;
+}
+
+/* Privacy/Legal: Back-Button NUR bei Mobile sichtbar */
+@media (max-width: 768px) {
+  .back-btn-mobile-only .back-btn {
+    display: inline-flex;
+  }
 }
 
 /* ================================================
@@ -243,11 +256,6 @@
   }
 
   .header__dropdown-link--help {
-    display: none;
-  }
-
-  /* Desktop + External: Back-Button versteckt (außer Help-Seite) */
-  .external .back-btn {
     display: none;
   }
 }
