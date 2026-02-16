@@ -56,6 +56,6 @@
 /* Extra Small Screens: Etwas kleineres Padding */
 @media (max-width: 480px) {
   .content-limit {
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
   }
 }
