@@ -11,7 +11,7 @@
   justify-content: space-around;
   align-items: center;
   z-index: 20;
-  height: 5rem; /* Feste Höhe für stabiles Layout */
+  height: 5rem; /* Fixed height for stable layout */
   box-shadow: 0 -2px 0.625rem rgba(0, 0, 0, 0.1);
 }
 
@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Mobile: Kompakt, vertikal */
+  /* Mobile: Compact, vertical */
   flex-direction: column;
   padding: var(--spacing-xs);
   gap: 4px;
@@ -62,20 +62,20 @@
   font-size: var(--font-size-base); /* Accessibility: min 1rem */
 }
 
-/* Mobile: Hover ohne Layout-Shift (nur Farbe) */
+/* Mobile: Hover without layout shift (color only) */
 .menu__btn:hover:not(.active-menu-btn) {
   background-color: var(--color-primary-light);
   color: var(--color-white);
 }
 
-/* Mobile: Active State ohne Layout-Shift */
+/* Mobile: Active state without layout shift */
 .active-menu-btn {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
 }
 
 .menu__mobile {
-  /* Mobile: Versteckt */
+  /* Mobile: Hidden */
   display: none;
 }
 
@@ -105,7 +105,7 @@
    Mobile Specific Styles (< 768px)
    ================================================ */
 @media (max-width: 768px) {
-  /* Mobile: Feste Button-Größe für stabiles Layout */
+  /* Mobile: Fixed button size for stable layout */
   .menu__btn {
     width: 5rem;
     height: 4.75rem;
@@ -113,29 +113,29 @@
     border-radius: 1rem;
   }
 
-  /* Mobile: Größere Icons für bessere Lesbarkeit */
+  /* Mobile: Larger icons for better readability */
   .menu__icon {
     width: 1.75rem;
     height: 1.75rem;
   }
 
-  /* Mobile: External-Modus - Navigation links ausrichten */
+  /* Mobile: External mode - align navigation links */
   .external .menu__nav {
     justify-content: flex-start;
     width: auto;
   }
 
-  /* Mobile: Login-Button im External-Modus */
+  /* Mobile: Login button in external mode */
   .external .login-button {
     margin-left: 0.5rem;
   }
 
-  /* Mobile: Login-Button Hover im External-Modus deaktivieren */
+  /* Mobile: Disable login button hover in external mode */
   .external .login-button:hover {
     background-color: transparent;
   }
 
-  /* Mobile: Mobile-Links im External-Modus anzeigen */
+  /* Mobile: Show mobile links in external mode */
   .external .menu__mobile {
     display: flex;
     flex-direction: row;
@@ -145,7 +145,7 @@
     align-items: center;
   }
 
-  /* Mobile: Mobile-Links im External-Modus */
+  /* Mobile: Mobile links in external mode */
   .external .menu__mobile__link {
     display: flex;
     align-items: center;
@@ -164,7 +164,7 @@
     white-space: nowrap;
   }
 
-  /* Mobile: Mobile-Link Active */
+  /* Mobile: Mobile link active */
   .external .menu__mobile__link--active {
     background-color: var(--color-primary-dark);
     color: var(--color-white);
@@ -175,20 +175,20 @@
    Small Mobile Adjustments (< 429px)
    ================================================ */
 @media (max-width: 428px) {
-  /* Small: Login-Button anpassen */
+  /* Small: Adjust login button */
   .external .login-button {
     width: 4.5rem;
     margin-left: 0;
   }
 
-  /* Small: Mobile-Links Container */
+  /* Small: Mobile links container */
   .external .menu__mobile {
     margin-left: 1.5rem;
     gap: 0.625rem;
     padding-right: 0.5rem;
   }
 
-  /* Small: Mobile-Links kleiner */
+  /* Small: Smaller mobile links */
   .external .menu__mobile__link {
     width: auto;
     max-width: 7.25rem;
@@ -202,20 +202,20 @@
    Extra Small Mobile (< 360px)
    ================================================ */
 @media (max-width: 359px) {
-  /* Extra Small: Login-Button noch kleiner */
+  /* Extra Small: Even smaller login button */
   .external .login-button {
     width: 4rem;
     margin-left: 0;
   }
 
-  /* Extra Small: Mobile-Links Container kompakter */
+  /* Extra Small: More compact mobile links container */
   .external .menu__mobile {
     margin-left: 0.75rem;
     gap: 0.5rem;
     padding-right: 0.5rem;
   }
 
-  /* Extra Small: Mobile-Links noch kleiner */
+  /* Extra Small: Even smaller mobile links */
   .external .menu__mobile__link {
     width: auto;
     max-width: 7.25rem;
@@ -257,7 +257,6 @@
     flex-direction: row;
     justify-content: flex-start;
     padding: 0.4rem 4.6rem 0.4rem 3rem;
-    /*  */
     gap: 0.625rem;
     margin: 0 0 1.35rem 0;
     font-size: var(--font-size-base);

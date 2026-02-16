@@ -1,2 +1,1 @@
-// Standart Script für Funktionen, die auf alleinen Seiten ausgeführt werden sollen
-
+// Standard script for functions that should run on all pages

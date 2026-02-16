@@ -112,7 +112,6 @@ function getUserMenuElements() {
 function setUserMenuState(avatar, menu, open) {
   menu.classList.toggle("is-open", open);
   avatar.setAttribute("aria-expanded", String(open));
-  menu.setAttribute("aria-hidden", String(!open));
   if (open) {
     menu.removeAttribute("inert");
   } else {
@@ -219,7 +218,7 @@ function shouldUseExternalMode() {
   const isPublicPage =
     path.includes("privacy-policy.html") || path.includes("legal-notice.html");
 
-  // External mode nur wenn NICHT eingeloggt UND auf public page
+  // External mode only when NOT logged in AND on public page
   return isPublicPage && !isUserLoggedIn();
 }
 
@@ -234,7 +233,7 @@ function setBackButtonMode() {
   const path = window.location.pathname.toLowerCase();
   const body = document.body;
 
-  // Entferne vorherige Back-Button-Klassen
+  // Remove previous back button classes
   body.classList.remove("has-back-btn", "back-btn-mobile-only");
 
   if (path.includes("help.html")) {
@@ -246,8 +245,43 @@ function setBackButtonMode() {
     body.classList.add("back-btn-mobile-only");
   }
 
-  // Setup click handler für Back-Button
+  // Setup click handler for back button
   setupBackButtonNavigation();
+}
+
+/**
+ * Replaces the back button to remove previous event listeners
+ * @param {HTMLElement} backButton - The back button element
+ * @returns {HTMLElement} The new back button element
+ */
+function replaceBackButton(backButton) {
+  const newBackButton = backButton.cloneNode(true);
+  backButton.parentNode.replaceChild(newBackButton, backButton);
+  return newBackButton;
+}
+
+/**
+ * Handles back button click event
+ * @param {Event} e - The click event
+ */
+function handleBackButtonClick(e) {
+  e.preventDefault();
+  if (isUserLoggedIn()) {
+    navigateBackOrToSummary();
+  } else {
+    window.location.href = "../index.html";
+  }
+}
+
+/**
+ * Navigates back to previous page or to summary
+ */
+function navigateBackOrToSummary() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = "../html/summary.html";
+  }
 }
 
 /**
@@ -256,25 +290,8 @@ function setBackButtonMode() {
 function setupBackButtonNavigation() {
   const backButton = document.querySelector(".back-btn");
   if (backButton) {
-    // Entferne vorherige Event Listener durch Klonen
-    const newBackButton = backButton.cloneNode(true);
-    backButton.parentNode.replaceChild(newBackButton, backButton);
-
-    newBackButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      // Prüfe ob User eingeloggt ist
-      if (isUserLoggedIn()) {
-        // Zurück zur letzten Seite oder Summary
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          window.location.href = "../html/summary.html";
-        }
-      } else {
-        // Nicht eingeloggt -> Login-Seite
-        window.location.href = "../index.html";
-      }
-    });
+    const newBackButton = replaceBackButton(backButton);
+    newBackButton.addEventListener("click", handleBackButtonClick);
   }
 }
 

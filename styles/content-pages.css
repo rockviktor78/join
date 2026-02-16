@@ -1,10 +1,10 @@
 /**
  * Content Pages Styles
- * Gemeinsame Styles für Help, Legal Notice und Privacy Policy
+ * Shared styles for Help, Legal Notice and Privacy Policy
  */
 
 .content-area {
-  color: var(--color-black); /* Globale Schriftfarbe für alle Page-Inhalte */
+  color: var(--color-black); /* Global font color for all page content */
   grid-column: 2;
   grid-row: 2;
   overflow-y: auto;
@@ -111,7 +111,7 @@
   color: var(--color-black);
 }
 
-/* Tablet: Mittlere Größe */
+/* Tablet: Medium size */
 @media (min-width: 481px) {
   .content-limit h1 {
     font-size: var(--font-size-4xl);

@@ -5,20 +5,20 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  /* overflow: hidden entfernt - verhindert position: fixed für Mobile Menu */
+  /* overflow: hidden removed - prevents position: fixed for Mobile Menu */
   background-color: var(--bg-page);
   font-family: var(--font-primary);
 }
 
 /* CONTENT AREA - Mobile First */
 .content-area {
-  /* Mobile: Nimmt verfügbaren Platz */
+  /* Mobile: Takes available space */
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   background-color: var(--bg-page);
-  /* Für Mobile: Padding um Bottom-Nav Platz zu machen */
+  /* Mobile: Padding to make room for Bottom-Nav */
   padding-bottom: 5rem;
 }
 
@@ -29,7 +29,7 @@
   .app-layout {
     display: grid;
     grid-template-columns: 14.5rem 1fr;
-    grid-template-rows: var(--spacing-5xl) 1fr; 
+    grid-template-rows: var(--spacing-5xl) 1fr;
   }
 
   .content-area {

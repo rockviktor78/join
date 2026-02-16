@@ -24,12 +24,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xl);
-  /* Placeholder für fixed back-btn */
+  /* Placeholder for fixed back-btn */
   padding-right: 3rem;
 }
 
 .help-title {
-  /* Mobile: Kleinere Größe */
+  /* Mobile: Smaller size */
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
 }
@@ -82,7 +82,7 @@
   line-height: var(--line-height-normal);
 }
 
-/* Nummerierte Liste für "How to use it" */
+/* Numbered list for "How to use it" */
 .help-steps {
   margin: var(--spacing-md) 0;
   padding-left: var(--spacing-xl);

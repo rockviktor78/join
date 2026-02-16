@@ -101,56 +101,84 @@ function setupMenuButton(id, url) {
 }
 
 /**
+ * Gets sidebar DOM elements
+ * @returns {Object} Object with menu, header and loginButton elements
+ */
+function getSidebarElements() {
+  return {
+    loginButton: document.getElementById("navLogin"),
+    menu: document.querySelector(".menu"),
+    header: document.querySelector(".header__content"),
+  };
+}
+
+/**
+ * Hides navigation buttons
+ * @param {Array<string>} buttonIds - Array of button IDs to hide
+ */
+function hideButtons(buttonIds) {
+  buttonIds.forEach((id) => {
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.add("d-none");
+  });
+}
+
+/**
+ * Shows navigation buttons
+ * @param {Array<string>} buttonIds - Array of button IDs to show
+ */
+function showButtons(buttonIds) {
+  buttonIds.forEach((id) => {
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.remove("d-none");
+  });
+}
+
+/**
+ * Applies external mode styling and button visibility
+ * @param {Object} elements - Sidebar elements
+ * @param {Array<string>} internalButtons - Internal button IDs
+ */
+function applyExternalMode(elements, internalButtons) {
+  const { menu, header, loginButton } = elements;
+  if (menu) menu.classList.add("external");
+  if (header) header.classList.add("external");
+  hideButtons(internalButtons);
+  if (loginButton) loginButton.classList.remove("d-none");
+}
+
+/**
+ * Applies internal mode styling and button visibility
+ * @param {Object} elements - Sidebar elements
+ * @param {Array<string>} internalButtons - Internal button IDs
+ */
+function applyInternalMode(elements, internalButtons) {
+  const { menu, header, loginButton } = elements;
+  if (menu) menu.classList.remove("external");
+  if (header) header.classList.remove("external");
+  showButtons(internalButtons);
+  if (loginButton) loginButton.classList.add("d-none");
+}
+
+/**
  * Sets the sidebar mode (internal vs external)
  * @param {string} mode - "external" or "internal"
  */
 function setSidebarMode(mode) {
+  const elements = getSidebarElements();
   const internalButtons = [
     "navSummary",
     "navAddTask",
     "navBoard",
     "navContacts",
   ];
-  const loginButton = document.getElementById("navLogin");
-  const menu = document.querySelector(".menu");
-  const header = document.querySelector(".header__content");
 
   if (mode === "external") {
-    // Add external class to menu and header
-    if (menu) menu.classList.add("external");
-    if (header) header.classList.add("external");
-    // Hide internal navigation buttons
-    internalButtons.forEach((id) => {
-      const btn = document.getElementById(id);
-      if (btn) btn.classList.add("d-none");
-    });
-    // Show login button
-    if (loginButton) loginButton.classList.remove("d-none");
+    applyExternalMode(elements, internalButtons);
   } else {
-    // Remove external class from menu and header
-    if (menu) menu.classList.remove("external");
-    if (header) header.classList.remove("external");
-    // Show internal navigation buttons
-    internalButtons.forEach((id) => {
-      const btn = document.getElementById(id);
-      if (btn) btn.classList.remove("d-none");
-    });
-    // Hide login button
-    if (loginButton) loginButton.classList.add("d-none");
+    applyInternalMode(elements, internalButtons);
   }
 }
-
-/**
- * @deprecated - External page detection is now handled in shouldUseExternalMode() in init-template.js
- * Detects if current page is an external page
- * @returns {boolean} True if external page (privacy-policy or legal-notice)
- */
-// function isExternalPage() {
-//   const path = window.location.pathname.toLowerCase();
-//   return (
-//     path.includes("privacy-policy.html") || path.includes("legal-notice.html")
-//   );
-// }
 
 /**
  * Sets up the login button navigation handler
@@ -164,18 +192,3 @@ function setupLoginButton() {
     });
   }
 }
-
-/**
- * @deprecated - Back button is now managed centrally via setBackButtonMode() in init-template.js
- * Sets up the header back button in external mode
- * Always navigates to login page
- */
-// function setupHeaderBackButton() {
-//   const backButton = document.querySelector(".header__content .back-btn");
-//   if (backButton) {
-//     backButton.addEventListener("click", (e) => {
-//       e.preventDefault();
-//       window.location.href = "../index.html";
-//     });
-//   }
-// }
