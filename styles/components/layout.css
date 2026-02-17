@@ -33,8 +33,11 @@
 .content-limit {
   width: 100%;
   max-width: 100%;
-  padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
+}
+
+.content-padding {
+  padding: var(--spacing-lg);
 }
 
 /* ================================================
@@ -63,8 +66,12 @@
   .content-limit {
     max-width: calc(1440px - var(--sidebar-width));
     margin: 0;
+  }
+
+  .content-padding {
     padding-left: var(--spacing-xl);
     padding-right: var(--spacing-xl);
+    padding-bottom: 0;
   }
 }
 
@@ -72,7 +79,7 @@
    Optional: Extra kleine Bildschirme (<480px)
    ================================================ */
 @media (max-width: 480px) {
-  .content-limit {
+  .content-padding {
     padding: var(--spacing-sm) var(--spacing-md);
   }
 }
