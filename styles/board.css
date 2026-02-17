@@ -324,7 +324,7 @@
 
 .move-overlay__title {
   color: var(--color-white);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   opacity: 0.9;
   padding-bottom: 0.25rem;
 }
@@ -344,7 +344,7 @@
   background: none;
   border: none;
   color: var(--color-white);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   text-align: left;
   cursor: pointer;
   font-size: var(--font-size-sm);
