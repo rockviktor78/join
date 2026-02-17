@@ -1,24 +1,3 @@
-/* The content area is defined in layout.css */
-.content-area::-webkit-scrollbar {
-  display: none;
-  /* Chrome, Safari, Edge */
-}
-
-.content-area {
-  scrollbar-width: none;
-  /* Firefox */
-  -ms-overflow-style: none;
-  /* Internet Explorer 10+ */
-}
-
-.content-limit {
-  width: 100%;
-  max-width: calc(var(--content-max-width) - var(--sidebar-width));
-  /* Mobile: Smaller padding */
-  padding: var(--spacing-2xl) var(--spacing-lg);
-  box-sizing: border-box;
-}
-
 .help-header {
   display: flex;
   justify-content: space-between;
@@ -133,19 +112,6 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.no-select {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-.brand-name {
-  color: var(--color-accent);
-  text-decoration: none;
-  cursor: default;
-}
-
 .company-name {
   color: var(--color-accent);
   font-weight: var(--font-weight-semibold);
@@ -153,18 +119,10 @@
   cursor: default;
 }
 
-.header__help-btn {
-  display: none;
-}
-
 /* ================================================
    Desktop Styles (Tablet/Desktop)
    ================================================ */
 @media (min-width: 769px) {
-  .content-limit {
-    padding: var(--spacing-5xl) var(--spacing-5xl);
-  }
-
   .help-header {
     padding-right: 4rem;
   }
