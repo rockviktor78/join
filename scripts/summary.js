@@ -14,20 +14,24 @@ const displayDateEl = document.getElementById('displayDate');
 
 /**
  * Initializes the summary page by loading user data and tasks, then displaying the greeting and task summary.     
+ *
+ * @async
  */
 async function initSummary() {
     loadUserFromSessionStorage();
+
+    await initDataStore();
+    allTasks = getTasks();
+
     displayGreetingDesktop(currentUser);
     displayGreetingMobile(currentUser);
-    await loadTasksFromSessionOrFirebase();
+    renderSummary();
 }
-
 
 
 /**
  * Loads the logged-in user's data from session storage. 
  * If no user data is found, redirects to the login page.
- * @return {void}
  */
 function loadUserFromSessionStorage() {
     const userData = sessionStorage.getItem('loggedInUser');
@@ -36,47 +40,6 @@ function loadUserFromSessionStorage() {
         return;
     }
     currentUser = JSON.parse(userData);
-}
-
-
-/**
- * Loads tasks from session storage if available; otherwise, fetches from Firebase, transforms the data, 
- * and stores it in session storage for future use. Finally, it renders the summary of tasks on the page.
- * @return {Promise<void>} A promise that resolves when the tasks are loaded and the summary is rendered.   
- */
-async function loadTasksFromSessionOrFirebase() {
-    const sessionData = sessionStorage.getItem('allTasks');
-    let loadFromFirebase = true;
-    if (sessionData) {
-        const parsed = JSON.parse(sessionData);
-        if (parsed && parsed.length > 0) {
-            allTasks = parsed;
-            loadFromFirebase = false;
-            console.log("Tasks aus SessionStorage geladen");
-        }
-    }
-    if (loadFromFirebase) {
-        const firebaseData = await getData("tasks");
-        allTasks = transformData(firebaseData);
-        sessionStorage.setItem('allTasks', JSON.stringify(allTasks));
-        console.log("Tasks von Firebase geladen");
-    }
-    renderSummary();
-}
-
-
-/**
- * Transforms the data retrieved from Firebase into an array of task objects, each containing an id 
- * and its corresponding properties.
- * @param {Object} data - The raw data object from Firebase.
- * @return {Array} - An array of task objects.
- */
-function transformData(data) {
-    if (!data) return [];
-    return Object.keys(data).map(id => ({
-        id: id,
-        ...data[id]
-    }));
 }
 
 
@@ -102,32 +65,30 @@ function getGreetingText(user) {
 
 
 /**
- * Displays a personalized greeting message on the summary page based on the user's information 
- * and the time of day.
- * @param {Object} user - The user object containing guest and name properties.
+ * Displays a personalized greeting on the summary page for desktop users
+ * based on the user's info and the current time of day.
+ *
+ * @param {Object} user - The user object containing relevant info.
  */
 function displayGreetingDesktop(user) {
     const data = getGreetingText(user);
 
-    greetingEl.innerText =
-        `${data.greeting}${data.symbol}`;
-
+    greetingEl.innerText = `${data.greeting}${data.symbol}`;
     nameEl.innerText = data.name;
 }
 
 
 /**
  * Calculates and renders the summary of tasks on the summary page, including counts for each category 
- * and priority, as well as the next upcoming deadline for urgent tasks. It updates the corresponding 
- * elements in the DOM with the calculated values.
+ * and priority, as well as the next upcoming deadline for urgent tasks.
  */
 function renderSummary() {
     const summary = {
-        todo: allTasks.filter(t => t.category === 'to do').length,
-        done: allTasks.filter(t => t.category === 'done').length,
-        progress: allTasks.filter(t => t.category === 'in progress').length,
-        feedback: allTasks.filter(t => t.category === 'await feedback').length,
-        urgent: allTasks.filter(t => t.priority === 'urgent').length,
+        todo: allTasks.filter(task => task.category === 'to do').length,
+        done: allTasks.filter(task => task.category === 'done').length,
+        progress: allTasks.filter(task => task.category === 'in progress').length,
+        feedback: allTasks.filter(task => task.category === 'await feedback').length,
+        urgent: allTasks.filter(task => task.priority === 'urgent').length,
     };
 
     todoCountEl.innerText = summary.todo;
@@ -141,9 +102,7 @@ function renderSummary() {
 
 
 /**
- * Finds the next upcoming deadline among tasks marked as "urgent" and returns it in a human-readable format. 
- * If there are no urgent tasks with deadlines, it returns a message indicating that there are no upcoming deadlines.
- * @return {string} - The next deadline in "Month Day, Year" format or a message if there are no upcoming deadlines.
+ * Finds the next upcoming deadline among tasks marked as "urgent".
  */
 function getNextDeadline() {
     const urgentTasks = allTasks.filter(t => t.priority === 'urgent' && t.dueDate);
@@ -161,8 +120,10 @@ function getNextDeadline() {
 
 
 /**
- * Main function to handle the mobile greeting lifecycle.
- * @param {Object} user - The user object.     
+ * Displays a personalized greeting overlay on mobile devices 
+ * based on the user's info and the current time of day.
+ *
+ * @param {Object} user - The user object containing relevant info.
  */
 function displayGreetingMobile(user) {
     if (window.innerWidth > 768) return;
@@ -175,9 +136,10 @@ function displayGreetingMobile(user) {
 
 
 /**
- * Creates the overlay DOM element and fills it with HTML.
- * @param {Object} data - The greeting data object.
- * @return {Element} - The created overlay element.
+ * Creates and returns a greeting overlay DOM element populated with HTML content.
+ *
+ * @param {Object} data - The data used to generate the overlay content.
+ * @returns {HTMLElement} The greeting overlay element.
  */
 function createOverlayElement(data) {
     const overlay = document.createElement('div');
@@ -190,8 +152,9 @@ function createOverlayElement(data) {
 
 
 /**
- * Manages the timing: Show -> Fade Out -> Remove.
- * @param {Element} overlay - The overlay element to animate.
+ * Animates a greeting overlay by showing it, fading it out, and then removing it from the DOM.
+ *
+ * @param {HTMLElement} overlay - The overlay element to animate and remove.
  */
 function runOverlayAnimation(overlay) {
     overlay.classList.add('show');
@@ -206,8 +169,6 @@ function runOverlayAnimation(overlay) {
 
 /**
  * Pure HTML Template for the overlay.
- * @param {Object} data - The greeting data object.
- * @return {string} - The HTML string for the overlay.
  */
 function getGreetingOverlayHTML(data) {
     return `
@@ -218,6 +179,3 @@ function getGreetingOverlayHTML(data) {
 
 
 document.addEventListener("DOMContentLoaded", initSummary);
-
-
-
