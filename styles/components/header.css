@@ -126,7 +126,7 @@
   color: var(--color-gray-200);
   text-decoration: none;
   padding: 0.6rem 1.25rem;
-  font-size: var(--font-size-base); 
+  font-size: var(--font-size-base);
   white-space: nowrap;
 }
 
@@ -159,6 +159,14 @@
   .external .header__user {
     display: none;
   }
+
+  .header__dropdown {
+    transform: translateX(100%);
+  }
+
+  .header__dropdown.is-open {
+    transform: translateX(0);
+  }
 }
 
 /* ================================================
@@ -169,7 +177,7 @@
   position: fixed;
   top: calc(5rem + var(--spacing-2xl));
   right: var(--spacing-lg);
-  z-index: 100;
+  z-index: 5;
   border: none;
   background: transparent;
   cursor: pointer;
