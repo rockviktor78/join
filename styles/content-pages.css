@@ -4,7 +4,7 @@
  */
 
 .content-area {
-  color: var(--color-black); /* Global font color for all page content */
+  color: var(--color-black); 
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
@@ -16,19 +16,16 @@
 .content-limit {
   width: 100%;
   max-width: calc(var(--content-max-width) - var(--sidebar-width));
-  /* Mobile: Kleineres Padding - angleichen an Help-Seite */
   padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
 }
 
-/* Extra Small Screens: Etwas kleineres Padding */
 @media (max-width: 480px) {
   .content-limit {
     padding: var(--spacing-xl) var(--spacing-md);
   }
 }
 
-/* Verhindert Textauswahl */
 .no-select {
   user-select: none;
   -webkit-user-select: none;
@@ -40,9 +37,7 @@
   display: none;
 }
 
-/* Content Page Headings */
 .content-limit h1 {
-  /* Mobile: Kleinere Schrift */
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-lg);
@@ -58,7 +53,6 @@
 }
 
 .content-limit h2 {
-  /* Mobile: Kleinere Schrift */
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   margin-top: var(--spacing-xl);
@@ -102,7 +96,6 @@
   color: var(--color-black);
 }
 
-/* Mailto-Links: Blauer Link-Style */
 .content-limit a[href^="mailto:"],
 .content-limit .email-link {
   color: var(--color-accent);
@@ -119,7 +112,6 @@
   font-weight: var(--font-weight-bold);
 }
 
-/* Inhaltsverzeichnis-Links (Anker-Links) */
 .content-limit ul li a[href^="#"] {
   color: var(--color-accent);
   text-decoration: none;
@@ -132,7 +124,6 @@
   font-weight: var(--font-weight-bold);
 }
 
-/* Brand Names: Hellblau ohne Unterstreichung und ohne Cursor */
 .content-limit .brand-name {
   color: var(--color-accent);
   text-decoration: none;

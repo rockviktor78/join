@@ -1,6 +1,5 @@
 /* HEADER - Mobile First */
 .header__content {
-  /* Mobile: Oben, kompakt */
   position: sticky;
   top: 0;
   background-color: var(--color-white);
@@ -94,7 +93,7 @@
 /* Mobile: Initials Sizing */
 .header__user-initials {
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-base); /* Accessibility: min 1rem */
+  font-size: var(--font-size-base);
   line-height: 1;
 }
 
@@ -113,7 +112,6 @@
     opacity var(--transition-base),
     transform var(--transition-base);
   z-index: var(--z-dropdown);
-  /* Mobile: Unter dem Avatar */
   top: calc(100% + var(--spacing-xs));
   right: 0;
 }
@@ -128,7 +126,7 @@
   color: var(--color-gray-200);
   text-decoration: none;
   padding: 0.6rem 1.25rem;
-  font-size: var(--font-size-base); /* Accessibility: min 1rem */
+  font-size: var(--font-size-base); 
   white-space: nowrap;
 }
 
@@ -141,7 +139,6 @@
    Mobile Specific Styles (< 768px)
    ================================================ */
 @media (max-width: 768px) {
-  /* Mobile: Logo with avatar-like properties */
   .header__logo {
     width: 2.5rem;
     height: 2.5rem;
@@ -151,24 +148,21 @@
     cursor: pointer;
   }
 
-  /* Mobile: Text ausblenden */
   .header__title {
     display: none;
   }
 
-  /* Mobile: Help-Button ausblenden */
   .header__help-btn {
     display: none;
   }
 
-  /* Mobile + External: Hide avatar (Back button controlled via Body classes) */
   .external .header__user {
     display: none;
   }
 }
 
 /* ================================================
-   Back Button - Zentrale Steuerung über Body-Klassen
+ Back Button - Central control via body classes
    ================================================ */
 .back-btn {
   /* Fixed: Scrollt nicht mit */
@@ -183,7 +177,7 @@
   transition:
     transform var(--transition-fast),
     background var(--transition-fast);
-  display: none; /* Default: versteckt */
+  display: none;
   align-items: center;
   justify-content: center;
   transform: translateY(-1rem);
