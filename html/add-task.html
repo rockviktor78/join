@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" />
+
     <title>Add Task - Join</title>
 
     <link rel="stylesheet" href="../styles/base/reset.css" />
@@ -23,56 +27,49 @@
   </head>
 
   <body class="app-layout">
-    <div
-      w3-include-html="../assets/templates/header.html"
-      style="display: contents"
-    ></div>
-    <div
-      w3-include-html="../assets/templates/sidebar.html"
-      style="display: contents"
-    ></div>
+    <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
+    <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
 
     <main class="content-area">
       <div class="content-limit">
         <div class="add-task-title">Add Task</div>
         <div class="add-task-content">
-        <div class="left-side">
-          <div>
-            <div>Title</div>
-            <div><input type="text" id="task-title" name="title" placeholder="Enter a title" required></div>
-          </div>
-          <div>
-              <div>Description</div>
-              <div><input type="text" id="task-description" name="description" placeholder="Enter a description" required></div>
-          </div>
-          <div>
-            <div>Due Date</div>
-            <div><input type="date" id="task-due-date" name="due-date" required></div>            
-          </div>
-        </div>
-        <div>
-          <div class="right-side">
-            <div>Priority</div>
+          <div class="left-side">
             <div>
-                <button value="urgent" onclick="selectPriority(this)">Urgent</button>
-                <button value="medium" onclick="selectPriority(this)">Medium</button>
-                <button value="low" onclick="selectPriority(this)">Low</button>
-              </select>
+              <div>Title</div>
+              <div><input type="text" id="task-title" name="title" placeholder="Enter a title" required /></div>
+            </div>
+            <div>
+              <div>Description</div>
+              <div><input type="text" id="task-description" name="description" placeholder="Enter a description" required /></div>
+            </div>
+            <div>
+              <div>Due Date</div>
+              <div><input type="date" id="task-due-date" name="due-date" required /></div>
             </div>
           </div>
           <div>
-            <div>Assigned to</div>
-            <div><input type="text" id="task-assigned-to" name="assigned-to" placeholder="Enter a name"></div>
+            <div class="right-side">
+              <div>Priority</div>
+              <div>
+                <button value="urgent" onclick="selectPriority(this)">Urgent</button>
+                <button value="medium" onclick="selectPriority(this)">Medium</button>
+                <button value="low" onclick="selectPriority(this)">Low</button>
+              </div>
+            </div>
+            <div>
+              <div>Assigned to</div>
+              <div><input type="text" id="task-assigned-to" name="assigned-to" placeholder="Enter a name" /></div>
+            </div>
+            <div>
+              <div>Category</div>
+              <div><input type="text" id="task-category" name="category" placeholder="Enter a category" /></div>
+            </div>
+            <div>
+              <div>Subtasks</div>
+              <div><input type="text" id="task-title" name="title" placeholder="Enter a title" required /></div>
+            </div>
           </div>
-          <div>
-            <div>Category</div>
-            <div><input type="text" id="task-category" name="category" placeholder="Enter a category"></div>
-          </div>
-          <div>
-            <div>Subtasks</div>
-            <div><input type="text" id="task-title" name="title" placeholder="Enter a title" required></div>
-          </div>
-        </div>
         </div>
         <div class="add-task__button">
           <button id="clear__button" onclick="clearFields()">Clear</button>
@@ -80,13 +77,5 @@
         </div>
       </div>
     </main>
-
-    <script>
-      window.addEventListener("load", () => {
-        if (typeof init === "function") {
-          init();
-        }
-      });
-    </script>
   </body>
 </html>
