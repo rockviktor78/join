@@ -1,0 +1,45 @@
+@media (min-width: 400px) and (max-width: 768px) {
+
+    .add-task-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .add-task-container {
+        width: 100vw;
+        z-index: 1;
+        padding-bottom: 10rem;
+    }
+    
+    .add-task-form {
+        padding: 1rem 1.5rem 2rem 1.75rem;
+        width: 100%;
+    }
+    
+    .add-task-header {
+        font-size: var(--font-size-xxl);
+    }
+
+    .left-side, .right-side {
+        width: 100%;
+    }
+
+    .priority__button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .button-wrapper {
+        padding-bottom: 2.813rem;
+    }
+
+    .add-task-button {
+        position: fixed;
+        bottom: 4.688rem;
+        width: 100%;
+        padding-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+}
