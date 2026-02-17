@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../styles/components/header.css" />
     <link rel="stylesheet" href="../styles/components/sidebar.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
+    <link rel="stylesheet" href="../styles/add_task-mobile.css" />
+    <link rel="stylesheet" href="../styles/add_task-mobile-small.css" />
 
     <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
@@ -39,24 +41,27 @@
         <div class="left-side">
           <div>
             <div>Title</div>
-            <div><input type="text" id="task-title" name="title" placeholder="Enter a title" required></div>
+            <div><input type="text" class="task-title" id="task-title" name="title" placeholder="Enter a title" required></div>
           </div>
           <div>
               <div>Description</div>
-              <div><input type="text" id="task-description" name="description" placeholder="Enter a description" required></div>
+              <div><input type="text" class="task-description" id="task-description" name="description" placeholder="Enter a description" required></div>
           </div>
           <div>
             <div>Due Date</div>
-            <div><input type="date" id="task-due-date" name="due-date" required></div>            
+            <div class="date-wrapper">
+              <input type="date" class="task-due-date" id="task-due-date" name="due-date" required>
+              <img src="../assets/img/addtask/calender.svg" class="calendar-icon" onclick="openDatePicker()" alt="Kalender öffnen">
+            </div>           
           </div>
         </div>
-        <div>
-          <div class="right-side">
-            <div>Priority</div>
-            <div>
-                <button value="urgent" onclick="selectPriority(this)">Urgent</button>
-                <button value="medium" onclick="selectPriority(this)">Medium</button>
-                <button value="low" onclick="selectPriority(this)">Low</button>
+        <div class="right-side">
+          <div class="priority-content">
+            <div class="priority">Priority</div>
+            <div class="priority-selection">
+                <button value="urgent" class="priority__button" onclick="selectPriority(this)">Urgent <img src="../assets/img/addtask/urgent.svg"> </button>
+                <button value="medium" class="priority__button" onclick="selectPriority(this)">Medium <img src="../assets/img/addtask/medium.svg"> </button>
+                <button value="low" class="priority__button" onclick="selectPriority(this)">Low <img src="../assets/img/addtask/low.svg"> </button>
               </select>
             </div>
           </div>
@@ -74,9 +79,12 @@
           </div>
         </div>
         </div>
-        <div class="add-task__button">
-          <button id="clear__button" onclick="clearFields()">Clear</button>
-          <button id="create-task-button" onclick="createTask()">Create Task</button>
+        <div class="buttom">
+          <div>*This field is required</div>
+          <div class="add-task-button">
+            <button id="clear__button" class="clear__button" onclick="clearFields()">Clear <img src="../assets/img/addtask/cross.svg"></button>
+            <button id="create-task__button" class="create-task__button" onclick="createTask()">Create Task <img src="../assets/img/addtask/check.svg"></button>
+          </div>
         </div>
       </div>
     </main>
