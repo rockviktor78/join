@@ -39,3 +39,12 @@ function selectPriority(button) {
     const img = button.querySelector('img');
     img.src = `../assets/img/addtask/${priority}selected.svg`;
 }
+
+function saveTask() {
+    const title = document.getElementById('task-title').value;
+    const description = document.getElementById('task-description').value;
+    const dueDate = document.getElementById('task-due-date').value;
+    const assignedTo = document.getElementById('task-assigned-to').value;
+    const category = document.getElementById('task-category').value;
+    const subtasks = document.getElementById('task-subtasks').value;
+}

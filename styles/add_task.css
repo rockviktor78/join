@@ -7,7 +7,7 @@
 .add-task-content {
     display: flex;
     gap: 2rem;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .left-side {

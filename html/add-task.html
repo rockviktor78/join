@@ -40,7 +40,7 @@
         <div class="add-task-content">
         <div class="left-side">
           <div>
-            <div>Title</div>
+            <div>Title*</div>
             <div><input type="text" class="task-title" id="task-title" name="title" placeholder="Enter a title" required></div>
           </div>
           <div>
@@ -48,7 +48,7 @@
               <div><input type="text" class="task-description" id="task-description" name="description" placeholder="Enter a description" required></div>
           </div>
           <div>
-            <div>Due Date</div>
+            <div>Due Date*</div>
             <div class="date-wrapper">
               <input type="date" class="task-due-date" id="task-due-date" name="due-date" required>
               <img src="../assets/img/addtask/calender.svg" class="calendar-icon" onclick="openDatePicker()" alt="Kalender öffnen">
@@ -60,22 +60,35 @@
             <div class="priority">Priority</div>
             <div class="priority-selection">
                 <button value="urgent" class="priority__button" onclick="selectPriority(this)">Urgent <img src="../assets/img/addtask/urgent.svg"> </button>
-                <button value="medium" class="priority__button" onclick="selectPriority(this)">Medium <img src="../assets/img/addtask/medium.svg"> </button>
+                <button value="medium" class="priority__button medium active" onclick="selectPriority(this)">Medium <img src="../assets/img/addtask/mediumselected.svg"> </button>
                 <button value="low" class="priority__button" onclick="selectPriority(this)">Low <img src="../assets/img/addtask/low.svg"> </button>
               </select>
             </div>
           </div>
           <div>
             <div>Assigned to</div>
-            <div><input type="text" id="task-assigned-to" name="assigned-to" placeholder="Enter a name"></div>
+            <div>
+              <select id="task-assigned-to" name="assigned-to" placeholder="Select contacts to assign">
+                <option value="" disabled selected>Select contacts</option>
+                <option value="contact1">Contact 1</option>
+                <option value="contact2">Contact 2</option>
+                <option value="contact3">Contact 3</option>
+              </select>
+            </div>
           </div>
           <div>
-            <div>Category</div>
-            <div><input type="text" id="task-category" name="category" placeholder="Enter a category"></div>
+            <div>Category*</div>
+            <div>
+              <select id="task-category" name="category" placeholder="Select task category">
+                <option value="" disabled selected>Select category</option>
+                <option value="technical-task">Technical Task</option>
+                <option value="user-story">User Story</option>
+              </select>
+            </div>
           </div>
           <div>
             <div>Subtasks</div>
-            <div><input type="text" id="task-title" name="title" placeholder="Enter a title" required></div>
+            <div><input type="text" id="task-subtasks" name="subtasks" placeholder="Add new subtask" required></div>
           </div>
         </div>
         </div>
