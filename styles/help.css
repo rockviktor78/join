@@ -24,39 +24,14 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xl);
-  /* Placeholder für fixed back-btn */
+  /* Placeholder for fixed back-btn */
   padding-right: 3rem;
 }
 
 .help-title {
-  /* Mobile: Kleinere Größe */
+  /* Mobile: Smaller size */
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
-}
-
-.back-btn {
-  /* Fixed: Scrollt nicht mit */
-  position: fixed;
-  top: calc(5rem + var(--spacing-2xl));
-  right: var(--spacing-lg);
-  z-index: 100;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 50%;
-  transition:
-    transform var(--transition-fast),
-    background var(--transition-fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-1rem);
-  transform-origin: center;
-}
-
-.back-btn:hover {
-  background: var(--color-primary-super-light);
-  transform: translateY(-1rem) scale(1.15);
 }
 
 .help-section {
@@ -107,7 +82,7 @@
   line-height: var(--line-height-normal);
 }
 
-/* Nummerierte Liste für "How to use it" */
+/* Numbered list for "How to use it" */
 .help-steps {
   margin: var(--spacing-md) 0;
   padding-left: var(--spacing-xl);

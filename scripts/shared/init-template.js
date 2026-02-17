@@ -9,6 +9,7 @@ async function initTemplate() {
     return;
   }
   await includeHTML();
+  setBackButtonMode();
   updateNavigation();
   setUserInitials();
   initializeMenuAndLogout();
@@ -36,7 +37,7 @@ function setupLogoutLink() {
     logoutLink.addEventListener("click", (event) => {
       event.preventDefault();
       sessionStorage.removeItem("loggedInUser");
-      sessionStorage.removeItem('allTasks');
+      sessionStorage.removeItem("allTasks");
       window.location.href = "../index.html";
     });
   }
@@ -111,7 +112,6 @@ function getUserMenuElements() {
 function setUserMenuState(avatar, menu, open) {
   menu.classList.toggle("is-open", open);
   avatar.setAttribute("aria-expanded", String(open));
-  menu.setAttribute("aria-hidden", String(!open));
   if (open) {
     menu.removeAttribute("inert");
   } else {
@@ -198,22 +198,115 @@ function setInitialsToAvatar(avatar, initials) {
 }
 
 /**
- * Applies the appropriate sidebar mode based on the current page
+ * Checks if a user is currently logged in
+ * @returns {boolean} True if user is logged in
+ */
+function isUserLoggedIn() {
+  const loggedInUser = sessionStorage.getItem("loggedInUser");
+  return loggedInUser !== null && loggedInUser !== "";
+}
+
+/**
+ * Determines if external mode should be used
+ * External mode is only used when:
+ * - User is NOT logged in AND
+ * - Page is privacy-policy or legal-notice
+ * @returns {boolean} True if external mode should be used
+ */
+function shouldUseExternalMode() {
+  const path = window.location.pathname.toLowerCase();
+  const isPublicPage =
+    path.includes("privacy-policy.html") || path.includes("legal-notice.html");
+
+  // External mode only when NOT logged in AND on public page
+  return isPublicPage && !isUserLoggedIn();
+}
+
+/**
+ * Sets the back button visibility mode based on the current page
+ * Uses body classes as Single Source of Truth
+ * - help.html => body.has-back-btn (always visible)
+ * - privacy-policy.html/legal-notice.html => body.back-btn-mobile-only (mobile only)
+ * - all other pages => no class (never visible)
+ */
+function setBackButtonMode() {
+  const path = window.location.pathname.toLowerCase();
+  const body = document.body;
+
+  // Remove previous back button classes
+  body.classList.remove("has-back-btn", "back-btn-mobile-only");
+
+  if (path.includes("help.html")) {
+    body.classList.add("has-back-btn");
+  } else if (
+    path.includes("privacy-policy.html") ||
+    path.includes("legal-notice.html")
+  ) {
+    body.classList.add("back-btn-mobile-only");
+  }
+
+  // Setup click handler for back button
+  setupBackButtonNavigation();
+}
+
+/**
+ * Replaces the back button to remove previous event listeners
+ * @param {HTMLElement} backButton - The back button element
+ * @returns {HTMLElement} The new back button element
+ */
+function replaceBackButton(backButton) {
+  const newBackButton = backButton.cloneNode(true);
+  backButton.parentNode.replaceChild(newBackButton, backButton);
+  return newBackButton;
+}
+
+/**
+ * Handles back button click event
+ * @param {Event} e - The click event
+ */
+function handleBackButtonClick(e) {
+  e.preventDefault();
+  if (isUserLoggedIn()) {
+    navigateBackOrToSummary();
+  } else {
+    window.location.href = "../index.html";
+  }
+}
+
+/**
+ * Navigates back to previous page or to summary
+ */
+function navigateBackOrToSummary() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = "../html/summary.html";
+  }
+}
+
+/**
+ * Sets up the back button click handler
+ */
+function setupBackButtonNavigation() {
+  const backButton = document.querySelector(".back-btn");
+  if (backButton) {
+    const newBackButton = replaceBackButton(backButton);
+    newBackButton.addEventListener("click", handleBackButtonClick);
+  }
+}
+
+/**
+ * Applies the appropriate sidebar mode based on login status and current page
+ * Rule: privacy-policy/legal-notice + NOT logged in => external, otherwise => internal
  */
 function applySidebarMode() {
-  if (
-    typeof isExternalPage === "function" &&
-    typeof setSidebarMode === "function"
-  ) {
-    const mode = isExternalPage() ? "external" : "internal";
+  if (typeof setSidebarMode === "function") {
+    const mode = shouldUseExternalMode() ? "external" : "internal";
     setSidebarMode(mode);
 
     if (mode === "external") {
       if (typeof setupLoginButton === "function") {
         setupLoginButton();
-      }
-      if (typeof setupHeaderBackButton === "function") {
-        setupHeaderBackButton();
       }
     }
   }

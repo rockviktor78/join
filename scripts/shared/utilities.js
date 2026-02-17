@@ -26,7 +26,7 @@ function getInitials(name, fallback = "SM") {
   }
 
   // Multiple names: take first char of first and last name
-  const firstNameInitial = parts[0][0]; // Vorname (z.B. "S" von "Sonja")
-  const lastNameInitial = parts[parts.length - 1][0]; // Nachname (z.B. "M" von "Müller")
+  const firstNameInitial = parts[0][0]; // First name (e.g. "S" from "Sonja")
+  const lastNameInitial = parts[parts.length - 1][0]; // Last name (e.g. "M" from "Müller")
   return (firstNameInitial + lastNameInitial).toUpperCase(); // "SM"
 }

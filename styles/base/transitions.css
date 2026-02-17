@@ -1,9 +1,9 @@
-/* View Transitions API für smooth page transitions */
+/* View Transitions API for smooth page transitions */
 @view-transition {
   navigation: auto;
 }
 
-/* Verhindere Animation für persistente Elemente */
+/* Prevent animation for persistent elements */
 ::view-transition-old(header-persistent),
 ::view-transition-new(header-persistent),
 ::view-transition-old(menu-persistent),
@@ -12,13 +12,13 @@
   mix-blend-mode: normal;
 }
 
-/* Root-Transition - nur für Content-Bereich */
+/* Root transition - only for content area */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
 }
 
-/* Fade-Effekt nur für Content */
+/* Fade effect only for content */
 ::view-transition-old(root) {
   animation-name: fade-out;
 }
@@ -46,7 +46,7 @@
   }
 }
 
-/* Fallback für Browser ohne View Transitions API */
+/* Fallback for browsers without View Transitions API */
 @supports not (view-transition-name: none) {
   body {
     animation: fade-in 0.3s ease-in-out;
@@ -58,7 +58,7 @@ body {
   animation: fade-in 0.3s ease-in-out forwards;
 }
 
-/* Sicherstellen, dass der Body sichtbar wird, auch wenn JS nicht lädt */
+/* Ensure body is visible even if JS doesn't load */
 body.loaded {
   opacity: 1;
 }
