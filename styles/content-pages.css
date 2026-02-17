@@ -4,13 +4,35 @@
  */
 
 .content-area {
-  color: var(--color-black); 
+  color: var(--color-black);
+  overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
 .content-area::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
+}
+
+/* Hide scrollbar on Mobile */
+@media (max-width: 768px) {
+  html,
+  body,
+  .app-layout,
+  .content-area {
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE/Edge */
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  .app-layout::-webkit-scrollbar,
+  .content-area::-webkit-scrollbar {
+    display: none !important; /* Chrome, Safari, Edge */
+    width: 0 !important;
+    height: 0 !important;
+  }
 }
 
 .content-limit {
