@@ -112,7 +112,7 @@
     opacity var(--transition-base),
     transform var(--transition-base);
   z-index: var(--z-dropdown);
-  top: calc(100% + var(--spacing-xs));
+  top: calc(90% + var(--spacing-xs));
   right: 0;
 }
 
@@ -246,7 +246,7 @@
   }
 
   .header__dropdown {
-    top: calc(100% + var(--spacing-md));
+    top: calc(108% + var(--spacing-md));
   }
 
   .header__dropdown-link--help {
