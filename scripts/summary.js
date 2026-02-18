@@ -11,7 +11,6 @@ const boardCountEl = document.getElementById('boardCount');
 const urgentCountEl = document.getElementById('urgentCount');
 const displayDateEl = document.getElementById('displayDate');
 
-
 /**
  * Initializes the summary page by loading user data and tasks, then displaying the greeting and task summary.     
  *
@@ -28,7 +27,6 @@ async function initSummary() {
     renderSummary();
 }
 
-
 /**
  * Loads the logged-in user's data from session storage. 
  * If no user data is found, redirects to the login page.
@@ -41,7 +39,6 @@ function loadUserFromSessionStorage() {
     }
     currentUser = JSON.parse(userData);
 }
-
 
 /**
  * Generates a greeting message based on the current time of day and user information.
@@ -63,7 +60,6 @@ function getGreetingText(user) {
     };
 }
 
-
 /**
  * Displays a personalized greeting on the summary page for desktop users
  * based on the user's info and the current time of day.
@@ -76,7 +72,6 @@ function displayGreetingDesktop(user) {
     greetingEl.innerText = `${data.greeting}${data.symbol}`;
     nameEl.innerText = data.name;
 }
-
 
 /**
  * Calculates and renders the summary of tasks on the summary page, including counts for each category 
@@ -100,7 +95,6 @@ function renderSummary() {
     displayDateEl.innerText = getNextDeadline();
 }
 
-
 /**
  * Finds the next upcoming deadline among tasks marked as "urgent".
  */
@@ -118,7 +112,6 @@ function getNextDeadline() {
     });
 }
 
-
 /**
  * Displays a personalized greeting overlay on mobile devices 
  * based on the user's info and the current time of day.
@@ -133,7 +126,6 @@ function displayGreetingMobile(user) {
     document.body.appendChild(overlay);
     runOverlayAnimation(overlay);
 }
-
 
 /**
  * Creates and returns a greeting overlay DOM element populated with HTML content.
@@ -150,7 +142,6 @@ function createOverlayElement(data) {
     return overlay;
 }
 
-
 /**
  * Animates a greeting overlay by showing it, fading it out, and then removing it from the DOM.
  *
@@ -165,7 +156,6 @@ function runOverlayAnimation(overlay) {
         setTimeout(() => overlay.remove(), 1000);
     }, 1500);
 }
-
 
 /**
  * Pure HTML Template for the overlay.
