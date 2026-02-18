@@ -24,38 +24,14 @@ const CATEGORY_ORDER = [
  * @async
  */
 async function initBoard() {
-    await loadContactsFromFirebase()
-    await loadTasksFromFirebase();
+    await initDataStore();
+
+    contacts = getContacts();
+    tasks = getTasks();
+
     renderBoard();
     initDragAndDrop();
     initButtons();
-}
-
-
-/**
- * Fetches contact data from Firebase and updates the local contacts object.
- */
-async function loadContactsFromFirebase() {
-    const data = await getData("contacts");
-    contacts = data || {};
-}
-
-
-/**
- * Fetches tasks from Firebase and transforms the data into an array with IDs.
- * @async
- * @returns {Promise<void>}
- */
-async function loadTasksFromFirebase() {
-    const data = await getData("tasks");
-    if (!data) {
-        tasks = [];
-        return;
-    }
-    tasks = Object.keys(data).map((key) => ({
-        id: key,
-        ...data[key]
-    }));
 }
 
 
@@ -187,7 +163,7 @@ function moveTaskToColumn(columnId) {
     const newCategory = CATEGORY_MAP[columnId];
     if (!newCategory) return;
 
-    const task = tasks.find(t => t.id === currentDraggedElement);
+    const task = tasks.find(task => task.id === currentDraggedElement);
     if (!task) return;
 
     task.category = newCategory;
@@ -195,8 +171,11 @@ function moveTaskToColumn(columnId) {
     if (columnId === "done") {
         autoCompleteSubtasksAsDone(task);
     }
+
+    updateTasks(tasksFromArrayToObject(tasks));
     renderBoard();
 }
+
 
 
 /**
@@ -303,6 +282,7 @@ function moveTaskViaOverlay(newIndex, taskId, event) {
     }
 
     currentMoveTask = null;
+    updateTasks(tasksFromArrayToObject(tasks));
     renderBoard();
 }
 
@@ -316,6 +296,16 @@ function closeAllMoveOverlays() {
         .forEach(el => el.classList.add("hidden"));
 
     currentMoveTask = null;
+}
+
+
+function tasksFromArrayToObject(taskArray) {
+    const obj = {};
+    taskArray.forEach(task => {
+        const { id, ...data } = task;
+        obj[id] = data;
+    });
+    return obj;
 }
 
 
