@@ -16,11 +16,13 @@ let dataStore = {
  */
 async function initDataStore() {
     const cached = sessionStorage.getItem(STORE_KEY);
+
     if (cached) {
         dataStore = JSON.parse(cached);
         console.log("Loaded from session cache");
         return;
     }
+
     console.log("Loading from Firebase...");
 
     dataStore.tasks = await getData("tasks");
