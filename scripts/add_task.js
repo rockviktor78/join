@@ -257,51 +257,75 @@ function deleteSubtask(trigger) {
     item.remove();
 }
 
+const dropdown = document.querySelector('.dropdown');
+const dropdownSelected = dropdown.querySelector('.dropdown-selected');
+const dropdownList = dropdown.querySelector('.dropdown-list');
+const selectedContactsBox = document.querySelector('.selected-contacts');
 
+const selectedContacts = new Map();
 
-let loadedContacts = [];
-const BASE_URL = "https://join-7c944-default-rtdb.europe-west1.firebasedatabase.app/";
+function loadContactsFromSession() {
+  const rawData = sessionStorage.getItem('joinData');
+  if (!rawData) return [];
 
-async function initContacts() {
-  await fetchContacts();
+  const data = JSON.parse(rawData);
+  const contacts = data.contacts || {};
+
+  return Object.entries(contacts).map(([id, contact]) => ({
+    id,
+    name: contact.name
+  }));
 }
 
-async function fetchContacts(path = "contacts") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
+function renderSelectedContacts() {
+  selectedContactsBox.innerHTML = '';
 
-  loadedContacts = responseToJson ? Object.values(responseToJson) : [];
-  sortContacts();
-    renderContactList(loadedContacts);
+  selectedContacts.forEach(contact => {
+    const tag = document.createElement('span');
+    tag.textContent = contact.name;
+    selectedContactsBox.appendChild(tag);
+  });
+
+  dropdownSelected.textContent =
+    selectedContacts.size > 0
+      ? `${selectedContacts.size} contact(s) selected`
+      : 'Select contacts to assign';
 }
 
-function sortContacts() {
-  loadedContacts.sort((a, b) =>
-    a.name.localeCompare(b.name, "de", { sensitivity: "base" }),
-  );
-}
+function initDropdown() {
+  const contacts = loadContactsFromSession();
+  dropdownList.innerHTML = '';
 
-function renderContactList(loadedContacts) {
-    const contactList = document.getElementById("task-assigned-to");
-    contactList.innerHTML = "";
-    loadedContacts.forEach((contact, index) => {
-        renderContactItem(contactList, contact, index);
+  contacts.forEach(contact => {
+    const li = document.createElement('li');
+    li.innerHTML = templateContact(contact.name.charAt(0).toUpperCase(), contact);
+
+    li.addEventListener('click', e => {
+      e.stopPropagation();
+
+      if (selectedContacts.has(contact.id)) {
+        selectedContacts.delete(contact.id);
+        li.classList.remove('selected');
+      } else {
+        selectedContacts.set(contact.id, contact);
+        li.classList.add('selected');
+      }
+
+      renderSelectedContacts();
     });
+
+    dropdownList.appendChild(li);
+  });
 }
 
-function renderContactItem(contactList, contact, index) {
-    let initial = getInitial(contact.name);
-  document.getElementById("task-assigned-to").innerHTML += templateContact(
-    initial,
-    contact.name,
-    index,
-  );
-}
+dropdownSelected.addEventListener('click', e => {
+    e.stopPropagation();
+    dropdownList.style.display =
+    dropdownList.style.display === 'block' ? 'none' : 'block';
+});
 
-function getInitial(name) {
-  if (!name) return "";
-  let parts = name.trim().split(/\s+/);
-  let first = parts[0].charAt(0);
-  let last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : "";
-  return (first + last).toUpperCase();
-}
+document.addEventListener('click', e => {
+  if (!dropdown.contains(e.target)) {
+    dropdownList.style.display = 'none';
+  }
+});

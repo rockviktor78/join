@@ -30,12 +30,12 @@
     <script src="../scripts/add_task-template.js" defer></script>
   </head>
 
-  <body onload="initContacts()" class="app-layout">
+  <body onload="initDropdown()"  class="app-layout">
     <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
     <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
 
     <main class="content-area">
-      <div class="content-limit">
+      <div class="content-limit content-padding">
         <div class="add-task-title">Add Task</div>
         <div class="add-task-content">
         <div class="left-side">
@@ -55,6 +55,7 @@
             </div>           
           </div>
         </div>
+        <div class="add-task-separator"></div>
         <div class="right-side">
           <div class="priority-content">
             <div class="priority">Priority</div>
@@ -68,9 +69,11 @@
           <div class="section">
             <div class="headline">Assigned to</div>
             <div>
-              <select class="task-assigned-to" id="task-assigned-to" name="assigned-to" placeholder="Select contacts to assign">
-                <option id="contact-list" value="">Select contacts</option>
-              </select>
+              <div class="dropdown">
+                <div class="dropdown-selected">Select contacts to assign</div>
+                <ul class="dropdown-list"></ul>
+              </div>
+              <div class="selected-contacts"></div>
             </div>
           </div>
           <div class="section">

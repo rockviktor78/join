@@ -406,15 +406,65 @@
     background-color: white;
 }
 
-.contact-initial {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: var(--color-primary);
-    color: var(--bg-page);
-    font-size: 12px;
-    font-weight: var(--font-weight-bold);
+.dropdown {
+  width: 100%;
+  position: relative;
+  font-family: sans-serif;
+}
+
+.dropdown-selected {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  background: white;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: white;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+  display: none;
+}
+
+.dropdown-list li {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.dropdown-list li.selected {
+  background: #e6f0ff;
+  color: #0057ff;
+}
+
+.checkmark {
+  display: none;
+  font-weight: bold;
+}
+
+li.selected .checkmark {
+  display: inline;
+}
+
+.selected-contacts {
+  margin-top: 10px;
+}
+
+.selected-contacts span {
+  display: inline-block;
+  background: #e6f0ff;
+  color: #0057ff;
+  padding: 6px 10px;
+  margin: 4px;
+  border-radius: 10px;
+  font-family: sans-serif;
 }

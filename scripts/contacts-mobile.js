@@ -65,3 +65,17 @@ function contactsBackMobile(index) {
 function removeActiveContact(index) {
   document.getElementById(loadedContacts[index].name).classList.remove("active-contact");
 }
+
+/**
+ * Closes the mobile action button menu when clicking outside.
+ */
+document.addEventListener("click", (event) => {
+  const actionButton = document.querySelector(".action__button-mobile");
+  const fab = document.getElementById("action__fab");
+
+  if (!actionButton || !fab) return;
+
+  if (!fab.contains(event.target)) {
+    closeActionFab();
+  }
+});
