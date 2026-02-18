@@ -18,7 +18,6 @@ const CATEGORY_ORDER = [
     "done"
 ];
 
-
 /**
  * Initializes the board: loads data, renders tasks, and sets up event listeners.
  * @async
@@ -33,8 +32,6 @@ async function initBoard() {
     initDragAndDrop();
     initButtons();
 }
-
-
 
 /**
  * Renders all task columns on the board and initializes drag events for the cards.
@@ -52,7 +49,6 @@ function renderBoard(filterQuery = "") {
 
     attachDragEventsToCards();
 }
-
 
 /**
  * Renders a single task column with the given list of tasks.
@@ -77,7 +73,6 @@ function renderTaskColumn(columnId, taskList) {
     }
 }
 
-
 /**
  * Assembles the full HTML structure for a task card by processing subtasks, assignments, and priority.
  * @param {Object} task - The task object containing all card data.
@@ -91,7 +86,6 @@ function generateTaskHTML(task) {
 
     return getTaskCardTemplate(task, taskType, subtasksSection, assignedSection, priorityIcon);
 }
-
 
 /**
  * Calculates progress and returns the subtasks progress bar HTML if subtasks exist.
@@ -107,7 +101,6 @@ function createSubtasksHTML(subtasks) {
 
     return getSubtasksTemplate(done, total, percentage);
 }
-
 
 /**
  * Maps assigned user IDs to their respective contact data and returns a string of badge HTML.
@@ -130,8 +123,6 @@ function createAssignedUsersHTML(assignedIds) {
     }).join("");
 }
 
-
-
 /**
  * Attaches dragstart event listeners to all task cards to track the currently dragged element.
  */
@@ -143,7 +134,6 @@ function attachDragEventsToCards() {
         });
     });
 }
-
 
 /**
  * Sets up dragover, dragleave, and drop event listeners for each task column.
@@ -168,7 +158,6 @@ function initDragAndDrop() {
     });
 }
 
-
 /**
  * Updates a task's category based on the drop target and re-renders the board.
  * @param {string} columnId - The ID of the target column where the task was dropped.
@@ -190,7 +179,6 @@ function moveTaskToColumn(columnId) {
     renderBoard();
 }
 
-
 /**
  * Helper to mark all subtasks as done.
  */
@@ -199,7 +187,6 @@ function autoCompleteSubtasksAsDone(task) {
         task.subtasks.forEach(subtask => subtask.done = true);
     }
 }
-
 
 /**
  * Attaches click event listeners to all 'Add Task' buttons in the header and columns.
@@ -235,7 +222,6 @@ function toggleMoveToTaskOverlay(taskId, event) {
     currentMoveTask = currentTask;
 }
 
-
 /**
  * Generates HTML buttons for moving a task to adjacent columns.
  *
@@ -259,7 +245,6 @@ function generateMoveToOptions(category, taskId) {
     return html;
 }
 
-
 /**
  * Capitalizes the first letter of each word in a column name of the overlay.
  * @param {string} name - The column name to format.
@@ -271,7 +256,6 @@ function formatColumnName(name) {
         .map(word => word[0].toUpperCase() + word.slice(1))
         .join(" ");
 }
-
 
 /**
  * Moves a task to a new column based on the overlay selection.
@@ -298,7 +282,6 @@ function moveTaskViaOverlay(newIndex, taskId, event) {
     renderBoard();
 }
 
-
 /**
  * Closes all move task overlays by adding the "hidden" class to each overlay element.
  */
@@ -309,7 +292,6 @@ function closeAllMoveOverlays() {
 
     currentMoveTask = null;
 }
-
 
 /**
  * Converts an array of task objects into an object keyed by task IDs.
@@ -325,7 +307,6 @@ function tasksFromArrayToObject(taskArray) {
     });
     return obj;
 }
-
 
 /**
  * Filters tasks by a search query matching the title or description.
@@ -346,15 +327,12 @@ function filterTasks(tasksArray, query = "") {
     });
 }
 
-
 searchInput.addEventListener("input", (e) => {
     renderBoard(e.target.value);
 });
 
-
 document.addEventListener("click", closeAllMoveOverlays);
 document.addEventListener("DOMContentLoaded", initBoard);
-
 
 
 
