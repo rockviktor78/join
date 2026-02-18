@@ -39,7 +39,6 @@ function validateName() {
     return true;
 }
 
-
 /** 
  * Validates the email input in the signup form.
  * @returns {boolean} True if the email is valid; false otherwise.
@@ -53,7 +52,6 @@ function validateEmail() {
     hideInputError(signupEmailError, signEmailGroup);
     return true;
 }
-
 
 /**
  * Validates the password and confirm password inputs in the signup form.
@@ -73,7 +71,6 @@ function validatePasswords() {
     return true;
 }
 
-
 /**
  * Validates if the privacy policy checkbox is checked.
  * @return {boolean} True if checked; false otherwise.
@@ -87,7 +84,6 @@ function validatePolicy() {
     policyError.classList.remove('show');
     return true;
 }
-
 
 /**
  * Gathers new user data from the signup form.
@@ -109,7 +105,6 @@ function setSubmitting(isSubmitting) {
     signupBtn.disabled = isSubmitting;
 }
 
-
 /**
  * Validates all signup form inputs.
  * @return {boolean} True if all inputs are valid; false otherwise. 
@@ -121,7 +116,6 @@ function isSignupValid() {
     const isPolicyValid = validatePolicy();
     return isNameValid && isEmailValid && isPasswordValid && isPolicyValid;
 }
-
 
 /**
  * Handles successful signup by showing a modal and switching to the login form.
@@ -139,7 +133,6 @@ function handleSignupSuccess() {
     }, 2000);
 }
 
-
 /**
  * Checks if an email already exists in the database.
  * @param {string} email - The email to check.
@@ -155,7 +148,6 @@ async function checkIfEmailExists(email) {
     return found;
 }
 
-
 /**
  * Displays an error message indicating the email is already in use.    
  */
@@ -164,7 +156,6 @@ function showEmailInUseError() {
     signupEmailError.classList.add('show');
     signEmailGroup.classList.add('auth-card__input-group--error');
 }
-
 
 /**
  * Creates a new user in the database.
@@ -198,7 +189,6 @@ async function addUser() {
     }
 }
 
-
 /**
  * Handles the signup form submission event.
  * @param {Event} event - The form submission event.  
@@ -208,7 +198,6 @@ function handleSignUpSubmit(event) {
     addUser();
 }
 
-
 /**
  * Handles input in the name field to hide error messages when valid.
  */
@@ -217,7 +206,6 @@ function handleNameInput() {
         hideInputError(signupNameError, signUpNameGroup);
     }
 }
-
 
 /**
  * Handles input in the email field to hide error messages when valid.
@@ -229,7 +217,6 @@ function handleEmailInput() {
     }
 }
 
-
 /**
  * Handles input in the password field to hide error messages when valid.
  */
@@ -237,7 +224,6 @@ function handlePasswordInput() {
     if (signupPassword.value.length >= 6) hideInputError(signupPasswordError, signupPasswordGroup);
     if (signupPassword.value === signupConfirmPassword.value) hideInputError(signupConfirmError, signupConfirmGroup);
 }
-
 
 /**
  * Handles input in the confirm password field to hide error messages when valid.
@@ -249,7 +235,6 @@ function handleConfirmPasswordInput() {
     }
 }
 
-
 /**
  * Handles changes to the policy checkbox to hide error messages when checked.
  */
@@ -258,7 +243,6 @@ function handlePolicyChange() {
         policyError.classList.remove('show');
     }
 }
-
 
 signupForm.addEventListener('submit', handleSignUpSubmit);
 signupName.addEventListener('input', handleNameInput);
