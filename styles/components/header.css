@@ -141,6 +141,12 @@
    Mobile Specific Styles (< 768px)
    ================================================ */
 @media (max-width: 768px) {
+  /* Mobile: Prevent horizontal overflow */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   /* Mobile: Logo with avatar-like properties */
   .header__logo {
     width: 2.5rem;
@@ -164,6 +170,18 @@
   /* Mobile + External: Hide avatar (Back button controlled via Body classes) */
   .external .header__user {
     display: none;
+  }
+
+  /* Mobile: Dropdown slide-in animation */
+  .header__dropdown {
+    transform: translateX(100%);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .header__dropdown.is-open {
+    transform: translateX(0);
   }
 }
 
