@@ -80,4 +80,3 @@ function getAssignedUserBadgeTemplate(initials, bgColor, name) {
 }
 
 
-
