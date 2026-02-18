@@ -67,7 +67,14 @@ function getUsers() {
  * @returns {Array<Object>} Array of contact objects.
  */
 function getContacts() {
-    return dataStore.contacts || [];
+    if (!dataStore.contacts) return [];
+
+    const contactsArray = Object.keys(dataStore.contacts).map(id => ({
+        id,
+        ...dataStore.contacts[id]
+    }));
+
+    return assignContactColors(contactsArray);
 }
 
 
