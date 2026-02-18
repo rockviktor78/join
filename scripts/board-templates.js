@@ -6,7 +6,6 @@ function getNoTaskTemplate() {
     return `<div class="no-tasks">No tasks</div>`
 }
 
-
 /**
  * Generates the complete HTML string for a task card, incorporating status, subtasks, and assignments.
  * @param {Object} task - The task data object.
@@ -43,7 +42,6 @@ function getTaskCardTemplate(task, taskType, subtasksSection, assignedSection, p
     `;
 }
 
-
 /**
  * Generates the HTML for the subtask progress bar and status text.
  * @param {number} done - The number of completed subtasks.
@@ -61,7 +59,6 @@ function getSubtasksTemplate(done, total, percentage) {
         </div>
     `;
 }
-
 
 /**
  * Generates the HTML for an individual user badge with initials and a background color.
