@@ -1,30 +1,25 @@
-/**
- * Stores all loaded contacts for the contacts page.
- * @type {Array<{id: string, name: string, email: string, phone: string, color?: string}>}
- */
 let loadedContacts = [];
+let contactIdCounter = 1;
 
 /**
- * Initializes the contacts module.
- * Loads contacts from dataStore and applies badge colors.
+ * Initializes the contacts module by loading contacts from the data store
+ * and applying badge colors.
  *
  * @async
- * @returns {Promise<void>}
+ * @returns {Promise<void>} Resolves when contacts are loaded and initialized.
  */
 async function initContacts() {
-  // DataStore initialisieren (Tasks, Contacts, Users laden)
   await initDataStore();
-
-  // Kontakte aus DataStore laden, Farben zuweisen und rendern
   loadContactsFromStore();
+
+  contactIdCounter = loadedContacts.length
+    ? Math.max(...loadedContacts.map(contact => Number(contact.id))) + 1
+    : 1;
 }
 
-
-
-
 /**
- * Loads contacts from the dataStore and applies badge colors.
- * Keeps the array structure for rendering.
+ * Loads contacts from the data store, applies badge colors, 
+ * sorts them, and renders the contact list while keeping the array structure.
  */
 function loadContactsFromStore() {
   const contactsArray = Object.keys(dataStore.contacts || {}).map(id => ({
@@ -32,12 +27,10 @@ function loadContactsFromStore() {
     ...dataStore.contacts[id]
   }));
 
-  loadedContacts = assignContactColorsArray(contactsArray); // immer Array
+  loadedContacts = assignContactColorsArray(contactsArray);
   sortContacts();
   renderContactList(loadedContacts);
 }
-
-
 
 /**
  * Sorts contacts alphabetically by name (German locale).
@@ -106,7 +99,6 @@ function renderContact(container, contact, index) {
   );
 }
 
-
 /**
  * Returns initials for a contact.
  */
@@ -132,7 +124,10 @@ function showContactDetails(index) {
 }
 
 /**
- * Highlights the active contact in the list.
+ * Sets a specific contact as active in the UI by index, 
+ * removing the active state from all other contacts.
+ *
+ * @param {number} index - The index of the contact in the loadedContacts array.
  */
 function setActiveContact(index) {
   document
@@ -158,8 +153,9 @@ function addNewContact() {
  */
 function confirmEditContact(index) {
   let name = document.getElementById("new-contact-name").value.trim();
-  let phone = document.getElementById("new-contact-email").value.trim();
-  let email = document.getElementById("new-contact-phone").value.trim();
+  let phone = document.getElementById("new-contact-email").value;
+  let email = document.getElementById("new-contact-phone").value;
+
   updateContact(index, name, phone, email);
 }
 
@@ -167,7 +163,15 @@ function confirmEditContact(index) {
  * Deletes a contact.
  */
 function deleteContact(index) {
+  const contact = loadedContacts[index];
   loadedContacts.splice(index, 1);
+
+  // Aus dataStore löschen
+  if (dataStore.contacts && contact.id in dataStore.contacts) {
+    delete dataStore.contacts[contact.id];
+    saveStore();
+  }
+
   document.getElementById("contacts-detail").innerHTML = "";
   sortContacts();
   renderContactList(loadedContacts);
@@ -176,7 +180,11 @@ function deleteContact(index) {
 }
 
 /**
- * Opens the edit form for a contact.
+ * Opens the edit contact form for a specific contact by index.
+ * Sets up the form with the contact's current details and badge color,
+ * and prevents page scrolling while editing.
+ *
+ * @param {number} index - The index of the contact in the loadedContacts array.
  */
 function editContact(index) {
   document.body.style.overflow = "hidden";
@@ -239,16 +247,24 @@ function cancel() {
 function createNewContact() {
   let newContact = pushNewContact();
   if (!newContact) return;
+
   sortContacts();
   renderContactList(loadedContacts);
+
   let newIndex = loadedContacts.findIndex(c => c === newContact);
+
   showContactDetails(newIndex);
   clearContactForm();
   showSuccessMessage();
 }
 
 /**
- * Validates contact form fields.
+ * Validates the contact form fields and alerts if any are empty.
+ *
+ * @param {string} name - The contact's name.
+ * @param {string} phone - The contact's phone number.
+ * @param {string} email - The contact's email address.
+ * @returns {boolean} True if all fields are filled, false otherwise.
  */
 function isContactFormValid(name, phone, email) {
   if (!name || !phone || !email) {
@@ -269,35 +285,46 @@ function clearContactForm() {
 }
 
 /**
- * Updates an existing contact.
+ * Updates the details of a contact at a given index, then sorts and re-renders the contact list.
+ *
+ * @param {number} index - The index of the contact in the loadedContacts array.
+ * @param {string} name - The updated name of the contact.
+ * @param {string} phone - The updated phone number of the contact.
+ * @param {string} email - The updated email of the contact.
  */
 function updateContact(index, name, phone, email) {
-  loadedContacts[index].name = name;
-  loadedContacts[index].phone = phone;
-  loadedContacts[index].email = email;
+  const contact = loadedContacts[index];
+  contact.name = name;
+  contact.phone = phone;
+  contact.email = email;
+
+  // Änderungen in dataStore speichern
+  dataStore.contacts[contact.id] = { name, phone, email, color: contact.color };
+  saveStore(); // sessionStorage aktualisieren
+
   sortContacts();
   renderContactList(loadedContacts);
   clearContactForm();
 }
 
 /**
- * Adds a new contact to loadedContacts array.
+ * Adds a new contact to loadedContacts array and saves it to the data store.
  */
 function pushNewContact() {
-  let name = document.getElementById("new-contact-name").value.trim();
-  let phone = document.getElementById("new-contact-email").value.trim();
-  let email = document.getElementById("new-contact-phone").value.trim();
+  const name = document.getElementById("new-contact-name").value.trim();
+  const email = document.getElementById("new-contact-email").value.trim();
+  const phone = document.getElementById("new-contact-phone").value.trim();
+
   if (!isContactFormValid(name, phone, email)) return;
 
-  const newContact = {
-    id: crypto.randomUUID(),
-    name,
-    phone,
-    email,
-    color: assignContactColorsArray([{ id: crypto.randomUUID(), name, phone, email }])[0].color
-  };
+  const id = String(contactIdCounter++);
+  const color = assignContactColorsArray([{ id, name, phone, email }])[0].color;
 
+  const newContact = { id, name, phone, email, color };
   loadedContacts.push(newContact);
+  if (!dataStore.contacts) dataStore.contacts = {};
+  dataStore.contacts[id] = { name, phone, email, color };
+  saveStore();
   return newContact;
 }
 
