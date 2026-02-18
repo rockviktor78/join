@@ -1,10 +1,26 @@
+/**
+ * Holds the current task being created.
+ * Populated step by step with user input.
+ * @type {Array}
+ */
 let task = []
 
+/**
+ * Reference to the task due date input.
+ * @type {HTMLInputElement}
+ */
 const dateInput = document.getElementById('task-due-date');
+
+/**
+ * Sets the minimum selectable date to today.
+ */
 const today = new Date().toISOString().split('T')[0];
 dateInput.min = today;
 
-// 🔹 Format dd/mm/yyyy anzeigen
+/**
+ * Formats the selected date as dd/mm/yyyy
+ * and stores it in a data attribute on the input.
+ */
 dateInput.addEventListener('change', () => {
     const date = new Date(dateInput.value);
     if (!isNaN(date)) {
@@ -15,17 +31,27 @@ dateInput.addEventListener('change', () => {
     }
 });
 
-// 🔹 Kalender per Icon öffnen
+/**
+ * Programmatically opens the native date picker.
+ */
 function openDatePicker() {
     dateInput.showPicker();
 }
 
+/**
+ * Sets the task priority and updates the UI (buttons + icons).
+ *
+ * @param {HTMLButtonElement} button - The clicked priority button
+ */
 function selectPriority(priority) {
     task.priority = priority.value 
     document.querySelectorAll('.priority').forEach(el => el.classList.remove('selected'))
     priority.classList.add('selected')
 }
 
+/**
+ * Deselects all priority buttons and resets their icons.
+ */
 function selectPriority(button) {
     const buttons = document.querySelectorAll('.priority__button');
     buttons.forEach(btn => {
@@ -40,11 +66,242 @@ function selectPriority(button) {
     img.src = `../assets/img/addtask/${priority}selected.svg`;
 }
 
+/**
+ * Reads all input fields and prepares the task data.
+ */
 function saveTask() {
     const title = document.getElementById('task-title').value;
     const description = document.getElementById('task-description').value;
     const dueDate = document.getElementById('task-due-date').value;
     const assignedTo = document.getElementById('task-assigned-to').value;
     const category = document.getElementById('task-category').value;
-    const subtasks = document.getElementById('task-subtasks').value;
+    const subtasks = document.getElementById('added-subtask').textContent.trim().split('\n').filter(subtask => subtask.trim() !== '');
+}
+
+/**
+ * Clears all input fields and resets the task form to default state.
+ */
+function clearFields() {
+    document.getElementById('task-title').value = '';
+    document.getElementById('task-description').value = '';
+    document.getElementById('task-due-date').value = '';
+    document.getElementById('task-assigned-to').value = '';
+    document.getElementById('task-category').value = '';
+    document.getElementById('task-subtasks').value = '';
+    document.getElementById('added-subtask').textContent = '';
+    deselectPriority();
+    selectPriority(document.querySelector('.priority__button[value="medium"]'));
+}
+
+/**
+ * Adds a new subtask to the list and clears the input field.
+ */
+function deselectPriority() {
+     document.querySelectorAll('.priority__button').forEach(btn => {
+            btn.classList.remove('urgent', 'medium', 'low', 'active');
+            const img = btn.querySelector('img');
+            const base = btn.value;
+            img.src = `../assets/img/addtask/${base}.svg`;
+        });
+} 
+
+/**
+ * Adds a subtask when pressing Enter in the input field.
+ */
+function addSubtask() {
+    const subtaskInput = document.getElementById('task-subtasks');
+    const subtaskText = subtaskInput.value.trim();        
+        document.getElementById('added-subtask').innerHTML += templateAddSubtask(subtaskText, task.length);
+        subtaskInput.value = '';
+}
+
+/**
+ * Adds a subtask when pressing Enter in the input field.
+ */
+document.getElementById('task-subtasks').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        addSubtask();
+    }
+});
+
+/**
+ * Shows or hides the subtask action icons based on input content.
+ */
+function toggleSubtaskActions() {
+    const input = document.getElementById('task-subtasks');
+    const actions = document.querySelector('.subtask-actions');
+    if (input.value.trim() !== '') {
+        actions.classList.add('visible');
+    } else {
+        actions.classList.remove('visible');
+    }
+}
+
+/**
+ * Cancels adding a subtask and clears the input field.
+ */
+function cancelSubtask() {
+    const input = document.getElementById('task-subtasks');
+    input.value = '';
+    toggleSubtaskActions();
+}
+
+/**
+ * Starts edit mode for a subtask.
+ *
+ * @param {HTMLElement} trigger - The clicked element (text or edit icon)
+ */
+function editSubtask(trigger) {
+    const item = getSubtaskItem(trigger);
+    if (isEditing(item)) return;
+    const textSpan = item.querySelector('.subtask-text');
+    startEdit(item, textSpan);
+}
+
+/**
+ * Returns the subtask container element of a trigger.
+ *
+ * @param {HTMLElement} trigger
+ * @returns {HTMLElement}
+ */
+function getSubtaskItem(trigger) {
+    return trigger.closest('.subtask-item');
+}
+
+/**
+ * Checks whether a subtask is currently being edited.
+ *
+ * @param {HTMLElement} item
+ * @returns {boolean}
+ */
+function isEditing(item) {
+    return !!item.querySelector('.subtask-edit-input');
+}
+
+/**
+ * Initializes edit mode for a subtask.
+ *
+ * @param {HTMLElement} item
+ * @param {HTMLElement} textSpan
+ */
+function startEdit(item, textSpan) {
+    const input = createEditInput(textSpan.textContent);
+    item.replaceChild(input, textSpan);
+    input.focus();
+
+    attachEditListeners(item, textSpan, input);
+}
+
+/**
+ * Creates an input element for editing a subtask.
+ *
+ * @param {string} text
+ * @returns {HTMLInputElement}
+ */
+function createEditInput(text) {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = text;
+    input.className = 'subtask-edit-input';
+    return input;
+}
+
+/**
+ * Attaches event listeners for saving or canceling subtask edits.
+ *
+ * @param {HTMLElement} item
+ * @param {HTMLElement} textSpan
+ * @param {HTMLInputElement} input
+ */
+function attachEditListeners(item, textSpan, input) {
+    input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') saveEdit(item, input);
+        if (e.key === 'Escape') cancelEdit(item, textSpan, input);
+    });
+
+    input.addEventListener('blur', () => saveEdit(item, input));
+}
+
+/**
+ * Saves the changes made to a subtask.
+ *
+ * @param {HTMLElement} item
+ * @param {HTMLInputElement} input
+ */
+function saveEdit(item, input) {
+    const newText = input.value.trim();
+    if (!newText) return;
+
+    const span = document.createElement('span');
+    span.className = 'subtask-text';
+    span.textContent = newText;
+
+    item.replaceChild(span, input);
+}
+
+/**
+ * Cancels editing a subtask and restores original text.
+ */
+function cancelEdit(item, textSpan, input) {
+    item.replaceChild(textSpan, input);
+}
+
+/**
+ * Deletes a subtask from the DOM.
+ *
+ * @param {HTMLElement} trigger - The clicked delete icon
+ */
+function deleteSubtask(trigger) {
+    const item = trigger.closest('.subtask-item');
+    item.remove();
+}
+
+
+
+let loadedContacts = [];
+const BASE_URL = "https://join-7c944-default-rtdb.europe-west1.firebasedatabase.app/";
+
+async function initContacts() {
+  await fetchContacts();
+}
+
+async function fetchContacts(path = "contacts") {
+  let response = await fetch(BASE_URL + path + ".json");
+  let responseToJson = await response.json();
+
+  loadedContacts = responseToJson ? Object.values(responseToJson) : [];
+  sortContacts();
+    renderContactList(loadedContacts);
+}
+
+function sortContacts() {
+  loadedContacts.sort((a, b) =>
+    a.name.localeCompare(b.name, "de", { sensitivity: "base" }),
+  );
+}
+
+function renderContactList(loadedContacts) {
+    const contactList = document.getElementById("task-assigned-to");
+    contactList.innerHTML = "";
+    loadedContacts.forEach((contact, index) => {
+        renderContactItem(contactList, contact, index);
+    });
+}
+
+function renderContactItem(contactList, contact, index) {
+    let initial = getInitial(contact.name);
+  document.getElementById("task-assigned-to").innerHTML += templateContact(
+    initial,
+    contact.name,
+    index,
+  );
+}
+
+function getInitial(name) {
+  if (!name) return "";
+  let parts = name.trim().split(/\s+/);
+  let first = parts[0].charAt(0);
+  let last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : "";
+  return (first + last).toUpperCase();
 }

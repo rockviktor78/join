@@ -40,7 +40,11 @@ async function getUserByEmail(email) {
 
 
 /**
- * Handles the login form submission.
+ * Handles login form submission, validates credentials, 
+ * and initializes the data store with `initDataStore()` on success.
+ *
+ * @param {Event} event - The form submission event.
+ * @async
  */
 async function handleLogin(event) {
     event.preventDefault();
@@ -51,6 +55,7 @@ async function handleLogin(event) {
     const user = await getUserByEmail(email);
 
     if (user && user.password === password) {
+        await initDataStore();
         completeUserLogin(user);
     } else {
         showLoginError();
@@ -114,22 +119,33 @@ function handleGuestLogin() {
     completeGuestLogin(guestUser);
 }
 
+
 /**
- * Finalizes the login for a registered user and redirects.
- * @param {Object} currentUser - The user object.
+ * Finalizes login by storing the user session, initializing the data store, 
+ * and redirecting to the summary page.
+ *
+ * @param {Object} currentUser - The logged-in user object.
+ * @async
  */
-function completeUserLogin(currentUser) {
+async function completeUserLogin(currentUser) {
     sessionStorage.setItem('loggedInUser', JSON.stringify(currentUser));
+    await initDataStore();
+
     window.location.href = "./html/summary.html";
 }
 
 
 /**
- * Finalizes the login for a guest and redirects with a delay.
+ * Finalizes guest login by storing the session, initializing the data store,
+ * and redirecting to the summary page after a delay.
+ *
  * @param {Object} guestUser - The guest user object.
+ * @async
  */
-function completeGuestLogin(guestUser) {
+async function completeGuestLogin(guestUser) {
     sessionStorage.setItem('loggedInUser', JSON.stringify(guestUser));
+    await initDataStore();
+
     redirectAfterDelay("./html/summary.html");
 }
 

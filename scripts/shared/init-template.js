@@ -31,17 +31,22 @@ function initializeMenuAndLogout() {
 /**
  * Sets up the logout link functionality
  */
+/**
+ * Sets up the logout link functionality
+ */
 function setupLogoutLink() {
   const logoutLink = document.getElementById("logoutLink");
-  if (logoutLink) {
-    logoutLink.addEventListener("click", (event) => {
-      event.preventDefault();
-      sessionStorage.removeItem("loggedInUser");
-      sessionStorage.removeItem("allTasks");
-      window.location.href = "../index.html";
-    });
-  }
+  if (!logoutLink) return;
+  logoutLink.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    sessionStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("joinData");
+
+    window.location.href = "../index.html";
+  });
 }
+
 
 /**
  * Initializes additional menu features if available

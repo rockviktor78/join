@@ -21,19 +21,20 @@
     <link rel="stylesheet" href="../styles/summary.css" />
 
     <script src="../scripts/firebase.js" defer></script>
+    <script src="../scripts/dataStore.js" defer></script>
+    <script src="../scripts/summary.js" defer></script>
     <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
-    <script src="../scripts/summary.js" defer></script>
   </head>
 
   <body class="app-layout">
     <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
     <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
     <main class="content-area">
-      <div class="content-limit">
+      <div class="content-limit content-padding">
         <header class="summary__header">
           <h1 class="summary__title">Join360</h1>
           <div class="separator separator--h-mobile separator--blue" role="separator"></div>

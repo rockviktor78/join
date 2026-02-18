@@ -23,8 +23,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem 0;
-  margin-bottom: 2.5rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .board__title {
@@ -145,6 +145,12 @@
 }
 
 /* ====== 4. Task Cards ====== */
+.task-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .task-card {
   background-color: var(--color-white);
   border-radius: 1.375rem;
@@ -153,7 +159,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.625rem;
   transition: transform 0.1s ease;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -162,11 +168,7 @@
   min-width: 15.75rem;
   flex-shrink: 0;
   scroll-snap-align: start;
-}
-
-.task-card:active {
-  background-color: var(--color-gray-100);
-  transform: scale(0.98);
+  position: relative;
 }
 
 .task-card__category {
@@ -299,7 +301,66 @@
   }
 }
 
-/* ====== 6. Desktop Version ====== */
+.task-move-btn {
+  width: 1.25rem;
+  cursor: pointer;
+}
+
+/* ====== 7. Task Overlay ====== */
+.move-overlay {
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-2xl) 0 var(--radius-2xl) var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  z-index: 10;
+  text-align: start;
+  padding: 1rem;
+}
+
+.move-overlay__title {
+  color: var(--color-white);
+  font-weight: var(--font-weight-medium);
+  opacity: 0.9;
+  padding-bottom: 0.25rem;
+}
+
+.move-overlay {
+  transform: scale(0.95);
+  opacity: 0;
+  transition: 0.15s ease;
+}
+
+.move-overlay:not(.hidden) {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.move-overlay button {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-weight: var(--font-weight-medium);
+  text-align: left;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  margin-top: 0.5rem;
+}
+
+.move-overlay button:hover {
+  background-color: var(--color-primary-dark);
+  border-radius: 0.2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ====== 8. Desktop Version ====== */
 @media (min-width: 768px) {
   /* Typography */
   .board__title {
@@ -375,6 +436,11 @@
     flex-shrink: 1;
   }
 
+  .task-card:active {
+    background-color: var(--color-gray-100);
+    transform: scale(0.98);
+  }
+
   /* Buttons */
   .board__add-btn {
     order: 2;
@@ -387,13 +453,21 @@
   .board__add-btn img {
     margin-left: 0.625rem;
   }
-}
 
-@media (hover: hover) {
   .task-card:hover {
     transform: translateY(-4px);
   }
 
+  .task-move-btn {
+    display: none;
+  }
+
+  .move-overlay {
+    display: none !important;
+  }
+}
+
+@media (hover: hover) {
   .board__add-btn:hover {
     background-color: var(--color-accent);
   }

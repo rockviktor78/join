@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../styles/components/header.css" />
     <link rel="stylesheet" href="../styles/components/sidebar.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
+    <link rel="stylesheet" href="../styles/add_task-media.css" />
     <link rel="stylesheet" href="../styles/add_task-mobile.css" />
     <link rel="stylesheet" href="../styles/add_task-mobile-small.css" />
 
@@ -26,9 +27,10 @@
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
     <script src="../scripts/add_task.js" defer></script>
+    <script src="../scripts/add_task-template.js" defer></script>
   </head>
 
-  <body class="app-layout">
+  <body onload="initContacts()" class="app-layout">
     <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
     <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
 
@@ -37,16 +39,16 @@
         <div class="add-task-title">Add Task</div>
         <div class="add-task-content">
         <div class="left-side">
-          <div>
-            <div>Title*</div>
+          <div class="section">
+            <div class="headline">Title*</div>
             <div><input type="text" class="task-title" id="task-title" name="title" placeholder="Enter a title" required></div>
           </div>
-          <div>
-              <div>Description</div>
-              <div><input type="text" class="task-description" id="task-description" name="description" placeholder="Enter a description" required></div>
+          <div class="section">
+              <div class="headline">Description</div>
+              <div><textarea class="task-description" id="task-description" name="description" placeholder="Enter a description" required></textarea></div>
           </div>
-          <div>
-            <div>Due Date*</div>
+          <div class="section">
+            <div class="headline">Due Date*</div>
             <div class="date-wrapper">
               <input type="date" class="task-due-date" id="task-due-date" name="due-date" required>
               <img src="../assets/img/addtask/calender.svg" class="calendar-icon" onclick="openDatePicker()" alt="Kalender öffnen">
@@ -63,34 +65,38 @@
               </select>
             </div>
           </div>
-          <div>
-            <div>Assigned to</div>
+          <div class="section">
+            <div class="headline">Assigned to</div>
             <div>
-              <select id="task-assigned-to" name="assigned-to" placeholder="Select contacts to assign">
-                <option value="" disabled selected>Select contacts</option>
-                <option value="contact1">Contact 1</option>
-                <option value="contact2">Contact 2</option>
-                <option value="contact3">Contact 3</option>
+              <select class="task-assigned-to" id="task-assigned-to" name="assigned-to" placeholder="Select contacts to assign">
+                <option id="contact-list" value="">Select contacts</option>
               </select>
             </div>
           </div>
-          <div>
-            <div>Category*</div>
+          <div class="section">
+            <div class="headline">Category*</div>
             <div>
-              <select id="task-category" name="category" placeholder="Select task category">
+              <select class="task-category" id="task-category" name="category" placeholder="Select task category">
                 <option value="" disabled selected>Select category</option>
                 <option value="technical-task">Technical Task</option>
                 <option value="user-story">User Story</option>
               </select>
             </div>
           </div>
-          <div>
-            <div>Subtasks</div>
-            <div><input type="text" id="task-subtasks" name="subtasks" placeholder="Add new subtask" required></div>
+          <div class="section">
+            <div class="headline">Subtasks</div>
+            <div class="subtask-wrapper">
+              <input type="text" class="subtask" id="task-subtasks" name="subtasks" placeholder="Add new subtask" oninput="toggleSubtaskActions()" required>
+              <div class="subtask-actions">
+                <span class="cancel" onclick="cancelSubtask()"> <img src="../assets/img/addtask/cross.svg"> </span>                
+                <span class="confirm" onclick="addSubtask()"> <img src="../assets/img/addtask/checkdark.svg"> </span>
+              </div>
+            </div>
+            <div class="added-subtask" id="added-subtask"></div>
           </div>
         </div>
         </div>
-        <div class="buttom">
+        <div class="button-wrapper">
           <div>*This field is required</div>
           <div class="add-task-button">
             <button id="clear__button" class="clear__button" onclick="clearFields()">Clear <img src="../assets/img/addtask/cross.svg"></button>

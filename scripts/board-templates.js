@@ -14,13 +14,16 @@ function getNoTaskTemplate() {
  * @param {string} subtasksSection - Pre-rendered HTML for the subtask progress bar.
  * @param {string} assignedSection - Pre-rendered HTML for the assigned users' badges.
  * @param {string} priorityIcon - The file path to the priority icon image.
- * @returns {string} The HTML template for a task card.
+ * @returns {string} The HTML template for a task card.   //onclick="openTaskDetails('${task.id}')"
  */
 function getTaskCardTemplate(task, taskType, subtasksSection, assignedSection, priorityIcon) {
     return `
-        <div draggable="true" class="task-card" data-id="${task.id}" onclick="openTaskDetails('${task.id}')">
-            <div class="task-card__category task-card__category--${taskType}">
-                ${task.taskType}
+        <div draggable="true" class="task-card" data-id="${task.id}" > 
+            <div class="task-card__header">
+                <div class="task-card__category task-card__category--${taskType}">
+                    ${task.taskType}
+                </div>
+                <img src="../assets/img/board/move-to.svg" class="task-move-btn" onclick="toggleMoveToTaskOverlay('${task.id}', event)"/>
             </div>
             <div class="task-card__content">
                 <div class="task-card__title">${task.title}</div>
@@ -35,6 +38,7 @@ function getTaskCardTemplate(task, taskType, subtasksSection, assignedSection, p
                     <img class="task-card__priority-icon" src="${priorityIcon}" alt="${task.priority}">
                 </div>
             </div>
+            <div class="move-overlay hidden" id="overlay-${task.id}"></div>
         </div>
     `;
 }
@@ -74,3 +78,6 @@ function getAssignedUserBadgeTemplate(initials, bgColor, name) {
              ${initials}
         </div>`;
 }
+
+
+

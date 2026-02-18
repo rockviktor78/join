@@ -1,0 +1,86 @@
+@media (max-width: 399px) {
+    .add-task-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .add-task-title {
+        font-size: var(--font-size-4xl);
+    }
+
+    .add-task-container {
+        width: 100vw;
+        z-index: 1;
+        padding-bottom: 10rem;
+    }
+    
+    .add-task-form {
+        padding: 1rem 1.5rem 2rem 1.75rem;
+        width: 100%;
+    }
+    
+    .add-task-header {
+        font-size: var(--font-size-xxl);
+    }
+
+    .left-side, .right-side {
+        width: 100%;
+    }
+
+    .task-title {
+        font-size: var(--font-size-base);
+    }
+
+    .task-description {
+        font-size: var(--font-size-base);
+    }
+
+    .task-due-date {
+        font-size: var(--font-size-base);
+    }
+
+    .priority-selection {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .priority__button {
+        width: 100%;
+        justify-content: center;
+        font-size: var(--font-size-xl);
+    }
+
+    .task-assigned-to {
+        font-size: var(--font-size-base);
+    }
+
+    .task-category {
+        font-size: var(--font-size-base);
+    }
+
+    .subtask {
+        font-size: var(--font-size-base);
+    }
+
+    .button-wrapper {
+        padding-bottom: 4.813rem;
+    }
+
+    .add-task-button {
+        position: fixed;
+        bottom: 4.688rem;
+        width: 100%;
+        padding-bottom: 20px;
+        display: flex;
+    }
+
+    .clear__button {
+        font-size: var(--font-size-base);
+    }
+
+    .create-task__button {
+        font-size: var(--font-size-base);
+    }
+}

@@ -1,6 +1,7 @@
 let tasks = [];
 let contacts = {};
 let currentDraggedElement = null;
+let currentMoveTask = null;
 
 const columns = ["toDo", "inProgress", "awaitFeedback", "done"];
 const CATEGORY_MAP = {
@@ -10,44 +11,27 @@ const CATEGORY_MAP = {
     "done": "done"
 };
 
+const CATEGORY_ORDER = [
+    "to do",
+    "in progress",
+    "await feedback",
+    "done"
+];
+
 
 /**
  * Initializes the board: loads data, renders tasks, and sets up event listeners.
  * @async
  */
 async function initBoard() {
-    await loadContactsFromFirebase()
-    await loadTasksFromFirebase();
+    await initDataStore();
+
+    contacts = getContacts();
+    tasks = getTasks();
+
     renderBoard();
     initDragAndDrop();
     initButtons();
-}
-
-
-/**
- * Fetches contact data from Firebase and updates the local contacts object.
- */
-async function loadContactsFromFirebase() {
-    const data = await getData("contacts");
-    contacts = data || {};
-}
-
-
-/**
- * Fetches tasks from Firebase and transforms the data into an array with IDs.
- * @async
- * @returns {Promise<void>}
- */
-async function loadTasksFromFirebase() {
-    const data = await getData("tasks");
-    if (!data) {
-        tasks = [];
-        return;
-    }
-    tasks = Object.keys(data).map((key) => ({
-        id: key,
-        ...data[key]
-    }));
 }
 
 
@@ -179,22 +163,25 @@ function moveTaskToColumn(columnId) {
     const newCategory = CATEGORY_MAP[columnId];
     if (!newCategory) return;
 
-    const task = tasks.find(t => t.id === currentDraggedElement);
+    const task = tasks.find(task => task.id === currentDraggedElement);
     if (!task) return;
 
     task.category = newCategory;
 
     if (columnId === "done") {
-        autoCompleteSubtasks(task);
+        autoCompleteSubtasksAsDone(task);
     }
+
+    updateTasks(tasksFromArrayToObject(tasks));
     renderBoard();
 }
+
 
 
 /**
  * Helper to mark all subtasks as done.
  */
-function autoCompleteSubtasks(task) {
+function autoCompleteSubtasksAsDone(task) {
     if (task.subtasks && task.subtasks.length > 0) {
         task.subtasks.forEach(subtask => subtask.done = true);
     }
@@ -218,6 +205,118 @@ function initButtons() {
 
 
 /**
+ * Toggles the move task overlay on mobile for a specific task.
+ *
+ * @param {string} taskId - The unique ID of the task to move.
+ * @param {Event} event - The DOM event that triggered this action.
+ */
+function toggleMoveToTaskOverlay(taskId, event) {
+    event.stopPropagation();
+
+    const overlay = document.getElementById(`overlay-${taskId}`);
+    const currentTask = tasks.find(task => task.id === taskId);
+
+    if (!overlay || !currentTask) return;
+
+    overlay.innerHTML = generateMoveToOptions(currentTask.category, taskId);
+    overlay.classList.toggle("hidden");
+    currentMoveTask = currentTask;
+}
+
+
+/**
+ * Generates HTML buttons for moving a task to adjacent columns.
+ *
+ * @param {string} category - The current category of the task (e.g., "to do", "in progress").
+ * @param {string} taskId - The unique ID of the task.
+ * @returns {string} The HTML string containing move buttons for the overlay.
+ */
+function generateMoveToOptions(category, taskId) {
+    const currentCategoryIndex = CATEGORY_ORDER.indexOf(category);
+    let html = `<span class="move-overlay__title">Move to</span>`;
+
+    if (currentCategoryIndex > 0) {
+        const target = CATEGORY_ORDER[currentCategoryIndex - 1];
+        html += `<button onclick="moveTaskViaOverlay(${currentCategoryIndex - 1}, '${taskId}', event)">↑ ${formatColumnName(target)}</button>`;
+    }
+    if (currentCategoryIndex < CATEGORY_ORDER.length - 1) {
+        const target = CATEGORY_ORDER[currentCategoryIndex + 1];
+
+        html += `<button onclick="moveTaskViaOverlay(${currentCategoryIndex + 1}, '${taskId}', event)">↓ ${formatColumnName(target)}</button>`;
+    }
+    return html;
+}
+
+
+/**
+ * Capitalizes the first letter of each word in a column name of the overlay.
+ * @param {string} name - The column name to format.
+ * @returns {string} The formatted column name with each word capitalized.
+ */
+function formatColumnName(name) {
+    return name
+        .split(" ")
+        .map(word => word[0].toUpperCase() + word.slice(1))
+        .join(" ");
+}
+
+
+/**
+ * Moves a task to a new column based on the overlay selection.
+ *
+ * @param {number} newIndex - The index of the target column in CATEGORY_ORDER.
+ * @param {string} taskId - The unique ID of the task to move.
+ * @param {Event} event - The DOM event that triggered this action.
+ * @returns {void} Nothing is returned.
+ */
+function moveTaskViaOverlay(newIndex, taskId, event) {
+    event.stopPropagation();
+
+    const currentTask = tasks.find(t => t.id === taskId);
+    if (!currentTask) return;
+
+    currentTask.category = CATEGORY_ORDER[newIndex];
+
+    if (currentTask.category === "done") {
+        autoCompleteSubtasksAsDone(currentTask);
+    }
+
+    currentMoveTask = null;
+    updateTasks(tasksFromArrayToObject(tasks));
+    renderBoard();
+}
+
+
+/**
+ * Closes all move task overlays by adding the "hidden" class to each overlay element.
+ */
+function closeAllMoveOverlays() {
+    document
+        .querySelectorAll(".move-overlay")
+        .forEach(el => el.classList.add("hidden"));
+
+    currentMoveTask = null;
+}
+
+
+function tasksFromArrayToObject(taskArray) {
+    const obj = {};
+    taskArray.forEach(task => {
+        const { id, ...data } = task;
+        obj[id] = data;
+    });
+    return obj;
+}
+
+
+document.addEventListener("click", closeAllMoveOverlays);
+document.addEventListener("DOMContentLoaded", initBoard);
+
+
+
+
+
+/**
  * DEMO ADD TASK
  */
 function addTask() {
@@ -227,10 +326,9 @@ function addTask() {
 
 /**
  * DEMO ADD TASK
- */
+
 function openTaskDetails(params) {
     alert("ADD task details overlay");
 }
 
-
-document.addEventListener("DOMContentLoaded", initBoard);
+ */
