@@ -1,4 +1,4 @@
-/* Content-area wird in layout.css definiert */
+/* Content-area is defined in layout.css */
 .content-area::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari, Edge */
@@ -14,7 +14,7 @@
 .content-limit {
   width: 100%;
   max-width: calc(var(--content-max-width) - var(--sidebar-width));
-  /* Mobile: Kleineres Padding */
+  /* Mobile: Smaller padding */
   padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
 }
@@ -44,9 +44,9 @@
   margin-bottom: var(--spacing-md);
 }
 
-/* "Join" Links hellblau stylen */
+/* Style "Join" links in light blue */
 .help-section a[href="#"] {
-  color: var(--color-accent); /* Hellblau */
+  color: var(--color-accent); /* Light blue */
   text-decoration: none;
   font-weight: var(--font-weight-medium);
 }
@@ -123,7 +123,7 @@
   text-decoration: underline;
 }
 
-/* E-Mail-Links: Keine Unterstreichung */
+/* Email links: No underline */
 .help-section a[href^="mailto:"] {
   color: var(--color-accent);
   text-decoration: none;
@@ -134,7 +134,7 @@
   font-weight: var(--font-weight-semibold);
 }
 
-/* Verhindert Textauswahl */
+/* Prevents text selection */
 .no-select {
   user-select: none;
   -webkit-user-select: none;
@@ -142,14 +142,14 @@
   -ms-user-select: none;
 }
 
-/* Brand Name "Join" - blau, keine Unterstreichung, kein cursor */
+/* Brand Name "Join" - blue, no underline, no cursor */
 .brand-name {
   color: var(--color-accent);
   text-decoration: none;
   cursor: default;
 }
 
-/* Company Name "Developer Akademie GmbH" - blau + semibold */
+/* Company Name "Developer Akademie GmbH" - blue + semibold */
 .company-name {
   color: var(--color-accent);
   font-weight: var(--font-weight-semibold);
@@ -193,11 +193,11 @@
 }
 
 /* ================================================
-   Large Screens: Button bleibt bei 1440px Grenze
+   Large Screens: Button stays at 1440px boundary
    ================================================ */
 @media (min-width: 1441px) {
   .back-btn {
-    /* Button bleibt an gleicher Position wie Header-Elemente */
+    /* Button stays at same position as header elements */
     right: calc((100vw - 1440px) + var(--spacing-5xl));
   }
 }

@@ -31,9 +31,6 @@ function initializeMenuAndLogout() {
 /**
  * Sets up the logout link functionality
  */
-/**
- * Sets up the logout link functionality
- */
 function setupLogoutLink() {
   const logoutLink = document.getElementById("logoutLink");
   if (!logoutLink) return;
@@ -46,7 +43,6 @@ function setupLogoutLink() {
     window.location.href = "../index.html";
   });
 }
-
 
 /**
  * Initializes additional menu features if available
@@ -99,7 +95,7 @@ function setupUserMenu() {
 
 /**
  * Gets user menu DOM elements
- * @returns {Object|null} Object with avatar and menu elements, or null if not found
+ * @returns {Object|null} - Object with avatar and menu elements, or null if not found
  */
 function getUserMenuElements() {
   const avatar = document.getElementById("userAvatar");
@@ -170,7 +166,7 @@ function setUserInitials() {
 
 /**
  * Retrieves user initials from session storage
- * @returns {string} User initials or default "MS"
+ * @returns {string} - User initials or default "MS"
  */
 function getUserInitials() {
   const loggedInUserString = sessionStorage.getItem("loggedInUser");
@@ -204,7 +200,7 @@ function setInitialsToAvatar(avatar, initials) {
 
 /**
  * Checks if a user is currently logged in
- * @returns {boolean} True if user is logged in
+ * @returns {boolean} - True if user is logged in
  */
 function isUserLoggedIn() {
   const loggedInUser = sessionStorage.getItem("loggedInUser");
@@ -216,7 +212,7 @@ function isUserLoggedIn() {
  * External mode is only used when:
  * - User is NOT logged in AND
  * - Page is privacy-policy or legal-notice
- * @returns {boolean} True if external mode should be used
+ * @returns {boolean} - True if external mode should be used
  */
 function shouldUseExternalMode() {
   const path = window.location.pathname.toLowerCase();
@@ -257,7 +253,7 @@ function setBackButtonMode() {
 /**
  * Replaces the back button to remove previous event listeners
  * @param {HTMLElement} backButton - The back button element
- * @returns {HTMLElement} The new back button element
+ * @returns {HTMLElement} - The new back button element
  */
 function replaceBackButton(backButton) {
   const newBackButton = backButton.cloneNode(true);

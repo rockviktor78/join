@@ -1,6 +1,6 @@
 /* HEADER - Mobile First */
 .header__content {
-  /* Mobile: Oben, kompakt */
+  /* Mobile: Top, compact */
   position: sticky;
   top: 0;
   background-color: var(--color-white);
@@ -113,7 +113,7 @@
     opacity var(--transition-base),
     transform var(--transition-base);
   z-index: var(--z-dropdown);
-  /* Mobile: Unter dem Avatar */
+  /* Mobile: Below avatar */
   top: calc(89% + var(--spacing-xs));
   right: 0;
 }
@@ -157,12 +157,12 @@
     cursor: pointer;
   }
 
-  /* Mobile: Text ausblenden */
+  /* Mobile: Hide text */
   .header__title {
     display: none;
   }
 
-  /* Mobile: Help-Button ausblenden */
+  /* Mobile: Hide help button */
   .header__help-btn {
     display: none;
   }
@@ -186,10 +186,10 @@
 }
 
 /* ================================================
-   Back Button - Zentrale Steuerung über Body-Klassen
+   Back Button - Centralized control via Body classes
    ================================================ */
 .back-btn {
-  /* Fixed: Scrollt nicht mit */
+  /* Fixed: Does not scroll */
   position: fixed;
   top: calc(5rem + var(--spacing-2xl));
   right: var(--spacing-lg);
@@ -201,7 +201,7 @@
   transition:
     transform var(--transition-fast),
     background var(--transition-fast);
-  display: none; /* Default: versteckt */
+  display: none; /* Default: hidden */
   align-items: center;
   justify-content: center;
   transform: translateY(-1rem);

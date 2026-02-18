@@ -27,7 +27,7 @@
   animation-name: fade-in;
 }
 
-/* Animationen definieren */
+/* Define animations */
 @keyframes fade-out {
   from {
     opacity: 1;

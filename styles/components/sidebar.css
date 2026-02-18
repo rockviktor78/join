@@ -24,7 +24,7 @@
 }
 
 .menu__nav {
-  /* Mobile: Horizontal Layout */
+  /* Mobile: Horizontal layout */
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -58,8 +58,9 @@
   height: 1.5rem;
 }
 
+/* Accessibility: min 1rem */
 .menu__label {
-  font-size: var(--font-size-base); /* Accessibility: min 1rem */
+  font-size: var(--font-size-base); 
 }
 
 /* Mobile: Hover without layout shift (color only) */
@@ -74,9 +75,9 @@
   color: var(--color-white);
 }
 
+ /* Mobile: Hidden */
 .menu__mobile {
-  /* Mobile: Hidden */
-  display: none;
+   display: none;
 }
 
 .menu__mobile__link {
