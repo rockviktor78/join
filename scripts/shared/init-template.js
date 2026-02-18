@@ -31,21 +31,28 @@ function initializeMenuAndLogout() {
 /**
  * Sets up the logout link functionality
  */
-/**
- * Sets up the logout link functionality
- */
 function setupLogoutLink() {
   const logoutLink = document.getElementById("logoutLink");
   if (!logoutLink) return;
+
   logoutLink.addEventListener("click", (event) => {
     event.preventDefault();
 
+    removeCurrentUserContact();
     sessionStorage.removeItem("loggedInUser");
     sessionStorage.removeItem("joinData");
+
+    dataStore = {
+      tasks: null,
+      contacts: null,
+      users: null
+    };
 
     window.location.href = "../index.html";
   });
 }
+
+
 
 
 /**
