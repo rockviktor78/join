@@ -174,7 +174,7 @@
   }
 
   .back-btn {
-    top: calc(6rem + var(--spacing-5xl));
+    top: calc(9.2rem + var(--spacing-5xl));
     right: var(--spacing-5xl);
   }
 
