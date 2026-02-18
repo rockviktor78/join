@@ -17,7 +17,6 @@ function assignContactColors(contactsArray) {
     return updatedContacts;
 }
 
-
 /**
  * Loads the stored contact colors from localStorage.
  *
@@ -27,17 +26,14 @@ function loadStoredColors() {
     return JSON.parse(localStorage.getItem("contactColors")) || {};
 }
 
-
 /**
  * Saves the contact colors to localStorage.
  *
  * @param {Object} colors - An object mapping contacts to their colors.
  */
 function saveStoredColors(colors) {
-    console.log("Saving colors:", colors);
     localStorage.setItem("contactColors", JSON.stringify(colors));
 }
-
 
 /**
  * Retrieves the badge colors defined in CSS variables (--color-badge-1 to --color-badge-16).
@@ -56,7 +52,6 @@ function getBadgeColors() {
     }
     return colors;
 }
-
 
 /**
  * Assigns colors to contacts, using stored colors if available, 
@@ -90,6 +85,34 @@ function applyColorsToContacts(contactsArray, storedColors, badgeColors) {
     return result;
 }
 
+/**
+ * Assigns colors to an array of contacts using stored colors or cycling through badge colors,
+ * then saves the updated colors back to localStorage.
+ *
+ * @param {Array<Object>} contactsArray - Array of contact objects to assign colors to.
+ * @returns {Array<Object>} The same array with color properties added to each contact.
+ */
+function assignContactColorsArray(contactsArray) {
+    if (!Array.isArray(contactsArray)) return [];
 
+    const storedColors = loadStoredColors();
+    const badgeColors = getBadgeColors();
+    let colorIndex = 0;
 
+    contactsArray.forEach(contact => {
+        if (!contact.id) return;
+
+        if (storedColors[contact.id]) {
+            contact.color = storedColors[contact.id];
+        } else {
+            const newColor = badgeColors[colorIndex];
+            contact.color = newColor;
+            storedColors[contact.id] = newColor;
+            colorIndex = (colorIndex + 1) % badgeColors.length;
+        }
+    });
+
+    saveStoredColors(storedColors);
+    return contactsArray;
+}
 
