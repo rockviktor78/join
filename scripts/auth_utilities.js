@@ -9,7 +9,6 @@ const toSignupOnMobile = document.getElementById('toSignupOnMobile');
 const eyeOff = "./assets/img/auth/visibility-off-default.svg";
 const eyeOn = "./assets/img/auth/visibility-on-default.svg";
 
-
 /**
  * Toggles the visibility of a password input field and updates the corresponding icon.
  * @param {HTMLInputElement} input - The password input field.
@@ -35,7 +34,6 @@ function initPasswordIconToggle(input, icon) {
     };
 }
 
-
 /**
  * Updates the authentication card height to match the active content
  * for smooth view transitions.
@@ -47,7 +45,6 @@ function updateCardHeight(activeWrapper) {
         authCard.style.height = height + "px";
     }
 }
-
 
 /**
  * Shows an error message and highlights the associated input group.
@@ -61,7 +58,6 @@ function showInputError(element, group, message) {
     if (group) group.classList.add('auth-card__input-group--error');
 }
 
-
 /**
  * Hides an error message and clears the error styling from an input group.
  * @param {HTMLElement} element - The element displaying the error message.
@@ -71,7 +67,6 @@ function hideInputError(element, group) {
     element.classList.remove('show');
     if (group) group.classList.remove('auth-card__input-group--error');
 }
-
 
 /**
  * Switches the authentication view to the signup form.
@@ -86,7 +81,6 @@ function showSignup(event) {
     updateCardHeight(signupWrapper);
 }
 
-
 /**
  * Switches the authentication view back to the login form.
  * @param {Event} event - The event triggering the switch (e.g., click).
@@ -100,7 +94,6 @@ function showLogin(event) {
     updateCardHeight(loginWrapper);
 }
 
-
 /**
  * Initializes the authentication card height and enables transitions.
  */
@@ -111,7 +104,6 @@ function initAuthHeight() {
         authCard.classList.add("ready", "transition-ready");
     });
 }
-
 
 /**
  * Initializes the authentication UI once the DOM is fully loaded,
