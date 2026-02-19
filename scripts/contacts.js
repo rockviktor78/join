@@ -153,8 +153,8 @@ function addNewContact() {
  */
 function confirmEditContact(index) {
   let name = document.getElementById("new-contact-name").value.trim();
-  let phone = document.getElementById("new-contact-email").value;
-  let email = document.getElementById("new-contact-phone").value;
+  let phone = document.getElementById("new-contact-phone").value;
+  let email = document.getElementById("new-contact-email").value;
 
   updateContact(index, name, phone, email);
 }
