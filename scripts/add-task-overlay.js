@@ -30,32 +30,61 @@ function insertAddTaskContent(doc, content) {
 }
 
 /**
- * Opens Add Task overlay panel on desktop or navigates to page on mobile.
+ * Handles mobile navigation to add-task page.
+ * @param {Event} event - Click event
+ */
+function handleMobileAddTask(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  window.location.assign("add-task.html");
+}
+
+/**
+ * Loads content into overlay if needed.
+ * @param {HTMLElement} content - Content container
+ */
+async function loadOverlayContent(content) {
+  if (!content || content.hasAttribute("data-loaded")) return;
+  try {
+    const doc = await loadAddTaskHTML();
+    insertAddTaskContent(doc, content);
+  } catch (error) {
+    console.error("Error loading add-task content:", error);
+  }
+}
+
+/**
+ * Shows overlay panel.
+ */
+function showOverlayPanel() {
+  const panel = document.querySelector(".addtask-panel");
+  const overlay = document.querySelector(".addtask-overlay");
+  if (panel) panel.classList.add("is-open");
+  if (overlay) overlay.classList.add("is-open");
+}
+
+/**
+ * Opens overlay panel on desktop.
+ */
+async function openAddTaskOverlay() {
+  const content = document.querySelector(".addtask-panel__content");
+  await loadOverlayContent(content);
+  showOverlayPanel();
+}
+
+/**
+ * Opens Add Task on desktop or navigates on mobile.
  * @param {Event} event - Click event
  */
 async function addTask(event) {
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
   if (isMobile) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    window.location.assign("add-task.html");
+    handleMobileAddTask(event);
     return;
   }
-  const panel = document.querySelector(".addtask-panel");
-  const overlay = document.querySelector(".addtask-overlay");
-  const content = document.querySelector(".addtask-panel__content");
-  if (content && !content.hasAttribute("data-loaded")) {
-    try {
-      const doc = await loadAddTaskHTML();
-      insertAddTaskContent(doc, content);
-    } catch (error) {
-      console.error("Error loading add-task content:", error);
-    }
-  }
-  if (panel) panel.classList.add("is-open");
-  if (overlay) overlay.classList.add("is-open");
+  await openAddTaskOverlay();
 }
 
 /**
