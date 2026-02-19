@@ -1,4 +1,19 @@
 /**
+ * Checks if a user is logged in. 
+ * If not, redirects automatically to the login page.
+ *
+ * @returns {Object|null} The logged-in user object, or null if no user is found.
+ */
+function protectPage() {
+    const userData = sessionStorage.getItem('loggedInUser');
+    if (!userData) {
+        window.location.href = "../index.html";
+        return null;
+    }
+    return JSON.parse(userData);
+}
+
+/**
  * Assigns colors to contacts based on available badge colors.
  * If a contact already has a color, it is kept.
  * Otherwise, cycles through the badge colors.
@@ -37,4 +52,5 @@ function getBadgeColors() {
     }
     return colors;
 }
+
 
