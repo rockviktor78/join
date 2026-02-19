@@ -14,6 +14,7 @@ async function initTemplate() {
   setUserInitials();
   initializeMenuAndLogout();
   applySidebarMode();
+  applyGuestModeClass();
 }
 
 /**
@@ -45,15 +46,12 @@ function setupLogoutLink() {
     dataStore = {
       tasks: null,
       contacts: null,
-      users: null
+      users: null,
     };
 
     window.location.href = "../index.html";
   });
 }
-
-
-
 
 /**
  * Initializes additional menu features if available
@@ -321,6 +319,16 @@ function applySidebarMode() {
         setupLoginButton();
       }
     }
+  }
+}
+
+/**
+ * Applies guest mode class to body when user is not logged in
+ * on privacy-policy or legal-notice pages
+ */
+function applyGuestModeClass() {
+  if (shouldUseExternalMode()) {
+    document.body.classList.add("is-guest");
   }
 }
 

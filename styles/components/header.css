@@ -284,3 +284,8 @@
     padding: 0 var(--spacing-xl) 0 var(--spacing-lg);
   }
 }
+
+/* Guest Mode: Hide avatar when not logged in on public pages */
+.is-guest .header__avatar {
+  display: none;
+}
