@@ -17,6 +17,9 @@ const displayDateEl = document.getElementById('displayDate');
  * @async
  */
 async function initSummary() {
+    currentUser = protectPage();
+    if (!currentUser) return;
+
     loadUserFromSessionStorage();
 
     await initDataStore();
@@ -33,10 +36,6 @@ async function initSummary() {
  */
 function loadUserFromSessionStorage() {
     const userData = sessionStorage.getItem('loggedInUser');
-    if (!userData) {
-        window.location.href = "../index.html";
-        return;
-    }
     currentUser = JSON.parse(userData);
 }
 
@@ -166,6 +165,5 @@ function getGreetingOverlayHTML(data) {
         <span class="summary__greeting-name">${data.name}</span>
     `;
 }
-
 
 document.addEventListener("DOMContentLoaded", initSummary);
