@@ -6,15 +6,15 @@ let contactIdCounter = 1;
  * and applying badge colors.
  *
  * @async
- * @returns {Promise<void>} Resolves when contacts are loaded and initialized.
  */
 async function initContacts() {
+  currentUser = protectPage();
+  if (!currentUser) return;
+
   await initDataStore();
   loadContactsFromStore();
 
-  contactIdCounter = loadedContacts.length
-    ? Math.max(...loadedContacts.map(contact => Number(contact.id))) + 1
-    : 1;
+  contactIdCounter = getNextContactId(loadedContacts);
 }
 
 /**
@@ -27,7 +27,7 @@ function loadContactsFromStore() {
     ...dataStore.contacts[id]
   }));
 
-  loadedContacts = assignContactColorsArray(contactsArray);
+  loadedContacts = assignContactColors(contactsArray);
   sortContacts();
   renderContactList(loadedContacts);
 }
@@ -117,7 +117,7 @@ function showContactDetails(index) {
   let contact = loadedContacts[index];
   let detailsContainer = document.getElementById("contacts-detail");
   let initial = getInitial(contact.name);
-  let badgeColor = contact.color || "#D1D1D1"; // fallback
+  let badgeColor = contact.color || "#D1D1D1";
   detailsContainer.innerHTML = templateContactDetails(contact, index, initial, badgeColor);
   setActiveContact(index);
   checkMobile(index);
@@ -164,9 +164,9 @@ function confirmEditContact(index) {
  */
 function deleteContact(index) {
   const contact = loadedContacts[index];
+  removeContactFromAllTasks(contact.id);
   loadedContacts.splice(index, 1);
 
-  // Aus dataStore löschen
   if (dataStore.contacts && contact.id in dataStore.contacts) {
     delete dataStore.contacts[contact.id];
     saveStore();
@@ -177,6 +177,24 @@ function deleteContact(index) {
   renderContactList(loadedContacts);
   closeEditContact();
   closeActionFab();
+}
+
+/**
+ * Removes a contact ID from all tasks' assignedTo arrays.
+ * @param {string} contactId
+ */
+function removeContactFromAllTasks(contactId) {
+  if (!dataStore.tasks) return;
+
+  Object.keys(dataStore.tasks).forEach(taskId => {
+    const task = dataStore.tasks[taskId];
+
+    if (task.assignedTo && Array.isArray(task.assignedTo)) {
+      task.assignedTo = task.assignedTo.filter(id => id !== contactId);
+    }
+  });
+
+  saveStore();
 }
 
 /**
@@ -298,14 +316,15 @@ function updateContact(index, name, phone, email) {
   contact.phone = phone;
   contact.email = email;
 
-  // Änderungen in dataStore speichern
+  // Update data store
   dataStore.contacts[contact.id] = { name, phone, email, color: contact.color };
-  saveStore(); // sessionStorage aktualisieren
-
+  saveStore();
   sortContacts();
   renderContactList(loadedContacts);
+  showContactDetails(index);
   clearContactForm();
 }
+
 
 /**
  * Adds a new contact to loadedContacts array and saves it to the data store.
@@ -317,15 +336,39 @@ function pushNewContact() {
 
   if (!isContactFormValid(name, phone, email)) return;
 
-  const id = String(contactIdCounter++);
-  const color = assignContactColorsArray([{ id, name, phone, email }])[0].color;
+  const id = `contactId${contactIdCounter++}`;
+  const newContact = { id, name, phone, email };
+  const coloredContact = assignContactColors([newContact])[0];
+  loadedContacts.push(coloredContact);
 
-  const newContact = { id, name, phone, email, color };
-  loadedContacts.push(newContact);
   if (!dataStore.contacts) dataStore.contacts = {};
-  dataStore.contacts[id] = { name, phone, email, color };
+  dataStore.contacts[id] = {
+    name: coloredContact.name,
+    phone: coloredContact.phone,
+    email: coloredContact.email,
+    color: coloredContact.color
+  };
   saveStore();
-  return newContact;
+  return coloredContact;
+}
+
+/**
+ * Calculates the next contact ID based on currently loaded contacts.
+ * Extracts numeric part from IDs like "contactId12".
+ *
+ * @param {Array<Object>} contactsArray - Array of loaded contacts
+ * @returns {number} Next numeric ID for a new contact
+ */
+function getNextContactId(contactsArray) {
+  if (!contactsArray || contactsArray.length === 0) return 1;
+
+  const ids = contactsArray
+    .map(contact => {
+      const match = String(contact.id).match(/\d+$/);
+      return match ? Number(match[0]) : 0;
+    });
+
+  return Math.max(...ids) + 1;
 }
 
 /**

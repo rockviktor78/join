@@ -23,6 +23,9 @@ const CATEGORY_ORDER = [
  * @async
  */
 async function initBoard() {
+    currentUser = protectPage();
+    if (!currentUser) return;
+
     await initDataStore();
 
     contacts = getContacts();
@@ -103,21 +106,26 @@ function createSubtasksHTML(subtasks) {
 }
 
 /**
- * Maps assigned user IDs to their respective contact data and returns a string of badge HTML.
- * @param {string[]} assignedIds - Array of contact IDs assigned to the task.
- * @returns {string} A concatenated string of user badge HTML templates.
+ * Generates HTML badges for assigned users based on their IDs.
+ *
+ * @param {Array<string>} assignedIds - Array of user IDs to generate badges for.
+ * @returns {string} HTML string containing the user badges.
  */
 function createAssignedUsersHTML(assignedIds) {
     if (!assignedIds || assignedIds.length === 0) return "";
 
+    const contactsArray = getContacts(); // Array
+
     return assignedIds.map(id => {
-        const contact = contacts[id];
-        const bgColor = contact.color;
-        const initials = contact.name
+        const contact = contactsArray.find(contact => contact.id === id);
+        if (!contact) return "";
+
+        const bgColor = contact.color || "#D1D1D1";
+        const initials = (contact.name || "")
             .split(" ")
             .map(n => n[0])
-            .join("");
-        const name = contact.name;
+            .join("") || "?";
+        const name = contact.name || "Unknown";
 
         return getAssignedUserBadgeTemplate(initials, bgColor, name);
     }).join("");

@@ -3,7 +3,7 @@ const STORE_KEY = "joinData";
 let dataStore = {
     tasks: null,
     contacts: null,
-    users: null
+    users: null,
 };
 
 /**
@@ -18,11 +18,8 @@ async function initDataStore() {
 
     if (cached) {
         dataStore = JSON.parse(cached);
-        console.log("Loaded from session cache");
         return;
     }
-
-    console.log("Loading from Firebase...");
 
     dataStore.tasks = await getData("tasks");
     dataStore.contacts = await getData("contacts");
@@ -59,9 +56,10 @@ function getUsers() {
 }
 
 /**
- * Returns all contacts from the data store.
+ * Returns all contacts from the data store as an array of objects.
+ * Assigns colors and persists them in dataStore.contacts.
  *
- * @returns {Array<Object>} Array of contact objects.
+ * @returns {Array<Object>} Array of contact objects with color property.
  */
 function getContacts() {
     if (!dataStore.contacts) return [];
@@ -69,8 +67,16 @@ function getContacts() {
         id,
         ...dataStore.contacts[id]
     }));
-    return assignContactColors(contactsArray);
+    const coloredContacts = assignContactColors(contactsArray);
+    coloredContacts.forEach(contact => {
+        if (!dataStore.contacts[contact.id].color) {
+            dataStore.contacts[contact.id].color = contact.color;
+        }
+    });
+    saveStore();
+    return coloredContacts;
 }
+
 
 /**
  * Updates the tasks in the data store and saves them to session storage.
@@ -91,6 +97,8 @@ function updateContacts(newContacts) {
     dataStore.contacts = newContacts;
     saveStore();
 }
+
+
 
 /**
  * Adds the logged-in user as a temporary "You" contact.

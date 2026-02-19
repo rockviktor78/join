@@ -106,7 +106,7 @@
 }
 
 .board-column__drop-zone {
-  min-height: 10rem;
+  min-height: 20rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -302,7 +302,7 @@
 }
 
 .task-move-btn {
-  width: 1.25rem;
+  width: 1.4rem;
   cursor: pointer;
 }
 
@@ -324,7 +324,8 @@
 
 .move-overlay__title {
   color: var(--color-white);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
   opacity: 0.9;
   padding-bottom: 0.25rem;
 }
@@ -344,10 +345,11 @@
   background: none;
   border: none;
   color: var(--color-white);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
   text-align: left;
   cursor: pointer;
-  font-size: var(--font-size-sm);
+
   margin-top: 0.5rem;
 }
 
