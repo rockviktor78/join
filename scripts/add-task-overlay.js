@@ -30,9 +30,19 @@ function insertAddTaskContent(doc, content) {
 }
 
 /**
- * Opens Add Task overlay panel.
+ * Opens Add Task overlay panel on desktop or navigates to page on mobile.
+ * @param {Event} event - Click event
  */
-async function addTask() {
+async function addTask(event) {
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  if (isMobile) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    window.location.assign("add-task.html");
+    return;
+  }
   const panel = document.querySelector(".addtask-panel");
   const overlay = document.querySelector(".addtask-overlay");
   const content = document.querySelector(".addtask-panel__content");

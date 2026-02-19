@@ -104,3 +104,11 @@
     padding: 1.5rem 2rem;
   }
 }
+
+/* Mobile: Hide overlay completely (use page navigation instead) */
+@media (max-width: 768px) {
+  .addtask-overlay,
+  .addtask-panel {
+    display: none !important;
+  }
+}
