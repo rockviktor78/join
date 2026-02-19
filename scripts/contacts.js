@@ -8,6 +8,9 @@ let contactIdCounter = 1;
  * @async
  */
 async function initContacts() {
+  currentUser = protectPage();
+  if (!currentUser) return;
+
   await initDataStore();
   loadContactsFromStore();
 
