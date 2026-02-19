@@ -1,38 +1,33 @@
-/**
- * Stores all loaded contacts from the database.
- * @type {Array<{name: string, email: string, phone: string}>}
- */
 let loadedContacts = [];
+let contactIdCounter = 1;
 
 /**
- * Base URL of the Firebase Realtime Database.
- * @type {string}
- */
-const BASE_URL = "https://join-7c944-default-rtdb.europe-west1.firebasedatabase.app/";
-
-/**
- * Initializes the contact module.
- * Fetches all contacts from the database.
+ * Initializes the contacts module by loading contacts from the data store
+ * and applying badge colors.
  *
  * @async
- * @returns {Promise<void>}
+ * @returns {Promise<void>} Resolves when contacts are loaded and initialized.
  */
 async function initContacts() {
-  await fetchContacts();
+  await initDataStore();
+  loadContactsFromStore();
+
+  contactIdCounter = loadedContacts.length
+    ? Math.max(...loadedContacts.map(contact => Number(contact.id))) + 1
+    : 1;
 }
 
 /**
- * Fetches contacts from Firebase.
- *
- * @async
- * @param {string} [path="contacts"] - Database path for contacts
- * @returns {Promise<void>}
+ * Loads contacts from the data store, applies badge colors, 
+ * sorts them, and renders the contact list while keeping the array structure.
  */
-async function fetchContacts(path = "contacts") {
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
+function loadContactsFromStore() {
+  const contactsArray = Object.keys(dataStore.contacts || {}).map(id => ({
+    id,
+    ...dataStore.contacts[id]
+  }));
 
-  loadedContacts = responseToJson ? Object.values(responseToJson) : [];
+  loadedContacts = assignContactColorsArray(contactsArray);
   sortContacts();
   renderContactList(loadedContacts);
 }
@@ -42,14 +37,14 @@ async function fetchContacts(path = "contacts") {
  */
 function sortContacts() {
   loadedContacts.sort((a, b) =>
-    a.name.localeCompare(b.name, "de", { sensitivity: "base" }),
+    a.name.localeCompare(b.name, "de", { sensitivity: "base" })
   );
 }
 
 /**
  * Returns the first letter of a name.
  *
- * @param {string} name - Contact name
+ * @param {string} name
  * @returns {string} Uppercase first letter
  */
 function getFirstLetter(name) {
@@ -57,24 +52,19 @@ function getFirstLetter(name) {
 }
 
 /**
- * Renders the complete contact list including letter groups.
- *
- * @param {Array} loadedContacts - List of contacts
+ * Renders the contact list with letter groups.
  */
-function renderContactList(loadedContacts) {
+function renderContactList(contactsArray) {
   let container = getContactsContainer();
   let lastLetter = "";
-  loadedContacts.forEach((contact, index) => {
+  contactsArray.forEach((contact, index) => {
     lastLetter = renderLetterGroup(container, contact.name, lastLetter);
     renderContact(container, contact, index);
   });
-  applyRandomBadgeColor();
 }
 
 /**
- * Returns the contact list container and clears it.
- *
- * @returns {HTMLElement} Contact list container
+ * Gets the container for the contacts list and clears it.
  */
 function getContactsContainer() {
   let container = document.getElementById("contacts-ul");
@@ -83,44 +73,34 @@ function getContactsContainer() {
 }
 
 /**
- * Renders a new letter group if required.
- *
- * @param {HTMLElement} container - Contact list container
- * @param {string} name - Contact name
- * @param {string} lastLetter - Previously rendered letter
- * @returns {string} Current letter
+ * Renders a letter group if the first letter changed.
  */
 function renderLetterGroup(container, name, lastLetter) {
   let firstLetter = getFirstLetter(name);
-
-  if (firstLetter !== lastLetter) {container.innerHTML += templateRenderLetterGroup(firstLetter);
+  if (firstLetter !== lastLetter) {
+    container.innerHTML += templateRenderLetterGroup(firstLetter);
     return firstLetter;
-    }
+  }
   return lastLetter;
 }
 
 /**
  * Renders a single contact entry.
- *
- * @param {HTMLElement} container - Contact list container
- * @param {{name: string, email: string}} contact - Contact object
- * @param {number} index - Contact index
  */
 function renderContact(container, contact, index) {
   let initial = getInitial(contact.name);
+  let color = contact.color || "#D1D1D1";
   container.innerHTML += templateContact(
     initial,
     contact.name,
     contact.email,
-    index,
+    color,
+    index
   );
 }
 
 /**
- * Returns the initials of a name.
- *
- * @param {string} name - Full name
- * @returns {string} Initials (e.g. "JD")
+ * Returns initials for a contact.
  */
 function getInitial(name) {
   if (!name) return "";
@@ -131,76 +111,67 @@ function getInitial(name) {
 }
 
 /**
- * Applies random background colors to contact badges.
- */
-function applyRandomBadgeColor() {
-  const colors = 16;
-  document.querySelectorAll(".badge").forEach((badge) => {
-    const random = Math.floor(Math.random() * colors) + 1;
-    badge.style.backgroundColor = `var(--color-badge-${random})`;
-  });
-}
-
-/**
- * Displays detailed information for a selected contact.
- *
- * @param {number} index - Contact index
+ * Shows details for a selected contact.
  */
 function showContactDetails(index) {
   let contact = loadedContacts[index];
   let detailsContainer = document.getElementById("contacts-detail");
   let initial = getInitial(contact.name);
-  let badgeColor = document.querySelectorAll(".badge")[index].style.backgroundColor;
-  detailsContainer.innerHTML = "";
-  detailsContainer.innerHTML += templateContactDetails(contact, index, initial, badgeColor);
+  let badgeColor = contact.color || "#D1D1D1"; // fallback
+  detailsContainer.innerHTML = templateContactDetails(contact, index, initial, badgeColor);
   setActiveContact(index);
   checkMobile(index);
 }
 
 /**
- * Highlights the active contact in the list.
+ * Sets a specific contact as active in the UI by index, 
+ * removing the active state from all other contacts.
  *
- * @param {number} index - Contact index
+ * @param {number} index - The index of the contact in the loadedContacts array.
  */
 function setActiveContact(index) {
   document
     .querySelectorAll(".active-contact")
-    .forEach((el) => el.classList.remove("active-contact"));
+    .forEach(el => el.classList.remove("active-contact"));
   document.getElementById(loadedContacts[index].name).classList.add("active-contact");
 }
 
 /**
- * Opens the form to add a new contact.
+ * Opens the overlay to add a new contact.
  */
 function addNewContact() {
   document.body.style.overflow = "hidden";
   event.stopPropagation();
   showEditContact();
   let newContactContainer = document.getElementById("contacts-form");
-  newContactContainer.innerHTML = "";
-  newContactContainer.innerHTML += templateAddNewContact();
-  requestAnimationFrame(() => {newContactContainer.classList.add("active");});
+  newContactContainer.innerHTML = templateAddNewContact();
+  requestAnimationFrame(() => newContactContainer.classList.add("active"));
 }
 
 /**
- * Confirms editing of a contact.
- *
- * @param {number} index - Contact index
+ * Confirms editing a contact.
  */
 function confirmEditContact(index) {
   let name = document.getElementById("new-contact-name").value.trim();
-  let phone = document.getElementById("new-contact-email").value.trim();
-  let email = document.getElementById("new-contact-phone").value.trim();
+  let phone = document.getElementById("new-contact-phone").value;
+  let email = document.getElementById("new-contact-email").value;
+
   updateContact(index, name, phone, email);
 }
 
 /**
- * Deletes a contact from the list.
- *
- * @param {number} index - Contact index
+ * Deletes a contact.
  */
 function deleteContact(index) {
+  const contact = loadedContacts[index];
   loadedContacts.splice(index, 1);
+
+  // Aus dataStore löschen
+  if (dataStore.contacts && contact.id in dataStore.contacts) {
+    delete dataStore.contacts[contact.id];
+    saveStore();
+  }
+
   document.getElementById("contacts-detail").innerHTML = "";
   sortContacts();
   renderContactList(loadedContacts);
@@ -209,23 +180,29 @@ function deleteContact(index) {
 }
 
 /**
- * Opens the edit form for a contact.
+ * Opens the edit contact form for a specific contact by index.
+ * Sets up the form with the contact's current details and badge color,
+ * and prevents page scrolling while editing.
  *
- * @param {number} index - Contact index
+ * @param {number} index - The index of the contact in the loadedContacts array.
  */
 function editContact(index) {
   document.body.style.overflow = "hidden";
   event.stopPropagation();
   showEditContact();
-  let name = loadedContacts[index].name;
-  let email = loadedContacts[index].email;
-  let phone = loadedContacts[index].phone;
-  let initial = getInitial(loadedContacts[index].name);
-  let badgeColor = document.querySelectorAll(".badge")[index].style.backgroundColor;
+  let contact = loadedContacts[index];
+  let initial = getInitial(contact.name);
+  let badgeColor = contact.color || "#D1D1D1";
   let editContactContainer = document.getElementById("contacts-form");
-  editContactContainer.innerHTML = "";
-  editContactContainer.innerHTML += templateEditContact(index, name, email, phone, initial,badgeColor);
-  requestAnimationFrame(() => {editContactContainer.classList.add("active");});
+  editContactContainer.innerHTML = templateEditContact(
+    index,
+    contact.name,
+    contact.email,
+    contact.phone,
+    initial,
+    badgeColor
+  );
+  requestAnimationFrame(() => editContactContainer.classList.add("active"));
 }
 
 /**
@@ -239,17 +216,14 @@ function showEditContact() {
 /**
  * Closes the contact form when clicking outside.
  */
-document.addEventListener("click", (event) => {
+document.addEventListener("click", event => {
   let card = document.getElementById("loaded-contact-form");
-
   if (!card) return;
-  if (!card.contains(event.target)) {
-    closeEditContact();
-  }
+  if (!card.contains(event.target)) closeEditContact();
 });
 
 /**
- * Closes the contact form and removes overlay.
+ * Closes the contact form overlay.
  */
 function closeEditContact() {
   document.getElementById("contacts-form").classList.remove("active");
@@ -260,7 +234,6 @@ function closeEditContact() {
   }, 350);
 }
 
-
 /**
  * Cancels contact creation or editing.
  */
@@ -269,26 +242,29 @@ function cancel() {
 }
 
 /**
- * Creates a new contact and displays it.
+ * Creates a new contact.
  */
 function createNewContact() {
   let newContact = pushNewContact();
   if (!newContact) return;
+
   sortContacts();
   renderContactList(loadedContacts);
-  let newIndex = loadedContacts.findIndex((contact) => contact === newContact);
+
+  let newIndex = loadedContacts.findIndex(c => c === newContact);
+
   showContactDetails(newIndex);
   clearContactForm();
   showSuccessMessage();
 }
 
 /**
- * Validates the contact form.
+ * Validates the contact form fields and alerts if any are empty.
  *
- * @param {string} name
- * @param {string} phone
- * @param {string} email
- * @returns {boolean} True if valid
+ * @param {string} name - The contact's name.
+ * @param {string} phone - The contact's phone number.
+ * @param {string} email - The contact's email address.
+ * @returns {boolean} True if all fields are filled, false otherwise.
  */
 function isContactFormValid(name, phone, email) {
   if (!name || !phone || !email) {
@@ -299,7 +275,7 @@ function isContactFormValid(name, phone, email) {
 }
 
 /**
- * Clears the contact form and closes it.
+ * Clears the contact form.
  */
 function clearContactForm() {
   document.getElementById("new-contact-name").value = "";
@@ -309,36 +285,46 @@ function clearContactForm() {
 }
 
 /**
- * Updates an existing contact.
+ * Updates the details of a contact at a given index, then sorts and re-renders the contact list.
  *
- * @param {number} index
- * @param {string} name
- * @param {string} phone
- * @param {string} email
+ * @param {number} index - The index of the contact in the loadedContacts array.
+ * @param {string} name - The updated name of the contact.
+ * @param {string} phone - The updated phone number of the contact.
+ * @param {string} email - The updated email of the contact.
  */
 function updateContact(index, name, phone, email) {
-  loadedContacts[index].name = name;
-  loadedContacts[index].phone = phone;
-  loadedContacts[index].email = email;
+  const contact = loadedContacts[index];
+  contact.name = name;
+  contact.phone = phone;
+  contact.email = email;
+
+  // Änderungen in dataStore speichern
+  dataStore.contacts[contact.id] = { name, phone, email, color: contact.color };
+  saveStore(); // sessionStorage aktualisieren
+
   sortContacts();
   renderContactList(loadedContacts);
   clearContactForm();
 }
 
 /**
- * Adds a new contact to the list.
- *
- * @returns {{name: string, phone: string, email: string}|undefined}
+ * Adds a new contact to loadedContacts array and saves it to the data store.
  */
 function pushNewContact() {
-  let name = document.getElementById("new-contact-name").value.trim();
-  let phone = document.getElementById("new-contact-email").value.trim();
-  let email = document.getElementById("new-contact-phone").value.trim();
-  if (!isContactFormValid(name, phone, email)) {
-    return;
-  }
-  let newContact = {name: name, phone: phone, email: email};
+  const name = document.getElementById("new-contact-name").value.trim();
+  const email = document.getElementById("new-contact-email").value.trim();
+  const phone = document.getElementById("new-contact-phone").value.trim();
+
+  if (!isContactFormValid(name, phone, email)) return;
+
+  const id = String(contactIdCounter++);
+  const color = assignContactColorsArray([{ id, name, phone, email }])[0].color;
+
+  const newContact = { id, name, phone, email, color };
   loadedContacts.push(newContact);
+  if (!dataStore.contacts) dataStore.contacts = {};
+  dataStore.contacts[id] = { name, phone, email, color };
+  saveStore();
   return newContact;
 }
 
@@ -348,7 +334,8 @@ function pushNewContact() {
 function showSuccessMessage() {
   let message = document.getElementById("successMessage");
   message.classList.add("show");
-  setTimeout(() => {
-    message.classList.remove("show");
-  }, 2000);
+  setTimeout(() => message.classList.remove("show"), 2000);
 }
+
+document.addEventListener("DOMContentLoaded", initContacts);
+

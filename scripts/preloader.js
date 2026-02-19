@@ -14,7 +14,6 @@ function startAnimation() {
     }, 600);
 }
 
-
 /**
  * Handles logo change for mobile devices.
  * @param {HTMLImageElement} logo - The logo image element to be changed.
@@ -26,7 +25,6 @@ function handleMobileLogo(logo) {
         }, 390);
     }
 }
-
 
 /**
  * Finishes the preloader animation by revealing the final logo and hiding the preloader.

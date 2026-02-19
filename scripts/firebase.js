@@ -16,7 +16,6 @@ async function getData(path = "") {
     }
 }
 
-
 /**
  * Posts data to the Firebase Realtime Database.
  * @param {string} [path="users"] The path in the database to post data to.

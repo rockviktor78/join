@@ -10,9 +10,11 @@
     <title>Contacts - Join</title>
 
     <script src="../script.js" defer></script>
-    <script src="../scripts/contacts.js"></script>
-    <script src="../scripts/contacts-templates.js"></script>
-    <script src="../scripts/contacts-mobile.js"></script>
+    <script src="../scripts/dataStore.js" defer></script>
+    <script src="../scripts/utilities.js" defer></script>
+    <script src="../scripts/contacts.js" defer></script>
+    <script src="../scripts/contacts-templates.js" defer></script>
+    <script src="../scripts/contacts-mobile.js" defer></script>
     <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/init-template.js" defer></script>
@@ -34,7 +36,7 @@
     <link rel="stylesheet" href="../styles/components/sidebar.css" />
   </head>
 
-  <body onload="initContacts()" class="app-layout">
+  <body class="app-layout">
     <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
     <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
 

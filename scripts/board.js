@@ -3,21 +3,20 @@ let contacts = {};
 let currentDraggedElement = null;
 let currentMoveTask = null;
 
-const columns = ["toDo", "inProgress", "awaitFeedback", "done"];
+const searchInput = document.getElementById("search-task");
+const columnsTask = ["toDo", "inProgress", "awaitFeedback", "done"];
 const CATEGORY_MAP = {
     "toDo": "to do",
     "inProgress": "in progress",
     "awaitFeedback": "await feedback",
     "done": "done"
 };
-
 const CATEGORY_ORDER = [
     "to do",
     "in progress",
     "await feedback",
     "done"
 ];
-
 
 /**
  * Initializes the board: loads data, renders tasks, and sets up event listeners.
@@ -34,37 +33,45 @@ async function initBoard() {
     initButtons();
 }
 
-
 /**
- * Renders all task columns and initializes drag events for the cards.
+ * Renders all task columns on the board and initializes drag events for the cards.
+ * Supports live search by filtering tasks based on the provided query.
+ *
+ * @param {string} [filterQuery=""] - Optional search term to filter tasks in real time.
  */
-function renderBoard() {
-    renderTaskColumn("toDo", "to do");
-    renderTaskColumn("inProgress", "in progress");
-    renderTaskColumn("awaitFeedback", "await feedback");
-    renderTaskColumn("done", "done");
+function renderBoard(filterQuery = "") {
+    const filteredTasks = filterTasks(tasks, filterQuery);
+
+    renderTaskColumn("toDo", filteredTasks.filter(task => task.category === "to do"));
+    renderTaskColumn("inProgress", filteredTasks.filter(task => task.category === "in progress"));
+    renderTaskColumn("awaitFeedback", filteredTasks.filter(task => task.category === "await feedback"));
+    renderTaskColumn("done", filteredTasks.filter(task => task.category === "done"));
+
     attachDragEventsToCards();
 }
 
-
 /**
- * Filters tasks by category and renders them into the corresponding column.
- * @param {string} columnId - The ID of the HTML container element.
- * @param {string} categoryName - The category string used to filter the tasks.
+ * Renders a single task column with the given list of tasks.
+ * Displays a message if no tasks are available or match the search query.
+ *
+ * @param {string} columnId - The ID of the column element to render tasks into.
+ * @param {Array<Object>} taskList - The list of tasks to render in this column.
  */
-function renderTaskColumn(columnId, categoryName) {
+function renderTaskColumn(columnId, taskList) {
     const taskColumn = document.getElementById(columnId);
     if (!taskColumn) return;
 
-    const filteredTasks = tasks.filter(task => task.category === categoryName);
-
-    if (filteredTasks.length === 0) {
-        taskColumn.innerHTML = getNoTaskTemplate();
+    if (!taskList || taskList.length === 0) {
+        const query = searchInput?.value.trim();
+        if (query) {
+            taskColumn.innerHTML = `<div class="no-tasks">No tasks match "<strong>${query}</strong>"</div>`;
+        } else {
+            taskColumn.innerHTML = getNoTaskTemplate();
+        }
     } else {
-        taskColumn.innerHTML = filteredTasks.map(task => generateTaskHTML(task)).join("");
+        taskColumn.innerHTML = taskList.map(task => generateTaskHTML(task)).join("");
     }
 }
-
 
 /**
  * Assembles the full HTML structure for a task card by processing subtasks, assignments, and priority.
@@ -79,8 +86,6 @@ function generateTaskHTML(task) {
 
     return getTaskCardTemplate(task, taskType, subtasksSection, assignedSection, priorityIcon);
 }
-
-
 
 /**
  * Calculates progress and returns the subtasks progress bar HTML if subtasks exist.
@@ -97,7 +102,6 @@ function createSubtasksHTML(subtasks) {
     return getSubtasksTemplate(done, total, percentage);
 }
 
-
 /**
  * Maps assigned user IDs to their respective contact data and returns a string of badge HTML.
  * @param {string[]} assignedIds - Array of contact IDs assigned to the task.
@@ -108,15 +112,16 @@ function createAssignedUsersHTML(assignedIds) {
 
     return assignedIds.map(id => {
         const contact = contacts[id];
-        const initials = contact ? contact.name.split(" ").map(n => n[0]).join("") : "?";
-        const bgColor = contact?.color || "#29abe2";
-        const name = contact?.name || 'Unassigned';
+        const bgColor = contact.color;
+        const initials = contact.name
+            .split(" ")
+            .map(n => n[0])
+            .join("");
+        const name = contact.name;
 
         return getAssignedUserBadgeTemplate(initials, bgColor, name);
     }).join("");
 }
-
-
 
 /**
  * Attaches dragstart event listeners to all task cards to track the currently dragged element.
@@ -130,12 +135,11 @@ function attachDragEventsToCards() {
     });
 }
 
-
 /**
  * Sets up dragover, dragleave, and drop event listeners for each task column.
  */
 function initDragAndDrop() {
-    columns.forEach((columnId) => {
+    columnsTask.forEach((columnId) => {
         const dropZone = document.getElementById(columnId);
 
         dropZone.addEventListener("dragover", (e) => {
@@ -153,7 +157,6 @@ function initDragAndDrop() {
         });
     });
 }
-
 
 /**
  * Updates a task's category based on the drop target and re-renders the board.
@@ -176,8 +179,6 @@ function moveTaskToColumn(columnId) {
     renderBoard();
 }
 
-
-
 /**
  * Helper to mark all subtasks as done.
  */
@@ -186,7 +187,6 @@ function autoCompleteSubtasksAsDone(task) {
         task.subtasks.forEach(subtask => subtask.done = true);
     }
 }
-
 
 /**
  * Attaches click event listeners to all 'Add Task' buttons in the header and columns.
@@ -202,7 +202,6 @@ function initButtons() {
         btn.addEventListener("click", addTask);
     });
 }
-
 
 /**
  * Toggles the move task overlay on mobile for a specific task.
@@ -222,7 +221,6 @@ function toggleMoveToTaskOverlay(taskId, event) {
     overlay.classList.toggle("hidden");
     currentMoveTask = currentTask;
 }
-
 
 /**
  * Generates HTML buttons for moving a task to adjacent columns.
@@ -247,7 +245,6 @@ function generateMoveToOptions(category, taskId) {
     return html;
 }
 
-
 /**
  * Capitalizes the first letter of each word in a column name of the overlay.
  * @param {string} name - The column name to format.
@@ -260,7 +257,6 @@ function formatColumnName(name) {
         .join(" ");
 }
 
-
 /**
  * Moves a task to a new column based on the overlay selection.
  *
@@ -272,7 +268,7 @@ function formatColumnName(name) {
 function moveTaskViaOverlay(newIndex, taskId, event) {
     event.stopPropagation();
 
-    const currentTask = tasks.find(t => t.id === taskId);
+    const currentTask = tasks.find(task => task.id === taskId);
     if (!currentTask) return;
 
     currentTask.category = CATEGORY_ORDER[newIndex];
@@ -286,7 +282,6 @@ function moveTaskViaOverlay(newIndex, taskId, event) {
     renderBoard();
 }
 
-
 /**
  * Closes all move task overlays by adding the "hidden" class to each overlay element.
  */
@@ -298,7 +293,12 @@ function closeAllMoveOverlays() {
     currentMoveTask = null;
 }
 
-
+/**
+ * Converts an array of task objects into an object keyed by task IDs.
+ *
+ * @param {Array<Object>} taskArray - Array of task objects, each containing an `id`.
+ * @returns {Object} An object where each key is a task ID and the value is the task data.
+ */
 function tasksFromArrayToObject(taskArray) {
     const obj = {};
     taskArray.forEach(task => {
@@ -308,6 +308,28 @@ function tasksFromArrayToObject(taskArray) {
     return obj;
 }
 
+/**
+ * Filters tasks by a search query matching the title or description.
+ *
+ * @param {Array<Object>} tasksArray - Array of all task objects.
+ * @param {string} [query=""] - The search term to filter tasks by.
+ * @returns {Array<Object>} An array of tasks that match the search query.
+ */
+function filterTasks(tasksArray, query = "") {
+    if (!query) return tasksArray;
+
+    const lowerQuery = query.toLowerCase().trim();
+
+    return tasksArray.filter(task => {
+        const titleMatch = task.title.toLowerCase().includes(lowerQuery);
+        const descMatch = task.description?.toLowerCase().includes(lowerQuery);
+        return titleMatch || descMatch;
+    });
+}
+
+searchInput.addEventListener("input", (e) => {
+    renderBoard(e.target.value);
+});
 
 document.addEventListener("click", closeAllMoveOverlays);
 document.addEventListener("DOMContentLoaded", initBoard);
