@@ -85,10 +85,11 @@ function clearFields() {
     document.getElementById('task-title').value = '';
     document.getElementById('task-description').value = '';
     document.getElementById('task-due-date').value = '';
-    document.getElementById('task-assigned-to').value = '';
+    document.getElementById('dropdown-selected').textContent = 'Select contacts to assign';
+    document.getElementById('selected-contacts').innerHTML = '';
     document.getElementById('task-category').value = '';
     document.getElementById('task-subtasks').value = '';
-    document.getElementById('added-subtask').textContent = '';
+    document.getElementById('added-subtask').innerHTML = '';
     deselectPriority();
     selectPriority(document.querySelector('.priority__button[value="medium"]'));
 }
@@ -329,3 +330,66 @@ document.addEventListener('click', e => {
     dropdownList.style.display = 'none';
   }
 });
+
+function createTask() {
+  const joinDataRaw = sessionStorage.getItem('joinData');
+  if (!joinDataRaw) {
+    console.error('joinData not found in sessionStorage');
+    return;
+  }
+
+  const joinData = JSON.parse(joinDataRaw);
+  joinData.tasks ??= {};
+
+  // 🔹 Neue Task-ID erzeugen
+  const taskCount = Object.keys(joinData.tasks).length + 1;
+  const taskId = `task${taskCount}`;
+
+  // 🔹 Werte auslesen
+  const title = document.getElementById('task-title').value.trim();
+  const description = document.getElementById('task-description').value.trim();
+  const dueDateInput = document.getElementById('task-due-date').value;
+  const categorySelect = document.getElementById('task-category');
+  const taskType = categorySelect.options[categorySelect.selectedIndex].text.toLowerCase();
+
+  // 🔹 Datum formatieren (YYYY-MM-DD → MM-DD-YYYY)
+  const [year, month, day] = dueDateInput.split('-');
+  const dueDate = `${month}-${day}-${year}`;
+
+  // 🔹 Priority
+  const activePriorityBtn = document.querySelector('.priority__button.active');
+  const priority = activePriorityBtn ? activePriorityBtn.value : 'medium';
+
+  // 🔹 Assigned Contacts (IDs!)
+  const assignedTo = Array.from(selectedContacts.keys());
+
+  // 🔹 Subtasks
+  const subtasks = [];
+  document.querySelectorAll('#added-subtask .subtask').forEach(subtask => {
+    subtasks.push({
+      title: subtask.textContent.trim(),
+      done: false
+    });
+  });
+
+  // 🔹 Task Objekt
+  const newTask = {
+    title,
+    description,
+    dueDate,
+    priority,
+    taskType,
+    category: 'to do',
+    assignedTo
+  };
+
+  if (subtasks.length > 0) {
+    newTask.subtasks = subtasks;
+  }
+
+  // 🔹 Speichern
+  joinData.tasks[taskId] = newTask;
+  sessionStorage.setItem('joinData', JSON.stringify(joinData));
+
+  console.log(`Task ${taskId} saved`, newTask);
+}

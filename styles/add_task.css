@@ -468,3 +468,8 @@ li.selected .checkmark {
   border-radius: 10px;
   font-family: sans-serif;
 }
+
+.red-star {
+    color: red;
+    margin-left: 4px;
+}

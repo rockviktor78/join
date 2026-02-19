@@ -40,7 +40,7 @@
         <div class="add-task-content">
         <div class="left-side">
           <div class="section">
-            <div class="headline">Title*</div>
+            <div class="headline">Title<span class="red-star">*</span></div>
             <div><input type="text" class="task-title" id="task-title" name="title" placeholder="Enter a title" required></div>
           </div>
           <div class="section">
@@ -48,7 +48,7 @@
               <div><textarea class="task-description" id="task-description" name="description" placeholder="Enter a description" required></textarea></div>
           </div>
           <div class="section">
-            <div class="headline">Due Date*</div>
+            <div class="headline">Due Date<span class="red-star">*</span></div>
             <div class="date-wrapper">
               <input type="date" class="task-due-date" id="task-due-date" name="due-date" required>
               <img src="../assets/img/addtask/calender.svg" class="calendar-icon" onclick="openDatePicker()" alt="Kalender öffnen">
@@ -70,14 +70,14 @@
             <div class="headline">Assigned to</div>
             <div>
               <div class="dropdown">
-                <div class="dropdown-selected">Select contacts to assign</div>
+                <div class="dropdown-selected" id="dropdown-selected">Select contacts to assign</div>
                 <ul class="dropdown-list"></ul>
               </div>
-              <div class="selected-contacts"></div>
+              <div class="selected-contacts" id="selected-contacts"></div>
             </div>
           </div>
           <div class="section">
-            <div class="headline">Category*</div>
+            <div class="headline">Category<span class="red-star">*</span></div>
             <div>
               <select class="task-category" id="task-category" name="category" placeholder="Select task category">
                 <option value="" disabled selected>Select category</option>
@@ -100,7 +100,7 @@
         </div>
         </div>
         <div class="button-wrapper">
-          <div>*This field is required</div>
+          <div><span class="red-star">*</span>This field is required</div>
           <div class="add-task-button">
             <button id="clear__button" class="clear__button" onclick="clearFields()">Clear <img src="../assets/img/addtask/cross.svg"></button>
             <button id="create-task__button" class="create-task__button" onclick="createTask()">Create Task <img src="../assets/img/addtask/check.svg"></button>
