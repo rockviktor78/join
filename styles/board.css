@@ -106,10 +106,10 @@
 }
 
 .board-column__drop-zone {
-  min-height: 20rem;
+  min-height: 10rem;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 2rem;
   padding: 0.5rem;
   overflow-x: auto;
   overflow-y: hidden;
@@ -310,7 +310,7 @@
 .move-overlay {
   position: absolute;
   top: 3rem;
-  right: 0;
+  right: -0.5rem;
   background-color: var(--color-primary);
   border-radius: var(--radius-2xl) 0 var(--radius-2xl) var(--radius-2xl);
   box-shadow: var(--shadow-lg);
