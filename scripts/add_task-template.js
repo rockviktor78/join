@@ -10,10 +10,16 @@ function templateAddSubtask(subtaskText) {
     `;
 }
 
-function templateContact(initial, contact) {
+function templateContact(initial, name, color) {
   return `
-    <span class="contact-initial">${initial}</span>
-    <span class="contact-name">${contact.name}</span>
-    <span class="checkmark">✔</span>
+    <div class="contact-item-container">
+      <div class="assign-to-initial" style="background-color: ${color} !important">
+        ${initial}
+      </div>
+      <div class="contact-info">
+        <span>${name}</span>
+      </div>
+      <div class="selection-checkmark"></div>
+    </div>
   `;
 }

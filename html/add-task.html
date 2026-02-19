@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../styles/add_task-media.css" />
     <link rel="stylesheet" href="../styles/add_task-mobile.css" />
     <link rel="stylesheet" href="../styles/add_task-mobile-small.css" />
+    <link rel="stylesheet" href="../styles/add_task-dropdown.css" />
 
     <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
@@ -28,9 +29,10 @@
     <script src="../scripts/shared/menu.js" defer></script>
     <script src="../scripts/add_task.js" defer></script>
     <script src="../scripts/add_task-template.js" defer></script>
+    <script src="../scripts/add_taks-dropdown.js" defer></script>
   </head>
 
-  <body onload="initDropdown()"  class="app-layout">
+  <body class="app-layout">
     <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
     <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
 
@@ -71,24 +73,26 @@
           <div class="section">
             <div class="headline">Assigned to</div>
             <div>
-              <div class="dropdown">
-                <div class="dropdown-selected" id="dropdown-selected">Select contacts to assign</div>
-                <ul class="dropdown-list"></ul>
+              <div class="dropdown" id="dropdown-container">
+                <div class="dropdown-wrapper">
+                  <input type="text" class="contact-search-input" id="contact-search-input" placeholder="Select contacts to assign" onkeyup="filterContacts()">
+                  <div class="dropdown-arrow" onclick="toggleDropdown(event)"></div>
+                </div>
+                <ul class="dropdown-list" id="dropdown-list" style="display: none;"></ul>
               </div>
-              <div class="selected-contacts" id="selected-contacts"></div>
-            </div>
+            <div class="selected-contacts" id="selected-contacts"></div>
           </div>
-          <div class="section">
-            <div class="headline">Category<span class="red-star">*</span></div>
-            <div>
-              <select class="task-category" id="task-category" name="category" placeholder="Select task category">
-                <option value="" disabled selected>Select category</option>
-                <option value="technical-task">Technical Task</option>
-                <option value="user-story">User Story</option>
-              </select>
-            </div>
-            <span id="category-error-message" class="error-text" style="display: none; color: red;"></span>
           </div>
+        <div class="section">
+          <div class="headline">Category<span class="red-star">*</span></div>
+            <div class="category-wrapper"> <select class="task-category" id="task-category" name="category" onfocus="rotateCategoryArrow(true)" onblur="rotateCategoryArrow(false)" onchange="rotateCategoryArrow(false)">
+              <option value="" disabled selected>Select category</option>
+              <option value="technical-task">Technical Task</option>
+              <option value="user-story">User Story</option>
+            </select>
+          <div class="category-arrow"></div> </div>
+          <span id="category-error-message" class="error-text" style="display: none; color: red;"></span>
+        </div>
           <div class="section">
             <div class="headline">Subtasks</div>
             <div class="subtask-wrapper">

@@ -49,7 +49,13 @@
     .create-task__button {
         font-size: var(--font-size-base);
     }
+
+    .contact-search-input {
+    font-size: var(--font-size-base);
+    }
 }
+
+    
 
 @media (min-width: 769px) and (max-width: 1024px) {
 
@@ -104,5 +110,9 @@
 
     .create-task__button {
         font-size: var(--font-size-base);
+    }
+    
+    .contact-search-input {
+    font-size: var(--font-size-base);
     }
 }

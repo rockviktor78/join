@@ -34,8 +34,8 @@
     background-color: white;
     color: black;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px 12px;
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.75rem;
     font-size: var(--font-size-xl);
     transition: border-color 0.2s ease;
     width: 100%;
@@ -57,8 +57,8 @@
     background-color: white;
     color: black;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px 12px;
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.75rem;
     font-size: var(--font-size-xl);
     transition: border-color 0.2s ease;
     resize: vertical;
@@ -89,20 +89,20 @@
 
 .calendar-icon {
     position: absolute;
-    right: 12px;
+    right: 0.75rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     cursor: pointer;
 }
 
 .task-due-date {
     background-color: white;
-    padding: 10px 40px 10px 12px;
+    padding: 0.625rem 1rem 0.625rem 0.75rem;
     font-size: var(--font-size-xl);
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     width: 100%;
 }
 
@@ -144,7 +144,7 @@
     font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-normal);
     border: 1px solid var(--color-gray-300);
-    border-radius: 10px;
+    border-radius: 0.625rem;
     background-color: var(--bg-page);
     cursor: pointer;
     width: 100%;
@@ -190,8 +190,8 @@
     background-color: white;
     color: black;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px 12px;
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.75rem;
     font-size: var(--font-size-xl);
     transition: border-color 0.2s ease;
     width: 100%;
@@ -201,8 +201,8 @@
     background-color: white;
     color: black;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px 12px;
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
     font-size: var(--font-size-xl);
     transition: border-color 0.2s ease;
     width: 100%;
@@ -212,8 +212,8 @@
     background-color: white;
     color: black;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px 16px;
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
     font-size: var(--font-size-xl);
     transition: border-color 0.2s ease;
     width: 100%;
@@ -243,11 +243,11 @@
 
 .subtask-actions {
     position: absolute;
-    right: 10px;
+    right: 0.625rem;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
-    gap: 10px;
+    gap: 0.625rem;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
@@ -260,7 +260,7 @@
 
 .subtask-actions span {
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1.125rem;
     user-select: none;
     display: inline-flex;
     align-items: center;
@@ -341,152 +341,4 @@
 
 .create-task__button:hover {
     background-color: var(--color-accent);
-}
-
-.subtask-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: background-color 0.15s ease;
-}
-
-.subtask-item:hover {
-    background-color: var(--color-gray-300);
-}
-
-.subtask-item-actions {
-    display: flex;
-    gap: 8px;
-
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s ease;
-}
-
-.subtask-item:hover .subtask-item-actions {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.subtask-item-actions span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-    font-size: 16px;
-    user-select: none;
-    transition:
-        transform 0.15s ease,
-        background-color 0.15s ease;
-}
-
-.subtask-item-actions span:hover {
-    transform: translateY(-2px);
-    background-color: var(--color-gray-200);
-    border-radius: 50%;
-}
-
-.subtask-item-actions .edit {
-    color: #555;
-}
-
-.subtask-item-actions .delete {
-    color: #e74c3c;
-}
-
-.subtask-item:hover {
-    background-color: var(--color-gray-300);
-}
-
-.subtask-edit-input {
-    flex: 1;
-    background-color: white;
-    border: 1px solid #007bff;
-    border-radius: 6px;
-    padding: 6px 8px;
-    font-size: 14px;
-    outline: none;
-}
-
-.subtask-item:has(.subtask-edit-input) {
-    background-color: white;
-}
-
-.dropdown {
-  width: 100%;
-  position: relative;
-  font-family: sans-serif;
-}
-
-.dropdown-selected {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  cursor: pointer;
-  background: white;
-}
-
-.dropdown-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: white;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 100;
-  display: none;
-}
-
-.dropdown-list li {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.dropdown-list li.selected {
-  background: #e6f0ff;
-  color: #0057ff;
-}
-
-.checkmark {
-  display: none;
-  font-weight: bold;
-}
-
-li.selected .checkmark {
-  display: inline;
-}
-
-.selected-contacts {
-  margin-top: 10px;
-}
-
-.selected-contacts span {
-  display: inline-block;
-  background: #e6f0ff;
-  color: #0057ff;
-  padding: 6px 10px;
-  margin: 4px;
-  border-radius: 10px;
-  font-family: sans-serif;
-}
-
-.red-star {
-    color: red;
-    margin-left: 4px;
-}
-
-.error-text {
-  color: var(--color-error);
-  font-size: 0.875rem;
-  height: 1rem;
-  padding-left: 0.5rem;
 }
