@@ -19,7 +19,7 @@
   top: 50%;
   left: 50%;
   width: 1116px;
-  height: 870px;
+  max-height: 870px;
   background: var(--color-white);
   border-radius: 30px;
   box-shadow: var(--shadow-lg);
@@ -43,7 +43,6 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 3rem 4rem 2rem 4rem;
-  border-bottom: 1px solid var(--color-gray-300);
 }
 
 .addtask-panel__title {
@@ -78,6 +77,12 @@
   flex: 1;
   overflow-y: auto;
   padding: 2rem 4rem;
+}
+
+.addtask-panel__content .add-task-separator {
+  width: 1px;
+  background-color: #D1D1D1;
+  align-self: stretch;
 }
 
 /* Responsive: Smaller on mobile */
