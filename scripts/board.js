@@ -23,6 +23,9 @@ const CATEGORY_ORDER = [
  * @async
  */
 async function initBoard() {
+    currentUser = protectPage();
+    if (!currentUser) return;
+
     await initDataStore();
 
     contacts = getContacts();
