@@ -393,3 +393,12 @@ function createTask() {
 
   console.log(`Task ${taskId} saved`, newTask);
 }
+
+function getNextTaskId(tasks) {
+  const ids = Object.keys(tasks)
+    .map(id => parseInt(id.replace('task', ''), 10))
+    .filter(Number.isFinite);
+
+  const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
+  return `task${nextId}`;
+}
