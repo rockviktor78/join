@@ -106,7 +106,7 @@
 }
 
 .board-column__drop-zone {
-  min-height: 10rem;
+  min-height: 20rem;
   display: flex;
   flex-direction: row;
   gap: 1rem;
