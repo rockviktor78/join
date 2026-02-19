@@ -67,18 +67,6 @@ function selectPriority(button) {
 }
 
 /**
- * Reads all input fields and prepares the task data.
- */
-function saveTask() {
-    const title = document.getElementById('task-title').value;
-    const description = document.getElementById('task-description').value;
-    const dueDate = document.getElementById('task-due-date').value;
-    const assignedTo = document.getElementById('task-assigned-to').value;
-    const category = document.getElementById('task-category').value;
-    const subtasks = document.getElementById('added-subtask').textContent.trim().split('\n').filter(subtask => subtask.trim() !== '');
-}
-
-/**
  * Clears all input fields and resets the task form to default state.
  */
 function clearFields() {
@@ -262,7 +250,6 @@ const dropdown = document.querySelector('.dropdown');
 const dropdownSelected = dropdown.querySelector('.dropdown-selected');
 const dropdownList = dropdown.querySelector('.dropdown-list');
 const selectedContactsBox = document.querySelector('.selected-contacts');
-
 const selectedContacts = new Map();
 
 function loadContactsFromSession() {
@@ -331,74 +318,91 @@ document.addEventListener('click', e => {
   }
 });
 
-function createTask() {
-  const joinDataRaw = sessionStorage.getItem('joinData');
-  if (!joinDataRaw) {
-    console.error('joinData not found in sessionStorage');
-    return;
-  }
+function getFormattedDate(dateString) {
+  const [year, month, day] = dateString.split('-');
+  return `${month}-${day}-${year}`;
+}
 
-  const joinData = JSON.parse(joinDataRaw);
-  joinData.tasks ??= {};
+function getPriority() {
+  const activeBtn = document.querySelector('.priority__button.active');
+  return activeBtn ? activeBtn.value : 'medium';
+}
 
-  // 🔹 Neue Task-ID erzeugen
-  const taskCount = Object.keys(joinData.tasks).length + 1;
-  const taskId = `task${taskCount}`;
-
-  // 🔹 Werte auslesen
-  const title = document.getElementById('task-title').value.trim();
-  const description = document.getElementById('task-description').value.trim();
-  const dueDateInput = document.getElementById('task-due-date').value;
-  const categorySelect = document.getElementById('task-category');
-  const taskType = categorySelect.options[categorySelect.selectedIndex].text.toLowerCase();
-
-  // 🔹 Datum formatieren (YYYY-MM-DD → MM-DD-YYYY)
-  const [year, month, day] = dueDateInput.split('-');
-  const dueDate = `${month}-${day}-${year}`;
-
-  // 🔹 Priority
-  const activePriorityBtn = document.querySelector('.priority__button.active');
-  const priority = activePriorityBtn ? activePriorityBtn.value : 'medium';
-
-  // 🔹 Assigned Contacts (IDs!)
-  const assignedTo = Array.from(selectedContacts.keys());
-
-  // 🔹 Subtasks
+function getSubtasks() {
   const subtasks = [];
-  document.querySelectorAll('#added-subtask .subtask').forEach(subtask => {
-    subtasks.push({
-      title: subtask.textContent.trim(),
-      done: false
-    });
+  document.querySelectorAll('#added-subtask .subtask').forEach(st => {
+    subtasks.push({ title: st.textContent.trim(), done: false });
   });
+  return subtasks;
+}
 
-  // 🔹 Task Objekt
-  const newTask = {
-    title,
-    description,
-    dueDate,
-    priority,
-    taskType,
+function assembleTask() {
+  const categorySelect = document.getElementById('task-category');
+  const task = {
+    title: document.getElementById('task-title').value.trim(),
+    description: document.getElementById('task-description').value.trim(),
+    dueDate: getFormattedDate(document.getElementById('task-due-date').value),
+    priority: getPriority(),
+    taskType: categorySelect.options[categorySelect.selectedIndex].text.toLowerCase(),
     category: 'to do',
-    assignedTo
+    assignedTo: Array.from(selectedContacts.keys())
   };
+  const subs = getSubtasks();
+  if (subs.length > 0) task.subtasks = subs;
+  return task;
+}
 
-  if (subtasks.length > 0) {
-    newTask.subtasks = subtasks;
-  }
+function saveToStorage(newTask) {
+  const raw = sessionStorage.getItem('joinData');
+  if (!raw) return console.error('joinData not found');
 
-  // 🔹 Speichern
+  const joinData = JSON.parse(raw);
+  joinData.tasks ??= {};
+  
+  const taskId = `task${Object.keys(joinData.tasks).length + 1}`;
   joinData.tasks[taskId] = newTask;
+  
   sessionStorage.setItem('joinData', JSON.stringify(joinData));
-
   console.log(`Task ${taskId} saved`, newTask);
+}
+
+function createTask() {
+  if (!taskFormManager.validateAll()) return;
+  const newTask = assembleTask();
+  saveToStorage(newTask);
 }
 
 function getNextTaskId(tasks) {
   const ids = Object.keys(tasks)
     .map(id => parseInt(id.replace('task', ''), 10))
     .filter(Number.isFinite);
-
   const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
   return `task${nextId}`;
 }
+
+const taskFormManager = {
+  fields: [
+    { id: 'task-title', err: 'title-error-message' },
+    { id: 'task-due-date', err: 'date-error-message' },
+    { id: 'task-category', err: 'category-error-message' }
+  ],
+
+  showError(input, error, isValid) {
+    error.textContent = isValid ? "" : "This field is required";
+    error.style.display = isValid ? "none" : "block";
+    input.style.borderColor = isValid ? "" : "red";
+    return isValid;
+  },
+
+  validateSingle(field) {
+    const input = document.getElementById(field.id);
+    const error = document.getElementById(field.err);
+    const isValid = input && input.value.trim() !== "";
+    return this.showError(input, error, isValid);
+  },
+
+  validateAll() {
+    const results = this.fields.map(f => this.validateSingle(f));
+    return results.every(res => res === true);
+  }
+};

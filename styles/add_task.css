@@ -299,16 +299,30 @@
 }
 
 .clear__button {
-    display: flex;
-    align-items: center;
-    padding: 0.625rem 1rem;
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-normal);
-    border: 1px solid var(--color-gray-300);
-    border-radius: 10px;
-    background-color:var(--bg-page);
-    cursor: pointer;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border: 0.063rem solid var(--color-gray-300);
+  border-radius: 0.625rem;
+  background: var(--bg-page);
+  cursor: pointer;
+  color: var(--color-gray-600);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.clear__button:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  background-color: currentColor;
+  mask: url("../assets/img/addtask/cross.svg") no-repeat center / contain;
+  -webkit-mask: url("../assets/img/addtask/cross.svg") no-repeat center / contain;
 }
 
 .create-task__button {
@@ -333,7 +347,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     padding: 8px 12px;
     border-radius: 8px;
     transition: background-color 0.15s ease;
@@ -361,14 +374,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     width: 28px;
     height: 28px;
-
     cursor: pointer;
     font-size: 16px;
     user-select: none;
-
     transition:
         transform 0.15s ease,
         background-color 0.15s ease;
@@ -472,4 +482,11 @@ li.selected .checkmark {
 .red-star {
     color: red;
     margin-left: 4px;
+}
+
+.error-text {
+  color: var(--color-error);
+  font-size: 0.875rem;
+  height: 1rem;
+  padding-left: 0.5rem;
 }

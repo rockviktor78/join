@@ -42,6 +42,7 @@
           <div class="section">
             <div class="headline">Title<span class="red-star">*</span></div>
             <div><input type="text" class="task-title" id="task-title" name="title" placeholder="Enter a title" required></div>
+            <span id="title-error-message" class="error-text" style="display: none; color: red;"></span>
           </div>
           <div class="section">
               <div class="headline">Description</div>
@@ -52,6 +53,7 @@
             <div class="date-wrapper">
               <input type="date" class="task-due-date" id="task-due-date" name="due-date" required>
               <img src="../assets/img/addtask/calender.svg" class="calendar-icon" onclick="openDatePicker()" alt="Kalender öffnen">
+              <span id="date-error-message" class="error-text" style="display: none; color: red;"></span>
             </div>           
           </div>
         </div>
@@ -85,6 +87,7 @@
                 <option value="user-story">User Story</option>
               </select>
             </div>
+            <span id="category-error-message" class="error-text" style="display: none; color: red;"></span>
           </div>
           <div class="section">
             <div class="headline">Subtasks</div>
@@ -102,7 +105,7 @@
         <div class="button-wrapper">
           <div><span class="red-star">*</span>This field is required</div>
           <div class="add-task-button">
-            <button id="clear__button" class="clear__button" onclick="clearFields()">Clear <img src="../assets/img/addtask/cross.svg"></button>
+            <button id="clear__button" class="clear__button" onclick="clearFields()">Clear <span class="icon"></span></button>
             <button id="create-task__button" class="create-task__button" onclick="createTask()">Create Task <img src="../assets/img/addtask/check.svg"></button>
           </div>
         </div>
