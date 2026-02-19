@@ -22,12 +22,12 @@
 .content-limit {
   width: 100%;
   max-width: calc(var(--content-max-width) - var(--sidebar-width));
-  /* Mobile: Kleineres Padding - angleichen an Help-Seite */
+  /* Mobile: Smaller padding - align with Help page */
   padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
 }
 
-/* Extra Small Screens: Etwas kleineres Padding */
+/* Extra Small Screens: Slightly smaller padding */
 @media (max-width: 480px) {
   .content-limit {
     padding: var(--spacing-xl) var(--spacing-md);
@@ -90,7 +90,7 @@
   text-decoration: underline;
 }
 
-/* Verhindert Textauswahl */
+/* Prevents text selection */
 .no-select {
   user-select: none;
   -webkit-user-select: none;
@@ -104,7 +104,7 @@
 
 /* Content Page Headings */
 .content-limit h1 {
-  /* Mobile: Kleinere Schrift */
+  /* Mobile: Smaller font */
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-lg);
@@ -120,7 +120,7 @@
 }
 
 .content-limit h2 {
-  /* Mobile: Kleinere Schrift */
+  /* Mobile: Smaller font */
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   margin-top: var(--spacing-xl);
@@ -164,7 +164,7 @@
   color: var(--color-black);
 }
 
-/* Mailto-Links: Blauer Link-Style */
+/* Mailto links: Blue link style */
 .content-limit a[href^="mailto:"],
 .content-limit .email-link {
   color: var(--color-accent);
@@ -181,7 +181,7 @@
   font-weight: var(--font-weight-bold);
 }
 
-/* Inhaltsverzeichnis-Links (Anker-Links) */
+/* Table of contents links (anchor links) */
 .content-limit ul li a[href^="#"] {
   color: var(--color-accent);
   text-decoration: none;
@@ -194,7 +194,7 @@
   font-weight: var(--font-weight-bold);
 }
 
-/* Brand Names: Hellblau ohne Unterstreichung und ohne Cursor */
+/* Brand Names: Light blue without underline and without cursor */
 .content-limit .brand-name {
   color: var(--color-accent);
   text-decoration: none;

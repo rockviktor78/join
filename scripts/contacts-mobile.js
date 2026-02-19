@@ -9,11 +9,15 @@
  */
 function checkMobile(index) {
   if (window.innerWidth < 768) {
-    document.querySelector(".contacts-detail-container").classList.add("active");
+    document
+      .querySelector(".contacts-detail-container")
+      .classList.add("active");
     let fab = document.getElementById("action__fab");
     fab.style.zIndex = 9;
     fab.setAttribute("onclick", `showMoreAction(${index})`);
-    document.getElementById('contacts-detail-back').setAttribute("onclick", `contactsBackMobile(${index})`)
+    document
+      .getElementById("contacts-detail-back")
+      .setAttribute("onclick", `contactsBackMobile(${index})`);
   }
 }
 
@@ -23,7 +27,7 @@ function checkMobile(index) {
  * @param {number} index - Index of the selected contact.
  */
 function showMoreAction(index) {
-  let more = document.getElementById('action__fab');
+  let more = document.getElementById("action__fab");
   more.innerHTML = "";
   more.innerHTML += templateShowMoreAction(index);
 }
@@ -33,7 +37,7 @@ function showMoreAction(index) {
  * Replaces the action buttons with the default FAB icon.
  */
 function closeActionFab() {
-  let more = document.getElementById('action__fab');
+  let more = document.getElementById("action__fab");
   more.innerHTML = "";
   more.innerHTML += templateActionFab();
 }
@@ -49,12 +53,16 @@ function closeActionFab() {
 function contactsBackMobile(index) {
   let detailsContainer = document.getElementById("contacts-detail");
   detailsContainer.innerHTML = "";
-  document.querySelector(".contacts-detail-container").classList.remove("active");
+  document
+    .querySelector(".contacts-detail-container")
+    .classList.remove("active");
   let fab = document.getElementById("action__fab");
-    fab.style.zIndex = 6;
-    fab.removeAttribute("onclick", `showMoreAction(${index})`);
-  document.getElementById('contacts-detail-back').removeAttribute("onclick", `contactsBackMobile(${index})`)
-  removeActiveContact(index)
+  fab.style.zIndex = 6;
+  fab.removeAttribute("onclick", `showMoreAction(${index})`);
+  document
+    .getElementById("contacts-detail-back")
+    .removeAttribute("onclick", `contactsBackMobile(${index})`);
+  removeActiveContact(index);
 }
 
 /**

@@ -308,11 +308,11 @@
 
 .action__button-mobile {
   position: fixed;
-  bottom: 6.25rem;
-  right: 1.25rem;
-  width: 7.5rem;
-  height: 7.5rem;
-  border-radius: 10%;
+  bottom: 6rem;
+  right: 0.5rem;
+  width: 7.25rem;
+  height: 6.25rem;
+  border-radius: 1.25rem 1.25rem 0 1.25rem;
   background-color: var(--color-white);
   color: white;
   border: none;
