@@ -29,6 +29,7 @@
     background: url(../assets/img/contacts/person.svg) no-repeat right;
     background-size: 1rem;
     background-position: 95%;
+    width: 100%;
 }
 
 .form-input-name::placeholder {
@@ -56,6 +57,7 @@
     background: url(../assets/img/contacts/mail.svg) no-repeat right;
     background-size: 1rem;
     background-position: 95%;
+    width: 100%;
 }
 
 .form-input-email::placeholder {
@@ -83,6 +85,7 @@
     background: url(../assets/img/contacts/call.svg) no-repeat right;
     background-size: 1rem;
     background-position: 95%;
+    width: 100%;
 }
 
 .form-input-phone::placeholder {
@@ -328,4 +331,18 @@
 
 .action__button-mobile:hover {
     cursor: pointer;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+}
+
+.error-message {
+    position: absolute;
+    bottom: -1.188rem;
+    left: 1.375rem;
+    color: red;
+    font-size: 0.75rem;
+    white-space: nowrap;
 }

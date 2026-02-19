@@ -179,7 +179,7 @@
     height: 3rem;
   }
 
-.success-message-slide {
+  .success-message-slide {
     position: fixed;
     bottom: 0;
     left: 50%;
@@ -187,10 +187,24 @@
     z-index: 9999;
     opacity: 0;
     transition: transform 0.4s ease, opacity 0.4s ease;
-}
+  }
 
-.success-message-slide.show {
+  .success-message-slide.show {
     transform: translate(-50%, -15rem);
     opacity: 1;
-}
+  }
+
+  .input-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+  .error-message {
+    position: absolute;
+    bottom: -18px;
+    left: 42px;
+    }
 }

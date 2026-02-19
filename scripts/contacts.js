@@ -380,5 +380,31 @@ function showSuccessMessage() {
   setTimeout(() => message.classList.remove("show"), 2000);
 }
 
-document.addEventListener("DOMContentLoaded", initContacts);
+/**
+ * Validates a single input field and displays an error message if necessary.
+ * @param {string} id - The ID of the input field.
+ * @param {boolean} condition - The condition that must be true for the field to be valid.
+ * @param {string} msg - The error message to display.
+ * @returns {boolean} True if the field is valid, otherwise false.
+ */
+function validateField(id, condition, msg) {
+    const errorElement = document.getElementById(`error-${id.split('-').pop()}`);
+    errorElement.innerText = condition ? "" : msg;
+    return condition;
+}
 
+/**
+ * Validates the contact form and calls createNewContact if all fields are valid.
+ */
+function validateAndCreate() {
+    const name = document.getElementById('new-contact-name').value.trim();
+    const email = document.getElementById('new-contact-email').value.trim();
+    const phone = document.getElementById('new-contact-phone').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const v1 = validateField('new-contact-name', name !== "", "Name is required");
+    const v2 = validateField('new-contact-email', emailRegex.test(email), "Invalid email");
+    const v3 = validateField('new-contact-phone', phone !== "", "Phone is required");
+    if (v1 && v2 && v3) createNewContact();
+}
+
+document.addEventListener("DOMContentLoaded", initContacts);

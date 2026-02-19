@@ -157,12 +157,21 @@ function templateAddNewContactForm() {
             <img src="../assets/img/contacts/cancel.svg" class="close-button__desktop" alt="Cancel">
             <img src="../assets/img/contacts/closewhite.svg" class="close-button__mobile" alt="Cancel">
         </div>
-        <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" value="" required>
-        <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" value="" required>
-        <input type="text" class="form-input-phone" id="new-contact-phone" placeholder="Phone" value="" required>
+        <div class="input-container">
+            <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" required>
+            <div id="error-name" class="error-message"></div>
+        </div>
+        <div class="input-container">
+        <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" required>
+        <div id="error-email" class="error-message"></div>
+        </div>
+        <div class="input-container">
+            <input type="text" class="form-input-phone" id="new-contact-phone" placeholder="Phone" required>
+            <div id="error-phone" class="error-message"></div>
+        </div>
         <div class="form-contact-buttons">
             <button onclick="closeEditContact()" class="cancel-button">Cancel <img src="../assets/img/contacts/cancel.svg" alt="Cancel"></button>
-            <button onclick="createNewContact()" class="create-contact-button">Create Contact <img src="../assets/img/contacts/check.svg" alt="Save"></button>
+            <button onclick="validateAndCreate()" class="create-contact-button">Create Contact <img src="../assets/img/contacts/check.svg" alt="Save"></button>
         </div>
     `;
 }
