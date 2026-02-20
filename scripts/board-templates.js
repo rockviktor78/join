@@ -13,11 +13,11 @@ function getNoTaskTemplate() {
  * @param {string} subtasksSection - Pre-rendered HTML for the subtask progress bar.
  * @param {string} assignedSection - Pre-rendered HTML for the assigned users' badges.
  * @param {string} priorityIcon - The file path to the priority icon image.
- * @returns {string} The HTML template for a task card.   //onclick="openTaskDetails('${task.id}')"
+ * @returns {string} The HTML template for a task card.   
  */
 function getTaskCardTemplate(task, taskType, subtasksSection, assignedSection, priorityIcon) {
     return `
-        <div draggable="true" class="task-card" data-id="${task.id}" > 
+        <div draggable="true" class="task-card" data-id="${task.id}" onclick="openTaskDetails('${task.id}')"> 
             <div class="task-card__header">
                 <div class="task-card__category task-card__category--${taskType}">
                     ${task.taskType}

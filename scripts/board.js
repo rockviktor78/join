@@ -5,18 +5,8 @@ let currentMoveTask = null;
 
 const searchInput = document.getElementById("search-task");
 const columnsTask = ["toDo", "inProgress", "awaitFeedback", "done"];
-const CATEGORY_MAP = {
-    "toDo": "to do",
-    "inProgress": "in progress",
-    "awaitFeedback": "await feedback",
-    "done": "done"
-};
-const CATEGORY_ORDER = [
-    "to do",
-    "in progress",
-    "await feedback",
-    "done"
-];
+const CATEGORY_MAP = { "toDo": "to do", "inProgress": "in progress", "awaitFeedback": "await feedback", "done": "done" };
+const CATEGORY_ORDER = ["to do", "in progress", "await feedback", "done"];
 
 /**
  * Initializes the board: loads data, renders tasks, and sets up event listeners.
@@ -344,21 +334,9 @@ document.addEventListener("DOMContentLoaded", initBoard);
 
 
 
-
-
 /**
  * DEMO ADD TASK
  */
 function addTask() {
     alert("Demo-Version: Task hinzufügen ist deaktiviert.");
 }
-
-
-/**
- * DEMO ADD TASK
-
-function openTaskDetails(params) {
-    alert("ADD task details overlay");
-}
-
- */

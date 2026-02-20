@@ -3,16 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="../assets/img/favicon/favicon.svg"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="../assets/img/favicon/apple-touch-icon.png"
-    />
+    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-touch-icon.png" />
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" />
 
     <title>Board - Join</title>
@@ -27,6 +19,7 @@
     <link rel="stylesheet" href="../styles/components.css" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/board.css" />
+    <link rel="stylesheet" href="../styles/task-detail.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
     <link rel="stylesheet" href="../styles/add_task-mobile.css" />
     <link rel="stylesheet" href="../styles/add_task-mobile-small.css" />
@@ -38,6 +31,8 @@
     <script src="../scripts/utilities.js" defer></script>
     <script src="../scripts/board-templates.js" defer></script>
     <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/task-detail-template.js"></script>
+    <script src="../scripts/task-detail.js" defer></script>
     <script src="../scripts/add_task.js" defer></script>
     <script src="../scripts/add_task-template.js" defer></script>
     <script src="../scripts/add-task-overlay.js" defer></script>
@@ -48,34 +43,21 @@
   </head>
 
   <body class="app-layout">
-    <div
-      w3-include-html="../assets/templates/header.html"
-      style="display: contents"
-    ></div>
-    <div
-      w3-include-html="../assets/templates/sidebar.html"
-      style="display: contents"
-    ></div>
+    <div w3-include-html="../assets/templates/header.html" style="display: contents"></div>
+    <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
     <main class="content-area">
       <div class="content-limit content-padding">
         <header class="board__header">
           <h1 class="board__title">Board</h1>
           <div class="board__actions">
             <div class="search-bar">
-              <input
-                type="text"
-                class="search-bar__input"
-                id="search-task"
-                placeholder="Find Task"
-              />
+              <input type="text" class="search-bar__input" id="search-task" placeholder="Find Task" />
               <span class="search-bar__divider"></span>
               <button class="search-bar__button" aria-label="Search">
                 <img src="../assets/img/board/search.svg" alt="" />
               </button>
             </div>
-            <button class="btn board__add-btn">
-              Add task <img src="../assets/img/board/add.svg" alt="" />
-            </button>
+            <button class="btn board__add-btn">Add task <img src="../assets/img/board/add.svg" alt="" /></button>
           </div>
         </header>
 
@@ -83,10 +65,7 @@
           <section class="board-column">
             <div class="board-column__header">
               <span class="board-column__title" title="To do">To do</span>
-              <button
-                class="board-column__add-btn"
-                aria-label="Add task to column"
-              >
+              <button class="board-column__add-btn" aria-label="Add task to column">
                 <img src="../assets/img/board/plusbutton.svg" alt="" />
               </button>
             </div>
@@ -95,9 +74,7 @@
 
           <section class="board-column">
             <div class="board-column__header">
-              <span class="board-column__title" title="In progress"
-                >In progress</span
-              >
+              <span class="board-column__title" title="In progress">In progress</span>
               <button class="board-column__add-btn">
                 <img src="../assets/img/board/plusbutton.svg" alt="" />
               </button>
@@ -107,9 +84,7 @@
 
           <section class="board-column">
             <div class="board-column__header">
-              <span class="board-column__title" title="Await feedback"
-                >Await feedback</span
-              >
+              <span class="board-column__title" title="Await feedback">Await feedback</span>
               <button class="board-column__add-btn">
                 <img src="../assets/img/board/plusbutton.svg" alt="" />
               </button>
@@ -126,6 +101,9 @@
         </div>
       </div>
     </main>
+    <div id="overlay-container" class="overlay-container hidden" onclick="closeTaskDetails()">
+      <div id="overlay-content" class="overlay-content" onclick="event.stopPropagation()"></div>
+    </div>
 
     <!-- Add Task Overlay -->
     <div class="addtask-overlay"></div>
