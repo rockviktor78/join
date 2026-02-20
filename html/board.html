@@ -19,12 +19,15 @@
     <link rel="stylesheet" href="../styles/components.css" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/board.css" />
+    <link rel="stylesheet" href="../styles/task-detail.css" />
 
     <script src="../scripts/firebase.js" defer></script>
     <script src="../scripts/dataStore.js" defer></script>
     <script src="../scripts/utilities.js" defer></script>
     <script src="../scripts/board-templates.js" defer></script>
     <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/task-detail-template.js"></script>
+    <script src="../scripts/task-detail.js" defer></script>
     <script src="../scripts/shared/utilities.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/init-template.js" defer></script>
@@ -90,5 +93,8 @@
         </div>
       </div>
     </main>
+    <div id="overlay-container" class="overlay-container hidden" onclick="closeTaskDetails()">
+      <div id="overlay-content" class="overlay-content" onclick="event.stopPropagation()"></div>
+    </div>
   </body>
 </html>
