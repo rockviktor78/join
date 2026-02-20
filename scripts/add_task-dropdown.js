@@ -23,11 +23,17 @@ function initDropdown() {
 function loadContactsFromSession() {
   const rawData = sessionStorage.getItem('joinData');
   if (!rawData) return [];
+
   const data = JSON.parse(rawData);
-  const contacts = data.contacts || {};
-  return Object.entries(contacts).map(([id, contact]) => ({
-    id, name: contact.name, color: contact.color
-  }));
+  const contactsObj = data.contacts || {};
+  const coloredContacts = assignContactColors(
+    Object.entries(contactsObj).map(([id, contact]) => ({ id, ...contact }))
+  );
+  coloredContacts.forEach(c => {
+    if (!contactsObj[c.id].color) contactsObj[c.id].color = c.color;
+  });
+  sessionStorage.setItem('joinData', JSON.stringify({ ...data, contacts: contactsObj }));
+  return coloredContacts;
 }
 
 /**
