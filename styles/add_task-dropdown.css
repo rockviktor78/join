@@ -27,7 +27,7 @@
   border: 1px solid #ccc;
   border-radius: 0.625rem;
   background: white;
-  max-height: 12.5rem;
+  max-height: 25rem;
   overflow-y: auto;
   z-index: 100;
   display: none;
@@ -84,7 +84,6 @@ li.selected .checkmark {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem 0.938rem;
   width: 100%;
 }
 
@@ -261,4 +260,20 @@ li.selected .contact-info span {
 
 .category-arrow.rotated {
   transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0.625rem;
+    background: white;
+    max-height: 12rem;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+  }
 }

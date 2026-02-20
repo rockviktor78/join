@@ -1,8 +1,4 @@
-/**
- * Holds the current task being created.
- * Populated step by step with user input.
- * @type {Array}
- */
+const taskAddedModal = document.getElementById('taskAddedModal');
 let task = [];
 
 /**
@@ -13,6 +9,7 @@ function initDateInput() {
   if (!dateInput) return;
   const today = new Date().toISOString().split("T")[0];
   dateInput.min = today;
+
   dateInput.addEventListener("change", () => {
     const date = new Date(dateInput.value);
     if (!isNaN(date)) {
@@ -34,6 +31,7 @@ function openDatePicker() {
 
 /**
  * Deselects all priority buttons and resets their icons.
+  * @param {HTMLButtonElement} button - The clicked priority button element.
  */
 function selectPriority(button) {
   const buttons = document.querySelectorAll(".priority__button");
@@ -56,13 +54,18 @@ function clearFields() {
   document.getElementById("task-title").value = "";
   document.getElementById("task-description").value = "";
   document.getElementById("task-due-date").value = "";
-  document.getElementById("dropdown-selected").textContent =
-    "Select contacts to assign";
+  const searchInput = document.getElementById("contact-search-input");
+  if (searchInput) {
+    searchInput.value = "";
+    searchInput.placeholder = "Select contacts to assign";
+  }
   document.getElementById("selected-contacts").innerHTML = "";
   document.getElementById("task-category").value = "";
   document.getElementById("task-subtasks").value = "";
   document.getElementById("added-subtask").innerHTML = "";
+  selectedContacts.clear();
   deselectPriority();
+  resetSelectedContacts();
   selectPriority(document.querySelector('.priority__button[value="medium"]'));
 }
 
@@ -140,30 +143,31 @@ function editSubtask(trigger) {
 }
 
 /**
- * Returns the subtask container element of a trigger.
+ * Returns the closest subtask container element related to the given trigger element.
  *
- * @param {HTMLElement} trigger
- * @returns {HTMLElement}
+ * @param {HTMLElement} trigger - The element that triggered the action.
+ * @returns {HTMLElement|null} The closest parent element with the class "subtask-item", or null if not found.
  */
 function getSubtaskItem(trigger) {
   return trigger.closest(".subtask-item");
 }
 
 /**
- * Checks whether a subtask is currently being edited.
+ * Checks whether the given subtask item is currently in edit mode.
  *
- * @param {HTMLElement} item
- * @returns {boolean}
+ * @param {HTMLElement} item - The subtask container element.
+ * @returns {boolean} True if the subtask is being edited, otherwise false.
  */
 function isEditing(item) {
   return !!item.querySelector(".subtask-edit-input");
 }
 
 /**
- * Initializes edit mode for a subtask.
+ * Activates edit mode for a subtask by replacing the text element
+ * with an input field and attaching the necessary event listeners.
  *
- * @param {HTMLElement} item
- * @param {HTMLElement} textSpan
+ * @param {HTMLElement} item - The subtask container element.
+ * @param {HTMLElement} textSpan - The element containing the subtask text.
  */
 function startEdit(item, textSpan) {
   const input = createEditInput(textSpan.textContent);
@@ -174,10 +178,10 @@ function startEdit(item, textSpan) {
 }
 
 /**
- * Creates an input element for editing a subtask.
+ * Creates and returns an input element for editing a subtask.
  *
- * @param {string} text
- * @returns {HTMLInputElement}
+ * @param {string} text - The current subtask text.
+ * @returns {HTMLInputElement} The generated input element.
  */
 function createEditInput(text) {
   const input = document.createElement("input");
@@ -188,11 +192,12 @@ function createEditInput(text) {
 }
 
 /**
- * Attaches event listeners for saving or canceling subtask edits.
+ * Attaches keyboard and blur event listeners to handle saving
+ * or canceling subtask edits.
  *
- * @param {HTMLElement} item
- * @param {HTMLElement} textSpan
- * @param {HTMLInputElement} input
+ * @param {HTMLElement} item - The subtask container element.
+ * @param {HTMLElement} textSpan - The original text element.
+ * @param {HTMLInputElement} input - The input element used for editing.
  */
 function attachEditListeners(item, textSpan, input) {
   input.addEventListener("keydown", (e) => {
@@ -204,10 +209,11 @@ function attachEditListeners(item, textSpan, input) {
 }
 
 /**
- * Saves the changes made to a subtask.
+ * Saves the edited subtask text and replaces the input field
+ * with an updated text element.
  *
- * @param {HTMLElement} item
- * @param {HTMLInputElement} input
+ * @param {HTMLElement} item - The subtask container element.
+ * @param {HTMLInputElement} input - The input element containing the updated text.
  */
 function saveEdit(item, input) {
   const newText = input.value.trim();
@@ -221,16 +227,20 @@ function saveEdit(item, input) {
 }
 
 /**
- * Cancels editing a subtask and restores original text.
+ * Cancels subtask editing and restores the original text element.
+ *
+ * @param {HTMLElement} item - The subtask container element.
+ * @param {HTMLElement} textSpan - The original text element to restore.
+ * @param {HTMLInputElement} input - The input element currently in edit mode.
  */
 function cancelEdit(item, textSpan, input) {
   item.replaceChild(textSpan, input);
 }
 
 /**
- * Deletes a subtask from the DOM.
+ * Deletes a subtask element from the DOM based on the clicked trigger element.
  *
- * @param {HTMLElement} trigger - The clicked delete icon
+ * @param {HTMLElement} trigger - The element (e.g., delete icon) that triggered the deletion.
  */
 function deleteSubtask(trigger) {
   const item = trigger.closest(".subtask-item");
@@ -242,12 +252,30 @@ function deleteSubtask(trigger) {
  * @param {boolean} isOpened - Whether the dropdown is opened.
  */
 function rotateCategoryArrow(isOpened) {
-    const arrow = document.querySelector('.category-arrow');
-    if (arrow) {
-        if (isOpened) {
-            arrow.classList.add('rotated');
-        } else {
-            arrow.classList.remove('rotated');
-        }
+  const arrow = document.querySelector('.category-arrow');
+  if (arrow) {
+    if (isOpened) {
+      arrow.classList.add('rotated');
+    } else {
+      arrow.classList.remove('rotated');
     }
+  }
 }
+
+/**
+ * Shows the "Task Added" modal and redirects to board after delay.
+ */
+function handleAddTaskSuccess() {
+  if (!taskAddedModal) return;
+
+  taskAddedModal.classList.add('show');
+
+  setTimeout(() => {
+    taskAddedModal.classList.remove('show');
+    window.location.href = "../html/board.html";
+  }, 2000);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initDateInput();
+});
