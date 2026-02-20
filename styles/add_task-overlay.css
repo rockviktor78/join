@@ -81,7 +81,7 @@
 
 .addtask-panel__content .add-task-separator {
   width: 1px;
-  background-color: #D1D1D1;
+  background-color: #d1d1d1;
   align-self: stretch;
 }
 
@@ -111,4 +111,63 @@
   .addtask-panel {
     display: none !important;
   }
+}
+
+/* ====== Overlay Dropdown Contacts ====== */
+.overlay-dropdown__item {
+  cursor: pointer;
+  border-radius: 0.5rem;
+  list-style: none;
+}
+
+.overlay-dropdown__container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.938rem;
+  width: 100%;
+}
+
+.overlay-dropdown__initial {
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 0.188rem solid white;
+}
+
+.overlay-dropdown__info {
+  flex: 1;
+}
+
+.overlay-dropdown__checkmark {
+  width: 1rem;
+  height: 1rem;
+  margin-left: auto;
+  background: url("../assets/img/addtask/checkempty.svg") no-repeat;
+  background-size: contain;
+}
+
+.overlay-dropdown__selected-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.overlay-dropdown__selected-contacts .overlay-dropdown__badge {
+  color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
 }

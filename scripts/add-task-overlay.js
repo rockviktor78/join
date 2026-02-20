@@ -1,4 +1,24 @@
 /**
+ * Global map to track selected contacts in overlay.
+ */
+const selectedContacts = new Map();
+
+/**
+ * Toggles dropdown visibility (called from HTML onclick).
+ */
+function toggleDropdown(e) {
+  if (e) e.stopPropagation();
+  const arrow = e?.target;
+  const dropdown = arrow?.closest(".dropdown");
+  const list = dropdown?.querySelector(".dropdown-list, #dropdown-list");
+  if (!list) return;
+
+  const isVisible = list.style.display === "block";
+  list.style.display = isVisible ? "none" : "block";
+  if (arrow) arrow.classList.toggle("rotated", !isVisible);
+}
+
+/**
  * Loads add-task HTML content.
  * @returns {Promise<Document>} - Parsed HTML document
  */
@@ -14,6 +34,14 @@ async function loadAddTaskHTML() {
  * @param {Document} doc - Parsed HTML document
  * @param {HTMLElement} content - Target content container
  */
+function initializeFormHandlers(content) {
+  if (typeof initDropdown === "function") initDropdown();
+  ensureDropdownPopulated(content);
+  bindDropdownListeners(content);
+  if (typeof initDateInput === "function") initDateInput();
+  if (typeof initSubtaskInput === "function") initSubtaskInput();
+}
+
 function insertAddTaskContent(doc, content) {
   const taskContent = doc.querySelector(".add-task-content");
   const buttonWrapper = doc.querySelector(".button-wrapper");
@@ -22,11 +50,10 @@ function insertAddTaskContent(doc, content) {
   content.appendChild(taskContent.cloneNode(true));
   if (buttonWrapper) content.appendChild(buttonWrapper.cloneNode(true));
   content.setAttribute("data-loaded", "true");
-  setTimeout(() => {
-    if (typeof initDropdown === "function") initDropdown();
-    if (typeof initDateInput === "function") initDateInput();
-    if (typeof initSubtaskInput === "function") initSubtaskInput();
-  }, 0);
+  const selectedBox = content.querySelector(".selected-contacts");
+  if (selectedBox)
+    selectedBox.classList.add("overlay-dropdown__selected-contacts");
+  setTimeout(() => initializeFormHandlers(content), 100);
 }
 
 /**
@@ -96,6 +123,180 @@ function closeAddTaskPanel() {
 
   if (panel) panel.classList.remove("is-open");
   if (overlay) overlay.classList.remove("is-open");
+}
+
+function getContactInitials(name) {
+  return name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+function createContactBadge(contact) {
+  const badge = document.createElement("span");
+  badge.className = "overlay-dropdown__badge";
+  badge.textContent = getContactInitials(contact.name);
+  badge.style.background = contact.color;
+  return badge;
+}
+
+function updateSelectedBox(selectedBox) {
+  if (!selectedBox) return;
+  selectedBox.innerHTML = "";
+  selectedContacts.forEach((c) =>
+    selectedBox.appendChild(createContactBadge(c)),
+  );
+}
+
+function toggleContactSelection(li, contact, selectedBox) {
+  const isSelected = li.classList.toggle("selected");
+  li.style.background = isSelected ? "#2A3647" : "";
+  li.querySelector(".overlay-dropdown__checkmark").style.backgroundImage =
+    isSelected
+      ? "url('../assets/img/addtask/check-checked-white.svg')"
+      : "url('../assets/img/addtask/checkempty.svg')";
+  li.querySelector(".overlay-dropdown__info span").style.color = isSelected
+    ? "white"
+    : "";
+  isSelected
+    ? selectedContacts.set(contact.id, contact)
+    : selectedContacts.delete(contact.id);
+  updateSelectedBox(selectedBox);
+}
+
+function createContactListItem(contact, selectedBox) {
+  const li = document.createElement("li");
+  li.className = "overlay-dropdown__item";
+  li.innerHTML = `<div class="overlay-dropdown__container"><div class="overlay-dropdown__initial" style="background:${contact.color}">${getContactInitials(contact.name)}</div><div class="overlay-dropdown__info"><span>${contact.name}</span></div><div class="overlay-dropdown__checkmark"></div></div>`;
+  li.onclick = (e) => {
+    e.stopPropagation();
+    toggleContactSelection(li, contact, selectedBox);
+  };
+  return li;
+}
+
+function ensureDropdownPopulated(content) {
+  const list = content?.querySelector("#dropdown-list");
+  if (!list || list.children.length > 0) return;
+  const data = JSON.parse(sessionStorage.getItem("joinData") || "{}");
+  const contacts = Object.entries(data.contacts || {}).map(([id, c]) => ({
+    id,
+    name: c.name,
+    color: c.color || "#D1D1D1",
+  }));
+  const selectedBox = content?.querySelector(
+    ".overlay-dropdown__selected-contacts",
+  );
+  contacts.forEach((contact) =>
+    list.appendChild(createContactListItem(contact, selectedBox)),
+  );
+}
+
+/**
+ * Binds click listeners to dropdown elements in overlay.
+ */
+function bindDropdownListeners(content) {
+  const input = content?.querySelector(".contact-search-input");
+  const arrow = content?.querySelector(".dropdown-arrow");
+  const list = content?.querySelector(".dropdown-list");
+
+  if (input)
+    input.onclick = (e) => {
+      e.stopPropagation();
+      list.style.display = "block";
+    };
+  if (arrow)
+    arrow.onclick = (e) => {
+      e.stopPropagation();
+      list.style.display = list.style.display === "block" ? "none" : "block";
+    };
+  document.addEventListener("click", () => {
+    if (list) list.style.display = "none";
+  });
+}
+
+const REQUIRED_FIELDS = [
+  { id: "task-title", err: "title-error-message" },
+  { id: "task-due-date", err: "date-error-message" },
+  { id: "task-category", err: "category-error-message" },
+];
+
+function validateField(field) {
+  const input = document.getElementById(field.id);
+  const error = document.getElementById(field.err);
+  const isValid = input?.value.trim() && input.value !== "undefined";
+  error.style.display = isValid ? "none" : "block";
+  error.textContent = "This field is required";
+  input.classList.toggle("error-border", !isValid);
+  return isValid;
+}
+
+function validateAllFields() {
+  return REQUIRED_FIELDS.every(validateField);
+}
+
+/**
+ * Converts date format from YYYY-MM-DD to MM-DD-YYYY.
+ */
+function getFormattedDate(dateString) {
+  const [year, month, day] = dateString.split("-");
+  return `${month}-${day}-${year}`;
+}
+
+/**
+ * Gets the currently selected task priority.
+ */
+function getPriority() {
+  const activeBtn = document.querySelector(".priority__button.active");
+  return activeBtn ? activeBtn.value : "medium";
+}
+
+/**
+ * Collects all entered subtasks from the UI.
+ */
+function getSubtasks() {
+  const subtasks = [];
+  document.querySelectorAll("#added-subtask .subtask").forEach((st) => {
+    subtasks.push({ title: st.textContent.trim(), done: false });
+  });
+  return subtasks;
+}
+
+function assembleTask() {
+  const cat = document.getElementById("task-category");
+  const task = {
+    title: document.getElementById("task-title").value.trim(),
+    description: document.getElementById("task-description").value.trim(),
+    dueDate: getFormattedDate(document.getElementById("task-due-date").value),
+    priority: getPriority(),
+    taskType: cat.options[cat.selectedIndex].text.toLowerCase(),
+    category: "to do",
+    assignedTo: Array.from(selectedContacts.keys()),
+  };
+  const subs = getSubtasks();
+  if (subs.length) task.subtasks = subs;
+  return task;
+}
+
+/**
+ * Saves a new task into the session storage.
+ */
+function saveToStorage(newTask) {
+  const raw = sessionStorage.getItem("joinData");
+  if (!raw) return console.error("joinData not found");
+  const joinData = JSON.parse(raw);
+  joinData.tasks ??= {};
+  const taskId = `task${Object.keys(joinData.tasks).length + 1}`;
+  joinData.tasks[taskId] = newTask;
+  sessionStorage.setItem("joinData", JSON.stringify(joinData));
+  console.log(`Task ${taskId} saved`, newTask);
+}
+
+function createTask() {
+  if (!validateAllFields()) return;
+  saveToStorage(assembleTask());
 }
 
 // Setup close handlers when DOM is loaded
