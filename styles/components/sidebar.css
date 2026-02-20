@@ -60,7 +60,7 @@
 
 /* Accessibility: min 1rem */
 .menu__label {
-  font-size: var(--font-size-base); 
+  font-size: var(--font-size-base);
 }
 
 /* Mobile: Hover without layout shift (color only) */
@@ -75,9 +75,9 @@
   color: var(--color-white);
 }
 
- /* Mobile: Hidden */
+/* Mobile: Hidden */
 .menu__mobile {
-   display: none;
+  display: none;
 }
 
 .menu__mobile__link {
@@ -286,6 +286,15 @@
     display: flex;
     padding: 0 0 var(--spacing-3xl) 0;
     flex-direction: column;
+  }
+}
+
+/* ================================================
+   Small Height Adjustment (< 700px height)
+   ================================================ */
+@media (max-height: 700px) {
+  .menu__nav {
+    padding-top: 3rem;
   }
 }
 
