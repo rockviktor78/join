@@ -37,7 +37,7 @@
 }
 
 .content-padding {
-  padding: var(--spacing-lg);
+  padding: var(--spacing-5xl);
 }
 
 /* ================================================
@@ -69,8 +69,8 @@
   }
 
   .content-padding {
-    padding-left: var(--spacing-xl);
-    padding-right: var(--spacing-xl);
+    padding-left: var(--spacing-5xl);
+    padding-right: var(--spacing-6xl);
     padding-bottom: 0;
   }
 }

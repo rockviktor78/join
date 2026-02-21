@@ -125,7 +125,6 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem 0.938rem;
   width: 100%;
 }
 
@@ -146,9 +145,13 @@
   flex: 1;
 }
 
+.overlay-dropdown__info span {
+  font-size: var(--font-size-xl);
+}
+
 .overlay-dropdown__checkmark {
-  width: 1rem;
-  height: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
   margin-left: auto;
   background: url("../assets/img/addtask/checkempty.svg") no-repeat;
   background-size: contain;

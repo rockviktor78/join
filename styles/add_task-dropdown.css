@@ -27,7 +27,7 @@
   border: 1px solid #ccc;
   border-radius: 0.625rem;
   background: white;
-  max-height: 25rem;
+  max-height: 20rem;
   overflow-y: auto;
   z-index: 100;
   display: none;
@@ -44,6 +44,11 @@
 .dropdown-list li.selected {
   background: #e6f0ff;
   color: #0057ff;
+}
+
+.dropdown-list li:not(.selected):hover {
+  background-color: var(--color-primary-super-light);
+  border-radius: 0.625rem;
 }
 
 .checkmark {
@@ -103,11 +108,11 @@ li.selected .checkmark {
 }
 
 .selection-checkmark {
-  width: 1rem;
-  height: 1rem;
+  width: 1.2rem;
+  height: 1.2rem;
   margin-left: auto;
   background-image: url("../assets/img/addtask/checkempty.svg");
-  background-size: contain;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
@@ -118,6 +123,10 @@ li.selected .selection-checkmark {
 li.selected {
   background-color: #2a3647 !important;
   border-radius: 0.625rem;
+}
+
+.dropdown-list .contact-info span {
+  font-size: var(--font-size-xl);
 }
 
 li.selected .contact-info span {
