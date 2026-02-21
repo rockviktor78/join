@@ -34,7 +34,7 @@
   background-color: white;
   color: black;
   border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-ml);
   padding: 0.625rem 0.75rem;
   font-size: var(--font-size-xl);
   transition: border-color 0.2s ease;
@@ -57,12 +57,12 @@
   background-color: white;
   color: black;
   border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-ml);
   padding: 0.625rem 0.75rem;
   font-size: var(--font-size-xl);
   transition: border-color 0.2s ease;
   resize: vertical;
-  min-height: 6rem;
+  min-height: 7.5rem;
   width: 100%;
 }
 
@@ -102,7 +102,7 @@
   padding: 0.625rem 1rem 0.625rem 0.75rem;
   font-size: var(--font-size-xl);
   border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-ml);
   width: 100%;
 }
 
@@ -144,7 +144,7 @@
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-normal);
   border: 1px solid var(--color-gray-300);
-  border-radius: 0.625rem;
+  border-radius: var(--radius-ml);
   background-color: var(--bg-page);
   cursor: pointer;
   width: 100%;
@@ -211,7 +211,7 @@
   background-color: white;
   color: black;
   border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  border-radius:var(--radius-ml);
   padding: 0.625rem 1rem;
   font-size: var(--font-size-xl);
   transition: border-color 0.2s ease;
@@ -288,7 +288,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 6rem;
 }
 
 .add-task-button {
@@ -331,7 +331,7 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   border: 1px solid var(--color-gray-300);
-  border-radius: 10px;
+  border-radius: var(--radius-ml);
   background-color: var(--color-primary);
   color: var(--bg-page);
   cursor: pointer;
