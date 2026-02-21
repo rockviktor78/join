@@ -34,7 +34,8 @@
 }
 
 .dropdown-list li {
-  padding: 0.625rem;
+  margin: 0 1rem 0.2rem 0;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   cursor: pointer;

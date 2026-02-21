@@ -18,8 +18,9 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 1116px;
-  height: 870px;
+  width: 69.75rem;
+  height: 54.375rem;
+  max-height: 54.375rem;
   background: var(--color-white);
   border-radius: 30px;
   box-shadow: var(--shadow-lg);
