@@ -407,7 +407,7 @@
 
   .board-column {
     flex: 1;
-    min-width: 200px;
+    min-width: 11.4rem;
     max-width: none;
   }
 
