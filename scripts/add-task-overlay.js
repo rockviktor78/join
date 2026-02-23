@@ -249,19 +249,36 @@ function bindDropdownListeners(content) {
 
 /**
  * Required form fields configuration for task creation.
- * (Shared with add_task.js via shared/utilities.js)
+ * @type {Array<{id: string, err: string}>}
  */
+const REQUIRED_FIELDS = [
+  { id: "task-title", err: "title-error-message" },
+  { id: "task-due-date", err: "date-error-message" },
+  { id: "task-category", err: "category-error-message" },
+];
 
 /**
- * Required form fields configuration for task creation.
- * (Shared with add_task.js via shared/utilities.js)
+ * Validates a single form field and displays error if invalid.
+ * @param {Object} field - Field configuration with id and error element id
+ * @returns {boolean} - Whether the field is valid
  */
+function validateField(field) {
+  const input = document.getElementById(field.id);
+  const error = document.getElementById(field.err);
+  const isValid = input?.value.trim() && input.value !== "undefined";
+  error.style.display = isValid ? "none" : "block";
+  error.textContent = "This field is required";
+  input.classList.toggle("error-border", !isValid);
+  return isValid;
+}
 
 /**
  * Validates all required form fields.
- * Uses shared validation from utilities.js
  * @returns {boolean} - Whether all fields are valid
  */
+function validateAllFields() {
+  return REQUIRED_FIELDS.every(validateField);
+}
 
 /**
  * Converts date format from YYYY-MM-DD to MM-DD-YYYY.

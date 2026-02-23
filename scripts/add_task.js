@@ -65,8 +65,20 @@ function clearFields() {
   document.getElementById("added-subtask").innerHTML = "";
   selectedContacts.clear();
   deselectPriority();
-  resetSelectedContacts();
+  if (typeof resetSelectedContacts === "function") {
+    resetSelectedContacts();
+  }
   selectPriority(document.querySelector('.priority__button[value="medium"]'));
+}
+
+/**
+ * Resets selected contacts display. Fallback if dropdown.js function unavailable.
+ */
+function resetSelectedContacts() {
+  const selectedBox = document.getElementById("selected-contacts");
+  if (selectedBox) {
+    selectedBox.innerHTML = "";
+  }
 }
 
 /**
