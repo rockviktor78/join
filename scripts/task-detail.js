@@ -1,5 +1,5 @@
-const overlayContainer = document.getElementById('overlay-container');
-const overlayContent = document.getElementById('overlay-content');
+const taskDetailsOverlay = document.getElementById('taskDetailsOverlay');
+const taskDetailContent = document.getElementById('taskDetailContent');
 const overlayTransitionDuration = 250;
 let currentTask = null;
 
@@ -14,20 +14,20 @@ function openTaskDetails(taskId) {
 
 
 function closeTaskDetails() {
-    overlayContainer.classList.remove('show');
+    taskDetailsOverlay.classList.remove('show');
 
     setTimeout(() => {
-        overlayContainer.classList.add('hidden');
+        taskDetailsOverlay.classList.add('hidden');
         document.body.style.overflow = 'auto';
         currentTask = null;
     }, overlayTransitionDuration);
 }
 
 function showOverlay() {
-    overlayContainer.classList.remove('hidden');
+    taskDetailsOverlay.classList.remove('hidden');
 
     setTimeout(() => {
-        overlayContainer.classList.add('show');
+        taskDetailsOverlay.classList.add('show');
     }, 10);
 
     document.body.style.overflow = 'hidden';
@@ -40,7 +40,7 @@ function renderTaskOverlay() {
     const contactsHTML = getDetailedContactTemplate(currentTask.assignedTo);
     const subtasksHTML = getDetailSubtasksTemplate(currentTask.id, currentTask.subtasks);
 
-    overlayContent.innerHTML = getTaskDetailTemplate(
+    taskDetailContent.innerHTML = getTaskDetailTemplate(
         currentTask,
         contactsHTML,
         subtasksHTML
@@ -112,5 +112,6 @@ function getInitials(name) {
         .map(n => n[0])
         .join("");
 }
+
 
 
