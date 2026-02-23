@@ -23,15 +23,15 @@
     <link rel="stylesheet" href="../styles/add_task-dropdown.css" />
 
     <script src="../scripts/shared/utilities.js" defer></script>
+    <script src="../scripts/utilities.js" defer></script>
+    <script src="../scripts/dataStore.js" defer></script>
+    <script src="../scripts/add_task-template.js" defer></script>
+    <script src="../scripts/add_task-dropdown.js" defer></script>
+    <script src="../scripts/add_task.js" defer></script>
     <script src="../scripts/shared/include-html.js" defer></script>
     <script src="../scripts/shared/init-template.js" defer></script>
     <script src="../scripts/shared/view-transitions.js" defer></script>
     <script src="../scripts/shared/menu.js" defer></script>
-    <script src="../scripts/add_task.js" defer></script>
-    <script src="../scripts/add_task-template.js" defer></script>
-    <script src="../scripts/add_task-dropdown.js" defer></script>
-    <script src="../scripts/dataStore.js" defer></script>
-    <script src="../scripts/utilities.js"></script>
   </head>
 
   <body class="app-layout">
@@ -56,7 +56,7 @@
               <div class="headline">Due Date<span class="red-star">*</span></div>
               <div class="date-wrapper">
                 <input type="date" class="task-due-date" id="task-due-date" name="due-date" required />
-                <img src="../assets/img/addtask/calender.svg" class="calendar-icon" onclick="openDatePicker()" alt="Kalender öffnen" />
+                <img src="../assets/img/addtask/calender.svg" class="calendar-icon" id="calendar-icon" alt="Kalender öffnen" />
                 <span id="date-error-message" class="error-text" style="display: none; color: red"></span>
               </div>
             </div>
@@ -65,12 +65,12 @@
           <div class="right-side">
             <div class="priority-content">
               <div class="priority">Priority</div>
-              <div class="priority-selection">
-                <button value="urgent" class="priority__button" onclick="selectPriority(this)">Urgent <img src="../assets/img/addtask/urgent.svg" /></button>
-                <button value="medium" class="priority__button medium active" onclick="selectPriority(this)">
+              <div class="priority-selection" id="priority-selection">
+                <button type="button" value="urgent" class="priority__button">Urgent <img src="../assets/img/addtask/urgent.svg" /></button>
+                <button type="button" value="medium" class="priority__button medium active">
                   Medium <img src="../assets/img/addtask/mediumselected.svg" />
                 </button>
-                <button value="low" class="priority__button" onclick="selectPriority(this)">Low <img src="../assets/img/addtask/low.svg" /></button>
+                <button type="button" value="low" class="priority__button">Low <img src="../assets/img/addtask/low.svg" /></button>
               </div>
             </div>
             <div class="section">
@@ -78,14 +78,8 @@
               <div>
                 <div class="dropdown" id="dropdown-container">
                   <div class="dropdown-wrapper">
-                    <input
-                      type="text"
-                      class="contact-search-input"
-                      id="contact-search-input"
-                      placeholder="Select contacts to assign"
-                      onkeyup="filterContacts()"
-                    />
-                    <div class="dropdown-arrow" onclick="toggleDropdown(event)"></div>
+                    <input type="text" class="contact-search-input" id="contact-search-input" placeholder="Select contacts to assign" />
+                    <div class="dropdown-arrow" id="dropdown-arrow"></div>
                   </div>
                   <ul class="dropdown-list" id="dropdown-list" style="display: none"></ul>
                 </div>
@@ -95,14 +89,7 @@
             <div class="section">
               <div class="headline">Category<span class="red-star">*</span></div>
               <div class="category-wrapper">
-                <select
-                  class="task-category"
-                  id="task-category"
-                  name="category"
-                  onfocus="rotateCategoryArrow(true)"
-                  onblur="rotateCategoryArrow(false)"
-                  onchange="rotateCategoryArrow(false)"
-                >
+                <select class="task-category" id="task-category" name="category">
                   <option value="" disabled selected>Select category</option>
                   <option value="technical-task">Technical Task</option>
                   <option value="user-story">User Story</option>
@@ -114,10 +101,10 @@
             <div class="section">
               <div class="headline">Subtasks</div>
               <div class="subtask-wrapper">
-                <input type="text" class="subtask" id="task-subtasks" name="subtasks" placeholder="Add new subtask" oninput="toggleSubtaskActions()" required />
+                <input type="text" class="subtask" id="task-subtasks" name="subtasks" placeholder="Add new subtask" />
                 <div class="subtask-actions">
-                  <span class="cancel" onclick="cancelSubtask()"> <img src="../assets/img/addtask/cross.svg" /> </span>
-                  <span class="confirm" onclick="addSubtask()"> <img src="../assets/img/addtask/checkdark.svg" /> </span>
+                  <span class="cancel" id="subtask-cancel"> <img src="../assets/img/addtask/cross.svg" /> </span>
+                  <span class="confirm" id="subtask-confirm"> <img src="../assets/img/addtask/checkdark.svg" /> </span>
                 </div>
               </div>
               <div class="added-subtask" id="added-subtask"></div>
@@ -127,10 +114,8 @@
         <div class="button-wrapper">
           <div><span class="red-star">*</span>This field is required</div>
           <div class="add-task-button">
-            <button id="clear__button" class="clear__button" onclick="clearFields()">Clear <span class="icon"></span></button>
-            <button id="create-task__button" class="create-task__button" onclick="createTask()">
-              Create Task <img src="../assets/img/addtask/check.svg" />
-            </button>
+            <button type="button" id="clear__button" class="clear__button">Clear <span class="icon"></span></button>
+            <button type="button" id="create-task__button" class="create-task__button">Create Task <img src="../assets/img/addtask/check.svg" /></button>
           </div>
         </div>
       </div>
