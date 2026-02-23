@@ -42,7 +42,7 @@ ol[role="list"] {
 /* Basics body settings */
 body {
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.3;
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
