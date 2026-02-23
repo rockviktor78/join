@@ -59,7 +59,7 @@
                 <img src="../assets/img/board/search.svg" alt="" />
               </button>
             </div>
-            <button class="btn board__add-btn" onclick="openAddTaskOverlay()">Add task <img src="../assets/img/board/add.svg" alt="" /></button>
+            <button class="btn board__add-btn">Add task <img src="../assets/img/board/add.svg" alt="" /></button>
           </div>
         </header>
 
@@ -67,7 +67,7 @@
           <section class="board-column">
             <div class="board-column__header">
               <span class="board-column__title" title="To do">To do</span>
-              <button class="board-column__add-btn" onclick="openAddTaskOverlay()" aria-label="Add task to column">
+              <button class="board-column__add-btn" aria-label="Add task to column">
                 <img src="../assets/img/board/plusbutton.svg" alt="" />
               </button>
             </div>
@@ -77,7 +77,7 @@
           <section class="board-column">
             <div class="board-column__header">
               <span class="board-column__title" title="In progress">In progress</span>
-              <button class="board-column__add-btn" onclick="openAddTaskOverlay()">
+              <button class="board-column__add-btn">
                 <img src="../assets/img/board/plusbutton.svg" alt="" />
               </button>
             </div>
@@ -87,7 +87,7 @@
           <section class="board-column">
             <div class="board-column__header">
               <span class="board-column__title" title="Await feedback">Await feedback</span>
-              <button class="board-column__add-btn" onclick="openAddTaskOverlay()">
+              <button class="board-column__add-btn">
                 <img src="../assets/img/board/plusbutton.svg" alt="" />
               </button>
             </div>
@@ -103,20 +103,16 @@
         </div>
       </div>
     </main>
-    <div id="overlay-container" class="overlay-container hidden" onclick="closeTaskDetails()">
-      <div id="overlay-content" class="overlay-content" onclick="event.stopPropagation()"></div>
+    <div id="taskDetailsOverlay" class="task-details-overlay hidden">
+      <div id="taskDetailContent" class="task-detail-content"></div>
     </div>
-
-    <!-- Add Task Overlay -->
     <div class="addtask-overlay"></div>
     <div class="addtask-panel">
       <div class="addtask-panel__header">
         <h1 class="addtask-panel__title">Add Task</h1>
         <button class="addtask-panel__close" aria-label="Close">×</button>
       </div>
-      <div class="addtask-panel__content" id="addtask-panel-content-id">
-        <!-- Add Task content will be loaded here -->
-      </div>
+      <div class="addtask-panel__content" id="addtask-panel-content-id"></div>
     </div>
   </body>
 </html>
