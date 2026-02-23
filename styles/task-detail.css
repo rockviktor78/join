@@ -1,6 +1,5 @@
 /* ====== 1. Overlay Layout ====== */
-
-.overlay-container {
+.task-details-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -8,32 +7,28 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   opacity: 0;
   transition: opacity 200ms ease;
 }
 
-.overlay-content {
+.task-detail-content {
   background: var(--color-white);
   width: 100%;
   max-width: 36rem;
   max-height: 75vh;
-
   border-radius: 30px;
-  padding: 1.5rem;
+  padding: 1.8rem;
   margin: 0.6rem;
-
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   position: relative;
 }
 
 /* ====== 2. Animation ====== */
-.overlay-content {
+.task-detail-content {
   transform: translateX(100%);
   opacity: 0;
   transition:
@@ -41,11 +36,11 @@
     opacity 200ms ease;
 }
 
-.overlay-container.show {
+.task-details-overlay.show {
   opacity: 1;
 }
 
-.overlay-container.show .overlay-content {
+.task-details-overlay.show .task-detail-content {
   transform: translateX(0);
   opacity: 1;
 }
@@ -54,17 +49,17 @@
 .task-detail__header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 .task-detail__property {
   display: flex;
   gap: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
 }
 
 .task-detail__section {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 .priority-badge span {
@@ -90,10 +85,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-
   padding: 0.4rem 1.25rem;
   border-radius: 10px;
-
   cursor: pointer;
   transition: background 0.1s;
 }
@@ -137,7 +130,7 @@
 
 .task-detail__description {
   font-size: var(--font-size-base);
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 /* ====== 5. Utilities ====== */
@@ -147,7 +140,7 @@
 
 /* ====== 4. Desktop Version ====== */
 @media (min-width: 768px) {
-  .overlay-content {
+  .task-detail-content {
     padding: 3rem;
     margin: 2rem;
     max-height: 90vh;
