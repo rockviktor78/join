@@ -1,4 +1,4 @@
-@media (min-width: 1025px) and (max-width: 1250px) {
+@media (min-width: 1145px) and (max-width: 1360px) {
   .contacts-list-container {
     width: 21.875rem;
     padding-left: 0.313rem;
@@ -69,7 +69,7 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1145px) {
   .add-new-contact-container {
     padding: 1rem 0.75rem 1rem 0.75rem;
   }

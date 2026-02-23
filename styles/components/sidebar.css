@@ -292,7 +292,7 @@
 /* ================================================
    Small Height Adjustment (< 700px height)
    ================================================ */
-@media (max-height: 700px) {
+@media (max-height: 700px) and (min-width: 769px) {
   .menu__nav {
     padding-top: 3rem;
   }
