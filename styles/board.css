@@ -484,4 +484,8 @@
     flex: 1 1 calc(50% - 1rem);
     min-width: 0;
   }
+
+  .board__add-btn {
+    padding: 0.625rem 1rem;
+  }
 }
