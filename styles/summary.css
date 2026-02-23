@@ -52,7 +52,7 @@
 /* ====== 3. Card Component  ====== */
 .card {
   background: var(--color-white);
-  border-radius: 1.25rem;
+  border-radius: var(--radius-3xl);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -255,7 +255,24 @@
 }
 
 @media (min-width: 768px) and (max-width: 1200px) {
-  .summary__greeting {
-    display: none;
+  .summary__greeting {display: none;
   }
+}
+
+@media (min-width: 1201px) and (max-width: 1422px) {
+  .summary__greeting-title {
+    font-size: clamp(16px, 3vw, 48px);
+  }
+}
+
+@media (max-width: 1422px) {
+  .summary { gap: 2rem; }
+}
+
+@media (max-width: 1338px) {
+  .summary { gap: 1rem; }
+}
+
+@media (max-width: 1201px) {
+  .summary { gap: 1rem; }
 }
