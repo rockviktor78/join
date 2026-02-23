@@ -277,6 +277,8 @@
 .summary__title {
         font-size: var(--font-size-5xl);
     }
+  }
+
 
 @media (max-width: 1422px) {
   .summary { gap: 2rem; }
