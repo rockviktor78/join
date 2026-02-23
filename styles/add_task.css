@@ -211,7 +211,7 @@
   background-color: white;
   color: black;
   border: 1px solid #ccc;
-  border-radius:var(--radius-ml);
+  border-radius: var(--radius-ml);
   padding: 0.625rem 1rem;
   font-size: var(--font-size-xl);
   transition: border-color 0.2s ease;
