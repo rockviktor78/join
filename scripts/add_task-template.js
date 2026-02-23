@@ -1,10 +1,14 @@
 function templateAddSubtask(subtaskText) {
-    return `
+  return `
         <div class="subtask-item">
-            <span class="subtask-text" ondblclick="editSubtask(this)">- ${subtaskText}</span>
+            <span class="subtask-text">${subtaskText}</span>
             <div class="subtask-item-actions">
-                <span class="edit" onclick="editSubtask(this)"><img src="../assets/img/addtask/edit.svg" alt="Edit"></span>
-                <span class="delete" onclick="deleteSubtask(this)"><img src="../assets/img/addtask/delete.svg" alt="Delete"></span>
+                <button type="button" class="edit-btn">
+                    <img src="../assets/img/addtask/edit.svg" alt="Edit">
+                </button>
+                <button type="button" class="delete-btn">
+                    <img src="../assets/img/addtask/delete.svg" alt="Delete">
+                </button>
             </div>
         </div>
     `;

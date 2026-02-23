@@ -2,280 +2,209 @@ const taskAddedModal = document.getElementById('taskAddedModal');
 let task = [];
 
 /**
- * Initializes the date input with today's date as minimum.
+ * DATUM & PRIORITÄT
  */
 function initDateInput() {
   const dateInput = document.getElementById("task-due-date");
   if (!dateInput) return;
-  const today = new Date().toISOString().split("T")[0];
-  dateInput.min = today;
+  dateInput.min = new Date().toISOString().split("T")[0];
 
   dateInput.addEventListener("change", () => {
-    const date = new Date(dateInput.value);
-    if (!isNaN(date)) {
-      const day = String(date.getDate()).padStart(2, "0");
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const year = date.getFullYear();
-      dateInput.setAttribute("data-date", `${day}/${month}/${year}`);
+    if (dateInput.value) {
+      const [y, m, d] = dateInput.value.split("-");
+      dateInput.setAttribute("data-date", `${d}/${m}/${y}`);
     }
   });
 }
 
-/**
- * Programmatically opens the native date picker.
- */
 function openDatePicker() {
   const dateInput = document.getElementById("task-due-date");
   if (dateInput) dateInput.showPicker();
 }
 
-/**
- * Deselects all priority buttons and resets their icons.
-  * @param {HTMLButtonElement} button - The clicked priority button element.
- */
 function selectPriority(button) {
-  const buttons = document.querySelectorAll(".priority__button");
-  buttons.forEach((btn) => {
-    btn.classList.remove("urgent", "medium", "low", "active");
-    const img = btn.querySelector("img");
-    const base = btn.value;
-    img.src = `../assets/img/addtask/${base}.svg`;
-  });
+  deselectPriority();
   const priority = button.value;
   button.classList.add(priority, "active");
-  const img = button.querySelector("img");
-  img.src = `../assets/img/addtask/${priority}selected.svg`;
+  button.querySelector("img").src = `../assets/img/addtask/${priority}selected.svg`;
+}
+
+function deselectPriority() {
+  document.querySelectorAll(".priority__button").forEach((btn) => {
+    btn.classList.remove("urgent", "medium", "low", "active");
+    btn.querySelector("img").src = `../assets/img/addtask/${btn.value}.svg`;
+  });
 }
 
 /**
- * Clears all input fields and resets the task form to default state.
+ * FORMULAR RESET LOGIK
  */
 function clearFields() {
-  document.getElementById("task-title").value = "";
-  document.getElementById("task-description").value = "";
-  document.getElementById("task-due-date").value = "";
+  resetInputs();
+  resetDropdownState();
+  document.getElementById("added-subtask").innerHTML = "";
+  deselectPriority();
+  resetValidation();
+  if (typeof resetSelectedContacts === 'function') resetSelectedContacts();
+  const mediumBtn = document.querySelector('.priority__button[value="medium"]');
+  if (mediumBtn) selectPriority(mediumBtn);
+}
+
+function resetInputs() {
+  const ids = ["task-title", "task-description", "task-due-date", "task-category", "task-subtasks"];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = "";
+    if (id === "task-due-date") el.removeAttribute("data-date");
+  });
+}
+
+function resetDropdownState() {
   const searchInput = document.getElementById("contact-search-input");
+  const selectedBox = document.getElementById("selected-contacts");
   if (searchInput) {
     searchInput.value = "";
     searchInput.placeholder = "Select contacts to assign";
   }
-  document.getElementById("selected-contacts").innerHTML = "";
-  document.getElementById("task-category").value = "";
-  document.getElementById("task-subtasks").value = "";
-  document.getElementById("added-subtask").innerHTML = "";
-  selectedContacts.clear();
-  deselectPriority();
-  resetSelectedContacts();
-  selectPriority(document.querySelector('.priority__button[value="medium"]'));
+  if (selectedBox) selectedBox.innerHTML = "";
+  if (typeof selectedContacts !== 'undefined') selectedContacts.clear();
+}
+
+function resetValidation() {
+  document.querySelectorAll('.error-text').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.error-border').forEach(el => el.classList.remove('error-border'));
 }
 
 /**
- * Adds a new subtask to the list and clears the input field.
- */
-function deselectPriority() {
-  document.querySelectorAll(".priority__button").forEach((btn) => {
-    btn.classList.remove("urgent", "medium", "low", "active");
-    const img = btn.querySelector("img");
-    const base = btn.value;
-    img.src = `../assets/img/addtask/${base}.svg`;
-  });
-}
-
-/**
- * Adds a subtask when pressing Enter in the input field.
+ * SUBTASK LOGIK
  */
 function addSubtask() {
   const subtaskInput = document.getElementById("task-subtasks");
-  const subtaskText = subtaskInput.value.trim();
-  document.getElementById("added-subtask").innerHTML += templateAddSubtask(
-    subtaskText,
-    task.length,
-  );
+  const text = subtaskInput.value.trim();
+  if (!text) return;
+
+  const container = document.getElementById("added-subtask");
+  container.innerHTML += templateAddSubtask(text, task.length);
   subtaskInput.value = "";
+  toggleSubtaskActions();
 }
 
-/**
- * Initializes subtask input event listener.
- */
 function initSubtaskInput() {
-  const subtaskInput = document.getElementById("task-subtasks");
-  if (!subtaskInput) return;
-  subtaskInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      addSubtask();
-    }
+  const subInput = document.getElementById("task-subtasks");
+  subInput?.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); addSubtask(); }
   });
 }
 
-/**
- * Shows or hides the subtask action icons based on input content.
- */
 function toggleSubtaskActions() {
   const input = document.getElementById("task-subtasks");
   const actions = document.querySelector(".subtask-actions");
-  if (input.value.trim() !== "") {
-    actions.classList.add("visible");
-  } else {
-    actions.classList.remove("visible");
+  if (input && actions) {
+    actions.classList.toggle("visible", input.value.trim() !== "");
   }
 }
 
-/**
- * Cancels adding a subtask and clears the input field.
- */
 function cancelSubtask() {
   const input = document.getElementById("task-subtasks");
-  input.value = "";
+  if (input) input.value = "";
   toggleSubtaskActions();
 }
 
 /**
- * Starts edit mode for a subtask.
- *
- * @param {HTMLElement} trigger - The clicked element (text or edit icon)
+ * SUBTASK EDITIEREN & LÖSCHEN
  */
 function editSubtask(trigger) {
-  const item = getSubtaskItem(trigger);
-  if (isEditing(item)) return;
-  const textSpan = item.querySelector(".subtask-text");
-  startEdit(item, textSpan);
-}
+  const item = trigger.closest(".subtask-item");
+  const textSpan = item?.querySelector(".subtask-text");
+  if (!item || item.querySelector(".subtask-edit-input")) return;
 
-/**
- * Returns the closest subtask container element related to the given trigger element.
- *
- * @param {HTMLElement} trigger - The element that triggered the action.
- * @returns {HTMLElement|null} The closest parent element with the class "subtask-item", or null if not found.
- */
-function getSubtaskItem(trigger) {
-  return trigger.closest(".subtask-item");
-}
-
-/**
- * Checks whether the given subtask item is currently in edit mode.
- *
- * @param {HTMLElement} item - The subtask container element.
- * @returns {boolean} True if the subtask is being edited, otherwise false.
- */
-function isEditing(item) {
-  return !!item.querySelector(".subtask-edit-input");
-}
-
-/**
- * Activates edit mode for a subtask by replacing the text element
- * with an input field and attaching the necessary event listeners.
- *
- * @param {HTMLElement} item - The subtask container element.
- * @param {HTMLElement} textSpan - The element containing the subtask text.
- */
-function startEdit(item, textSpan) {
-  const input = createEditInput(textSpan.textContent);
-  item.replaceChild(input, textSpan);
-  input.focus();
-
-  attachEditListeners(item, textSpan, input);
-}
-
-/**
- * Creates and returns an input element for editing a subtask.
- *
- * @param {string} text - The current subtask text.
- * @returns {HTMLInputElement} The generated input element.
- */
-function createEditInput(text) {
   const input = document.createElement("input");
   input.type = "text";
-  input.value = text;
+  input.value = textSpan.textContent;
   input.className = "subtask-edit-input";
-  return input;
-}
 
-/**
- * Attaches keyboard and blur event listeners to handle saving
- * or canceling subtask edits.
- *
- * @param {HTMLElement} item - The subtask container element.
- * @param {HTMLElement} textSpan - The original text element.
- * @param {HTMLInputElement} input - The input element used for editing.
- */
-function attachEditListeners(item, textSpan, input) {
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") saveEdit(item, input);
-    if (e.key === "Escape") cancelEdit(item, textSpan, input);
-  });
-
+  item.replaceChild(input, textSpan);
+  input.focus();
+  input.addEventListener("keydown", (e) => e.key === "Enter" && saveEdit(item, input));
   input.addEventListener("blur", () => saveEdit(item, input));
 }
 
-/**
- * Saves the edited subtask text and replaces the input field
- * with an updated text element.
- *
- * @param {HTMLElement} item - The subtask container element.
- * @param {HTMLInputElement} input - The input element containing the updated text.
- */
 function saveEdit(item, input) {
   const newText = input.value.trim();
-  if (!newText) return;
-
+  if (!newText) return item.remove();
   const span = document.createElement("span");
   span.className = "subtask-text";
   span.textContent = newText;
-
   item.replaceChild(span, input);
 }
 
-/**
- * Cancels subtask editing and restores the original text element.
- *
- * @param {HTMLElement} item - The subtask container element.
- * @param {HTMLElement} textSpan - The original text element to restore.
- * @param {HTMLInputElement} input - The input element currently in edit mode.
- */
-function cancelEdit(item, textSpan, input) {
-  item.replaceChild(textSpan, input);
-}
-
-/**
- * Deletes a subtask element from the DOM based on the clicked trigger element.
- *
- * @param {HTMLElement} trigger - The element (e.g., delete icon) that triggered the deletion.
- */
 function deleteSubtask(trigger) {
-  const item = trigger.closest(".subtask-item");
-  item.remove();
+  trigger.closest(".subtask-item")?.remove();
 }
 
 /**
- * Rotates the category dropdown arrow based on focus state.
- * @param {boolean} isOpened - Whether the dropdown is opened.
+ * UI EFFEKTE & SUCCESS
  */
 function rotateCategoryArrow(isOpened) {
   const arrow = document.querySelector('.category-arrow');
-  if (arrow) {
-    if (isOpened) {
-      arrow.classList.add('rotated');
-    } else {
-      arrow.classList.remove('rotated');
-    }
-  }
+  arrow?.classList.toggle('rotated', isOpened);
 }
 
-/**
- * Shows the "Task Added" modal and redirects to board after delay.
- */
 function handleAddTaskSuccess() {
-  if (!taskAddedModal) return;
-
-  taskAddedModal.classList.add('show');
-
+  taskAddedModal?.classList.add('show');
   setTimeout(() => {
-    taskAddedModal.classList.remove('show');
+    taskAddedModal?.classList.remove('show');
     window.location.href = "../html/board.html";
   }, 2000);
 }
 
+/**
+ * INITIALISIERUNG DER LISTENERS
+ */
+function initDropdownListeners() {
+  const input = document.getElementById('contact-search-input');
+  const arrow = document.getElementById('dropdown-arrow');
+  input?.addEventListener('keyup', filterContacts);
+  input?.addEventListener('click', (e) => { e.stopPropagation(); openDropdown(e); });
+  arrow?.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(e); });
+}
+
+function initPriorityAndCategory() {
+  document.getElementById('priority-selection')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.priority__button');
+    if (btn) selectPriority(btn);
+  });
+  const cat = document.getElementById('task-category');
+  cat?.addEventListener('focus', () => rotateCategoryArrow(true));
+  cat?.addEventListener('blur', () => rotateCategoryArrow(false));
+  cat?.addEventListener('change', () => rotateCategoryArrow(false));
+}
+
+function initSubtaskListeners() {
+  document.getElementById('task-subtasks')?.addEventListener('input', toggleSubtaskActions);
+  document.getElementById('subtask-cancel')?.addEventListener('click', cancelSubtask);
+  document.getElementById('subtask-confirm')?.addEventListener('click', addSubtask);
+  document.getElementById('added-subtask')?.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('.edit-btn');
+    const deleteBtn = e.target.closest('.delete-btn');
+    if (editBtn) editSubtask(editBtn);
+    if (deleteBtn) deleteSubtask(deleteBtn);
+  });
+}
+
+function initFormButtons() {
+  document.getElementById('calendar-icon')?.addEventListener('click', openDatePicker);
+  document.getElementById('clear__button')?.addEventListener('click', clearFields);
+  document.getElementById('create-task__button')?.addEventListener('click', createTask);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initDateInput();
+  initSubtaskInput();
+  if (typeof initDropdown === 'function') initDropdown();
+  initDropdownListeners();
+  initPriorityAndCategory();
+  initSubtaskListeners();
+  initFormButtons();
 });
