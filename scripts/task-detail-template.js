@@ -106,3 +106,5 @@ function getNoSubtasksTemplate() {
         </span>
     `;
 }
+
+
