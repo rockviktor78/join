@@ -1,3 +1,13 @@
+/* ====== 0. Scrollbar (Hidden) ====== */
+.content-area {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.content-area::-webkit-scrollbar {
+  display: none;
+}
+
 /* ====== 1. Typographie ====== */
 .board__title {
   font-size: var(--font-size-5xl);

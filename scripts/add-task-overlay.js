@@ -125,6 +125,11 @@ function closeAddTaskPanel() {
   if (overlay) overlay.classList.remove("is-open");
 }
 
+/**
+ * Extracts first two initials from a contact name.
+ * @param {string} name - The contact name
+ * @returns {string} - Two-letter initials
+ */
 function getContactInitials(name) {
   return name
     .split(/\s+/)
@@ -134,6 +139,11 @@ function getContactInitials(name) {
     .slice(0, 2);
 }
 
+/**
+ * Creates a colored badge element for a selected contact.
+ * @param {Object} contact - Contact object with name and color
+ * @returns {HTMLElement} - Span element with contact initials
+ */
 function createContactBadge(contact) {
   const badge = document.createElement("span");
   badge.className = "overlay-dropdown__badge";
@@ -142,6 +152,10 @@ function createContactBadge(contact) {
   return badge;
 }
 
+/**
+ * Updates the selected contacts display box with badges.
+ * @param {HTMLElement} selectedBox - Container for selected contact badges
+ */
 function updateSelectedBox(selectedBox) {
   if (!selectedBox) return;
   selectedBox.innerHTML = "";
@@ -150,6 +164,12 @@ function updateSelectedBox(selectedBox) {
   );
 }
 
+/**
+ * Toggles contact selection state with visual feedback.
+ * @param {HTMLElement} li - List item element
+ * @param {Object} contact - Contact object
+ * @param {HTMLElement} selectedBox - Selected contacts display container
+ */
 function toggleContactSelection(li, contact, selectedBox) {
   const isSelected = li.classList.toggle("selected");
   li.style.background = isSelected ? "#2A3647" : "";
@@ -166,6 +186,12 @@ function toggleContactSelection(li, contact, selectedBox) {
   updateSelectedBox(selectedBox);
 }
 
+/**
+ * Creates a contact list item element for dropdown.
+ * @param {Object} contact - Contact object with id, name, color
+ * @param {HTMLElement} selectedBox - Selected contacts display container
+ * @returns {HTMLElement} - List item with contact details
+ */
 function createContactListItem(contact, selectedBox) {
   const li = document.createElement("li");
   li.className = "overlay-dropdown__item";
@@ -177,6 +203,10 @@ function createContactListItem(contact, selectedBox) {
   return li;
 }
 
+/**
+ * Populates dropdown list with contacts from session storage.
+ * @param {HTMLElement} content - Overlay content container
+ */
 function ensureDropdownPopulated(content) {
   const list = content?.querySelector("#dropdown-list");
   if (!list || list.children.length > 0) return;
@@ -217,25 +247,21 @@ function bindDropdownListeners(content) {
   });
 }
 
-const REQUIRED_FIELDS = [
-  { id: "task-title", err: "title-error-message" },
-  { id: "task-due-date", err: "date-error-message" },
-  { id: "task-category", err: "category-error-message" },
-];
+/**
+ * Required form fields configuration for task creation.
+ * (Shared with add_task.js via shared/utilities.js)
+ */
 
-function validateField(field) {
-  const input = document.getElementById(field.id);
-  const error = document.getElementById(field.err);
-  const isValid = input?.value.trim() && input.value !== "undefined";
-  error.style.display = isValid ? "none" : "block";
-  error.textContent = "This field is required";
-  input.classList.toggle("error-border", !isValid);
-  return isValid;
-}
+/**
+ * Required form fields configuration for task creation.
+ * (Shared with add_task.js via shared/utilities.js)
+ */
 
-function validateAllFields() {
-  return REQUIRED_FIELDS.every(validateField);
-}
+/**
+ * Validates all required form fields.
+ * Uses shared validation from utilities.js
+ * @returns {boolean} - Whether all fields are valid
+ */
 
 /**
  * Converts date format from YYYY-MM-DD to MM-DD-YYYY.
@@ -264,6 +290,10 @@ function getSubtasks() {
   return subtasks;
 }
 
+/**
+ * Assembles a complete task object from form inputs.
+ * @returns {Object} - Task object with all properties
+ */
 function assembleTask() {
   const cat = document.getElementById("task-category");
   const task = {
@@ -294,6 +324,9 @@ function saveToStorage(newTask) {
   console.log(`Task ${taskId} saved`, newTask);
 }
 
+/**
+ * Creates and saves a new task from form data.
+ */
 function createTask() {
   if (!validateAllFields()) return;
   saveToStorage(assembleTask());
