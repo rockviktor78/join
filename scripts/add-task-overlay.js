@@ -1,47 +1,51 @@
-
 /**
- * Öffnet das Add-Task Overlay ODER leitet auf Mobile zur add_task.html weiter
+ * Opens the "Add Task" overlay panel on desktop screens, or navigates to the add-task page on mobile.
+ * If the overlay exists, it also renders the task form into the panel.
  */
 function openAddTaskOverlay() {
-  // 1. Prüfen, ob wir auf Mobile sind (entspricht deinem CSS Media Query)
   if (window.innerWidth <= 768) {
     window.location.href = "../html/add-task.html";
-    return; // Funktion hier abbrechen
+    return;
   }
-
-  // 2. Overlay-Logik für Desktop
   const overlay = document.querySelector('.addtask-overlay');
   const panel = document.querySelector('.addtask-panel');
-
   if (overlay && panel) {
     overlay.classList.add('is-open');
     panel.classList.add('is-open');
-
-    // Rendern der Inhalte
     renderAddTask('addtask-panel-content-id');
   }
 }
 
 /**
- * Schließt das Overlay
+ * Closes the "Add Task" overlay panel and resets all form fields.
+ * Removes the `is-open` class from both overlay and panel elements.
  */
 function closeAddTaskOverlay() {
   const overlay = document.querySelector('.addtask-overlay');
   const panel = document.querySelector('.addtask-panel');
 
-  // Auch hier 'is-open' entfernen
-  overlay?.classList.remove('is-open');
-  panel?.classList.remove('is-open');
+  if (overlay && panel) {
+    overlay.classList.remove('is-open');
+    panel.classList.remove('is-open');
+    if (typeof clearFields === 'function') {
+      clearFields();
+    }
+  }
 }
 
-// Event-Listener für Schließen-Button und Hintergrund
+/**
+ * Waits for the DOM to fully load and initializes event listeners
+ * for closing the "Add Task" overlay:
+ * 
+ * - Click on the close button closes the overlay.
+ * - Click on the overlay background closes the overlay if clicked outside the panel.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.querySelector('.addtask-panel__close');
   const overlay = document.querySelector('.addtask-overlay');
 
   closeBtn?.addEventListener('click', closeAddTaskOverlay);
   overlay?.addEventListener('click', (e) => {
-    // Nur schließen, wenn direkt auf das Overlay (den Hintergrund) geklickt wurde
     if (e.target === overlay) {
       closeAddTaskOverlay();
     }
