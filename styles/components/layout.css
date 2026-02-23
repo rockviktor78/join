@@ -83,3 +83,11 @@
     padding: var(--spacing-sm) var(--spacing-md);
   }
 }
+
+@media (max-width: 967px) {
+  .content-padding {
+    padding: var(--spacing-4xl) var(--spacing-2xl);
+  }
+}
+
+

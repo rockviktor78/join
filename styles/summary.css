@@ -265,6 +265,19 @@
   }
 }
 
+@media (min-width: 768px) and (max-width: 1031px) {
+  .summary__header {
+    gap: 0rem;
+  }
+
+  .summary__subtitle {
+        font-size: var(--font-size-base);
+}
+
+.summary__title {
+        font-size: var(--font-size-5xl);
+    }
+
 @media (max-width: 1422px) {
   .summary { gap: 2rem; }
 }
