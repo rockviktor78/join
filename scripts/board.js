@@ -192,12 +192,14 @@ function autoCompleteSubtasksAsDone(task) {
 function initButtons() {
     const headerButton = document.querySelector(".board__add-btn");
     if (headerButton) {
-        headerButton.addEventListener("click", addTask);
+        // Ändere addTask zu openAddTaskOverlay
+        headerButton.addEventListener("click", openAddTaskOverlay);
     }
 
     const gridButtons = document.querySelectorAll(".board-column__add-btn");
     gridButtons.forEach((btn) => {
-        btn.addEventListener("click", addTask);
+        // Ändere addTask zu openAddTaskOverlay
+        btn.addEventListener("click", openAddTaskOverlay);
     });
 }
 
@@ -331,12 +333,3 @@ searchInput.addEventListener("input", (e) => {
 
 document.addEventListener("click", closeAllMoveOverlays);
 document.addEventListener("DOMContentLoaded", initBoard);
-
-
-
-/**
- * DEMO ADD TASK
- */
-function addTask() {
-    alert("Demo-Version: Task hinzufügen ist deaktiviert.");
-}
