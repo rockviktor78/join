@@ -19,8 +19,6 @@
   top: 50%;
   left: 50%;
   width: 69.75rem;
-  height: 54.375rem;
-  max-height: 54.375rem;
   background: var(--color-white);
   border-radius: 30px;
   box-shadow: var(--shadow-lg);
@@ -151,7 +149,6 @@
 @media (max-width: 1250px) {
   .addtask-panel {
     width: 95vw;
-    height: 95vh;
   }
 
   .addtask-panel__title {
