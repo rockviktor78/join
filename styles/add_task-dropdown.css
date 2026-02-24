@@ -1,7 +1,6 @@
 .dropdown {
   width: 100%;
   position: relative;
-  font-family: sans-serif;
 }
 
 .dropdown-wrapper {
@@ -38,6 +37,7 @@
   padding: 0.5rem 1rem 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   cursor: pointer;
 }
 
@@ -139,11 +139,20 @@ li.selected .contact-info span {
   border: 1px solid #ccc;
   border-radius: var(--radius-ml);
   padding: 0.625rem 1rem;
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-base);
   transition: border-color 0.2s ease;
   width: 100%;
   padding-right: 2.5rem;
   box-sizing: border-box;
+}
+
+.contact-search-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.dropdown-wrapper:focus-within .contact-search-input {
+  border-color: #29abe2;
 }
 
 .subtask-item {
@@ -156,7 +165,7 @@ li.selected .contact-info span {
 }
 
 .subtask-item:hover {
-  background-color: var(--color-gray-300);
+  background-color: var(--color-gray-100);
 }
 
 .subtask-item-actions {
@@ -188,7 +197,7 @@ li.selected .contact-info span {
 
 .subtask-item-actions span:hover {
   transform: translateY(-2px);
-  background-color: var(--color-gray-200);
+  background-color: var(--color-gray-100);
   border-radius: 50%;
 }
 
@@ -201,7 +210,7 @@ li.selected .contact-info span {
 }
 
 .subtask-item:hover {
-  background-color: var(--color-gray-300);
+  background-color: var(--color-gray-100);
 }
 
 .subtask-edit-input {
@@ -250,7 +259,7 @@ li.selected .contact-info span {
   border: 1px solid #ccc;
   border-radius: var(--radius-ml);
   padding: 0.625rem 1.25rem 0.625rem 0.75rem;
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-base);
   width: 100%;
   cursor: pointer;
   outline: none;
