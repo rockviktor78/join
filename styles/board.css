@@ -374,6 +374,12 @@
 
 /* ====== 8. Desktop Version ====== */
 @media (min-width: 768px) {
+  .content-padding {
+    padding-left: var(--spacing-3xl);
+    padding-right: var(--spacing-lg);
+    padding-top: var(--spacing-4xl);
+  }
+
   /* Typography */
   .board__title {
     font-size: var(--font-size-6xl);
