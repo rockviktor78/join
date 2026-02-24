@@ -106,12 +106,5 @@ function getDetailSubtasksTemplate(taskId, subtasks) {
     }).join("");
 }
 
-function getInitials(name) {
-    return name
-        .split(" ")
-        .map(n => n[0])
-        .join("");
-}
-
 
 
