@@ -245,7 +245,6 @@
 .task-card__assigned-users {
   display: flex;
   flex-direction: row;
-  padding-left: 0.5rem;
 }
 
 .task-card__user-badge {
@@ -253,7 +252,7 @@
   height: 2rem;
   border-radius: 50%;
   border: 2px solid white;
-  margin-left: -0.5rem;
+  margin-right: -0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
