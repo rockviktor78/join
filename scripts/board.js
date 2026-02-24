@@ -189,18 +189,26 @@ function autoCompleteSubtasksAsDone(task) {
 /**
  * Attaches click event listeners to all 'Add Task' buttons in the header and columns.
  */
+/**
+ * Initialisiert alle statischen Button-Events und Overlay-Interaktionen auf dem Board.
+ */
 function initButtons() {
-    const headerButton = document.querySelector(".board__add-btn");
-    if (headerButton) {
-        // Ändere addTask zu openAddTaskOverlay
-        headerButton.addEventListener("click", openAddTaskOverlay);
-    }
-
-    const gridButtons = document.querySelectorAll(".board-column__add-btn");
-    gridButtons.forEach((btn) => {
-        // Ändere addTask zu openAddTaskOverlay
+    const addTaskButtons = document.querySelectorAll(".board__add-btn, .board-column__add-btn");
+    addTaskButtons.forEach((btn) => {
         btn.addEventListener("click", openAddTaskOverlay);
     });
+    const detailOverlay = document.getElementById('taskDetailsOverlay');
+    detailOverlay?.addEventListener('click', () => {
+        if (typeof closeTaskDetails === 'function') {
+            closeTaskDetails();
+        }
+    });
+    const detailContent = document.getElementById('taskDetailContent');
+    detailContent?.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+    const closeAddTaskBtn = document.querySelector('.addtask-panel__close');
+    closeAddTaskBtn?.addEventListener('click', closeAddTaskOverlay);
 }
 
 /**
@@ -230,19 +238,23 @@ function toggleMoveToTaskOverlay(taskId, event) {
  * @returns {string} The HTML string containing move buttons for the overlay.
  */
 function generateMoveToOptions(category, taskId) {
-    const currentCategoryIndex = CATEGORY_ORDER.indexOf(category);
-    let html = `<span class="move-overlay__title">Move to</span>`;
-
-    if (currentCategoryIndex > 0) {
-        const target = CATEGORY_ORDER[currentCategoryIndex - 1];
-        html += `<button onclick="moveTaskViaOverlay(${currentCategoryIndex - 1}, '${taskId}', event)">↑ ${formatColumnName(target)}</button>`;
+    const currentIndex = CATEGORY_ORDER.indexOf(category);
+    const options = [];
+    if (currentIndex > 0) {
+        options.push({ index: currentIndex - 1, label: '↑ ' + formatColumnName(CATEGORY_ORDER[currentIndex - 1]) });
     }
-    if (currentCategoryIndex < CATEGORY_ORDER.length - 1) {
-        const target = CATEGORY_ORDER[currentCategoryIndex + 1];
-
-        html += `<button onclick="moveTaskViaOverlay(${currentCategoryIndex + 1}, '${taskId}', event)">↓ ${formatColumnName(target)}</button>`;
+    if (currentIndex < CATEGORY_ORDER.length - 1) {
+        options.push({ index: currentIndex + 1, label: '↓ ' + formatColumnName(CATEGORY_ORDER[currentIndex + 1]) });
     }
-    return html;
+
+    return `
+        <span class="move-overlay__title">Move to</span>
+        ${options.map(opt => `
+            <button onclick="moveTaskViaOverlay(${opt.index}, '${taskId}', event)">
+                ${opt.label}
+            </button>
+        `).join('')}
+    `;
 }
 
 /**
