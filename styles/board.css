@@ -391,7 +391,7 @@
     display: flex;
     order: 0;
     align-items: center;
-    gap: 1rem;
+    gap: var(--spacing-xl);
   }
 
   .search-bar {
@@ -503,5 +503,15 @@
 
   .board__add-btn {
     padding: 0.625rem 1rem;
+  }
+
+  .board__actions {
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (min-width: 835px) {
+  .board__header {
+    padding-right: var(--spacing-2xl);
   }
 }
