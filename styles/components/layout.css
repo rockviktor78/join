@@ -71,7 +71,7 @@
   .content-padding {
     padding-left: var(--spacing-5xl);
     padding-right: var(--spacing-6xl);
-    padding-bottom: 0;
+    padding-bottom: var(--spacing-5xl);
   }
 }
 
@@ -89,4 +89,3 @@
     padding: var(--spacing-sm) var(--spacing-md);
   }
 }
-

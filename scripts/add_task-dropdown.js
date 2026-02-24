@@ -49,9 +49,15 @@ function createContactItem(contact) {
  */
 function toggleDropdown(e) {
   if (e) e.stopPropagation();
-  const list = document.getElementById('dropdown-list');
-  const arrow = document.getElementById('dropdown-arrow');
+
+  const dropdownContainer = e.target.closest('.dropdown');
+  if (!dropdownContainer) return;
+
+  const list = dropdownContainer.querySelector('.dropdown-list');
+  const arrow = dropdownContainer.querySelector('.dropdown-arrow');
+
   const isVisible = list?.style.display === 'block';
+
   if (list) list.style.display = isVisible ? 'none' : 'block';
   if (arrow) arrow.classList.toggle('rotated', !isVisible);
 }
@@ -63,8 +69,15 @@ function toggleDropdown(e) {
  */
 function openDropdown(e) {
   if (e) e.stopPropagation();
-  document.getElementById('dropdown-list').style.display = 'block';
-  document.getElementById('dropdown-arrow')?.classList.add('rotated');
+
+  const dropdownContainer = e.target.closest('.dropdown');
+  if (!dropdownContainer) return;
+
+  const list = dropdownContainer.querySelector('.dropdown-list');
+  const arrow = dropdownContainer.querySelector('.dropdown-arrow');
+
+  if (list) list.style.display = 'block';
+  if (arrow) arrow.classList.add('rotated');
 }
 
 /**

@@ -53,4 +53,21 @@ function getBadgeColors() {
     return colors;
 }
 
+/**
+ * Formats a task date string into a localized German date format.
+ *
+ * @param {string} dateStr - The task date as a string (e.g., "2026-02-24").
+ * @returns {string|undefined} The formatted date (e.g., "24. Feb. 2026") or undefined if input is invalid.
+ */
+function formatTaskDate(dateStr) {
+    if (!dateStr) return;
+
+    const date = new Date(dateStr);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+}
 

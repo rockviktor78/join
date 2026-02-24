@@ -264,8 +264,8 @@ function initPriorityAndCategory() {
  * - `click` on #subtask-cancel cancels the current subtask input.
  * - `click` on #subtask-confirm adds a new subtask.
  * - `click` on #added-subtask handles editing or deleting subtasks:
- *   - Click on `.edit-btn` triggers subtask editing.
- *   - Click on `.delete-btn` deletes the subtask.
+ * - Click on `.edit-btn` triggers subtask editing.
+ * - Click on `.delete-btn` deletes the subtask.
  */
 function initSubtaskListeners() {
   document.getElementById('task-subtasks')?.addEventListener('input', toggleSubtaskActions);

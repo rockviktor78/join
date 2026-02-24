@@ -119,6 +119,7 @@ function getNextDeadline() {
  */
 function displayGreetingMobile(user) {
     if (window.innerWidth > 768) return;
+    if (sessionStorage.getItem('mobileGreetingShown')) return;
 
     // Only show greeting once per session
     if (sessionStorage.getItem('greetingShown')) return;
@@ -131,6 +132,8 @@ function displayGreetingMobile(user) {
     sessionStorage.setItem('greetingShown', 'true');
     
     runOverlayAnimation(overlay);
+
+    sessionStorage.setItem('mobileGreetingShown', 'true');
 }
 
 /**

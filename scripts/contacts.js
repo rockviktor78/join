@@ -279,22 +279,6 @@ function createNewContact() {
 }
 
 /**
- * Validates the contact form fields and alerts if any are empty.
- *
- * @param {string} name - The contact's name.
- * @param {string} phone - The contact's phone number.
- * @param {string} email - The contact's email address.
- * @returns {boolean} True if all fields are filled, false otherwise.
- */
-function isContactFormValid(name, phone, email) {
-  if (!name || !phone || !email) {
-    alert("Bitte alle Felder ausfüllen");
-    return false;
-  }
-  return true;
-}
-
-/**
  * Clears the contact form.
  */
 function clearContactForm() {
@@ -390,23 +374,23 @@ function showSuccessMessage() {
  * @returns {boolean} True if the field is valid, otherwise false.
  */
 function validateField(id, condition, msg) {
-    const errorElement = document.getElementById(`error-${id.split('-').pop()}`);
-    errorElement.innerText = condition ? "" : msg;
-    return condition;
+  const errorElement = document.getElementById(`error-${id.split('-').pop()}`);
+  errorElement.innerText = condition ? "" : msg;
+  return condition;
 }
 
 /**
  * Validates the contact form and calls createNewContact if all fields are valid.
  */
 function validateAndCreate() {
-    const name = document.getElementById('new-contact-name').value.trim();
-    const email = document.getElementById('new-contact-email').value.trim();
-    const phone = document.getElementById('new-contact-phone').value.trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const v1 = validateField('new-contact-name', name !== "", "Name is required");
-    const v2 = validateField('new-contact-email', emailRegex.test(email), "Invalid email");
-    const v3 = validateField('new-contact-phone', phone !== "", "Phone is required");
-    if (v1 && v2 && v3) createNewContact();
+  const name = document.getElementById('new-contact-name').value.trim();
+  const email = document.getElementById('new-contact-email').value.trim();
+  const phone = document.getElementById('new-contact-phone').value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const v1 = validateField('new-contact-name', name !== "", "Name is required");
+  const v2 = validateField('new-contact-email', emailRegex.test(email), "Invalid email");
+  const v3 = validateField('new-contact-phone', phone !== "", "Phone is required");
+  if (v1 && v2 && v3) createNewContact();
 }
 
 document.addEventListener("DOMContentLoaded", initContacts);

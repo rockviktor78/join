@@ -1,0 +1,257 @@
+/**
+ * Switches the task detail view into edit mode for the given task.
+ * Renders the edit form and initializes subtasks and assigned contacts.
+ *
+ * @param {string} taskId - The ID of the task to edit.
+ */
+function editTask(taskId) {
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+
+    const container = document.getElementById('taskDetailContent');
+    container.innerHTML = templateEditTaskForm(task);
+
+    renderEditSubtasks(task.subtasks || []);
+    renderEditContactList(task.assignedTo || []);
+    updateEditSelectedContactsIcons();
+}
+
+/**
+ * Renders the editable subtask list in the edit view.
+ *
+ * @param {Array<Object>} subtasks - Array of subtask objects.
+ */
+function renderEditSubtasks(subtasks) {
+    const listContainer = document.getElementById('edit-subtasks-list');
+    if (!listContainer) return;
+
+    listContainer.innerHTML = '';
+    subtasks.forEach((st, index) => {
+        listContainer.innerHTML += templateEditSubtaskItem(st, index);
+    });
+}
+
+/**
+ * Sets the active priority button in the edit view
+ * and updates its visual state and icon.
+ *
+ * @param {string} prio - The priority value ('urgent', 'medium', or 'low').
+ */
+function setEditPriority(prio) {
+    const priorities = ['urgent', 'medium', 'low'];
+
+    priorities.forEach(p => {
+        const btn = document.getElementById(`prio-${p}`);
+        const img = document.getElementById(`prio-img-${p}`);
+        if (btn && img) {
+            btn.classList.remove('active', 'urgent', 'medium', 'low');
+            img.src = `../assets/img/addtask/${p}.svg`;
+        }
+    });
+
+    const activeBtn = document.getElementById(`prio-${prio}`);
+    const activeImg = document.getElementById(`prio-img-${prio}`);
+    if (activeBtn && activeImg) {
+        activeBtn.classList.add('active', prio);
+        activeImg.src = `../assets/img/addtask/${prio}selected.svg`;
+    }
+}
+
+/**
+ * Renders the full contact list in the edit dropdown
+ * and marks currently assigned contacts as selected.
+ *
+ * @param {Array<string>} currentlyAssigned - Array of assigned contact IDs.
+ */
+function renderEditContactList(currentlyAssigned) {
+    const list = document.getElementById('edit-dropdown-list');
+    if (!list) return;
+    const contactsArray = getContacts();
+    list.innerHTML = contactsArray.map(contact => {
+        const isSelected = currentlyAssigned.includes(contact.id);
+        const initials = contact.name.split(" ").map(n => n[0]).join("");
+
+        return templateEditContactItem(contact, isSelected, initials);
+    }).join('');
+}
+
+/**
+ * Toggles the selection state of a contact item
+ * in the edit dropdown and updates the selected contact icons.
+ *
+ * @param {string} contactId - The contact ID.
+ * @param {string} color - The contact's assigned color.
+ * @param {string} initials - The contact's initials.
+ */
+function toggleContactSelectionEdit(contactId, color, initials) {
+    const item = event.currentTarget;
+    item.classList.toggle('selected');
+    const checkmark = item.querySelector('.selection-checkmark');
+    if (checkmark) {
+        checkmark.classList.toggle('checked');
+    }
+    updateEditSelectedContactsIcons();
+}
+
+/**
+ * Updates the visual badges of selected contacts
+ * in the edit task view.
+ */
+function updateEditSelectedContactsIcons() {
+    const selectedContainer = document.getElementById('edit-selected-contacts');
+    const selectedItems = document.querySelectorAll('#edit-dropdown-list .contact-item.selected');
+
+    if (!selectedContainer) return;
+    selectedContainer.innerHTML = '';
+    selectedItems.forEach(item => {
+        const initial = item.querySelector('.assign-to-initial').innerText;
+        const color = item.querySelector('.assign-to-initial').style.backgroundColor;
+
+        selectedContainer.innerHTML += `
+            <div class="assign-to-initial" style="background-color: ${color}">
+                ${initial}
+            </div>
+        `;
+    });
+}
+
+/**
+ * Collects all editable form data from the edit task view
+ * and returns it as a task update object.
+ *
+ * @returns {Object} The updated task data including title,
+ * description, due date, priority, and assigned contacts.
+ */
+function getFormDataFromEdit() {
+    const activePrioBtn = document.querySelector('#edit-priority .priority__button.active');
+
+    return {
+        title: document.getElementById('edit-title').value,
+        description: document.getElementById('edit-description').value,
+        dueDate: document.getElementById('edit-due-date').value,
+        priority: activePrioBtn ? activePrioBtn.id.replace('prio-', '') : 'medium',
+        assignedTo: Array.from(document.querySelectorAll('#edit-dropdown-list .contact-item.selected'))
+            .map(item => item.getAttribute('data-id'))
+    };
+}
+
+/**
+ * Saves the updated task data to storage,
+ * updates the current task reference,
+ * and re-renders the board and task overlay.
+ *
+ * @param {string} taskId - The ID of the task to update.
+ */
+function saveEditedTask(taskId) {
+    const taskIndex = tasks.findIndex(t => t.id === taskId);
+    if (taskIndex === -1) return;
+    const updatedData = getFormDataFromEdit();
+    tasks[taskIndex] = { ...tasks[taskIndex], ...updatedData };
+    sessionStorage.setItem('tasks', JSON.stringify(tasks));
+    currentTask = tasks[taskIndex];
+    renderBoard();
+    renderTaskOverlay();
+}
+
+/**
+ * Toggles the visibility of the edit subtask action buttons
+ * based on the input field content.
+ */
+function toggleEditSubtaskActions() {
+    const input = document.getElementById('edit-subtask-input');
+    const actions = document.getElementById('edit-subtask-actions');
+    if (!input || !actions) return;
+
+    if (input.value.length > 0) {
+        actions.classList.add('visible');
+    } else {
+        actions.classList.remove('visible');
+    }
+}
+
+/**
+ * Adds a new subtask to the current task in edit mode
+ * and re-renders the subtask list.
+ */
+function addEditSubtask() {
+    const input = document.getElementById('edit-subtask-input');
+    const title = input.value.trim();
+    if (!title) return;
+
+    if (!currentTask.subtasks) currentTask.subtasks = [];
+    currentTask.subtasks.push({ title: title, done: false });
+
+    input.value = '';
+    toggleEditSubtaskActions();
+    renderEditSubtasks(currentTask.subtasks);
+}
+
+/**
+ * Deletes a subtask from the current task in edit mode
+ * by its index and re-renders the list.
+ *
+ * @param {number} index - The index of the subtask to remove.
+ */
+function deleteEditSubtask(index) {
+    if (currentTask && currentTask.subtasks) {
+        currentTask.subtasks.splice(index, 1);
+        renderEditSubtasks(currentTask.subtasks);
+    }
+}
+
+/**
+ * Clears the edit subtask input field
+ * and hides the action buttons.
+ */
+function clearSubtaskInput() {
+    const input = document.getElementById('edit-subtask-input');
+    if (input) {
+        input.value = '';
+        toggleEditSubtaskActions();
+    }
+}
+
+/**
+ * Loads an existing subtask into the input field for editing
+ * and removes it temporarily from the list.
+ *
+ * @param {number} index - The index of the subtask to edit.
+ */
+function editExistingSubtask(index) {
+    const input = document.getElementById('edit-subtask-input');
+    if (!input || !currentTask.subtasks[index]) return;
+
+    const subtask = currentTask.subtasks[index];
+    input.value = subtask.title;
+    input.focus();
+    toggleEditSubtaskActions();
+    deleteEditSubtask(index);
+}
+
+/**
+ * Generates the HTML markup for the priority buttons
+ * in the edit task view, marking the current priority as active.
+ *
+ * @param {string} currentPriority - The currently selected priority.
+ * @returns {string} The generated HTML string for the priority buttons.
+ */
+function getPriorityButtonsHTML(currentPriority) {
+    const priorityOptions = ['Urgent', 'Medium', 'Low'];
+
+    return priorityOptions.map(prio => {
+        const lowPrio = prio.toLowerCase();
+        const isActive = currentPriority.toLowerCase() === lowPrio;
+        const iconPath = isActive
+            ? `../assets/img/addtask/${lowPrio}selected.svg`
+            : `../assets/img/addtask/${lowPrio}.svg`;
+
+        return `
+            <button type="button" 
+                    id="prio-${lowPrio}" 
+                    class="priority__button ${isActive ? lowPrio + ' active' : ''}" 
+                    onclick="setEditPriority('${lowPrio}')">
+                ${prio} <img src="${iconPath}" id="prio-img-${lowPrio}">
+            </button>
+        `;
+    }).join('');
+}
