@@ -20,8 +20,7 @@
   align-items: center;
   padding: 0 var(--spacing-md);
   transition: padding var(--transition-base);
-  /* overflow: hidden; */
-}
+  }
 
 .header__logo {
   height: 2.4375rem;

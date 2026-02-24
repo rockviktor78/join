@@ -235,6 +235,8 @@ function showEditContact() {
  * Closes the contact form when clicking outside.
  */
 document.addEventListener("click", event => {
+  let overlay = document.getElementById("overlay");
+  if (!overlay || overlay.style.display === "none") return;
   let card = document.getElementById("loaded-contact-form");
   if (!card) return;
   if (!card.contains(event.target)) closeEditContact();
@@ -248,7 +250,7 @@ function closeEditContact() {
   setTimeout(() => {
     document.getElementById("overlay").style.display = "none";
     document.getElementById("loaded-contact-form").style.display = "none";
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = "";
   }, 350);
 }
 
