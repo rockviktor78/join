@@ -1,4 +1,4 @@
-/* ====== Add Task Overlay ====== */
+/* ------ Add Task Overlay ------ */
 .addtask-overlay {
   position: fixed;
   inset: 0;
@@ -86,35 +86,7 @@
   align-self: stretch;
 }
 
-/* Responsive: Smaller on mobile */
-@media (max-width: 1250px) {
-  .addtask-panel {
-    width: 95vw;
-    height: 95vh;
-  }
-
-  .addtask-panel__title {
-    font-size: 2.5rem;
-  }
-
-  .addtask-panel__header {
-    padding: 2rem;
-  }
-
-  .addtask-panel__content {
-    padding: 1.5rem 2rem;
-  }
-}
-
-/* Mobile: Hide overlay completely (use page navigation instead) */
-@media (max-width: 768px) {
-  .addtask-overlay,
-  .addtask-panel {
-    display: none !important;
-  }
-}
-
-/* ====== Overlay Dropdown Contacts ====== */
+/* ------ Overlay Dropdown Contacts ------ */
 .overlay-dropdown__item {
   cursor: pointer;
   border-radius: 0.5rem;
@@ -174,4 +146,30 @@
   justify-content: center;
   font-size: 1rem;
   font-weight: 700;
+}
+
+@media (max-width: 1250px) {
+  .addtask-panel {
+    width: 95vw;
+    height: 95vh;
+  }
+
+  .addtask-panel__title {
+    font-size: 2.5rem;
+  }
+
+  .addtask-panel__header {
+    padding: 2rem;
+  }
+
+  .addtask-panel__content {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .addtask-overlay,
+  .addtask-panel {
+    display: none !important;
+  }
 }
