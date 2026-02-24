@@ -119,11 +119,14 @@ function getNextDeadline() {
  */
 function displayGreetingMobile(user) {
     if (window.innerWidth > 768) return;
+    if (sessionStorage.getItem('mobileGreetingShown')) return;
 
     const data = getGreetingText(user);
     const overlay = createOverlayElement(data);
     document.body.appendChild(overlay);
     runOverlayAnimation(overlay);
+
+    sessionStorage.setItem('mobileGreetingShown', 'true');
 }
 
 /**
