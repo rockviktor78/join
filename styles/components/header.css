@@ -20,7 +20,7 @@
   align-items: center;
   padding: 0 var(--spacing-md);
   transition: padding var(--transition-base);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .header__logo {

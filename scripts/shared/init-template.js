@@ -42,6 +42,7 @@ function setupLogoutLink() {
     removeCurrentUserContact();
     sessionStorage.removeItem("loggedInUser");
     sessionStorage.removeItem("joinData");
+    sessionStorage.removeItem("greetingShown");
 
     dataStore = {
       tasks: null,

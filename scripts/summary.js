@@ -120,9 +120,16 @@ function getNextDeadline() {
 function displayGreetingMobile(user) {
     if (window.innerWidth > 768) return;
 
+    // Only show greeting once per session
+    if (sessionStorage.getItem('greetingShown')) return;
+
     const data = getGreetingText(user);
     const overlay = createOverlayElement(data);
     document.body.appendChild(overlay);
+    
+    // Mark that greeting has been shown
+    sessionStorage.setItem('greetingShown', 'true');
+    
     runOverlayAnimation(overlay);
 }
 
