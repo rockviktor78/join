@@ -71,7 +71,7 @@
   .content-padding {
     padding-left: var(--spacing-5xl);
     padding-right: var(--spacing-6xl);
-    padding-bottom: var(--spacing-5xl);
+    padding-bottom: 0;
   }
 }
 
