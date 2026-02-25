@@ -22,7 +22,7 @@ function editTask(taskId) {
  * @param {Array<Object>} subtasks - Array of subtask objects.
  */
 function renderEditSubtasks(subtasks) {
-    const listContainer = document.getElementById('edit-subtasks-list');
+    const listContainer = document.getElementById('editSubtasksList');
     if (!listContainer) return;
 
     listContainer.innerHTML = '';
@@ -64,7 +64,7 @@ function setEditPriority(prio) {
  * @param {Array<string>} currentlyAssigned - Array of assigned contact IDs.
  */
 function renderEditContactList(currentlyAssigned) {
-    const list = document.getElementById('edit-dropdown-list');
+    const list = document.getElementById('editDropdownList');
     if (!list) return;
     const contactsArray = getContacts();
     list.innerHTML = contactsArray.map(contact => {
@@ -98,8 +98,8 @@ function toggleContactSelectionEdit(contactId, color, initials) {
  * in the edit task view.
  */
 function updateEditSelectedContactsIcons() {
-    const selectedContainer = document.getElementById('edit-selected-contacts');
-    const selectedItems = document.querySelectorAll('#edit-dropdown-list .contact-item.selected');
+    const selectedContainer = document.getElementById('editSelectedContacts');
+    const selectedItems = document.querySelectorAll('#editDropdownList .contact-item.selected');
 
     if (!selectedContainer) return;
     selectedContainer.innerHTML = '';
@@ -123,14 +123,14 @@ function updateEditSelectedContactsIcons() {
  * description, due date, priority, and assigned contacts.
  */
 function getFormDataFromEdit() {
-    const activePrioBtn = document.querySelector('#edit-priority .priority__button.active');
+    const activePrioBtn = document.querySelector('#editPriority .priority__button.active');
 
     return {
-        title: document.getElementById('edit-title').value,
-        description: document.getElementById('edit-description').value,
-        dueDate: document.getElementById('edit-due-date').value,
+        title: document.getElementById('editTitle').value,
+        description: document.getElementById('editDescription').value,
+        dueDate: document.getElementById('editDueDate').value,
         priority: activePrioBtn ? activePrioBtn.id.replace('prio-', '') : 'medium',
-        assignedTo: Array.from(document.querySelectorAll('#edit-dropdown-list .contact-item.selected'))
+        assignedTo: Array.from(document.querySelectorAll('#editDropdownList .contact-item.selected'))
             .map(item => item.getAttribute('data-id'))
     };
 }
@@ -158,8 +158,8 @@ function saveEditedTask(taskId) {
  * based on the input field content.
  */
 function toggleEditSubtaskActions() {
-    const input = document.getElementById('edit-subtask-input');
-    const actions = document.getElementById('edit-subtask-actions');
+    const input = document.getElementById('editSubtaskInput');
+    const actions = document.getElementById('editSubtaskActions');
     if (!input || !actions) return;
 
     if (input.value.length > 0) {
@@ -174,8 +174,8 @@ function toggleEditSubtaskActions() {
  * and re-renders the subtask list.
  */
 function addEditSubtask() {
-    const input = document.getElementById('edit-subtask-input');
-    const title = input.value.trim();
+    const input = document.getElementById('editSubtaskInput');
+    const title = input ? input.value.trim() : '';
     if (!title) return;
 
     if (!currentTask.subtasks) currentTask.subtasks = [];
@@ -204,7 +204,7 @@ function deleteEditSubtask(index) {
  * and hides the action buttons.
  */
 function clearSubtaskInput() {
-    const input = document.getElementById('edit-subtask-input');
+    const input = document.getElementById('editSubtaskInput');
     if (input) {
         input.value = '';
         toggleEditSubtaskActions();
@@ -218,7 +218,7 @@ function clearSubtaskInput() {
  * @param {number} index - The index of the subtask to edit.
  */
 function editExistingSubtask(index) {
-    const input = document.getElementById('edit-subtask-input');
+    const input = document.getElementById('editSubtaskInput');
     if (!input || !currentTask.subtasks[index]) return;
 
     const subtask = currentTask.subtasks[index];
