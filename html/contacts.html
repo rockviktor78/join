@@ -40,15 +40,15 @@
     <div w3-include-html="../assets/templates/sidebar.html" style="display: contents"></div>
 
     <main class="content-area">
-      <div id="contacts-container" class="contacts-container">
-        <div id="contacts-list-container" class="contacts-list-container">
+      <div id="contactsContainer" class="contacts-container">
+        <div id="contactsListContainer" class="contacts-list-container">
           <div class="add-new-contact-container">
             <button class="add-new-contact-button" onclick="addNewContact()">
               Add New Contact <img src="../assets/img/contacts/person_add.svg" alt="Add Contact" />
             </button>
           </div>
-          <div class="contacts-list" id="contacts-list">
-            <ul id="contacts-ul"></ul>
+          <div class="contacts-list" id="contactsList">
+            <ul id="contactsUl"></ul>
           </div>
         </div>
         <div class="contacts-detail-container">
@@ -56,25 +56,25 @@
             <div class="contacts-detail-header-title-first">Contacts</div>
             <div class="separator">|</div>
             <div class="contacts-detail-header-title-second">Better with a Team</div>
-            <div class="contacts-detail__back" id="contacts-detail-back"><img src="../assets/img/contacts/arrowbackblue.svg" /></div>
+            <div class="contacts-detail__back" id="contactsDetailBack"><img src="../assets/img/contacts/arrowbackblue.svg" /></div>
             <div class="separator-mobile">___________</div>
           </div>
-          <div id="contacts-detail"></div>
+          <div id="contactsDetail"></div>
         </div>
       </div>
       <div class="success-message-slide" id="successMessage">
         <div class="success-message">Contact successfully created</div>
       </div>
       <div class="overlay" id="overlay" style="display: none">
-        <div id="loaded-contact-form">
-          <div id="contacts-form" class="contacts-form"></div>
+        <div id="loadedContactForm">
+          <div id="contactsForm" class="contacts-form"></div>
         </div>
       </div>
       <button class="add-contact__fab" aria-label="Add contact" onclick="addNewContact()">
         <i class="icon-user-plus"><img src="../assets/img/contacts/person_add.svg" /> </i>
       </button>
 
-      <button class="action__fab" id="action__fab" aria-label="Show more" onclick="showMoreAction(index)">
+      <button class="action__fab" id="actionFab" aria-label="Show more" onclick="showMoreAction(index)">
         <i class="icon-user-plus"><img src="../assets/img/contacts/more.svg" /> </i>
       </button>
     </main>
