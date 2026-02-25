@@ -5,19 +5,19 @@ function templateAddTaskForm() {
                 <div class="left-side">
                     <div class="section">
                         <div class="headline">Title<span class="red-star">*</span></div>
-                        <input type="text" class="task-title" id="task-title" placeholder="Enter a title" />
-                        <span id="title-error-message" class="error-text" style="display: none"></span>
+                        <input type="text" class="task-title" id="taskTitle" placeholder="Enter a title" />
+                        <span id="titleErrorMessage" class="error-text"></span>
                     </div>
                     <div class="section">
                         <div class="headline">Description</div>
-                        <textarea class="task-description" id="task-description" placeholder="Enter a description"></textarea>
+                        <textarea class="task-description" id="taskDescription" placeholder="Enter a description"></textarea>
                     </div>
                     <div class="section">
                         <div class="headline">Due Date<span class="red-star">*</span></div>
                         <div class="date-wrapper">
-                            <input type="date" class="task-due-date" id="task-due-date" />
-                            <img src="../assets/img/addtask/calender.svg" class="calendar-icon" id="calendar-icon" alt="Kalender" />
-                            <span id="date-error-message" class="error-text" style="display: none"></span>
+                            <input type="date" class="task-due-date" id="taskDueDate" />
+                            <img src="../assets/img/addtask/calender.svg" class="calendar-icon" id="calendarIcon" alt="Kalender" />
+                            <span id="dateErrorMessage" class="error-text"></span>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@ function templateAddTaskForm() {
                 <div class="right-side">
                     <div class="priority-content">
                         <div class="priority">Priority</div>
-                        <div class="priority-selection" id="priority-selection">
+                        <div class="priority-selection" id="prioritySelection">
                             <button type="button" value="urgent" class="priority__button">Urgent <img src="../assets/img/addtask/urgent.svg" /></button>
                             <button type="button" value="medium" class="priority__button medium active">Medium <img src="../assets/img/addtask/mediumselected.svg" /></button>
                             <button type="button" value="low" class="priority__button">Low <img src="../assets/img/addtask/low.svg" /></button>
@@ -33,45 +33,45 @@ function templateAddTaskForm() {
                     </div>
                     <div class="section">
                         <div class="headline">Assigned to</div>
-                        <div class="dropdown" id="dropdown-container">
+                        <div class="dropdown" id="dropdownContainer">
                             <div class="dropdown-wrapper">
-                                <input type="text" class="contact-search-input" id="contact-search-input" placeholder="Select contacts to assign" />
-                                <div class="dropdown-arrow" id="dropdown-arrow"></div>
+                                <input type="text" class="contact-search-input" id="contactSearchInput" placeholder="Select contacts to assign" />
+                                <div class="dropdown-arrow" id="dropdownArrow"></div>
                             </div>
-                            <ul class="dropdown-list" id="dropdown-list" style="display: none"></ul>
+                            <ul class="dropdown-list" id="dropdownList" style="display: none"></ul>
                         </div>
-                        <div class="selected-contacts" id="selected-contacts"></div>
+                        <div class="selected-contacts" id="selectedContacts"></div>
                     </div>
                     <div class="section">
                         <div class="headline">Category<span class="red-star">*</span></div>
                         <div class="category-wrapper">
-                            <select class="task-category" id="task-category">
+                            <select class="task-category" id="taskCategory">
                                 <option value="" disabled selected>Select category</option>
                                 <option value="technical-task">Technical Task</option>
                                 <option value="user-story">User Story</option>
                             </select>
                             <div class="category-arrow"></div>
                         </div>
-                        <span id="category-error-message" class="error-text" style="display: none"></span>
+                        <span id="categoryErrorMessage" class="error-text"></span>
                     </div>
                     <div class="section">
                         <div class="headline">Subtasks</div>
                         <div class="subtask-wrapper">
-                            <input type="text" class="subtask" id="task-subtasks" placeholder="Add new subtask" />
+                            <input type="text" class="subtask" id="taskSubtasks" placeholder="Add new subtask" />
                             <div class="subtask-actions">
-                                <span class="cancel" id="subtask-cancel"><img src="../assets/img/addtask/cross.svg" /></span>
-                                <span class="confirm" id="subtask-confirm"><img src="../assets/img/addtask/checkdark.svg" /></span>
+                                <span class="cancel" id="subtaskCancel"><img src="../assets/img/addtask/cross.svg" /></span>
+                                <span class="confirm" id="subtaskConfirm"><img src="../assets/img/addtask/checkdark.svg" /></span>
                             </div>
                         </div>
-                        <div class="added-subtask" id="added-subtask"></div>
+                        <div class="added-subtask" id="addedSubtask"></div>
                     </div>
                 </div>
             </div>
             <div class="button-wrapper">
                 <div><span class="red-star">*</span>This field is required</div>
                 <div class="add-task-button">
-                    <button type="button" id="clear__button" class="clear__button">Clear <span class="icon"></span></button>
-                    <button type="button" id="create-task__button" class="create-task__button">Create Task <img src="../assets/img/addtask/check.svg" /></button>
+                    <button type="button" id="clearButton" class="clear__button">Clear <span class="icon"></span></button>
+                    <button type="button" id="createTaskButton" class="create-task__button">Create Task <img src="../assets/img/addtask/check.svg" /></button>
                 </div>
             </div>
         </div>
