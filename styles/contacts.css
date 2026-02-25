@@ -365,8 +365,13 @@
   position: fixed;
   top: 6.875rem;
   right: 1.875rem;
+  transition: all 0.1s ease;
+   padding: 0.2rem;
 }
 
 .contacts-detail__back:hover {
   cursor: pointer;
+  background-color: var(--color-primary-super-light);
+  border-radius: 50%;
+ 
 }
