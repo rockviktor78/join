@@ -47,6 +47,15 @@
   margin-bottom: 1.2rem;
 }
 
+.task-detail__close-btn {
+  padding: 0.2rem;
+  border-radius: 50%;
+}
+
+.task-detail__close-btn:hover {
+  background-color: var(--color-primary-super-light);
+}
+
 .task-detail__title {
   font-size: var(--font-size-4xl);
   line-height: 1;
@@ -120,6 +129,21 @@
   border: none;
   background: none;
   cursor: pointer;
+}
+
+.action-btn img {
+  transition: transform 100ms ease, filter 100ms ease;
+}
+    
+.action-btn:hover {
+  color: var(--color-accent);
+  transform: scaleX(1.02);
+  text-shadow: 0 0 1px currentColor;
+}
+
+.action-btn:hover img {
+  filter: brightness(0) saturate(100%) invert(58%) sepia(73%) saturate(1234%) hue-rotate(161deg) brightness(95%) contrast(92%);
+  transform: scale(1.01);
 }
 
 .action-divider {

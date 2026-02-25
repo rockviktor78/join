@@ -29,8 +29,13 @@
   align-items: center;
   gap: 2.1875rem;
   cursor: pointer;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-ml);
   padding: 0.9375rem 1.5rem 0.9375rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.contact-card:hover:not(.active-contact) {
+  background-color: var(--color-primary-super-light);
 }
 
 .contact-email {
@@ -185,7 +190,7 @@
   background-color: var(--color-primary);
   color: var(--color-white);
   border: 0.0625rem solid var(--color-primary);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-ml);
   display: flex;
   align-items: center;
   justify-content: center;
