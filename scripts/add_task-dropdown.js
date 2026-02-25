@@ -1,4 +1,9 @@
 const selectedContacts = new Map();
+const mandatoryFields = [
+  { inputId: 'taskTitle', errorId: 'titleErrorMessage' },
+  { inputId: 'taskDueDate', errorId: 'dateErrorMessage' },
+  { inputId: 'taskCategory', errorId: 'categoryErrorMessage' }
+];
 
 /**
  * Initializes the contact dropdown by loading contacts from session storage,
@@ -6,7 +11,7 @@ const selectedContacts = new Map();
  */
 function initDropdown() {
   const contacts = loadContactsFromSession();
-  const list = document.getElementById('dropdown-list');
+  const list = document.getElementById('dropdownList');
   if (!list) return;
   list.innerHTML = '';
   contacts.forEach(contact => list.appendChild(createContactItem(contact)));
@@ -87,10 +92,10 @@ function openDropdown(e) {
  * @param {MouseEvent} e - The click event used to determine if it occurred outside the dropdown.
  */
 function closeDropdownExternal(e) {
-  const container = document.getElementById('dropdown-container');
+  const container = document.getElementById('dropdownContainer');
   if (container && !container.contains(e.target)) {
-    document.getElementById('dropdown-list').style.display = 'none';
-    document.getElementById('dropdown-arrow')?.classList.remove('rotated');
+    document.getElementById('dropdownList').style.display = 'none';
+    document.getElementById('dropdownArrow')?.classList.remove('rotated');
   }
 }
 
@@ -115,7 +120,7 @@ function handleContactClick(e, li, contact) {
  * and updates the search input placeholder accordingly.
  */
 function renderSelectedContacts() {
-  const box = document.getElementById('selected-contacts');
+  const box = document.getElementById('selectedContacts');
   if (!box) return;
   box.innerHTML = '';
   selectedContacts.forEach(contact => {
@@ -133,13 +138,13 @@ function renderSelectedContacts() {
  * and ensures the dropdown list is visible.
  */
 function filterContacts() {
-  const filter = document.getElementById('contact-search-input')?.value.toLowerCase();
-  const listItems = document.querySelectorAll('#dropdown-list li');
+  const filter = document.getElementById('contactSearchInput')?.value.toLowerCase();
+  const listItems = document.querySelectorAll('#dropdownList li');
   listItems.forEach(li => {
     const name = li.querySelector('.contact-info span')?.textContent.toLowerCase();
     li.style.display = name?.includes(filter) ? "" : "none";
   });
-  document.getElementById('dropdown-list').style.display = 'block';
+  document.getElementById('dropdownList').style.display = 'block';
 }
 
 /**
@@ -147,7 +152,7 @@ function filterContacts() {
  * based on the number of currently selected contacts.
  */
 function updateSearchPlaceholder() {
-  const input = document.getElementById('contact-search-input');
+  const input = document.getElementById('contactSearchInput');
   if (!input) return;
   input.placeholder = selectedContacts.size > 0
     ? `${selectedContacts.size} contact(s) selected`
@@ -160,7 +165,7 @@ function updateSearchPlaceholder() {
 function resetSelectedContacts() {
   selectedContacts.clear();
   renderSelectedContacts();
-  document.querySelectorAll("#dropdown-list li").forEach(li => li.classList.remove("selected"));
+  document.querySelectorAll("#dropdownList li").forEach(li => li.classList.remove("selected"));
 }
 
 /**
@@ -184,7 +189,7 @@ function getInitial(name) {
  * clearing the form fields, and showing the success modal.
  */
 function createTask() {
-  if (!taskFormManager.validateAll()) return;
+  if (!validateAllTasks()) return;
   saveToStorage(assembleTask());
   clearFields();
   handleAddTaskSuccess();
@@ -197,13 +202,19 @@ function createTask() {
  *                   category, task type, assigned contacts, and subtasks.
  */
 function assembleTask() {
-  const cat = document.getElementById('task-category');
+  const cat = document.getElementById('taskCategory');
+
+  let selectedCategory = "";
+  if (cat && cat.selectedIndex !== -1) {
+    selectedCategory = cat.options[cat.selectedIndex].text.toLowerCase();
+  }
+
   return {
-    title: document.getElementById('task-title').value.trim(),
-    description: document.getElementById('task-description').value.trim(),
-    dueDate: document.getElementById('task-due-date').value,
+    title: document.getElementById('taskTitle').value.trim(),
+    description: document.getElementById('taskDescription').value.trim(),
+    dueDate: document.getElementById('taskDueDate').value,
     priority: document.querySelector('.priority__button.active')?.value || 'medium',
-    taskType: cat.options[cat.selectedIndex].text.toLowerCase(),
+    taskType: selectedCategory,
     category: 'to do',
     assignedTo: Array.from(selectedContacts.keys()),
     subtasks: getSubtasks()
@@ -216,46 +227,79 @@ function assembleTask() {
  * @returns {Array<Object>} An array of subtask objects with `title` and `done` properties.
  */
 function getSubtasks() {
-  return Array.from(document.querySelectorAll('#added-subtask .subtask-text'))
+  return Array.from(document.querySelectorAll('#addedSubtask .subtask-text'))
     .map(st => ({ title: st.textContent.trim(), done: false }));
 }
 
 /**
- * Manages validation for the task form.
+ * Validates all mandatory fields.
  *
- * @property {Array<Object>} fields - List of form fields with their IDs and corresponding error message element IDs.
- * @property {Function} validateAll - Validates all fields, shows error messages for empty fields,
- *                                    applies/removes error styling, and returns whether the form is valid.
- *
- * @example
- * if (taskFormManager.validateAll()) {
- *   // proceed with task creation
- * }
+ * @returns {boolean} True if all fields are valid, otherwise false.
  */
-const taskFormManager = {
-  fields: [
-    { id: 'task-title', err: 'title-error-message' },
-    { id: 'task-due-date', err: 'date-error-message' },
-    { id: 'task-category', err: 'category-error-message' }
-  ],
-  validateAll() {
-    let isAllValid = true;
-    this.fields.forEach(f => {
-      const input = document.getElementById(f.id);
-      const errorSpan = document.getElementById(f.err);
-      const isValid = input && input.value.trim() !== "";
-      if (!isValid) {
-        if (errorSpan) { errorSpan.style.display = 'block'; errorSpan.textContent = 'This field is required'; }
-        input.classList.add('error-border');
-        isAllValid = false;
-      } else {
-        if (errorSpan) errorSpan.style.display = 'none';
-        input.classList.remove('error-border');
-      }
-    });
-    return isAllValid;
+function validateAllTasks() {
+  let isAllValid = true;
+
+  for (let i = 0; i < mandatoryFields.length; i++) {
+    const field = mandatoryFields[i];
+    const isValid = validateSingleField(field);
+
+    if (isValid === false) {
+      isAllValid = false;
+    }
   }
-};
+  return isAllValid;
+}
+
+/**
+ * Validates a single input field.
+ *
+ * @param {Object} field - Field configuration containing inputId and errorId.
+ * @returns {boolean} True if the field is valid, otherwise false.
+ */
+function validateSingleField(field) {
+  const input = document.getElementById(field.inputId);
+  const errorText = document.getElementById(field.errorId);
+  const value = input.value.trim();
+
+  if (value === "") {
+    showError(input, errorText);
+    return false;
+  } else {
+    hideError(input, errorText);
+    return true;
+  }
+}
+
+/**
+ * Displays a validation error for the given input field.
+ *
+ * @param {HTMLElement} input - The input element to highlight.
+ * @param {HTMLElement} errorText - The element used to display the error message.
+ */
+function showError(input, errorText) {
+  if (errorText) {
+    errorText.style.visibility = 'visible';
+    errorText.textContent = 'This field is required';
+  }
+  if (input) {
+    input.classList.add('error-border');
+  }
+}
+
+/**
+ * Hides the validation error for the given input field.
+ *
+ * @param {HTMLElement} input - The input element to remove the error styling from.
+ * @param {HTMLElement} errorText - The element displaying the error message.
+ */
+function hideError(input, errorText) {
+  if (errorText) {
+    errorText.style.visibility = 'hidden';
+  }
+  if (input) {
+    input.classList.remove('error-border');
+  }
+}
 
 
 /**
