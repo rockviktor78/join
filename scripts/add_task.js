@@ -1,5 +1,23 @@
 let task = [];
 
+
+/**
+ * Main initialization for the Add Task page.
+ * Checks authentication first, then renders the form.
+ */
+async function initAddTask() {
+  const currentUser = protectPage();
+  if (!currentUser) return;
+
+  if (typeof initDataStore === 'function') {
+    await initDataStore();
+  }
+
+  if (document.getElementById('mainContent')) {
+    renderAddTask('mainContent');
+  }
+}
+
 /**
  * Initializes the due date input field by setting the minimum selectable date
  * to today and formatting the selected date for display.
@@ -302,24 +320,14 @@ function initializeAllScripts() {
 /**
  * Renders the task form into a specified container and initializes all related scripts.
  *
- * @param {string} containerId - The ID of the container element (e.g., main content or add-task panel).
+ * @param {string} containerId - The ID of the container element.
  */
 function renderAddTask(containerId) {
   const container = document.getElementById(containerId);
-  if (!container) {
-    console.error(`Container mit ID ${containerId} wurde nicht gefunden!`);
-    return;
-  }
+  if (!container) return;
+
   container.innerHTML = templateAddTaskForm();
   initializeAllScripts();
 }
 
-/**
- * Waits for the DOM to fully load and then renders the task form
- * into the main content container if it exists.
- */
-document.addEventListener("DOMContentLoaded", () => {
-  if (document.getElementById('mainContent')) {
-    renderAddTask('mainContent');
-  }
-});
+document.addEventListener("DOMContentLoaded", initAddTask);
