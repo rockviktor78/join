@@ -82,8 +82,11 @@ li.selected .checkmark {
 .error-text {
   color: var(--color-error);
   font-size: 0.875rem;
-  height: 1rem;
+  height: 1.2rem;
+  margin-top: 4px;
   padding-left: 0.5rem;
+  visibility: hidden;
+  display: block;
 }
 
 .contact-item-container {
