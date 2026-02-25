@@ -14,6 +14,7 @@ function editTask(taskId) {
     renderEditSubtasks(task.subtasks || []);
     renderEditContactList(task.assignedTo || []);
     updateEditSelectedContactsIcons();
+    initEditSubtaskInput();
 }
 
 /**
@@ -136,8 +137,7 @@ function getFormDataFromEdit() {
 }
 
 /**
- * Saves the updated task data to storage,
- * updates the current task reference,
+ * Saves the updated task data to storage, updates the current task reference,
  * and re-renders the board and task overlay.
  *
  * @param {string} taskId - The ID of the task to update.
@@ -255,3 +255,61 @@ function getPriorityButtonsHTML(currentPriority) {
         `;
     }).join('');
 }
+
+/**
+ * Adds an 'Enter' key listener to the edit subtask input
+ * to trigger subtask creation and prevent form submission.
+ */
+function initEditSubtaskInput() {
+    const subInput = document.getElementById('editSubtaskInput');
+    if (subInput) {
+        subInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addEditSubtask();
+            }
+        });
+    }
+}
+
+/**
+ * Toggles the visibility of the edit contact dropdown.
+ * @param {Event} e - The click event.
+ */
+function toggleEditDropdown(e) {
+    // Verhindert, dass der Klick den globalen Listener erreicht, 
+    // der das Dropdown sofort wieder schließen würde.
+    e.stopPropagation();
+
+    const list = document.getElementById('editDropdownList');
+    const arrow = document.getElementById('editDropdownArrow');
+
+    if (!list) return;
+
+    const isVisible = list.style.display === 'block';
+    list.style.display = isVisible ? 'none' : 'block';
+
+    if (arrow) {
+        arrow.classList.toggle('rotated', !isVisible);
+    }
+}
+
+/**
+ * Closes the edit contact dropdown if a click occurs outside its container.
+ * This ensures the dropdown is dismissed when interacting with other parts 
+ * of the task detail view or the document.
+ * * @param {MouseEvent} e - The click event used to determine the target of the interaction.
+ */
+function closeEditDropdownExternal(e) {
+    const container = document.getElementById('editDropdownContainer');
+    const list = document.getElementById('editDropdownList');
+    const arrow = document.getElementById('editDropdownArrow');
+    if (!container || !list || list.style.display === 'none') return;
+    if (!container.contains(e.target)) {
+        list.style.display = 'none';
+        if (arrow) arrow.classList.remove('rotated');
+    }
+}
+
+document.removeEventListener('click', closeEditDropdownExternal);
+document.addEventListener('click', closeEditDropdownExternal);

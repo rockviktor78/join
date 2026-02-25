@@ -236,8 +236,9 @@ function templateEditTaskForm(task) {
                 <span class="label">Assigned To</span>
                 <div class="dropdown" id="editDropdownContainer">
                     <div class="dropdown-wrapper">
-                        <input type="text" class="contact-search-input" id="editContactSearch" placeholder="Select contacts" onclick="toggleDropdown(event)">
-                        <div class="dropdown-arrow" onclick="toggleDropdown(event)"></div>
+                        <input type="text" class="contact-search-input" id="editContactSearch" 
+                               placeholder="Select contacts" onclick="toggleEditDropdown(event)">
+                        <div class="dropdown-arrow" id="editDropdownArrow" onclick="toggleEditDropdown(event)"></div>
                     </div>
                     <ul class="dropdown-list" id="editDropdownList" style="display: none"></ul>
                 </div>
