@@ -19,14 +19,14 @@
 .left-side {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 45%;
 }
 
 .right-side {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 45%;
 }
 
@@ -109,7 +109,7 @@
 .calendar-icon {
   position: absolute;
   right: 12px;
-  top: 50%;
+  top: 35%;
   transform: translateY(-50%);
   width: 20px;
   cursor: pointer;
