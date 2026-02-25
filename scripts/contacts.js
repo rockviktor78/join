@@ -67,7 +67,7 @@ function renderContactList(contactsArray) {
  * Gets the container for the contacts list and clears it.
  */
 function getContactsContainer() {
-  let container = document.getElementById("contacts-ul");
+  let container = document.getElementById("contactsUl");
   container.innerHTML = "";
   return container;
 }
@@ -115,7 +115,7 @@ function getInitial(name) {
  */
 function showContactDetails(index) {
   let contact = loadedContacts[index];
-  let detailsContainer = document.getElementById("contacts-detail");
+  let detailsContainer = document.getElementById("contactsDetail");
   let initial = getInitial(contact.name);
   let badgeColor = contact.color || "#D1D1D1";
   detailsContainer.innerHTML = templateContactDetails(contact, index, initial, badgeColor);
@@ -143,7 +143,7 @@ function addNewContact() {
   document.body.style.overflow = "hidden";
   event.stopPropagation();
   showEditContact();
-  let newContactContainer = document.getElementById("contacts-form");
+  let newContactContainer = document.getElementById("contactsForm");
   newContactContainer.innerHTML = templateAddNewContact();
   requestAnimationFrame(() => newContactContainer.classList.add("active"));
 }
@@ -152,9 +152,9 @@ function addNewContact() {
  * Confirms editing a contact.
  */
 function confirmEditContact(index) {
-  let name = document.getElementById("new-contact-name").value.trim();
-  let phone = document.getElementById("new-contact-phone").value;
-  let email = document.getElementById("new-contact-email").value;
+  let name = document.getElementById("newContactName").value.trim();
+  let phone = document.getElementById("newContactPhone").value;
+  let email = document.getElementById("newContactEmail").value;
 
   updateContact(index, name, phone, email);
 }
@@ -172,7 +172,7 @@ function deleteContact(index) {
     saveStore();
   }
 
-  document.getElementById("contacts-detail").innerHTML = "";
+  document.getElementById("contactsDetail").innerHTML = "";
   sortContacts();
   renderContactList(loadedContacts);
   closeEditContact();
@@ -211,7 +211,7 @@ function editContact(index) {
   let contact = loadedContacts[index];
   let initial = getInitial(contact.name);
   let badgeColor = contact.color || "#D1D1D1";
-  let editContactContainer = document.getElementById("contacts-form");
+  let editContactContainer = document.getElementById("contactsForm");
   editContactContainer.innerHTML = templateEditContact(
     index,
     contact.name,
@@ -228,7 +228,7 @@ function editContact(index) {
  */
 function showEditContact() {
   document.getElementById("overlay").style.display = "block";
-  document.getElementById("loaded-contact-form").style.display = "block";
+  document.getElementById("loadedContactForm").style.display = "block";
 }
 
 /**
@@ -237,7 +237,7 @@ function showEditContact() {
 document.addEventListener("click", event => {
   let overlay = document.getElementById("overlay");
   if (!overlay || overlay.style.display === "none") return;
-  let card = document.getElementById("loaded-contact-form");
+  let card = document.getElementById("loadedContactForm");
   if (!card) return;
   if (!card.contains(event.target)) closeEditContact();
 });
@@ -246,10 +246,10 @@ document.addEventListener("click", event => {
  * Closes the contact form overlay.
  */
 function closeEditContact() {
-  document.getElementById("contacts-form").classList.remove("active");
+  document.getElementById("contactsForm").classList.remove("active");
   setTimeout(() => {
     document.getElementById("overlay").style.display = "none";
-    document.getElementById("loaded-contact-form").style.display = "none";
+    document.getElementById("loadedContactForm").style.display = "none";
     document.body.style.overflow = "";
   }, 350);
 }
@@ -258,7 +258,7 @@ function closeEditContact() {
  * Cancels contact creation or editing.
  */
 function cancel() {
-  document.getElementById("contacts-form").innerHTML = "";
+  document.getElementById("contactsForm").innerHTML = "";
 }
 
 /**
@@ -282,9 +282,9 @@ function createNewContact() {
  * Clears the contact form.
  */
 function clearContactForm() {
-  document.getElementById("new-contact-name").value = "";
-  document.getElementById("new-contact-email").value = "";
-  document.getElementById("new-contact-phone").value = "";
+  document.getElementById("newContactName").value = "";
+  document.getElementById("newContactEmail").value = "";
+  document.getElementById("newContactPhone").value = "";
   closeEditContact();
 }
 
@@ -316,12 +316,10 @@ function updateContact(index, name, phone, email) {
  * Adds a new contact to loadedContacts array and saves it to the data store.
  */
 function pushNewContact() {
-  const name = document.getElementById("new-contact-name").value.trim();
-  const email = document.getElementById("new-contact-email").value.trim();
-  const phone = document.getElementById("new-contact-phone").value.trim();
-
-  if (!isContactFormValid(name, phone, email)) return;
-
+  // Wir holen die Werte hier erneut für die Speicherung
+  const name = document.getElementById("newContactName").value.trim();
+  const email = document.getElementById("newContactEmail").value.trim();
+  const phone = document.getElementById("newContactPhone").value.trim();
   const id = `contactId${contactIdCounter++}`;
   const newContact = { id, name, phone, email };
   const coloredContact = assignContactColors([newContact])[0];
@@ -373,9 +371,11 @@ function showSuccessMessage() {
  * @param {string} msg - The error message to display.
  * @returns {boolean} True if the field is valid, otherwise false.
  */
-function validateField(id, condition, msg) {
-  const errorElement = document.getElementById(`error-${id.split('-').pop()}`);
-  errorElement.innerText = condition ? "" : msg;
+function validateField(inputId, errorId, condition, msg) {
+  const errorElement = document.getElementById(errorId);
+  if (errorElement) {
+    errorElement.innerText = condition ? "" : msg;
+  }
   return condition;
 }
 
@@ -383,14 +383,18 @@ function validateField(id, condition, msg) {
  * Validates the contact form and calls createNewContact if all fields are valid.
  */
 function validateAndCreate() {
-  const name = document.getElementById('new-contact-name').value.trim();
-  const email = document.getElementById('new-contact-email').value.trim();
-  const phone = document.getElementById('new-contact-phone').value.trim();
+  const nameValue = document.getElementById('newContactName').value.trim();
+  const emailValue = document.getElementById('newContactEmail').value.trim();
+  const phoneValue = document.getElementById('newContactPhone').value.trim();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const v1 = validateField('new-contact-name', name !== "", "Name is required");
-  const v2 = validateField('new-contact-email', emailRegex.test(email), "Invalid email");
-  const v3 = validateField('new-contact-phone', phone !== "", "Phone is required");
-  if (v1 && v2 && v3) createNewContact();
+
+  const v1 = validateField('newContactName', 'errorName', nameValue !== "", "Name is required");
+  const v2 = validateField('newContactEmail', 'errorEmail', emailRegex.test(emailValue), "Invalid email");
+  const v3 = validateField('newContactPhone', 'errorPhone', phoneValue !== "", "Phone is required");
+
+  if (v1 && v2 && v3) {
+    createNewContact();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", initContacts);
