@@ -12,11 +12,11 @@ function checkMobile(index) {
     document
       .querySelector(".contacts-detail-container")
       .classList.add("active");
-    let fab = document.getElementById("action__fab");
+    let fab = document.getElementById("actionFab");
     fab.style.zIndex = 9;
     fab.setAttribute("onclick", `showMoreAction(${index})`);
     document
-      .getElementById("contacts-detail-back")
+      .getElementById("contactsDetailBack")
       .setAttribute("onclick", `contactsBackMobile(${index})`);
   }
 }
@@ -27,7 +27,7 @@ function checkMobile(index) {
  * @param {number} index - Index of the selected contact.
  */
 function showMoreAction(index) {
-  let more = document.getElementById("action__fab");
+  let more = document.getElementById("actionFab");
   more.innerHTML = "";
   more.innerHTML += templateShowMoreAction(index);
 }
@@ -37,7 +37,7 @@ function showMoreAction(index) {
  * Replaces the action buttons with the default FAB icon.
  */
 function closeActionFab() {
-  let more = document.getElementById("action__fab");
+  let more = document.getElementById("actionFab");
   more.innerHTML = "";
   more.innerHTML += templateActionFab();
 }
@@ -51,16 +51,16 @@ function closeActionFab() {
  * @param {number} index - Index of the contact to be deactivated.
  */
 function contactsBackMobile(index) {
-  let detailsContainer = document.getElementById("contacts-detail");
+  let detailsContainer = document.getElementById("contactsDetail");
   detailsContainer.innerHTML = "";
   document
     .querySelector(".contacts-detail-container")
     .classList.remove("active");
-  let fab = document.getElementById("action__fab");
+  let fab = document.getElementById("actionFab");
   fab.style.zIndex = 6;
   fab.removeAttribute("onclick", `showMoreAction(${index})`);
   document
-    .getElementById("contacts-detail-back")
+    .getElementById("contactsDetailBack")
     .removeAttribute("onclick", `contactsBackMobile(${index})`);
   removeActiveContact(index);
 }
@@ -79,7 +79,7 @@ function removeActiveContact(index) {
  */
 document.addEventListener("click", (event) => {
   const actionButton = document.querySelector(".action__button-mobile");
-  const fab = document.getElementById("action__fab");
+  const fab = document.getElementById("actionFab");
 
   if (!actionButton || !fab) return;
 
