@@ -212,43 +212,43 @@ function templateEditTaskForm(task) {
 
             <div class="edit-section mt--16">
                 <span class="label">Title</span>
-                <input type="text" id="edit-title" class="task-title" value="${task.title}">
+                <input type="text" id="editTitle" class="task-title" value="${task.title}">
             </div>
 
             <div class="edit-section">
                 <span class="label">Description</span>
-                <textarea id="edit-description" class="task-description min-height">${task.description || ''}</textarea>
+                <textarea id="editDescription" class="task-description min-height">${task.description || ''}</textarea>
             </div>
 
             <div class="edit-section">
                 <span class="label">Due date</span>
-                <input type="date" id="edit-due-date" class="task-due-date" value="${task.dueDate}">
+                <input type="date" id="editDueDate" class="task-due-date" value="${task.dueDate}">
             </div>
 
             <div class="edit-section">
                 <span class="label">Priority</span>
-                <div class="priority-selection edit-prio-row" id="edit-priority">
+                <div class="priority-selection edit-prio-row" id="editPriority">
                     ${getPriorityButtonsHTML(task.priority)}
                 </div>
             </div>
 
             <div class="edit-section">
                 <span class="label">Assigned To</span>
-                <div class="dropdown" id="edit-dropdown-container">
+                <div class="dropdown" id="editDropdownContainer">
                     <div class="dropdown-wrapper">
-                        <input type="text" class="contact-search-input" id="edit-contact-search" placeholder="Select contacts" onclick="toggleDropdown(event)">
+                        <input type="text" class="contact-search-input" id="editContactSearch" placeholder="Select contacts" onclick="toggleDropdown(event)">
                         <div class="dropdown-arrow" onclick="toggleDropdown(event)"></div>
                     </div>
-                    <ul class="dropdown-list" id="edit-dropdown-list" style="display: none"></ul>
+                    <ul class="dropdown-list" id="editDropdownList" style="display: none"></ul>
                 </div>
-                <div class="selected-contacts" id="edit-selected-contacts"></div>
+                <div class="selected-contacts" id="editSelectedContacts"></div>
             </div>
 
             <div class="edit-section">
                 <span class="label">Subtasks</span>
                 <div class="subtask-wrapper">
-                    <input type="text" class="subtask" id="edit-subtask-input" placeholder="Add new subtask" onkeyup="toggleEditSubtaskActions()">
-                    <div class="subtask-actions" id="edit-subtask-actions">
+                    <input type="text" class="subtask" id="editSubtaskInput" placeholder="Add new subtask" onkeyup="toggleEditSubtaskActions()">
+                    <div class="subtask-actions" id="editSubtaskActions">
                         <span class="cancel" onclick="clearSubtaskInput()">
                             <img src="../assets/img/addtask/cross.svg">
                         </span>
@@ -258,7 +258,7 @@ function templateEditTaskForm(task) {
                         </span>
                     </div>
                 </div>
-                <div id="edit-subtasks-list" class="edit-subtask-list"></div>
+                <div id="editSubtasksList" class="edit-subtask-list"></div>
             </div>
 
             <div class="task-detail__actions justify-end">
