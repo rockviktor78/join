@@ -158,16 +158,16 @@ function templateAddNewContactForm() {
             <img src="../assets/img/contacts/closewhite.svg" class="close-button__mobile" alt="Cancel">
         </div>
         <div class="input-container">
-            <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" required>
-            <div id="error-name" class="error-message"></div>
+            <input type="text" class="form-input-name" id="newContactName" placeholder="Name" required>
+            <div id="errorName" class="error-message"></div>
         </div>
         <div class="input-container">
-        <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" required>
-        <div id="error-email" class="error-message"></div>
+        <input type="email" class="form-input-email" id="newContactEmail" placeholder="Email" required>
+        <div id="errorEmail" class="error-message"></div>
         </div>
         <div class="input-container">
-            <input type="text" class="form-input-phone" id="new-contact-phone" placeholder="Phone" required>
-            <div id="error-phone" class="error-message"></div>
+            <input type="text" class="form-input-phone" id="newContactPhone" placeholder="Phone" required>
+            <div id="errorPhone" class="error-message"></div>
         </div>
         <div class="form-contact-buttons">
             <button onclick="closeEditContact()" class="cancel-button">Cancel <img src="../assets/img/contacts/cancel.svg" alt="Cancel"></button>
@@ -247,9 +247,9 @@ function templateEditContactForm(name, email, phone, index) {
             <img src="../assets/img/contacts/cancel.svg" class="close-button__desktop" alt="Cancel">
             <img src="../assets/img/contacts/closewhite.svg" class="close-button__mobile" alt="Cancel">
         </div>
-        <input type="text" class="form-input-name" id="new-contact-name" placeholder="Name" value="${name}" required>
-        <input type="email" class="form-input-email" id="new-contact-email" placeholder="Email" value="${email}" required>
-        <input type="text" class="form-input-phone" id="new-contact-phone" placeholder="Phone" value="${phone}" required>
+        <input type="text" class="form-input-name" id="newContactName" placeholder="Name" value="${name}" required>
+        <input type="email" class="form-input-email" id="newContactEmail" placeholder="Email" value="${email}" required>
+        <input type="text" class="form-input-phone" id="newContactPhone" placeholder="Phone" value="${phone}" required>
         <div class="form-contact-buttons">
             <button onclick="deleteContact(${index})" class="delete-button">Delete</button>
             <button onclick="confirmEditContact(${index})" class="save-contact-button">Save <img src="../assets/img/contacts/check.svg" alt="Save"></button>
