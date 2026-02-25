@@ -5,7 +5,7 @@ let task = [];
  * to today and formatting the selected date for display.
  */
 function initDateInput() {
-  const dateInput = document.getElementById("task-due-date");
+  const dateInput = document.getElementById("taskDueDate");
   if (!dateInput) return;
   dateInput.min = new Date().toISOString().split("T")[0];
 
@@ -21,7 +21,7 @@ function initDateInput() {
  * Opens the native date picker of the due date input field, if available.
  */
 function openDatePicker() {
-  const dateInput = document.getElementById("task-due-date");
+  const dateInput = document.getElementById("taskDueDate");
   if (dateInput) dateInput.showPicker();
 }
 
@@ -53,7 +53,7 @@ function deselectPriority() {
 function clearFields() {
   resetInputs();
   resetDropdownState();
-  const subtaskContainer = document.getElementById("added-subtask");
+  const subtaskContainer = document.getElementById("addedSubtask");
   if (subtaskContainer) subtaskContainer.innerHTML = "";
   deselectPriority();
   resetValidation();
@@ -67,12 +67,12 @@ function clearFields() {
  * from the due date input.
  */
 function resetInputs() {
-  const ids = ["task-title", "task-description", "task-due-date", "task-category", "task-subtasks"];
+  const ids = ["taskTitle", "taskDescription", "taskDueDate", "taskCategory", "taskSubtasks"];
   ids.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     el.value = "";
-    if (id === "task-due-date") el.removeAttribute("data-date");
+    if (id === "taskDueDate") el.removeAttribute("data-date");
   });
 }
 
@@ -81,8 +81,8 @@ function resetInputs() {
  * removing selected contact elements, and resetting the selected contacts set.
  */
 function resetDropdownState() {
-  const searchInput = document.getElementById("contact-search-input");
-  const selectedBox = document.getElementById("selected-contacts");
+  const searchInput = document.getElementById("contactSearchInput");
+  const selectedBox = document.getElementById("selectedContacts");
   if (searchInput) {
     searchInput.value = "";
     searchInput.placeholder = "Select contacts to assign";
@@ -95,7 +95,7 @@ function resetDropdownState() {
  * Clears all validation error messages and removes error styling from form elements.
  */
 function resetValidation() {
-  document.querySelectorAll('.error-text').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.error-text').forEach(el => el.style.visibility = 'hidden');
   document.querySelectorAll('.error-border').forEach(el => el.classList.remove('error-border'));
 }
 
@@ -104,11 +104,11 @@ function resetValidation() {
  * then clears the input field and updates the subtask action state.
  */
 function addSubtask() {
-  const subtaskInput = document.getElementById("task-subtasks");
+  const subtaskInput = document.getElementById("taskSubtasks");
   const text = subtaskInput.value.trim();
   if (!text) return;
 
-  const container = document.getElementById("added-subtask");
+  const container = document.getElementById("addedSubtask");
   container.innerHTML += templateAddSubtask(text);
   subtaskInput.value = "";
   toggleSubtaskActions();
@@ -119,7 +119,7 @@ function addSubtask() {
  * that creates a new subtask when the Enter key is pressed.
  */
 function initSubtaskInput() {
-  const subInput = document.getElementById("task-subtasks");
+  const subInput = document.getElementById("taskSubtasks");
   subInput?.addEventListener("keypress", (e) => {
     if (e.key === "Enter") { e.preventDefault(); addSubtask(); }
   });
@@ -130,7 +130,7 @@ function initSubtaskInput() {
  * based on whether the subtask input field contains text.
  */
 function toggleSubtaskActions() {
-  const input = document.getElementById("task-subtasks");
+  const input = document.getElementById("taskSubtasks");
   const actions = document.querySelector(".subtask-actions");
   if (input && actions) {
     actions.classList.toggle("visible", input.value.trim() !== "");
@@ -142,7 +142,7 @@ function toggleSubtaskActions() {
  * and updating the subtask action buttons.
  */
 function cancelSubtask() {
-  const input = document.getElementById("task-subtasks");
+  const input = document.getElementById("taskSubtasks");
   if (input) input.value = "";
   toggleSubtaskActions();
 }
@@ -155,36 +155,22 @@ function cancelSubtask() {
  */
 function editSubtask(trigger) {
   const item = trigger.closest(".subtask-item");
-  const textSpan = item?.querySelector(".subtask-text");
-  if (!item || item.querySelector(".subtask-edit-input")) return;
+  const textSpan = item.querySelector(".subtask-text");
+  const subtaskInput = document.getElementById("taskSubtasks");
 
-  const input = document.createElement("input");
-  input.type = "text";
-  input.value = textSpan.textContent;
-  input.className = "subtask-edit-input";
-
-  item.replaceChild(input, textSpan);
-  input.focus();
-  input.addEventListener("keydown", (e) => e.key === "Enter" && saveEdit(item, input));
-  input.addEventListener("blur", () => saveEdit(item, input));
+  if (subtaskInput && textSpan) {
+    subtaskInput.value = textSpan.textContent;
+    subtaskInput.focus();
+    item.remove();
+    toggleSubtaskActions();
+  }
 }
 
 /**
- * Saves the edited subtask text. If the input is empty, the subtask is removed;
- * otherwise, replaces the input field with the updated text element.
+ * Deletes the subtask element related to the given trigger.
  *
- * @param {HTMLElement} item - The subtask container element.
- * @param {HTMLInputElement} input - The input element containing the edited text.
+ * @param {HTMLElement} trigger - The element that triggered the delete action.
  */
-function saveEdit(item, input) {
-  const newText = input.value.trim();
-  if (!newText) return item.remove();
-  const span = document.createElement("span");
-  span.className = "subtask-text";
-  span.textContent = newText;
-  item.replaceChild(span, input);
-}
-
 function deleteSubtask(trigger) {
   trigger.closest(".subtask-item")?.remove();
 }
@@ -204,7 +190,7 @@ function rotateCategoryArrow(isOpened) {
  */
 function handleAddTaskSuccess() {
   const modal = document.getElementById('taskAddedModal');
-  const isOverlay = document.getElementById('addtask-panel-content-id') !== null;
+  const isOverlay = document.getElementById('addtaskPanelContentId') !== null;
   modal?.classList.add('show');
 
   setTimeout(() => {
@@ -232,8 +218,8 @@ function handleAddTaskSuccess() {
  * - Registers `click` on the dropdown arrow to toggle the dropdown without propagating the click.
  */
 function initDropdownListeners() {
-  const input = document.getElementById('contact-search-input');
-  const arrow = document.getElementById('dropdown-arrow');
+  const input = document.getElementById('contactSearchInput');
+  const arrow = document.getElementById('dropdownArrow');
   input?.addEventListener('keyup', filterContacts);
   input?.addEventListener('click', (e) => { e.stopPropagation(); openDropdown(e); });
   arrow?.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(e); });
@@ -247,11 +233,11 @@ function initDropdownListeners() {
  * - Blur or change on the category dropdown rotates the arrow back to closed state.
  */
 function initPriorityAndCategory() {
-  document.getElementById('priority-selection')?.addEventListener('click', (e) => {
+  document.getElementById('prioritySelection')?.addEventListener('click', (e) => {
     const btn = e.target.closest('.priority__button');
     if (btn) selectPriority(btn);
   });
-  const cat = document.getElementById('task-category');
+  const cat = document.getElementById('taskCategory');
   cat?.addEventListener('focus', () => rotateCategoryArrow(true));
   cat?.addEventListener('blur', () => rotateCategoryArrow(false));
   cat?.addEventListener('change', () => rotateCategoryArrow(false));
@@ -268,10 +254,10 @@ function initPriorityAndCategory() {
  * - Click on `.delete-btn` deletes the subtask.
  */
 function initSubtaskListeners() {
-  document.getElementById('task-subtasks')?.addEventListener('input', toggleSubtaskActions);
-  document.getElementById('subtask-cancel')?.addEventListener('click', cancelSubtask);
-  document.getElementById('subtask-confirm')?.addEventListener('click', addSubtask);
-  document.getElementById('added-subtask')?.addEventListener('click', (e) => {
+  document.getElementById('taskSubtasks')?.addEventListener('input', toggleSubtaskActions);
+  document.getElementById('subtaskCancel')?.addEventListener('click', cancelSubtask);
+  document.getElementById('subtaskConfirm')?.addEventListener('click', addSubtask);
+  document.getElementById('addedSubtask')?.addEventListener('click', (e) => {
     const editBtn = e.target.closest('.edit-btn');
     const deleteBtn = e.target.closest('.delete-btn');
     if (editBtn) editSubtask(editBtn);
@@ -287,9 +273,9 @@ function initSubtaskListeners() {
  * - `click` on #create-task__button triggers task creation.
  */
 function initFormButtons() {
-  document.getElementById('calendar-icon')?.addEventListener('click', openDatePicker);
-  document.getElementById('clear__button')?.addEventListener('click', clearFields);
-  document.getElementById('create-task__button')?.addEventListener('click', createTask);
+  document.getElementById('calendarIcon')?.addEventListener('click', openDatePicker);
+  document.getElementById('clearButton')?.addEventListener('click', clearFields);
+  document.getElementById('createTaskButton')?.addEventListener('click', createTask);
 }
 
 /**
@@ -333,7 +319,7 @@ function renderAddTask(containerId) {
  * into the main content container if it exists.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  if (document.getElementById('main-content')) {
-    renderAddTask('main-content');
+  if (document.getElementById('mainContent')) {
+    renderAddTask('mainContent');
   }
 });
