@@ -93,29 +93,19 @@ function createSubtasksHTML(subtasks) {
 }
 
 /**
- * Generates HTML badges for assigned users based on their IDs.
- *
- * @param {Array<string>} assignedIds - Array of user IDs to generate badges for.
- * @returns {string} HTML string containing the user badges.
+ * Generates HTML badges for assigned users (max 4 + optional plus-badge).
  */
-function createAssignedUsersHTML(assignedIds) {
-    if (!assignedIds || assignedIds.length === 0) return "";
-
-    const contactsArray = getContacts(); // Array
-
-    return assignedIds.map(id => {
-        const contact = contactsArray.find(contact => contact.id === id);
-        if (!contact) return "";
-
-        const bgColor = contact.color || "#D1D1D1";
-        const initials = (contact.name || "")
-            .split(" ")
-            .map(n => n[0])
-            .join("") || "?";
-        const name = contact.name || "Unknown";
-
-        return getAssignedUserBadgeTemplate(initials, bgColor, name);
+function createAssignedUsersHTML(assignedIds = []) {
+    const max = 4;
+    const contactsArray = getContacts();
+    const html = assignedIds.slice(0, max).map(id => {
+        const c = contactsArray.find(contact => contact.id === id);
+        if (!c) return "";
+        const initials = (c.name || "").split(" ").map(n => n[0]).join("");
+        return getAssignedUserBadgeTemplate(initials, c.color || "#D1D1D1", c.name);
     }).join("");
+    const extra = assignedIds.length > max ? getPlusBadgeTemplate(assignedIds.length - max) : "";
+    return html + extra;
 }
 
 /**
