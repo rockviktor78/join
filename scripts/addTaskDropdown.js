@@ -116,21 +116,37 @@ function handleContactClick(e, li, contact) {
 }
 
 /**
- * Renders visual badges for all currently selected contacts in the UI
- * and updates the search input placeholder accordingly.
+ * Renders visual badges for selected contacts.
+ * Limits visibility to 4 and shows a "+X" badge for the rest.
  */
 function renderSelectedContacts() {
   const box = document.getElementById('selectedContacts');
   if (!box) return;
   box.innerHTML = '';
-  selectedContacts.forEach(contact => {
-    const tag = document.createElement('span');
-    tag.textContent = getInitial(contact.name);
-    tag.style.backgroundColor = contact.color || "#D1D1D1";
-    tag.className = 'assign-to-initial';
-    box.appendChild(tag);
+
+  const contacts = Array.from(selectedContacts.values());
+  const maxVisible = 4;
+
+  contacts.forEach((contact, i) => {
+    if (i < maxVisible) {
+      box.appendChild(createBadge(getInitial(contact.name), contact.color));
+    } else if (i === maxVisible) {
+      box.appendChild(createBadge(`+${contacts.length - maxVisible}`, "#ffa800"));
+    }
   });
+
   updateSearchPlaceholder();
+}
+
+/**
+ * Helper to create a badge element.
+ */
+function createBadge(text, color) {
+  const tag = document.createElement('span');
+  tag.className = 'assign-to-initial';
+  tag.textContent = text;
+  tag.style.backgroundColor = color || "#D1D1D1";
+  return tag;
 }
 
 /**
