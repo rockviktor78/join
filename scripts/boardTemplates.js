@@ -76,4 +76,15 @@ function getAssignedUserBadgeTemplate(initials, bgColor, name) {
         </div>`;
 }
 
+/**
+ * Generates the HTML for the "plus" badge when more than 4-5 users are assigned.
+ * @param {number} count - The number of remaining users.
+ * @returns {string} HTML string for the plus badge.
+ */
+function getPlusBadgeTemplate(count) {
+    return `
+        <div class="task-card__user-badge plus-badge">
+            +${count}
+        </div>`;
+}
 
