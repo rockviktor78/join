@@ -3,7 +3,6 @@
   justify-content: center;
   flex-direction: column;
   gap: 2rem;
-  margin-left: 1.25rem;
   width: 40%;
   padding: 1.25rem;
 }
@@ -24,7 +23,6 @@
   border-radius: var(--radius-lg);
   font-size: var(--font-size-xl);
   color: var(--color-gray-300);
-  max-width: 26.875rem;
   background: url(../assets/img/contacts/person.svg) no-repeat right;
   background-size: 1rem;
   background-position: 95%;
@@ -52,7 +50,6 @@
   border: 0.0625rem solid var(--color-gray-300);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-xl);
-  max-width: 26.875rem;
   background: url(../assets/img/contacts/mail.svg) no-repeat right;
   background-size: 1rem;
   background-position: 95%;
@@ -80,7 +77,6 @@
   border: 0.0625rem solid var(--color-gray-300);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-xl);
-  max-width: 26.875rem;
   background: url(../assets/img/contacts/call.svg) no-repeat right;
   background-size: 1rem;
   background-position: 95%;
