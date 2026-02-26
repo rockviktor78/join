@@ -347,11 +347,11 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.8);
   opacity: 0;
-
+  min-width: max-content;
   display: flex;
   align-items: center;
   gap: 12px;
-
+  font-size: var(--font-size-xl);
   background-color: var(--color-primary);
   color: var(--color-white);
   padding: 1rem 2rem;
