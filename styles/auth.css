@@ -6,6 +6,11 @@
   background-color: var(--color-gray-50);
 }
 
+.auth-content-limit {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 .auth-main {
   flex: 1;
   display: flex;
