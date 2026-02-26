@@ -125,32 +125,31 @@ function updateEditSelectedContactsIcons() {
  */
 function getFormDataFromEdit() {
     const activePrioBtn = document.querySelector('#editPriority .priority__button.active');
-
     return {
         title: document.getElementById('editTitle').value,
         description: document.getElementById('editDescription').value,
         dueDate: document.getElementById('editDueDate').value,
         priority: activePrioBtn ? activePrioBtn.id.replace('prio-', '') : 'medium',
         assignedTo: Array.from(document.querySelectorAll('#editDropdownList .contact-item.selected'))
-            .map(item => item.getAttribute('data-id'))
+            .map(item => item.getAttribute('data-id')),
+        subtasks: currentTask.subtasks || [],
+        category: currentTask.category
     };
 }
 
 /**
- * Saves the updated task data to storage, updates the current task reference,
- * and re-renders the board and task overlay.
- *
- * @param {string} taskId - The ID of the task to update.
+ * Saves the updated task data to storage and re-renders the board.
+ * * @param {string} taskId - The ID of the task to update.
  */
 function saveEditedTask(taskId) {
     const taskIndex = tasks.findIndex(t => t.id === taskId);
     if (taskIndex === -1) return;
     const updatedData = getFormDataFromEdit();
     tasks[taskIndex] = { ...tasks[taskIndex], ...updatedData };
-    sessionStorage.setItem('tasks', JSON.stringify(tasks));
-    currentTask = tasks[taskIndex];
+    const taskObject = tasksFromArrayToObject(tasks);
+    updateTasks(taskObject);
     renderBoard();
-    renderTaskOverlay();
+    document.getElementById('taskDetailsOverlay').classList.add('hidden');
 }
 
 /**
