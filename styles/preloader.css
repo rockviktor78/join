@@ -22,10 +22,6 @@
 }
 
 .logo-fly-to-header {
-  top: 1.5rem;
-  left: 3.5rem;
-  transform: translate(0, 0);
-  width: 6.25rem;
   z-index: 10001;
 }
 
