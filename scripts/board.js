@@ -15,12 +15,9 @@ const CATEGORY_ORDER = ["to do", "in progress", "await feedback", "done"];
 async function initBoard() {
     currentUser = protectPage();
     if (!currentUser) return;
-
     await initDataStore();
-
     contacts = getContacts();
     tasks = getTasks();
-
     renderBoard();
     initDragAndDrop();
     initButtons();
@@ -187,28 +184,62 @@ function autoCompleteSubtasksAsDone(task) {
 }
 
 /**
- * Attaches click event listeners to all 'Add Task' buttons in the header and columns.
- */
-/**
- * Initialisiert alle statischen Button-Events und Overlay-Interaktionen auf dem Board.
+ * Initializes all static button event listeners and overlay interactions
+ * on the board page.
  */
 function initButtons() {
-    const addTaskButtons = document.querySelectorAll(".board__add-btn, .board-column__add-btn");
+    initAddTaskButtons();
+    initTaskDetailOverlay();
+    initAddTaskOverlayClose();
+}
+
+/**
+ * Initializes all "Add Task" buttons (header + column buttons)
+ * and passes the corresponding category to the overlay.
+ */
+function initAddTaskButtons() {
+    const addTaskButtons = document.querySelectorAll(
+        ".board__add-btn, .board-column__add-btn"
+    );
+
     addTaskButtons.forEach((btn) => {
-        btn.addEventListener("click", openAddTaskOverlay);
+        btn.addEventListener("click", handleAddTaskButtonClick);
     });
-    const detailOverlay = document.getElementById('taskDetailsOverlay');
-    detailOverlay?.addEventListener('click', () => {
-        if (typeof closeTaskDetails === 'function') {
+}
+
+/**
+ * Handles clicks on Add Task buttons.
+ *
+ * @param {MouseEvent} event - The click event.
+ */
+function handleAddTaskButtonClick(event) {
+    const button = event.currentTarget;
+    const category = button.dataset.category || "to do";
+    openAddTaskOverlay(category);
+}
+
+/**
+ * Initializes close behavior for the task detail overlay.
+ */
+function initTaskDetailOverlay() {
+    const detailOverlay = document.getElementById("taskDetailsOverlay");
+    const detailContent = document.getElementById("taskDetailContent");
+    detailOverlay?.addEventListener("click", () => {
+        if (typeof closeTaskDetails === "function") {
             closeTaskDetails();
         }
     });
-    const detailContent = document.getElementById('taskDetailContent');
-    detailContent?.addEventListener('click', (event) => {
+    detailContent?.addEventListener("click", (event) => {
         event.stopPropagation();
     });
-    const closeAddTaskBtn = document.querySelector('.addtask-panel__close');
-    closeAddTaskBtn?.addEventListener('click', closeAddTaskOverlay);
+}
+
+/**
+ * Initializes the close button for the Add Task overlay.
+ */
+function initAddTaskOverlayClose() {
+    const closeAddTaskBtn = document.querySelector(".addtask-panel__close");
+    closeAddTaskBtn?.addEventListener("click", closeAddTaskOverlay);
 }
 
 /**
