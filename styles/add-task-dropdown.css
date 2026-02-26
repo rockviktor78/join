@@ -63,13 +63,25 @@ li.selected .checkmark {
 .selected-contacts {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 0.25rem;
+  min-height: 2rem;
+  padding-left: 0;
 }
 
 .selected-contacts .assign-to-initial {
-  width: 2.8rem;
-  height: 2.8rem;
-  font-size: var(--font-size-base);
+  width: 2rem;
+  height: 2rem;
+  font-weight: var(--font-weight-bold);
+  font-size: 0.7rem;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-left: -1rem;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.selected-contacts .assign-to-initial:first-child {
+  margin-left: 0;
 }
 
 .red-star {
