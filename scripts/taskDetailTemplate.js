@@ -175,13 +175,17 @@ function templateEditSubtaskItem(st, index) {
 function templateEditContactItem(contact, isSelected, initials) {
     return `
         <li class="contact-item ${isSelected ? 'selected' : ''}" 
-            data-id="${contact.id}" 
-            onclick="toggleContactSelectionEdit('${contact.id}', '${contact.color}', '${initials}')">
-            <div class="contact-item-left">
-                <div class="assign-to-initial" style="background-color: ${contact.color}">${initials}</div>
-                <span>${contact.name}</span>
+            data-id="${contact.id}"
+            onclick="toggleContactSelectionEdit(event, '${contact.id}', '${contact.color}', '${initials}')">
+
+            <div class="assign-to-initial" 
+                 style="background-color: ${contact.color}">
+                ${initials}
             </div>
-            <div class="selection-checkmark ${isSelected ? 'checked' : ''}"></div>
+
+            <span class="contact-name">${contact.name}</span>
+
+            <span class="selection-checkmark ${isSelected ? 'checked' : ''}"></span>
         </li>
     `;
 }
@@ -236,9 +240,8 @@ function templateEditTaskForm(task) {
                 <span class="label">Assigned To</span>
                 <div class="dropdown" id="editDropdownContainer">
                     <div class="dropdown-wrapper">
-                        <input type="text" class="contact-search-input" id="editContactSearch" 
-                               placeholder="Select contacts" onclick="toggleEditDropdown(event)">
-                        <div class="dropdown-arrow" id="editDropdownArrow" onclick="toggleEditDropdown(event)"></div>
+                        <input type="text" class="contact-search-input" id="editContactSearch" placeholder="Select contacts">
+                        <div class="dropdown-arrow" id="editDropdownArrow"></div>
                     </div>
                     <ul class="dropdown-list" id="editDropdownList" style="display: none"></ul>
                 </div>
@@ -268,5 +271,19 @@ function templateEditTaskForm(task) {
                 </button>
             </div>
         </div>
+    `;
+}
+
+/**
+ * Returns the HTML for a single priority button.
+ */
+function templatePriorityButton(prio, lowPrio, isActive, iconPath) {
+    return `
+        <button type="button" 
+                id="prio-${lowPrio}" 
+                class="priority__button ${isActive ? lowPrio + ' active' : ''}" 
+                onclick="setEditPriority('${lowPrio}')">
+            ${prio} <img src="${iconPath}" id="prio-img-${lowPrio}">
+        </button>
     `;
 }
