@@ -203,17 +203,22 @@ function createTask() {
  */
 function assembleTask() {
   const cat = document.getElementById('taskCategory');
-  let selectedCategory = "";
-  if (cat && cat.selectedIndex !== -1) {
-    selectedCategory = cat.options[cat.selectedIndex].text.toLowerCase();
-  }
+  const selectedCategory = cat?.options[cat.selectedIndex]?.text.toLowerCase() || "";
+
+  const TASKTYPE_TO_CATEGORY = {
+    "technical task": "to do",
+    "user story": "to do"
+  };
+
   return {
     title: document.getElementById('taskTitle').value.trim(),
     description: document.getElementById('taskDescription').value.trim(),
     dueDate: document.getElementById('taskDueDate').value,
     priority: document.querySelector('.priority__button.active')?.value || 'medium',
     taskType: selectedCategory,
-    category: selectedCategoryForNewTask || 'to do',
+    category: (typeof selectedCategoryForNewTask !== 'undefined')
+      ? selectedCategoryForNewTask
+      : TASKTYPE_TO_CATEGORY[selectedCategory] || 'to do',
     assignedTo: Array.from(selectedContacts.keys()),
     subtasks: getSubtasks()
   };
