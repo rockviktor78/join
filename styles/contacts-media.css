@@ -5,7 +5,6 @@
 
   .contacts-form.active {
     height: 55vh;
-    top: 20%;
   }
 
   .create-contact-button,
@@ -185,8 +184,16 @@
   }
 
   .contacts-form {
-    height: 80vh;
+    height: 90vh;
+    width: 95vw;
+    top: auto;
+    left: auto;
   }
+
+  .contacts-form.active {
+    transform: translateY(0);
+  }
+
   .form-contact-container {
     display: flex;
     width: 100%;
