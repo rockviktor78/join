@@ -203,19 +203,17 @@ function createTask() {
  */
 function assembleTask() {
   const cat = document.getElementById('taskCategory');
-
   let selectedCategory = "";
   if (cat && cat.selectedIndex !== -1) {
     selectedCategory = cat.options[cat.selectedIndex].text.toLowerCase();
   }
-
   return {
     title: document.getElementById('taskTitle').value.trim(),
     description: document.getElementById('taskDescription').value.trim(),
     dueDate: document.getElementById('taskDueDate').value,
     priority: document.querySelector('.priority__button.active')?.value || 'medium',
     taskType: selectedCategory,
-    category: 'to do',
+    category: selectedCategoryForNewTask || 'to do',
     assignedTo: Array.from(selectedContacts.keys()),
     subtasks: getSubtasks()
   };
@@ -300,7 +298,6 @@ function hideError(input, errorText) {
     input.classList.remove('error-border');
   }
 }
-
 
 /**
  * Saves a new task object to session storage under a unique key based on the current timestamp.
