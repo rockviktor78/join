@@ -222,6 +222,7 @@
   }
   .form-contact-buttons {
     padding-top: 0;
+    margin: 1rem 0;
   }
   .close-button {
     color: white;
@@ -248,6 +249,10 @@
   }
   .contacts-detail-header-title-second {
     font-size: 1.25rem;
+  }
+
+  .add-new-contact-form {
+    justify-content: space-between;
   }
 
   .success-message-slide {
@@ -338,9 +343,15 @@
     .contact-card {
       gap: 1rem;
     }
+
+    .form-contact-header {
+      padding: 1.2rem;
+    }
+
     .form-contact-header-title {
       font-size: 2.5rem;
     }
+
     .form-contact-subtitle {
       font-size: 1.5rem;
     }
@@ -376,8 +387,8 @@
       font-size: 1.5rem;
     }
     .contact-detail-initial-form {
-      width: 6.25rem;
-      height: 6.25rem;
+      width: 5.25rem;
+      height: 5.25rem;
       font-size: 2.5rem;
     }
     .contact-detail-initial-form img {
