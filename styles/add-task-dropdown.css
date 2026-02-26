@@ -63,15 +63,13 @@ li.selected .checkmark {
 .selected-contacts {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
   margin-top: 10px;
 }
 
 .selected-contacts .assign-to-initial {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.8rem;
+  height: 2.8rem;
   font-size: var(--font-size-base);
-  border: none;
 }
 
 .red-star {
