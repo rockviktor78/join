@@ -1,17 +1,22 @@
+let selectedCategoryForNewTask = "to do";
+
 /**
  * Opens the "Add Task" overlay panel on desktop screens, or navigates to the add-task page on mobile.
  * If the overlay exists, it also renders the task form into the panel.
  */
-function openAddTaskOverlay() {
+function openAddTaskOverlay(category = "to do") {
   if (window.innerWidth <= 768) {
     window.location.href = "../html/add-task.html";
     return;
   }
+  selectedCategoryForNewTask = category;
   const overlay = document.querySelector('.addtask-overlay');
   const panel = document.querySelector('.addtask-panel');
+
   if (overlay && panel) {
     overlay.classList.add('is-open');
     panel.classList.add('is-open');
+
     renderAddTask('addtask-panel-content-id');
   }
 }
@@ -51,3 +56,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+
+/**
+ * Opens the "Add Task" overlay panel and optionally preselects a task category.
+ * On mobile devices (≤ 768px), the user is redirected to the standalone
+ * add-task page instead of opening the overlay.
+ *
+ * @param {string} [category="to do"] - The task category that should be
+ * preselected for the new task (e.g., "to do", "in progress").
+ */
+function openAddTaskOverlay(category = "to do") {
+  if (window.innerWidth <= 768) {
+    window.location.href = "../html/add-task.html";
+    return;
+  }
+  selectedCategoryForNewTask = category;
+  const overlay = document.querySelector('.addtask-overlay');
+  const panel = document.querySelector('.addtask-panel');
+
+  if (overlay && panel) {
+    overlay.classList.add('is-open');
+    panel.classList.add('is-open');
+    renderAddTask('addtask-panel-content-id');
+    setTimeout(() => {
+      const categorySelect = document.getElementById("taskCategory");
+      if (categorySelect) {
+        categorySelect.value = selectedCategoryForNewTask;
+      }
+    }, 0);
+  }
+}
