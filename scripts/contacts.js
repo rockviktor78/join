@@ -227,7 +227,7 @@ function editContact(index) {
  * Shows overlay and contact form.
  */
 function showEditContact() {
-  document.getElementById("overlay").style.display = "block";
+  document.getElementById("overlay").style.display = "flex";
   document.getElementById("loadedContactForm").style.display = "block";
 }
 
