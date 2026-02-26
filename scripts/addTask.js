@@ -1,6 +1,5 @@
 let task = [];
 
-
 /**
  * Main initialization for the Add Task page.
  * Checks authentication first, then renders the form.
@@ -44,8 +43,7 @@ function openDatePicker() {
 }
 
 /**
- * Selects a priority button, applies the active state,
- * and updates its icon accordingly.
+ * Selects a priority button, applies the active state and updates its icon accordingly.
  *
  * @param {HTMLButtonElement} button - The clicked priority button element.
  */
@@ -56,6 +54,9 @@ function selectPriority(button) {
   button.querySelector("img").src = `../assets/img/addtask/${priority}selected.svg`;
 }
 
+/**
+ * Resets all priority buttons by removing state classes and restoring their default icon.
+ */
 function deselectPriority() {
   document.querySelectorAll(".priority__button").forEach((btn) => {
     btn.classList.remove("urgent", "medium", "low", "active");
@@ -64,8 +65,7 @@ function deselectPriority() {
 }
 
 /**
- * Resets the task form to its initial state by clearing inputs,
- * dropdowns, subtasks, validation states, selected contacts,
+ * Resets the task form to its initial state by clearing inputs, dropdowns, subtasks, validation states, selected contacts,
  * and restoring the default priority.
  */
 function clearFields() {
@@ -226,7 +226,6 @@ function handleAddTaskSuccess() {
     }
   }, 1500);
 }
-
 
 /**
  * Initializes event listeners for the contact dropdown.
