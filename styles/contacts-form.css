@@ -215,36 +215,33 @@
 .overlay {
   position: fixed;
   inset: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Optional: dunkler Hintergrund für Fokus */
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center; /* Vertikale Zentrierung */
+  justify-content: center; /* Horizontale Zentrierung */
   z-index: 9999;
 }
 
 .contacts-form {
   width: 90vw;
-  max-width: 90rem;
-  overflow: hidden;
+  max-width: 75rem; /* Etwas schmaler wirkt oft edler */
   height: 60vh;
-  position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
   background-color: var(--color-white);
   border-radius: 2.5rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative; /* WICHTIG: Entferne top/left/transform von hier */
+
+  /* Animation: Startet von rechts außerhalb des Bildschirms */
   opacity: 0;
-  transform: translateX(100%);
+  transform: translateX(100vw);
   transition:
-    transform 350ms ease-out,
-    opacity 350ms ease-out;
+    transform 350ms ease-in-out,
+    opacity 350ms ease-in-out;
 }
 
 .contacts-form.active {
   opacity: 1;
-  transform: translateX(-50%);
+  transform: translateX(0); /* Zentrierung wird jetzt durch .overlay Flexbox erledigt */
 }
 
 #loaded-contact-form {
