@@ -1,46 +1,90 @@
+let editDropdownInitialized = false;
+
 /**
- * Switches the task detail view into edit mode for the given task.
- * Renders the edit form and initializes subtasks and assigned contacts.
- *
- * @param {string} taskId - The ID of the task to edit.
+ * Initializes the edit mode for a specific task.
+ * * @param {string} taskId - The unique identifier of the task to be edited.
  */
 function editTask(taskId) {
     const task = tasks.find(t => t.id === taskId);
     if (!task) return;
 
-    const container = document.getElementById('taskDetailContent');
-    container.innerHTML = templateEditTaskForm(task);
+    currentTask = task;
 
+    setupEditContainer(task);
     renderEditSubtasks(task.subtasks || []);
     renderEditContactList(task.assignedTo || []);
+
     updateEditSelectedContactsIcons();
     initEditSubtaskInput();
+    initEditDropdown();
 }
 
 /**
- * Renders the editable subtask list in the edit view.
- *
- * @param {Array<Object>} subtasks - Array of subtask objects.
+ * Injects the edit form template into the task detail container.
+ * * @param {Object} task - The task object containing title, description, and other details.
  */
-function renderEditSubtasks(subtasks) {
-    const listContainer = document.getElementById('editSubtasksList');
-    if (!listContainer) return;
-
-    listContainer.innerHTML = '';
-    subtasks.forEach((st, index) => {
-        listContainer.innerHTML += templateEditSubtaskItem(st, index);
-    });
+function setupEditContainer(task) {
+    const container = document.getElementById('taskDetailContent');
+    if (container) {
+        container.innerHTML = templateEditTaskForm(task);
+    }
 }
 
 /**
- * Sets the active priority button in the edit view
- * and updates its visual state and icon.
- *
- * @param {string} prio - The priority value ('urgent', 'medium', or 'low').
+ * Updates an existing task with new data from the edit form and persists the changes.
+ * * @param {string} taskId - The unique ID of the task to be updated.
+ */
+function saveEditedTask(taskId) {
+    const index = tasks.findIndex(t => t.id === taskId);
+    if (index === -1) return;
+
+    const updatedData = getFormDataFromEdit();
+    tasks[index] = { ...tasks[index], ...updatedData };
+
+    updateTasks(tasksFromArrayToObject(tasks));
+    renderBoard();
+    document.getElementById('taskDetailsOverlay').classList.add('hidden');
+}
+
+/**
+ * Collects and maps all input values from the edit task form.
+ * * @returns {Object} The updated task data object including title, description, date, priority, and assigned contacts.
+ */
+function getFormDataFromEdit() {
+    const prioBtn = document.querySelector('#editPriority .priority__button.active');
+    const selected = document.querySelectorAll('#editDropdownList .contact-item.selected');
+
+    return {
+        title: document.getElementById('editTitle').value,
+        description: document.getElementById('editDescription').value,
+        dueDate: document.getElementById('editDueDate').value,
+        priority: prioBtn ? prioBtn.id.replace('prio-', '') : 'medium',
+        assignedTo: Array.from(selected).map(item => item.getAttribute('data-id')),
+        subtasks: currentTask.subtasks || [],
+        category: currentTask.category
+    };
+}
+
+/**
+ * Updates the selected priority in the edit view.
+ * * @param {string} prio - The priority level to activate ('urgent', 'medium', or 'low').
  */
 function setEditPriority(prio) {
-    const priorities = ['urgent', 'medium', 'low'];
+    resetPriorityButtons();
+    const btn = document.getElementById(`prio-${prio}`);
+    const img = document.getElementById(`prio-img-${prio}`);
 
+    if (btn && img) {
+        btn.classList.add('active', prio);
+        img.src = `../assets/img/addtask/${prio}selected.svg`;
+    }
+}
+
+/**
+ * Clears the active visual state from all priority buttons.
+ */
+function resetPriorityButtons() {
+    const priorities = ['urgent', 'medium', 'low'];
     priorities.forEach(p => {
         const btn = document.getElementById(`prio-${p}`);
         const img = document.getElementById(`prio-img-${p}`);
@@ -49,132 +93,142 @@ function setEditPriority(prio) {
             img.src = `../assets/img/addtask/${p}.svg`;
         }
     });
-
-    const activeBtn = document.getElementById(`prio-${prio}`);
-    const activeImg = document.getElementById(`prio-img-${prio}`);
-    if (activeBtn && activeImg) {
-        activeBtn.classList.add('active', prio);
-        activeImg.src = `../assets/img/addtask/${prio}selected.svg`;
-    }
 }
 
+
 /**
- * Renders the full contact list in the edit dropdown
- * and marks currently assigned contacts as selected.
- *
- * @param {Array<string>} currentlyAssigned - Array of assigned contact IDs.
+ * Renders the full list of contacts in the edit dropdown menu.
+ * @param {string[]} currentlyAssigned - Array of contact IDs already assigned to the task.
  */
 function renderEditContactList(currentlyAssigned) {
     const list = document.getElementById('editDropdownList');
     if (!list) return;
+
     const contactsArray = getContacts();
     list.innerHTML = contactsArray.map(contact => {
         const isSelected = currentlyAssigned.includes(contact.id);
         const initials = contact.name.split(" ").map(n => n[0]).join("");
-
         return templateEditContactItem(contact, isSelected, initials);
     }).join('');
 }
 
 /**
- * Toggles the selection state of a contact item
- * in the edit dropdown and updates the selected contact icons.
- *
- * @param {string} contactId - The contact ID.
- * @param {string} color - The contact's assigned color.
- * @param {string} initials - The contact's initials.
+ * Toggles a contact's selection state in the UI.
+ * Updates the visual classes for the item and checkmark, then refreshes the selection icons.
+ * @param {Event} e - The click event from the contact item.
  */
-function toggleContactSelectionEdit(contactId, color, initials) {
-    const item = event.currentTarget;
-    item.classList.toggle('selected');
+function toggleContactSelectionEdit(e) {
+    const item = e.currentTarget;
     const checkmark = item.querySelector('.selection-checkmark');
-    if (checkmark) {
-        checkmark.classList.toggle('checked');
-    }
+
+    item.classList.toggle('selected');
+    if (checkmark) checkmark.classList.toggle('checked');
+
     updateEditSelectedContactsIcons();
 }
 
 /**
- * Updates the visual badges of selected contacts
- * in the edit task view.
+ * Refreshes the display of selected contact icons.
  */
 function updateEditSelectedContactsIcons() {
-    const selectedContainer = document.getElementById('editSelectedContacts');
-    const selectedItems = document.querySelectorAll('#editDropdownList .contact-item.selected');
+    const container = document.getElementById('editSelectedContacts');
+    const selected = document.querySelectorAll('#editDropdownList .contact-item.selected');
+    if (!container) return;
 
-    if (!selectedContainer) return;
-    selectedContainer.innerHTML = '';
-    selectedItems.forEach(item => {
+    container.innerHTML = '';
+    selected.forEach(item => {
         const initial = item.querySelector('.assign-to-initial').innerText;
         const color = item.querySelector('.assign-to-initial').style.backgroundColor;
-
-        selectedContainer.innerHTML += `
-            <div class="assign-to-initial" style="background-color: ${color}">
-                ${initial}
-            </div>
+        container.innerHTML += `
+            <div class="assign-to-initial" style="background-color: ${color}">${initial}</div>
         `;
     });
 }
 
+
 /**
- * Collects all editable form data from the edit task view
- * and returns it as a task update object.
- *
- * @returns {Object} The updated task data including title,
- * description, due date, priority, and assigned contacts.
+ * Opens the contact selection dropdown.
  */
-function getFormDataFromEdit() {
-    const activePrioBtn = document.querySelector('#editPriority .priority__button.active');
-    return {
-        title: document.getElementById('editTitle').value,
-        description: document.getElementById('editDescription').value,
-        dueDate: document.getElementById('editDueDate').value,
-        priority: activePrioBtn ? activePrioBtn.id.replace('prio-', '') : 'medium',
-        assignedTo: Array.from(document.querySelectorAll('#editDropdownList .contact-item.selected'))
-            .map(item => item.getAttribute('data-id')),
-        subtasks: currentTask.subtasks || [],
-        category: currentTask.category
-    };
+function openEditDropdown() {
+    const list = document.getElementById('editDropdownList');
+    const arrow = document.getElementById('editDropdownArrow');
+    const input = document.getElementById('editContactSearch');
+
+    if (list) list.style.display = 'block';
+    if (arrow) arrow.classList.add('rotated');
+    if (input) input.placeholder = "Filter contacts...";
 }
 
 /**
- * Saves the updated task data to storage and re-renders the board.
- * * @param {string} taskId - The ID of the task to update.
+ * Closes the contact selection dropdown.
  */
-function saveEditedTask(taskId) {
-    const taskIndex = tasks.findIndex(t => t.id === taskId);
-    if (taskIndex === -1) return;
-    const updatedData = getFormDataFromEdit();
-    tasks[taskIndex] = { ...tasks[taskIndex], ...updatedData };
-    const taskObject = tasksFromArrayToObject(tasks);
-    updateTasks(taskObject);
-    renderBoard();
-    document.getElementById('taskDetailsOverlay').classList.add('hidden');
+function closeEditDropdown() {
+    const list = document.getElementById('editDropdownList');
+    const arrow = document.getElementById('editDropdownArrow');
+    const input = document.getElementById('editContactSearch');
+
+    if (list) list.style.display = 'none';
+    if (arrow) arrow.classList.remove('rotated');
+    if (input) {
+        input.placeholder = "Select contacts";
+        input.value = '';
+    }
+    filterEditContactList();
 }
 
 /**
- * Toggles the visibility of the edit subtask action buttons
- * based on the input field content.
+ * Initializes the edit contact dropdown by attaching event listeners.
  */
-function toggleEditSubtaskActions() {
-    const input = document.getElementById('editSubtaskInput');
-    const actions = document.getElementById('editSubtaskActions');
-    if (!input || !actions) return;
+function initEditDropdown() {
+    const input = document.getElementById('editContactSearch');
+    const arrow = document.getElementById('editDropdownArrow');
 
-    if (input.value.length > 0) {
-        actions.classList.add('visible');
-    } else {
-        actions.classList.remove('visible');
+    input?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openEditDropdown();
+    });
+    input?.addEventListener('input', filterEditContactList);
+    arrow?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const list = document.getElementById('editDropdownList');
+        list?.style.display === 'block' ? closeEditDropdown() : openEditDropdown();
+    });
+    setupExternalClickClose();
+}
+
+/**
+ * Sets up a global listener to close the dropdown when clicking outside.
+ */
+function setupExternalClickClose() {
+    const detailContent = document.getElementById('taskDetailContent');
+    if (!editDropdownInitialized && detailContent) {
+        detailContent.addEventListener('click', (e) => {
+            const container = document.getElementById('editDropdownContainer');
+            if (container && !container.contains(e.target)) closeEditDropdown();
+        });
+        editDropdownInitialized = true;
     }
 }
 
 /**
- * Adds a new subtask to the current task in edit mode
- * and re-renders the subtask list.
+ * Renders the list of subtasks in the edit view.
+ * @param {Object[]} subtasks - Array of subtask objects to display.
+ */
+function renderEditSubtasks(subtasks) {
+    const list = document.getElementById('editSubtasksList');
+    if (!list) return;
+
+    list.innerHTML = subtasks.map((st, index) =>
+        templateEditSubtaskItem(st, index)
+    ).join('');
+}
+
+/**
+ * Adds a new subtask to the current task.
  */
 function addEditSubtask() {
     const input = document.getElementById('editSubtaskInput');
-    const title = input ? input.value.trim() : '';
+    const title = input?.value.trim();
     if (!title) return;
 
     if (!currentTask.subtasks) currentTask.subtasks = [];
@@ -186,129 +240,84 @@ function addEditSubtask() {
 }
 
 /**
- * Deletes a subtask from the current task in edit mode
- * by its index and re-renders the list.
- *
- * @param {number} index - The index of the subtask to remove.
+ * Removes a subtask from the current task by its index.
+ * @param {number} index - The position of the subtask in the array to be removed.
  */
 function deleteEditSubtask(index) {
-    if (currentTask && currentTask.subtasks) {
+    if (currentTask?.subtasks) {
         currentTask.subtasks.splice(index, 1);
         renderEditSubtasks(currentTask.subtasks);
     }
 }
 
 /**
- * Clears the edit subtask input field
- * and hides the action buttons.
- */
-function clearSubtaskInput() {
-    const input = document.getElementById('editSubtaskInput');
-    if (input) {
-        input.value = '';
-        toggleEditSubtaskActions();
-    }
-}
-
-/**
- * Loads an existing subtask into the input field for editing
- * and removes it temporarily from the list.
- *
- * @param {number} index - The index of the subtask to edit.
+ * Loads a subtask back into the input field for editing.
+ * @param {number} index - The index of the subtask to be edited.
  */
 function editExistingSubtask(index) {
     const input = document.getElementById('editSubtaskInput');
     if (!input || !currentTask.subtasks[index]) return;
 
-    const subtask = currentTask.subtasks[index];
-    input.value = subtask.title;
+    input.value = currentTask.subtasks[index].title;
     input.focus();
     toggleEditSubtaskActions();
     deleteEditSubtask(index);
 }
 
+
 /**
- * Generates the HTML markup for the priority buttons
- * in the edit task view, marking the current priority as active.
- *
+ * Maps priority data into HTML templates.
  * @param {string} currentPriority - The currently selected priority.
- * @returns {string} The generated HTML string for the priority buttons.
+ * @returns {string} The full HTML markup for all priority buttons.
  */
 function getPriorityButtonsHTML(currentPriority) {
     const priorityOptions = ['Urgent', 'Medium', 'Low'];
 
     return priorityOptions.map(prio => {
         const lowPrio = prio.toLowerCase();
-        const isActive = currentPriority.toLowerCase() === lowPrio;
+        const isActive = currentPriority?.toLowerCase() === lowPrio;
         const iconPath = isActive
             ? `../assets/img/addtask/${lowPrio}selected.svg`
             : `../assets/img/addtask/${lowPrio}.svg`;
-
-        return `
-            <button type="button" 
-                    id="prio-${lowPrio}" 
-                    class="priority__button ${isActive ? lowPrio + ' active' : ''}" 
-                    onclick="setEditPriority('${lowPrio}')">
-                ${prio} <img src="${iconPath}" id="prio-img-${lowPrio}">
-            </button>
-        `;
+        return templatePriorityButton(prio, lowPrio, isActive, iconPath);
     }).join('');
 }
 
+
 /**
- * Adds an 'Enter' key listener to the edit subtask input
- * to trigger subtask creation and prevent form submission.
+ * Toggles the visibility of subtask action icons.
+ * Shows or hides the action buttons based on whether the input field has text.
+ */
+function toggleEditSubtaskActions() {
+    const input = document.getElementById('editSubtaskInput');
+    const actions = document.getElementById('editSubtaskActions');
+    if (input && actions) {
+        actions.classList.toggle('visible', input.value.length > 0);
+    }
+}
+
+/**
+* Filters the contact list based on search input.
+ */
+function filterEditContactList() {
+    const search = document.getElementById('editContactSearch')?.value.toLowerCase() || '';
+    const items = document.querySelectorAll('#editDropdownList .contact-item');
+
+    items.forEach(item => {
+        const name = item.querySelector('.contact-name')?.innerText.toLowerCase() || '';
+        item.style.display = name.includes(search) ? 'flex' : 'none';
+    });
+}
+
+/**
+* Sets up the subtask input event listener.
  */
 function initEditSubtaskInput() {
     const subInput = document.getElementById('editSubtaskInput');
-    if (subInput) {
-        subInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                addEditSubtask();
-            }
-        });
-    }
+    subInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addEditSubtask();
+        }
+    });
 }
-
-/**
- * Toggles the visibility of the edit contact dropdown.
- * @param {Event} e - The click event.
- */
-function toggleEditDropdown(e) {
-    // Verhindert, dass der Klick den globalen Listener erreicht, 
-    // der das Dropdown sofort wieder schließen würde.
-    e.stopPropagation();
-
-    const list = document.getElementById('editDropdownList');
-    const arrow = document.getElementById('editDropdownArrow');
-
-    if (!list) return;
-
-    const isVisible = list.style.display === 'block';
-    list.style.display = isVisible ? 'none' : 'block';
-
-    if (arrow) {
-        arrow.classList.toggle('rotated', !isVisible);
-    }
-}
-
-/**
- * Closes the edit contact dropdown if a click occurs outside its container.
- * This ensures the dropdown is dismissed when interacting with other parts 
- * of the task detail view or the document.
- * * @param {MouseEvent} e - The click event used to determine the target of the interaction.
- */
-function closeEditDropdownExternal(e) {
-    const container = document.getElementById('editDropdownContainer');
-    const list = document.getElementById('editDropdownList');
-    const arrow = document.getElementById('editDropdownArrow');
-    if (!container || !list || list.style.display === 'none') return;
-    if (!container.contains(e.target)) {
-        list.style.display = 'none';
-        if (arrow) arrow.classList.remove('rotated');
-    }
-}
-
-document.removeEventListener('click', closeEditDropdownExternal);
-document.addEventListener('click', closeEditDropdownExternal);
