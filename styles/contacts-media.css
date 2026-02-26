@@ -275,8 +275,6 @@
   }
   .error-message {
     position: absolute;
-    bottom: -18px;
-    left: 42px;
   }
 
   @media (min-width: 400px) {
@@ -361,7 +359,7 @@
     .add-new-contact-form {
       padding-left: 0.938rem;
       padding-right: 0.938rem;
-      gap: 1rem;
+      gap: 1.2rem;
     }
     .contacts-detail-header-title-first {
       font-size: 2.9375rem;
