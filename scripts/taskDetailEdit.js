@@ -13,7 +13,6 @@ function editTask(taskId) {
     setupEditContainer(task);
     renderEditSubtasks(task.subtasks || []);
     renderEditContactList(task.assignedTo || []);
-
     updateEditSelectedContactsIcons();
     initEditSubtaskInput();
     initEditDropdown();
@@ -94,7 +93,6 @@ function resetPriorityButtons() {
         }
     });
 }
-
 
 /**
  * Renders the full list of contacts in the edit dropdown menu.
@@ -264,7 +262,6 @@ function editExistingSubtask(index) {
     deleteEditSubtask(index);
 }
 
-
 /**
  * Maps priority data into HTML templates.
  * @param {string} currentPriority - The currently selected priority.
@@ -282,7 +279,6 @@ function getPriorityButtonsHTML(currentPriority) {
         return templatePriorityButton(prio, lowPrio, isActive, iconPath);
     }).join('');
 }
-
 
 /**
  * Toggles the visibility of subtask action icons.
