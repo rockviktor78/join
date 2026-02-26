@@ -93,6 +93,10 @@
   align-items: center;
 }
 
+.detail-contact-item span {
+  margin-left: 1rem;
+}
+
 .detail-subtask-list {
   display: flex;
   flex-direction: column;
@@ -132,9 +136,11 @@
 }
 
 .action-btn img {
-  transition: transform 100ms ease, filter 100ms ease;
+  transition:
+    transform 100ms ease,
+    filter 100ms ease;
 }
-    
+
 .action-btn:hover {
   color: var(--color-accent);
   transform: scaleX(1.02);
