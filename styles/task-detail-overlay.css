@@ -1,4 +1,4 @@
-/* ------- Overlay & Layout ------- */
+/* ====== Overlay & Layout ====== */
 .task-details-overlay {
   position: fixed;
   top: 0;
@@ -40,7 +40,7 @@
   opacity: 1;
 }
 
-/* ------- Task details ------- */
+/* ====== Task details ====== */
 .task-detail__header {
   display: flex;
   justify-content: space-between;
@@ -159,7 +159,7 @@
   background-color: var(--color-gray-200);
 }
 
-/* ------- Desktop Version ------- */
+/* ====== Desktop Version ====== */
 @media (min-width: 768px) {
   .task-detail-content {
     padding: 3rem;
@@ -174,7 +174,7 @@
   }
 }
 
-/* ------- Utilities ------- */
+/* ====== Utilities ====== */
 .hidden {
   display: none !important;
 }
