@@ -1,3 +1,9 @@
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
 .add-task-title {
   font-size: var(--font-size-6xl);
   font-weight: var(--font-weight-bold);
@@ -6,7 +12,7 @@
 
 .add-task-content {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   justify-content: space-between;
 }
 
@@ -16,21 +22,19 @@
   margin-bottom: 0.5rem;
 }
 
-.left-side {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  width: 45%;
-}
-
+.left-side,
 .right-side {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  width: 45%;
+  width: 100%;
+  gap: 1rem;
 }
 
-.task-title {
+.task-title,
+.task-description,
+.task-due-date,
+.subtask,
+.task-assigned-to {
   background-color: white;
   color: black;
   border: 1px solid #ccc;
@@ -39,47 +43,48 @@
   font-size: var(--font-size-base);
   transition: border-color 0.2s ease;
   width: 100%;
-}
-
-.task-title::placeholder {
-  color: #aaa;
-}
-
-.task-title:not(:placeholder-shown) {
-  border-color: var(--color-accent);
-}
-
-.task-title:focus {
-  outline: none;
 }
 
 .task-description {
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
-  border-radius: var(--radius-ml);
-  padding: 0.625rem 0.75rem;
-  font-size: var(--font-size-base);
-  transition: border-color 0.2s ease;
   resize: vertical;
   min-height: 7.5rem;
-  width: 100%;
 }
 
-.task-description::placeholder {
+.task-due-date {
+  padding: 0.625rem 1rem 0.625rem 0.75rem;
+}
+
+.subtask {
+  padding: 0.625rem 1rem;
+}
+
+.task-title::placeholder,
+.task-description::placeholder,
+.subtask::placeholder {
   color: #aaa;
 }
 
-.task-description:not(:placeholder-shown) {
+.task-title:not(:placeholder-shown),
+.task-description:not(:placeholder-shown),
+.subtask:not(:placeholder-shown) {
   border-color: var(--color-accent);
 }
 
-.task-description:focus {
+.task-title:focus,
+.task-description:focus,
+.task-due-date:focus,
+.task-category:focus,
+.subtask:focus,
+.task-assigned-to:focus {
   outline: none;
+  border-color: var(--color-accent);
 }
 
-.task-description:focus {
-  outline: none;
+.task-title:focus,
+.task-description:focus,
+.task-due-date:focus,
+.subtask:focus {
+  box-shadow: 0 0 4px rgba(41, 171, 226, 0.2);
 }
 
 .date-wrapper {
@@ -90,28 +95,10 @@
 .calendar-icon {
   position: absolute;
   right: 0.75rem;
-  top: 50%;
+  top: 30%;
   transform: translateY(-50%);
   width: 1.25rem;
   height: 1.25rem;
-  cursor: pointer;
-}
-
-.task-due-date {
-  background-color: white;
-  padding: 0.625rem 1rem 0.625rem 0.75rem;
-  font-size: var(--font-size-base);
-  border: 1px solid #ccc;
-  border-radius: var(--radius-ml);
-  width: 100%;
-}
-
-.calendar-icon {
-  position: absolute;
-  right: 12px;
-  top: 35%;
-  transform: translateY(-50%);
-  width: 20px;
   cursor: pointer;
 }
 
@@ -169,14 +156,6 @@
   border-color: var(--color-urgent-low);
 }
 
-.priority__button:hover {
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.35);
-}
-
-.priority__button:hover:not(.active) {
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.35);
-}
-
 .priority__button:not(.active):hover {
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.35);
 }
@@ -185,58 +164,9 @@
   box-shadow: none;
 }
 
-.task-assigned-to {
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  padding: 0.625rem 0.75rem;
-  font-size: var(--font-size-xl);
-  transition: border-color 0.2s ease;
-  width: 100%;
-}
-
-.task-category {
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  padding: 0.625rem 1rem;
-  font-size: var(--font-size-xl);
-  transition: border-color 0.2s ease;
-  width: 100%;
-}
-
-.subtask {
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
-  border-radius: var(--radius-ml);
-  padding: 0.625rem 1rem;
-  font-size: var(--font-size-base);
-  transition: border-color 0.2s ease;
-  width: 100%;
-}
-
 .subtask-wrapper {
   position: relative;
   width: 100%;
-}
-
-.subtask::placeholder {
-  color: #aaa;
-}
-
-.subtask:not(:placeholder-shown) {
-  border-color: var(--color-accent);
-}
-
-.subtask:focus {
-  outline: none;
-}
-
-.subtask-item {
-  padding: 6px 16px;
 }
 
 .subtask-actions {
@@ -280,7 +210,7 @@
 
 .subtask-actions span:hover {
   transform: translateY(-2px);
-  background-color: var(--color-gray-200);
+  background-color: var(--color-gray-100);
   border-radius: 50%;
 }
 
@@ -288,7 +218,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 4rem;
 }
 
 .add-task-button {
@@ -357,11 +286,9 @@
   padding: 1rem 2rem;
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
-
   z-index: 1000;
   pointer-events: none;
 }
@@ -372,19 +299,7 @@
   pointer-events: auto;
 }
 
-.task-title:focus,
-.task-description:focus,
-.task-due-date:focus,
-.task-category:focus,
-.subtask:focus,
-.task-assigned-to:focus {
-  outline: none;
-  border-color: var(--color-accent);
-}
-
-.task-title:focus,
-.task-description:focus,
-.task-due-date:focus,
-.subtask:focus {
-  box-shadow: 0 0 4px rgba(41, 171, 226, 0.2);
+.section-description,
+.section-priority {
+  margin-bottom: 2.2rem;
 }
