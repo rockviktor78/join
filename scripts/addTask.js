@@ -18,6 +18,40 @@ async function initAddTask() {
 }
 
 /**
+ * Renders the task form into a specified container and initializes all related scripts.
+ *
+ * @param {string} containerId - The ID of the container element.
+ */
+function renderAddTask(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = templateAddTaskForm();
+  initializeAllScripts();
+}
+
+/**
+ * Initializes all interactive scripts and event listeners for the task form:
+ * * - Date input
+ * - Subtask input
+ * - Dropdown (if available)
+ * - Dropdown event listeners
+ * - Priority and category interactions
+ * - Subtask event listeners
+ * - Form action buttons
+ */
+function initializeAllScripts() {
+  initDateInput();
+  initSubtaskInput();
+  if (typeof initDropdown === 'function') initDropdown();
+  initDropdownListeners();
+  initPriorityAndCategory();
+  initSubtaskListeners();
+  initFormButtons();
+}
+
+
+/**
  * Initializes the due date input field by setting the minimum selectable date
  * to today and formatting the selected date for display.
  */
@@ -62,6 +96,16 @@ function deselectPriority() {
     btn.classList.remove("urgent", "medium", "low", "active");
     btn.querySelector("img").src = `../assets/img/addtask/${btn.value}.svg`;
   });
+}
+
+/**
+ * Rotates the category arrow icon based on the open/closed state.
+ *
+ * @param {boolean} isOpened - True if the category is opened, false if closed.
+ */
+function rotateCategoryArrow(isOpened) {
+  const arrow = document.querySelector('.category-arrow');
+  arrow?.classList.toggle('rotated', isOpened);
 }
 
 /**
@@ -117,6 +161,18 @@ function resetValidation() {
   document.querySelectorAll('.error-border').forEach(el => el.classList.remove('error-border'));
 }
 
+
+/**
+ * Initializes the subtask input field by adding a keypress listener
+ * that creates a new subtask when the Enter key is pressed.
+ */
+function initSubtaskInput() {
+  const subInput = document.getElementById("taskSubtasks");
+  subInput?.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); addSubtask(); }
+  });
+}
+
 /**
  * Adds a new subtask to the subtask list if the input is not empty,
  * then clears the input field and updates the subtask action state.
@@ -132,17 +188,6 @@ function addSubtask() {
   subtaskInput.value = "";
   toggleSubtaskActions();
   container.scrollTop = container.scrollHeight;
-}
-
-/**
- * Initializes the subtask input field by adding a keypress listener
- * that creates a new subtask when the Enter key is pressed.
- */
-function initSubtaskInput() {
-  const subInput = document.getElementById("taskSubtasks");
-  subInput?.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") { e.preventDefault(); addSubtask(); }
-  });
 }
 
 /**
@@ -196,16 +241,6 @@ function deleteSubtask(trigger) {
 }
 
 /**
- * Rotates the category arrow icon based on the open/closed state.
- *
- * @param {boolean} isOpened - True if the category is opened, false if closed.
- */
-function rotateCategoryArrow(isOpened) {
-  const arrow = document.querySelector('.category-arrow');
-  arrow?.classList.toggle('rotated', isOpened);
-}
-
-/**
  * Displays a success message and handles navigation or overlay closing.
  */
 function handleAddTaskSuccess() {
@@ -231,10 +266,6 @@ function handleAddTaskSuccess() {
 
 /**
  * Initializes event listeners for the contact dropdown.
- * 
- * - Registers `keyup` on the search input to filter contacts live.
- * - Registers `click` on the search input to open the dropdown without propagating the click.
- * - Registers `click` on the dropdown arrow to toggle the dropdown without propagating the click.
  */
 function initDropdownListeners() {
   const input = document.getElementById('contactSearchInput');
@@ -246,10 +277,6 @@ function initDropdownListeners() {
 
 /**
  * Initializes event listeners for priority buttons and the task category dropdown.
- *
- * - Click on a priority button selects the corresponding priority.
- * - Focus on the category dropdown rotates the arrow to indicate open state.
- * - Blur or change on the category dropdown rotates the arrow back to closed state.
  */
 function initPriorityAndCategory() {
   document.getElementById('prioritySelection')?.addEventListener('click', (e) => {
@@ -264,13 +291,6 @@ function initPriorityAndCategory() {
 
 /**
  * Initializes event listeners for subtask input and actions.
- *
- * - `input` event on #task-subtasks toggles subtask action buttons visibility.
- * - `click` on #subtask-cancel cancels the current subtask input.
- * - `click` on #subtask-confirm adds a new subtask.
- * - `click` on #added-subtask handles editing or deleting subtasks:
- * - Click on `.edit-btn` triggers subtask editing.
- * - Click on `.delete-btn` deletes the subtask.
  */
 function initSubtaskListeners() {
   document.getElementById('taskSubtasks')?.addEventListener('input', toggleSubtaskActions);
@@ -286,49 +306,11 @@ function initSubtaskListeners() {
 
 /**
  * Initializes event listeners for form action buttons.
- *
- * - `click` on #calendar-icon opens the native date picker.
- * - `click` on #clear__button clears all form fields.
- * - `click` on #create-task__button triggers task creation.
  */
 function initFormButtons() {
   document.getElementById('calendarIcon')?.addEventListener('click', openDatePicker);
   document.getElementById('clearButton')?.addEventListener('click', clearFields);
   document.getElementById('createTaskButton')?.addEventListener('click', createTask);
-}
-
-/**
- * Initializes all interactive scripts and event listeners for the task form:
- * 
- * - Date input
- * - Subtask input
- * - Dropdown (if available)
- * - Dropdown event listeners
- * - Priority and category interactions
- * - Subtask event listeners
- * - Form action buttons
- */
-function initializeAllScripts() {
-  initDateInput();
-  initSubtaskInput();
-  if (typeof initDropdown === 'function') initDropdown();
-  initDropdownListeners();
-  initPriorityAndCategory();
-  initSubtaskListeners();
-  initFormButtons();
-}
-
-/**
- * Renders the task form into a specified container and initializes all related scripts.
- *
- * @param {string} containerId - The ID of the container element.
- */
-function renderAddTask(containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-
-  container.innerHTML = templateAddTaskForm();
-  initializeAllScripts();
 }
 
 document.addEventListener("DOMContentLoaded", initAddTask);
