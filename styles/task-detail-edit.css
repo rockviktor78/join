@@ -1,4 +1,4 @@
-/* ------- Task Edit Mode  ------- */
+/* ====== Task Edit Mode  ====== */
 .edit-mode {
   display: flex;
   flex-direction: column;
@@ -23,12 +23,12 @@
   justify-content: flex-end !important;
 }
 
-/* ------- Priority Buttons ------- */
+/* ====== Priority Buttons ====== */
 .priority-selection {
   flex-direction: row;
 }
 
-/* ------- Subtask Input Edit  ------- */
+/* ====== Subtask Input Edit  ====== */
 .edit-mode .subtask {
   background-color: var(--color-white);
   color: var(--color-black);
@@ -98,7 +98,7 @@
   margin-top: 8px;
 }
 
-/* ------- Utilities ------- */
+/* ====== Utilities ====== */
 .contact-item-left {
   display: flex;
   align-items: center;
