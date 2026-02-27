@@ -215,10 +215,10 @@ function setupExternalClickClose() {
 function renderEditSubtasks(subtasks) {
     const list = document.getElementById('editSubtasksList');
     if (!list) return;
-
     list.innerHTML = subtasks.map((st, index) =>
         templateEditSubtaskItem(st, index)
     ).join('');
+    list.scrollTop = list.scrollHeight;
 }
 
 /**
