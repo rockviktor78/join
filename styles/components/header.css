@@ -1,6 +1,5 @@
 /* HEADER - Mobile First */
 .header__content {
-  /* Mobile: Top, compact */
   position: sticky;
   top: 0;
   background-color: var(--color-white);
@@ -20,7 +19,7 @@
   align-items: center;
   padding: 0 var(--spacing-md);
   transition: padding var(--transition-base);
-  }
+}
 
 .header__logo {
   height: 2.4375rem;
@@ -35,7 +34,6 @@
   transition: font-size var(--transition-base);
 }
 
-/* Desktop: Larger font from 821px */
 @media (min-width: 821px) {
   .header__title {
     font-size: var(--font-size-xl);
@@ -94,7 +92,7 @@
 /* Mobile: Initials Sizing */
 .header__user-initials {
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-base); /* Accessibility: min 1rem */
+  font-size: var(--font-size-base);
   line-height: 1;
 }
 
@@ -113,7 +111,6 @@
     opacity var(--transition-base),
     transform var(--transition-base);
   z-index: var(--z-dropdown);
-  /* Mobile: Below avatar */
   top: calc(89% + var(--spacing-xs));
   right: 0;
 }
@@ -128,7 +125,7 @@
   color: var(--color-gray-200);
   text-decoration: none;
   padding: 0.6rem 1.25rem;
-  font-size: var(--font-size-base); /* Accessibility: min 1rem */
+  font-size: var(--font-size-base);
   white-space: nowrap;
 }
 
@@ -141,13 +138,11 @@
    Mobile Specific Styles (< 768px)
    ================================================ */
 @media (max-width: 768px) {
-  /* Mobile: Prevent horizontal overflow */
   html,
   body {
     overflow-x: hidden;
   }
 
-  /* Mobile: Logo with avatar-like properties */
   .header__logo {
     width: 2.5rem;
     height: 2.5rem;
@@ -157,22 +152,18 @@
     cursor: pointer;
   }
 
-  /* Mobile: Hide text */
   .header__title {
     display: none;
   }
 
-  /* Mobile: Hide help button */
   .header__help-btn {
     display: none;
   }
 
-  /* Mobile + External: Hide avatar (Back button controlled via Body classes) */
   .external .header__user {
     display: none;
   }
 
-  /* Mobile: Dropdown slide-in animation */
   .header__dropdown {
     transform: translateX(100%);
     transition:
@@ -189,7 +180,6 @@
    Back Button - Centralized control via Body classes
    ================================================ */
 .back-btn {
-  /* Fixed: Does not scroll */
   position: fixed;
   top: calc(5rem + var(--spacing-2xl));
   right: var(--spacing-lg);
@@ -201,7 +191,7 @@
   transition:
     transform var(--transition-fast),
     background var(--transition-fast);
-  display: none; /* Default: hidden */
+  display: none;
   align-items: center;
   justify-content: center;
   transform: translateY(-1rem);
@@ -213,17 +203,14 @@
   transform: translateY(-1rem) scale(1.15);
 }
 
-/* Help page: Back button ALWAYS visible (Desktop + Mobile) */
 .has-back-btn .back-btn {
   display: inline-flex;
 }
 
-/* Privacy/Legal: Back button hidden by default */
 .back-btn-mobile-only .back-btn {
   display: none;
 }
 
-/* Privacy/Legal: Back button ONLY visible on Mobile */
 @media (max-width: 768px) {
   .back-btn-mobile-only .back-btn {
     display: inline-flex;
@@ -278,14 +265,12 @@
   }
 }
 
-/* Mid-Range: Reduced padding for tablet area */
 @media (min-width: 769px) and (max-width: 820px) {
   .header__center-wrapper {
     padding: 0 var(--spacing-xl) 0 var(--spacing-lg);
   }
 }
 
-/* Guest Mode: Hide avatar when not logged in on public pages */
 .is-guest .header__avatar {
   display: none;
 }
