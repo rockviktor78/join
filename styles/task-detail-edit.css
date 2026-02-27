@@ -89,6 +89,15 @@
   height: 1rem;
 }
 
+.edit-mode .added-subtask {
+  height: 100px;
+  overflow-y: auto;
+  list-style-position: inside;
+  list-style-type: disc;
+  padding-left: 0;
+  margin-top: 8px;
+}
+
 /* ------- Utilities ------- */
 .contact-item-left {
   display: flex;
