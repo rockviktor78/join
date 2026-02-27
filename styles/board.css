@@ -1,4 +1,4 @@
-/* ====== 0. Scrollbar (Hidden) ====== */
+/* ====== Scrollbar (Hidden) ====== */
 .content-area {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -8,7 +8,7 @@
   display: none;
 }
 
-/* ====== 1. Typographie ====== */
+/* ====== Typographie ====== */
 .board__title {
   font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-bold);
@@ -27,7 +27,7 @@
   color: var(--color-primary-light);
 }
 
-/* ====== 2. Header & Search ====== */
+/* ====== Header & Search ====== */
 .board__header {
   display: flex;
   flex-wrap: wrap;
@@ -85,7 +85,7 @@
   padding: 0;
 }
 
-/* ====== 3. Board Columns ====== */
+/* ====== Board Columns ====== */
 .board__columns {
   display: flex;
   flex-direction: column;
@@ -154,7 +154,7 @@
   box-sizing: border-box;
 }
 
-/* ====== 4. Task Cards ====== */
+/* ====== Task Cards ====== */
 .task-card__header {
   display: flex;
   justify-content: space-between;
@@ -274,7 +274,7 @@
   z-index: 1;
 }
 
-/* ====== 6. Buttons ====== */
+/* ====== Buttons ====== */
 .btn {
   display: flex;
   align-items: center;
@@ -328,7 +328,7 @@
   cursor: pointer;
 }
 
-/* ====== 7. Task Overlay ====== */
+/* ====== Task Overlay ====== */
 .move-overlay {
   position: absolute;
   top: 3rem;
@@ -384,7 +384,7 @@
   display: none;
 }
 
-/* ====== 8. Desktop Version ====== */
+/* ====== Desktop Version ====== */
 @media (min-width: 768px) {
   .content-padding {
     padding-left: var(--spacing-3xl);
@@ -392,13 +392,11 @@
     padding-top: var(--spacing-4xl);
   }
 
-  /* Typography */
   .board__title {
     font-size: var(--font-size-6xl);
     order: 0;
   }
 
-  /* Header & Search */
   .board__actions {
     display: flex;
     order: 0;
@@ -415,7 +413,6 @@
     width: 12.5rem;
   }
 
-  /* Board Columns */
   .board__columns {
     flex-direction: row;
     align-items: flex-start;
@@ -458,7 +455,6 @@
     border-radius: 0.625rem;
   }
 
-  /* Task Cards */
   .task-card {
     width: auto;
     min-width: unset;
@@ -471,7 +467,6 @@
     transform: scale(0.98);
   }
 
-  /* Buttons */
   .board__add-btn {
     order: 2;
     font-size: var(--font-size-xl) !important;

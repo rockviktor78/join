@@ -1,4 +1,4 @@
-/* ====== 1. Layout ====== */
+/* ====== Layout ====== */
 .auth-page {
   min-height: 100dvh;
   display: flex;
@@ -31,7 +31,7 @@
   font-size: 1.25rem;
 }
 
-/* ====== 2. Header ====== */
+/* ====== Header ====== */
 .auth-header {
   display: flex;
   justify-content: space-between;
@@ -58,7 +58,7 @@
   }
 }
 
-/* ====== 3. Auth Card & Slider ====== */
+/* ====== Auth Card & Slider ====== */
 .auth-card {
   background-color: var(--color-white);
   border-radius: 1.875rem;
@@ -116,7 +116,7 @@
     height 0.5s ease-in-out;
 }
 
-/* ====== 4. Form Elements ====== */
+/* ====== Form Elements ====== */
 .auth-card__header {
   display: flex;
   flex-direction: column;
@@ -239,7 +239,7 @@
   border-color: var(--color-error) !important;
 }
 
-/* ====== 5. Checkbox ====== */
+/* ====== Checkbox ====== */
 .auth-card__checkbox-group {
   display: flex;
   flex-direction: column;
@@ -285,7 +285,7 @@
   padding-left: 0;
 }
 
-/* ====== 7. Modal ====== */
+/* ====== Modal ====== */
 .signup-success-modal {
   position: fixed;
   left: 50%;
@@ -310,7 +310,7 @@
   opacity: 1;
 }
 
-/* ====== 8. Footer ====== */
+/* ====== Footer ====== */
 .auth-footer {
   display: flex;
   flex-direction: column;
@@ -343,7 +343,7 @@
     -0.4px 0 0 currentColor;
 }
 
-/* ====== 9. Buttons & Links ====== */
+/* ====== Buttons & Links ====== */
 .auth-card__actions {
   display: flex;
   flex-direction: column;
@@ -377,7 +377,7 @@
   color: var(--color-accent);
 }
 
-/* ====== 10. Utilities ====== */
+/* ====== Utilities ====== */
 .auth-card.transition-ready {
   transition:
     transform 0.6s ease-in-out,

@@ -1,4 +1,4 @@
-/* ------ Add Task Overlay ------ */
+/* ====== Add Task Overlay ====== */
 .addtask-overlay {
   position: fixed;
   inset: 0;
@@ -91,7 +91,7 @@
   align-self: stretch;
 }
 
-/* ------ Overlay Dropdown Contacts ------ */
+/* ====== Overlay Dropdown Contacts ====== */
 .overlay-dropdown__item {
   cursor: pointer;
   border-radius: 0.5rem;
@@ -153,7 +153,7 @@
   font-weight: 700;
 }
 
-/* ------ Tablet ------ */
+/* ====== Tablet -======----- */
 @media (max-width: 1250px) {
   .addtask-panel {
     width: 95vw;
@@ -172,7 +172,7 @@
   }
 }
 
-/* ------ Mobile Screens ------ */
+/* ====== Mobile Screens ====== */
 @media (max-width: 768px) {
   .addtask-overlay,
   .addtask-panel {

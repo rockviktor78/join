@@ -1,3 +1,88 @@
+/* ====== Overlay & Modal Structure ====== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.contacts-form {
+  width: 90vw;
+  max-width: 75rem;
+  height: 60vh;
+  background-color: var(--color-white);
+  border-radius: 2.5rem;
+  display: flex;
+  position: relative;
+  opacity: 0;
+  transform: translateX(100vw);
+  transition:
+    transform 350ms ease-in-out,
+    opacity 350ms ease-in-out;
+}
+
+.contacts-form.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#loaded-contact-form {
+  display: none;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.form-contact-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* ====== From Header Section ====== */
+.form-contact-header {
+  background-color: var(--color-primary);
+  margin: 0rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  font-weight: var(--font-weight-bold);
+  padding: 4.125rem 2.875rem 4.125rem 2.875rem;
+  border-radius: 2.5rem 0rem 0rem 2.5rem;
+}
+
+.form-contact-header-title {
+  font-size: 3.6875rem;
+  color: var(--color-white);
+  font-weight: var(--font-weight-bold);
+  margin-top: 0.625rem;
+  display: flex;
+  align-items: center;
+}
+
+.form-contact-subtitle {
+  font-size: 1.6875rem;
+  color: var(--color-white);
+  font-weight: var(--font-weight-normal);
+  margin-top: 0.625rem;
+  display: flex;
+  align-items: center;
+}
+
+.form-contact-header-line {
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  margin-right: 0.3125rem;
+  display: flex;
+  align-items: center;
+}
+
+/* ====== Form Inputs & Validation ====== */
 .add-new-contact-form {
   display: flex;
   justify-content: center;
@@ -5,6 +90,11 @@
   gap: 2rem;
   width: 40%;
   padding: 1.25rem;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
 }
 
 .form-input {
@@ -29,21 +119,6 @@
   width: 100%;
 }
 
-.form-input-name::placeholder {
-  color: var(--color-gray-300);
-  opacity: 1;
-}
-
-.form-input-name:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  color: var(--color-black);
-}
-
-.form-input-name:not(:placeholder-shown) {
-  color: var(--color-black);
-}
-
 .form-input-email {
   height: 3.125rem;
   padding: 0.8125rem 1.3125rem;
@@ -54,21 +129,6 @@
   background-size: 1rem;
   background-position: 95%;
   width: 100%;
-}
-
-.form-input-email::placeholder {
-  color: var(--color-gray-300);
-  opacity: 1;
-}
-
-.form-input-email:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  color: var(--color-black);
-}
-
-.form-input-email:not(:placeholder-shown) {
-  color: var(--color-black);
 }
 
 .form-input-phone {
@@ -83,19 +143,42 @@
   width: 100%;
 }
 
+/* Input States & Placeholders */
+.form-input-name::placeholder,
+.form-input-email::placeholder,
 .form-input-phone::placeholder {
   color: var(--color-gray-300);
   opacity: 1;
 }
 
+.form-input-name:focus,
+.form-input-email:focus,
 .form-input-phone:focus {
   outline: none;
   border-color: var(--color-accent);
   color: var(--color-black);
 }
 
+.form-input-name:not(:placeholder-shown),
+.form-input-email:not(:placeholder-shown),
 .form-input-phone:not(:placeholder-shown) {
   color: var(--color-black);
+}
+
+.error-message {
+  position: absolute;
+  bottom: -1.188rem;
+  left: 1.375rem;
+  color: red;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+/* ====== Buttons & Action ====== */
+.form-contact-buttons {
+  padding-top: 2rem;
+  display: flex;
+  gap: 1.5625rem;
 }
 
 .cancel-button {
@@ -128,13 +211,19 @@
 }
 
 .create-contact-button {
-  font-weight: var(--font-weight-bold);
   background-color: var(--color-primary);
   color: var(--color-white);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
   border: none;
   padding: 0.625rem 0.9375rem;
   border-radius: var(--radius-md);
   cursor: pointer;
+  width: 13.4375rem;
+  height: 3.4375rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .save-contact-button {
@@ -153,106 +242,6 @@
   justify-content: space-evenly;
 }
 
-.create-contact-button {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-normal);
-  border: none;
-  padding: 0.625rem 0.9375rem;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  width: 13.4375rem;
-  height: 3.4375rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.form-contact-header {
-  background-color: var(--color-primary);
-  margin: 0rem;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: 40%;
-  font-weight: var(--font-weight-bold);
-  padding: 4.125rem 2.875rem 4.125rem 2.875rem;
-  border-radius: 2.5rem 0rem 0rem 2.5rem;
-}
-
-.form-contact-subtitle {
-  font-size: 1.6875rem;
-  color: var(--color-white);
-  font-weight: var(--font-weight-normal);
-  margin-top: 0.625rem;
-  display: flex;
-  align-items: center;
-}
-
-.form-contact-header-title {
-  font-size: 3.6875rem;
-  color: var(--color-white);
-  font-weight: var(--font-weight-bold);
-  margin-top: 0.625rem;
-  display: flex;
-  align-items: center;
-}
-
-.form-contact-header-line {
-  font-size: 0.625rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-accent);
-  margin-right: 0.3125rem;
-  display: flex;
-  align-items: center;
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.3); /* Optional: dunkler Hintergrund für Fokus */
-  display: flex;
-  align-items: center; /* Vertikale Zentrierung */
-  justify-content: center; /* Horizontale Zentrierung */
-  z-index: 9999;
-}
-
-.contacts-form {
-  width: 90vw;
-  max-width: 75rem; /* Etwas schmaler wirkt oft edler */
-  height: 60vh;
-  background-color: var(--color-white);
-  border-radius: 2.5rem;
-  display: flex;
-  position: relative; /* WICHTIG: Entferne top/left/transform von hier */
-
-  /* Animation: Startet von rechts außerhalb des Bildschirms */
-  opacity: 0;
-  transform: translateX(100vw);
-  transition:
-    transform 350ms ease-in-out,
-    opacity 350ms ease-in-out;
-}
-
-.contacts-form.active {
-  opacity: 1;
-  transform: translateX(0); /* Zentrierung wird jetzt durch .overlay Flexbox erledigt */
-}
-
-#loaded-contact-form {
-  display: none;
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-.form-contact-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
 .close-button {
   position: absolute;
   top: 3rem;
@@ -263,12 +252,7 @@
   cursor: pointer;
 }
 
-.form-contact-buttons {
-  padding-top: 2rem;
-  display: flex;
-  gap: 1.5625rem;
-}
-
+/* ====== Mobile & Floating Action Buttons ====== */
 .close-button__desktop {
   display: block;
 }
@@ -322,18 +306,4 @@
 
 .action__button-mobile:hover {
   cursor: pointer;
-}
-
-.input-container {
-  position: relative;
-  width: 100%;
-}
-
-.error-message {
-  position: absolute;
-  bottom: -1.188rem;
-  left: 1.375rem;
-  color: red;
-  font-size: 0.75rem;
-  white-space: nowrap;
 }

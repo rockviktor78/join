@@ -1,4 +1,4 @@
-/* Layout & Struktur */
+/* ====== Layout ====== */
 .form-wrapper {
   display: flex;
   flex-direction: column;
@@ -36,7 +36,6 @@
   margin-bottom: 2.2rem;
 }
 
-/* Standard Formular-Elemente */
 .task-title,
 .task-description,
 .task-due-date,
@@ -94,7 +93,7 @@
   box-shadow: 0 0 4px rgba(41, 171, 226, 0.2);
 }
 
-/* Haupt-Buttons */
+/* ====== Buttons ====== */
 .button-wrapper {
   display: flex;
   justify-content: space-between;
@@ -151,7 +150,7 @@
   -webkit-mask: url("../assets/img/addtask/cross.svg") no-repeat center / contain;
 }
 
-/* Modal */
+/* ====== Modal ====== */
 .task-added-modal {
   position: fixed;
   top: 50%;

@@ -1,4 +1,4 @@
-/* Priority Selection */
+/* ====== Priority Section ====== */
 .priority {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-normal);
@@ -56,7 +56,7 @@
   box-shadow: none;
 }
 
-/* Date Picker Icons */
+/* ====== Date Picker & Calendr ====== */
 .date-wrapper {
   position: relative;
   width: 100%;
@@ -77,7 +77,7 @@
   cursor: pointer;
 }
 
-/* Subtask Interaktionen */
+/* ====== Subtasks Action & List ====== */
 .subtask-wrapper {
   position: relative;
   width: 100%;
@@ -117,6 +117,7 @@
 .subtask-actions .cancel {
   color: #999;
 }
+
 .subtask-actions .confirm {
   color: #2ecc71;
 }
@@ -141,6 +142,7 @@
 .added-subtask::-webkit-scrollbar {
   width: 6px;
 }
+
 .added-subtask::-webkit-scrollbar-thumb {
   background-color: #a8a8a8;
   border-radius: 10px;
@@ -204,6 +206,7 @@
 .subtask-item-actions .edit {
   color: #555;
 }
+
 .subtask-item-actions .delete {
   color: #e74c3c;
 }
@@ -222,7 +225,7 @@
   background-color: white;
 }
 
-/* Auswahl-Komponenten (Dropdowns & Category) */
+/* ====== Dropdown & Selcted Elements ====== */
 .dropdown {
   width: 100%;
   position: relative;
@@ -290,6 +293,23 @@ li.selected .checkmark {
   display: inline;
 }
 
+.dropdown-arrow {
+  position: absolute;
+  right: 0.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-image: url("../assets/img/addtask/arrow_drop_down.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+/* ====== Contacts & Assignment ====== */
 .contact-item-container {
   display: flex;
   align-items: center;
@@ -359,6 +379,7 @@ li.selected .selection-checkmark {
 .dropdown-list .contact-info span {
   font-size: var(--font-size-base);
 }
+
 li.selected .contact-info span {
   color: white;
 }
@@ -385,22 +406,7 @@ li.selected .contact-info span {
   border-color: #29abe2;
 }
 
-.dropdown-arrow {
-  position: absolute;
-  right: 0.75rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  background-image: url("../assets/img/addtask/arrow_drop_down.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-
-.dropdown-arrow.rotated {
-  transform: rotate(180deg);
-}
-
+/* ====== Category Selection ====== */
 .category-wrapper {
   position: relative;
   display: flex;
@@ -439,6 +445,7 @@ li.selected .contact-info span {
   transform: rotate(180deg);
 }
 
+/* ====== Utilities & Message ====== */
 .red-star {
   color: red;
   margin-left: 0.25rem;
@@ -454,6 +461,7 @@ li.selected .contact-info span {
   display: block;
 }
 
+/* ====== Media Querie ====== */
 @media (max-width: 768px) {
   .dropdown-list {
     max-height: 12rem;

@@ -1,20 +1,16 @@
 /* Content-area is defined in layout.css */
 .content-area::-webkit-scrollbar {
   display: none;
-  /* Chrome, Safari, Edge */
 }
 
 .content-area {
   scrollbar-width: none;
-  /* Firefox */
   -ms-overflow-style: none;
-  /* Internet Explorer 10+ */
 }
 
 .content-limit {
   width: 100%;
   max-width: calc(var(--content-max-width) - var(--sidebar-width));
-  /* Mobile: Smaller padding */
   padding: var(--spacing-2xl) var(--spacing-lg);
   box-sizing: border-box;
 }
@@ -24,12 +20,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xl);
-  /* Placeholder for fixed back-btn */
   padding-right: 3rem;
 }
 
 .help-title {
-  /* Mobile: Smaller size */
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
 }
@@ -44,9 +38,8 @@
   margin-bottom: var(--spacing-md);
 }
 
-/* Style "Join" links in light blue */
 .help-section a[href="#"] {
-  color: var(--color-accent); /* Light blue */
+  color: var(--color-accent);
   text-decoration: none;
   font-weight: var(--font-weight-medium);
 }
@@ -56,7 +49,6 @@
 }
 
 .help-section h2 {
-  /* Mobile */
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   margin-top: var(--spacing-xl);
@@ -65,7 +57,6 @@
 }
 
 .help-section h3 {
-  /* Mobile */
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   margin-top: var(--spacing-lg);
@@ -82,7 +73,6 @@
   line-height: var(--line-height-normal);
 }
 
-/* Numbered list for "How to use it" */
 .help-steps {
   margin: var(--spacing-md) 0;
   padding-left: var(--spacing-xl);
@@ -123,7 +113,6 @@
   text-decoration: underline;
 }
 
-/* Email links: No underline */
 .help-section a[href^="mailto:"] {
   color: var(--color-accent);
   text-decoration: none;
@@ -134,7 +123,6 @@
   font-weight: var(--font-weight-semibold);
 }
 
-/* Prevents text selection */
 .no-select {
   user-select: none;
   -webkit-user-select: none;
@@ -142,14 +130,12 @@
   -ms-user-select: none;
 }
 
-/* Brand Name "Join" - blue, no underline, no cursor */
 .brand-name {
   color: var(--color-accent);
   text-decoration: none;
   cursor: default;
 }
 
-/* Company Name "Developer Akademie GmbH" - blue + semibold */
 .company-name {
   color: var(--color-accent);
   font-weight: var(--font-weight-semibold);
@@ -197,7 +183,6 @@
    ================================================ */
 @media (min-width: 1441px) {
   .back-btn {
-    /* Button stays at same position as header elements */
     right: calc((100vw - 1440px) + var(--spacing-5xl));
   }
 }
