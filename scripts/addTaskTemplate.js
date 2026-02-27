@@ -1,6 +1,6 @@
 function templateAddTaskForm() {
     return `
-        <div>
+        <div class="form-wrapper">
             <div class="add-task-content">
                 <div class="left-side">
                     <div class="section">
@@ -8,7 +8,7 @@ function templateAddTaskForm() {
                         <input type="text" class="task-title" id="taskTitle" placeholder="Enter a title" />
                         <span id="titleErrorMessage" class="error-text"></span>
                     </div>
-                    <div class="section">
+                    <div class="section section-description">
                         <div class="headline">Description</div>
                         <textarea class="task-description" id="taskDescription" placeholder="Enter a description"></textarea>
                     </div>
@@ -23,7 +23,7 @@ function templateAddTaskForm() {
                 </div>
                 <div class="add-task-separator"></div>
                 <div class="right-side">
-                    <div class="priority-content">
+                    <div class="priority-content section-priority">
                         <div class="priority">Priority</div>
                         <div class="priority-selection" id="prioritySelection">
                             <button type="button" value="urgent" class="priority__button">Urgent <img src="../assets/img/addtask/urgent.svg" /></button>
@@ -63,7 +63,7 @@ function templateAddTaskForm() {
                                 <span class="confirm" id="subtaskConfirm"><img src="../assets/img/addtask/checkdark.svg" /></span>
                             </div>
                         </div>
-                        <div class="added-subtask" id="addedSubtask"></div>
+                        <ul class="added-subtask" id="addedSubtask"></ul>
                     </div>
                 </div>
             </div>
@@ -80,17 +80,19 @@ function templateAddTaskForm() {
 
 function templateAddSubtask(subtaskText) {
     return `
-        <div class="subtask-item">
-            <span class="subtask-text">${subtaskText}</span>
-            <div class="subtask-item-actions">
-                <button type="button" class="edit-btn">
-                    <img src="../assets/img/addtask/edit.svg" alt="Edit">
-                </button>
-                <button type="button" class="delete-btn">
-                    <img src="../assets/img/addtask/delete.svg" alt="Delete">
-                </button>
+        <li class="subtask-item">
+            <div class="subtask-item-content">
+                <span class="subtask-text">${subtaskText}</span>
+                <div class="subtask-item-actions">
+                    <button type="button" class="edit-btn">
+                        <img src="../assets/img/addtask/edit.svg" alt="Edit">
+                    </button>
+                    <button type="button" class="delete-btn">
+                        <img src="../assets/img/addtask/delete.svg" alt="Delete">
+                    </button>
+                </div>
             </div>
-        </div>
+        </li>
     `;
 }
 
