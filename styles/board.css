@@ -253,12 +253,13 @@
   height: 2rem;
   border-radius: 50%;
   border: 2px solid white;
-  margin-right: -1rem;
+  margin-right: -0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--color-white);
+  font-weight: var(--font-weight-bold);
   flex-shrink: 0;
 }
 
@@ -269,7 +270,7 @@
 .plus-badge {
   background-color: var(--color-warning);
   font-weight: var(--font-weight-bold);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   z-index: 1;
 }
 
