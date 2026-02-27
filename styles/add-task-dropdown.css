@@ -71,12 +71,16 @@ li.selected .checkmark {
 .selected-contacts .assign-to-initial {
   width: 2rem;
   height: 2rem;
-  font-weight: var(--font-weight-bold);
-  font-size: 0.7rem;
   border-radius: 50%;
   border: 2px solid white;
-  margin-left: -1rem;
-  position: relative;
+  margin-right: -0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: var(--color-white);
+  flex-shrink: 0;
+  font-weight: var(--font-weight-bold);
   transition: transform 0.2s ease;
 }
 
@@ -92,7 +96,7 @@ li.selected .checkmark {
 .error-text {
   color: var(--color-error);
   font-size: 0.875rem;
-  height: 1.2rem;
+  height: 2rem;
   margin-top: 4px;
   padding-left: 0.5rem;
   visibility: hidden;
