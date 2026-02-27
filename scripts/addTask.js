@@ -127,9 +127,11 @@ function addSubtask() {
   if (!text) return;
 
   const container = document.getElementById("addedSubtask");
-  container.innerHTML += templateAddSubtask(text);
+  container.insertAdjacentHTML('beforeend', templateAddSubtask(text));
+
   subtaskInput.value = "";
   toggleSubtaskActions();
+  container.scrollTop = container.scrollHeight;
 }
 
 /**
