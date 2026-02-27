@@ -34,7 +34,7 @@
 
 .dropdown-list li {
   margin: 5px 0.625rem;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,7 +63,7 @@ li.selected .checkmark {
 .selected-contacts {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   min-height: 2rem;
   padding-left: 0;
 }
@@ -176,17 +176,53 @@ li.selected .contact-info span {
   border-color: #29abe2;
 }
 
-.subtask-item {
+.added-subtask {
+  display: block;
+  height: 5rem;
+  overflow-y: auto;
+  margin-top: 0.625rem;
+  padding-left: 0;
+  list-style-position: inside;
+  list-style-type: disc;
+  border-radius: var(--radius-ml);
+}
+
+.added-subtask::-webkit-scrollbar {
+  width: 6px;
+}
+
+.added-subtask::-webkit-scrollbar-thumb {
+  background-color: #a8a8a8;
+  border-radius: 10px;
+}
+
+.subtask-item-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0.75rem;
+  width: 100%;
+}
+
+.subtask-item {
+  display: list-item;
+  padding: 0.3rem;
   border-radius: var(--radius-ml);
   transition: background-color 0.15s ease;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .subtask-item:hover {
   background-color: var(--color-gray-100);
+}
+
+.subtask-item-content {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 1.5rem);
+  vertical-align: middle;
 }
 
 .subtask-item-actions {
@@ -228,10 +264,6 @@ li.selected .contact-info span {
 
 .subtask-item-actions .delete {
   color: #e74c3c;
-}
-
-.subtask-item:hover {
-  background-color: var(--color-gray-100);
 }
 
 .subtask-edit-input {
@@ -304,16 +336,6 @@ li.selected .contact-info span {
 
 @media (max-width: 768px) {
   .dropdown-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 0.625rem;
-    background: white;
     max-height: 12rem;
-    overflow-y: auto;
-    z-index: 100;
-    display: none;
   }
 }
