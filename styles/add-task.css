@@ -1,3 +1,4 @@
+/* Layout & Struktur */
 .form-wrapper {
   display: flex;
   flex-direction: column;
@@ -16,12 +17,6 @@
   justify-content: space-between;
 }
 
-.headline {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-normal);
-  margin-bottom: 0.5rem;
-}
-
 .left-side,
 .right-side {
   display: flex;
@@ -30,6 +25,18 @@
   gap: 1rem;
 }
 
+.headline {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
+  margin-bottom: 0.5rem;
+}
+
+.section-description,
+.section-priority {
+  margin-bottom: 2.2rem;
+}
+
+/* Standard Formular-Elemente */
 .task-title,
 .task-description,
 .task-due-date,
@@ -87,133 +94,7 @@
   box-shadow: 0 0 4px rgba(41, 171, 226, 0.2);
 }
 
-.date-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.calendar-icon {
-  position: absolute;
-  right: 0.75rem;
-  top: 30%;
-  transform: translateY(-50%);
-  width: 1.25rem;
-  height: 1.25rem;
-  cursor: pointer;
-}
-
-.task-due-date::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  cursor: pointer;
-}
-
-.priority {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-normal);
-  margin-bottom: 0.5rem;
-}
-
-.priority-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.priority-selection {
-  display: flex;
-  gap: 1rem;
-}
-
-.priority__button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1rem;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-normal);
-  border: 1px solid var(--color-gray-300);
-  border-radius: var(--radius-ml);
-  background-color: var(--bg-page);
-  cursor: pointer;
-  width: 100%;
-  justify-content: center;
-}
-
-.priority__button.urgent {
-  background-color: var(--color-urgent-high);
-  color: var(--bg-page);
-  border-color: var(--color-urgent-high);
-}
-
-.priority__button.medium {
-  background-color: var(--color-urgent-medium);
-  color: var(--bg-page);
-  border-color: var(--color-urgent-medium);
-}
-
-.priority__button.low {
-  background-color: var(--color-urgent-low);
-  color: var(--bg-page);
-  border-color: var(--color-urgent-low);
-}
-
-.priority__button:not(.active):hover {
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.35);
-}
-
-.priority__button.active:hover {
-  box-shadow: none;
-}
-
-.subtask-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.subtask-actions {
-  position: absolute;
-  right: 0.625rem;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  gap: 0.625rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.subtask-actions.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.subtask-actions span {
-  cursor: pointer;
-  font-size: 1.125rem;
-  user-select: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  transition:
-    transform 0.15s ease,
-    background-color 0.15s ease;
-}
-
-.subtask-actions .cancel {
-  color: #999;
-}
-
-.subtask-actions .confirm {
-  color: #2ecc71;
-}
-
-.subtask-actions span:hover {
-  transform: translateY(-2px);
-  background-color: var(--color-gray-100);
-  border-radius: 50%;
-}
-
+/* Haupt-Buttons */
 .button-wrapper {
   display: flex;
   justify-content: space-between;
@@ -244,14 +125,6 @@
   border-color: var(--color-accent);
 }
 
-.icon {
-  width: 0.875rem;
-  height: 0.875rem;
-  background-color: currentColor;
-  mask: url("../assets/img/addtask/cross.svg") no-repeat center / contain;
-  -webkit-mask: url("../assets/img/addtask/cross.svg") no-repeat center / contain;
-}
-
 .create-task__button {
   display: flex;
   align-items: center;
@@ -270,6 +143,15 @@
   background-color: var(--color-accent);
 }
 
+.icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  background-color: currentColor;
+  mask: url("../assets/img/addtask/cross.svg") no-repeat center / contain;
+  -webkit-mask: url("../assets/img/addtask/cross.svg") no-repeat center / contain;
+}
+
+/* Modal */
 .task-added-modal {
   position: fixed;
   top: 50%;
@@ -297,9 +179,4 @@
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
   pointer-events: auto;
-}
-
-.section-description,
-.section-priority {
-  margin-bottom: 2.2rem;
 }
