@@ -12,7 +12,6 @@
   width: 28.125rem;
   border-right: 0.063rem solid var(--color-gray-200);
   background-color: var(--color-white);
-  padding-left: 1.75rem;
   display: flex;
   flex-direction: column;
   height: 100%;
