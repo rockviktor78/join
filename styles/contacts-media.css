@@ -168,10 +168,18 @@
     display: none;
   }
 
-  .contacts-list-container {
-    width: 100vw;
-    z-index: 1;
+  .contacts-container {
+    width: 100%;
   }
+
+  .contacts-list-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    z-index: 1;
+    box-sizing: border-box;
+  }
+
   .contact-detail-slide {
     z-index: 2;
   }
