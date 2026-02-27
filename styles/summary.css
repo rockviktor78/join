@@ -1,4 +1,4 @@
-/* ====== 1. Layout  ====== */
+/* ====== Layout  ====== */
 .summary {
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@
   display: none;
 }
 
-/* ====== 2. Typography ====== */
+/* ====== Typography ====== */
 .summary__title {
   font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-bold);
@@ -49,7 +49,7 @@
   color: var(--color-accent);
 }
 
-/* ====== 3. Card Component  ====== */
+/* ====== Card Component  ====== */
 .card {
   background: var(--color-white);
   border-radius: var(--radius-3xl);
@@ -77,7 +77,7 @@
   background-image: url("../assets/img/shared/done-hover.svg");
 }
 
-/* ====== 4. Card Elements ====== */
+/* ====== Card Elements ====== */
 .card__info {
   display: flex;
   flex-direction: column;
@@ -126,7 +126,7 @@
   text-align: start;
 }
 
-/* ====== 5. Card Modifiers ====== */
+/* ====== Card Modifiers ====== */
 .card--half {
   grid-column: span 3;
   flex-direction: row;
@@ -144,7 +144,7 @@
   grid-column: span 2;
 }
 
-/* ====== 6. Separators ====== */
+/* ====== Separators ====== */
 .separator {
   order: 3;
 }
@@ -158,7 +158,7 @@
   display: none;
 }
 
-/* ====== 7. Overlay ====== */
+/* ====== Overlay ====== */
 .summary__greeting-overlay {
   position: fixed;
   top: 0;
@@ -181,7 +181,7 @@
   pointer-events: all;
 }
 
-/* ====== 8. Desktop Version ====== */
+/* ====== Desktop Version ====== */
 @media (min-width: 768px) {
   .summary {
     flex-direction: row;
@@ -210,7 +210,6 @@
     max-width: calc(var(--content-max-width) - var(--sidebar-width));
   }
 
-  /* Typography Desktop */
   .summary__title {
     font-size: var(--font-size-6xl);
   }
@@ -226,7 +225,6 @@
     font-size: var(--font-size-6xl);
   }
 
-  /* Cards Desktop */
   .card__icon {
     width: 4.3125rem;
     height: 4.3125rem;
@@ -255,7 +253,8 @@
 }
 
 @media (min-width: 768px) and (max-width: 1200px) {
-  .summary__greeting {display: none;
+  .summary__greeting {
+    display: none;
   }
 }
 
@@ -271,22 +270,28 @@
   }
 
   .summary__subtitle {
-        font-size: var(--font-size-base);
-}
-
-.summary__title {
-        font-size: var(--font-size-5xl);
-    }
+    font-size: var(--font-size-base);
   }
 
+  .summary__title {
+    font-size: var(--font-size-5xl);
+  }
+}
+
 @media (max-width: 1422px) {
-  .summary { gap: 2rem; }
+  .summary {
+    gap: 2rem;
+  }
 }
 
 @media (max-width: 1338px) {
-  .summary { gap: 1rem; }
+  .summary {
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 1201px) {
-  .summary { gap: 1rem; }
+  .summary {
+    gap: 1rem;
+  }
 }
