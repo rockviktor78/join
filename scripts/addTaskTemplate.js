@@ -1,3 +1,8 @@
+/**
+ * Generates the HTML template string for the "Add Task" form.
+ *
+ * @returns {string} HTML string representing the complete Add Task form.
+ */
 function templateAddTaskForm() {
     return `
         <div class="form-wrapper">
@@ -78,6 +83,12 @@ function templateAddTaskForm() {
     `;
 }
 
+/**
+ * Generates an HTML template string for a subtask list item.
+ *
+ * @param {string} subtaskText - The text content of the subtask.
+ * @returns {string} HTML string representing a subtask item with edit and delete actions.
+ */
 function templateAddSubtask(subtaskText) {
     return `
         <li class="subtask-item">
@@ -96,6 +107,14 @@ function templateAddSubtask(subtaskText) {
     `;
 }
 
+/**
+ * Generates an HTML template string for a contact item.
+ *
+ * @param {string} initial - The initial letter displayed inside the contact avatar.
+ * @param {string} name - The full name of the contact.
+ * @param {string} color - The background color applied to the avatar (CSS color value).
+ * @returns {string} HTML string representing the contact item.
+ */
 function templateContact(initial, name, color) {
     return `
     <div class="contact-item-container">
