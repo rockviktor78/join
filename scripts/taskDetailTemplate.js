@@ -148,18 +148,20 @@ function getNoSubtasksTemplate() {
  */
 function templateEditSubtaskItem(st, index) {
     return `
-        <div class="subtask-item">
-            <div class="subtask-item-left">
-                <span>• ${st.title}</span>
+        <li class="subtask-item">
+            <div class="subtask-item-content">
+                <span class="subtask-text">${st.title}</span>
+                <div class="subtask-item-actions">
+                    <button type="button" class="edit-btn" onclick="editExistingSubtask(${index})">
+                        <img src="../assets/img/addtask/edit.svg" alt="Edit">
+                    </button>
+                    <div class="subtask-divider"></div>
+                    <button type="button" class="delete-btn" onclick="deleteEditSubtask(${index})">
+                        <img src="../assets/img/addtask/delete.svg" alt="Delete">
+                    </button>
+                </div>
             </div>
-            <div class="subtask-item-actions">
-                <img src="../assets/img/addtask/edit.svg" class="subtask-edit-icon" 
-                     onclick="editExistingSubtask(${index})" alt="Edit">
-                <div class="subtask-item-divider"></div>
-                <img src="../assets/img/addtask/delete.svg" class="subtask-delete-icon" 
-                     onclick="deleteEditSubtask(${index})" alt="Delete">
-            </div>
-        </div>
+        </li>
     `;
 }
 
@@ -262,7 +264,7 @@ function templateEditTaskForm(task) {
                         </span>
                     </div>
                 </div>
-                <div id="editSubtasksList" class="edit-subtask-list"></div>
+                <ul id="editSubtasksList" class="added-subtask"></ul>
             </div>
 
             <div class="task-detail__actions justify-end">
