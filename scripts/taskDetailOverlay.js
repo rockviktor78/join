@@ -28,7 +28,7 @@ function closeTaskDetails() {
 
     setTimeout(() => {
         taskDetailsOverlay.classList.add('hidden');
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = '';
         currentTask = null;
     }, overlayTransitionDuration);
 }
