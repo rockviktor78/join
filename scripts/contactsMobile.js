@@ -1,4 +1,5 @@
 import { showContactDetails, loadedContacts, renderContactList, loadContactsFromStore } from './contacts.js';
+import { templateShowMoreAction, templateActionFab } from './contactsTemplates.js';
 
 /**
  * Checks whether the application is running on a mobile device.

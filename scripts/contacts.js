@@ -413,6 +413,7 @@ window.editContact = editContact;
 window.confirmEditContact = confirmEditContact;
 window.closeEditContact = closeEditContact;
 window.validateAndCreate = validateAndCreate;
+window.addNewContact = addNewContact;
 
 export {
   loadContactsFromStore,

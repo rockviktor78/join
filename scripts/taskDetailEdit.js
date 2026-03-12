@@ -1,5 +1,5 @@
 import { tasks, setTasks, renderBoard, tasksFromArrayToObject } from './board.js';
-import { currentTask, renderTaskOverlay } from './taskDetailOverlay.js';
+import { currentTask, setCurrentTask, renderTaskOverlay } from './taskDetailOverlay.js';
 import { updateTasks, getContacts } from './dataStore.js';
 import { getInitials } from './shared/utilities.js';
 import { templateEditSubtaskItem, templateEditContactItem,
@@ -15,7 +15,7 @@ function editTask(taskId) {
     const task = tasks.find(t => t.id === taskId);
     if (!task) return;
 
-    currentTask = task;
+    setCurrentTask(task);
 
     setupEditContainer(task);
     renderEditSubtasks(task.subtasks || []);

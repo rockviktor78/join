@@ -1,7 +1,7 @@
 import { protectPage } from './utilities.js';
 import { initDataStore } from './dataStore.js';
 import { templateAddTaskForm, templateAddSubtask } from './addTaskTemplate.js';
-import { initDropdown, loadContactsFromSession, filterContacts, validateAllTasks, resetSelectedContacts, createTask } from './addTaskUtilities.js';
+import { initDropdown, loadContactsFromSession, filterContacts, validateAllTasks, resetSelectedContacts, createTask, toggleDropdown, openDropdown } from './addTaskUtilities.js';
 import { closeAddTaskOverlay } from './addTaskOverlay.js';
 
 let task = [];
@@ -154,7 +154,6 @@ function resetDropdownState() {
     searchInput.placeholder = "Select contacts to assign";
   }
   if (selectedBox) selectedBox.innerHTML = "";
-  if (typeof selectedContacts !== 'undefined') selectedContacts.clear();
 }
 
 /**

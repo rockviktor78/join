@@ -277,6 +277,23 @@ function templateEditTaskForm(task) {
 }
 
 /**
+ * Returns the HTML for all three priority buttons with the current priority pre-selected.
+ */
+function getPriorityButtonsHTML(activePriority) {
+    const priorities = [
+        { prio: 'Urgent', lowPrio: 'urgent' },
+        { prio: 'Medium', lowPrio: 'medium' },
+        { prio: 'Low',    lowPrio: 'low'    },
+    ];
+    return priorities.map(({ prio, lowPrio }) => {
+        const isActive = activePriority?.toLowerCase() === lowPrio;
+        const iconSuffix = isActive ? 'selected' : '';
+        const iconPath = `../assets/img/addtask/${lowPrio}${iconSuffix}.svg`;
+        return templatePriorityButton(prio, lowPrio, isActive, iconPath);
+    }).join('');
+}
+
+/**
  * Returns the HTML for a single priority button.
  */
 function templatePriorityButton(prio, lowPrio, isActive, iconPath) {

@@ -338,4 +338,6 @@ export {
   resetSelectedContacts,
   createTask,
   validateAllTasks,
+  toggleDropdown,
+  openDropdown,
 };
