@@ -340,7 +340,6 @@ This project is part of a training program and is intended for educational purpo
 
 - Email: [hello@viktor-wilhelm.de](mailto:hello@viktor-wilhelm.de)
 - GitHub: [@rockviktor78](https://github.com/rockviktor78)
-- Portfolio: [viktor-wilhelm.de](https://viktor-wilhelm.de)
 
 ---
 
