@@ -329,7 +329,7 @@ The UI follows the Figma design specifications with:
 
 ## 📝 License
 
-**ISC License** - See [package.json](package.json) for details.
+**ISC License** - See package.json for details.
 
 This project is part of a training program and is intended for educational purposes.
 
