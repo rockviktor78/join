@@ -137,7 +137,7 @@ Whether you're working solo or collaborating with a team, Join provides all the 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/rockviktor78/join.git
+   git clone https://github.com/viktor-wilhelm/join.git
    cd join/join-app
    ```
 
