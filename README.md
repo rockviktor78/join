@@ -341,7 +341,7 @@ This project is part of a training program and is intended for educational purpo
 **Viktor Wilhelm**
 
 - Email: [hello@viktor-wilhelm.de](mailto:hello@viktor-wilhelm.de)
-- GitHub: [@rockviktor78](https://github.com/rockviktor78)
+- GitHub: [@viktor-wilhelm](https://github.com/viktor-wilhelm)
 - LinkedIn: [viktor-wilhelm](https://www.linkedin.com/in/viktor-wilhelm)
 
 ---
