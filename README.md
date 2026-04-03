@@ -7,6 +7,7 @@
   
   [![Live Demo](https://img.shields.io/badge/demo-live-green.svg)](https://join.viktor-wilhelm.de)
   [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue.svg)](https://github.com/rockviktor78/join)
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-viktor--wilhelm-0077B5.svg?logo=linkedin)](https://www.linkedin.com/in/viktor-wilhelm)
 </div>
 
 ---
@@ -341,6 +342,7 @@ This project is part of a training program and is intended for educational purpo
 
 - Email: [hello@viktor-wilhelm.de](mailto:hello@viktor-wilhelm.de)
 - GitHub: [@rockviktor78](https://github.com/rockviktor78)
+- LinkedIn: [viktor-wilhelm](https://www.linkedin.com/in/viktor-wilhelm)
 
 ---
 
